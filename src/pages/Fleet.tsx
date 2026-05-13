@@ -13,7 +13,19 @@ export default function Fleet() {
         </p>
 
         <div className="panel mt-8">
-          <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Tier 2 — Fleet</h2>
+          <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Family Dashboard</h2>
+          <p className="text-cyan font-mono" style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>$9.99/month (Up to 4 vehicles)</p>
+          <p className="text-muted">Target: Parents managing teenage drivers, multi-car households.</p>
+          <ul style={{ paddingLeft: '1.5rem', marginTop: '1rem', color: 'var(--text-muted)' }}>
+            <li style={{ marginBottom: '0.5rem' }}>Centralized vehicle health monitoring</li>
+            <li style={{ marginBottom: '0.5rem' }}>Teen driver safety & efficiency scoring</li>
+            <li style={{ marginBottom: '0.5rem' }}>Maintenance reminders for all cars</li>
+            <li>Passenger "Telemety View" (Let the passenger monitor the stats)</li>
+          </ul>
+        </div>
+
+        <div className="panel mt-4">
+          <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Commercial Fleet</h2>
           <p className="text-cyan font-mono" style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>$29.99/vehicle/month</p>
           <p className="text-muted">Target: SMB fleets, rental companies, courier services.</p>
           <ul style={{ paddingLeft: '1.5rem', marginTop: '1rem', color: 'var(--text-muted)' }}>
