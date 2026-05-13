@@ -9,6 +9,10 @@ import Technology from './pages/Technology';
 import MpgGains from './pages/MpgGains';
 import Maintenance from './pages/Maintenance';
 import Fleet from './pages/Fleet';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
+import Waitlist from './pages/Waitlist';
+import Footer from './components/Footer';
 
 function LoadingScreen() {
   return (
@@ -88,9 +92,9 @@ function Navigation() {
               {link.label}
             </Link>
           ))}
-          <button className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
+          <Link to="/waitlist" className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
             Get Early Access
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Toggle */}
@@ -136,28 +140,7 @@ function Navigation() {
   );
 }
 
-function Footer() {
-  return (
-    <footer style={{ borderTop: '1px solid var(--border-light)', padding: '4rem 0', marginTop: '4rem' }}>
-      <div className="container flex flex-col gap-8">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-2" style={{ fontWeight: 700, fontSize: '1.2rem', letterSpacing: '-0.03em', opacity: 0.5 }}>
-            <Activity size={24} />
-            <span>Lume<span style={{ fontWeight: 400 }}>Auto</span></span>
-          </div>
-          <div className="flex gap-4 text-muted text-sm">
-            <a href="#">Whitepaper</a>
-            <a href="#">Contact</a>
-          </div>
-        </div>
-        <div style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-          <p>© 2026 DarkWave Studios LLC / Lume42 Labs. All rights reserved.</p>
-          <p>Patent: US Provisional 64/032,339</p>
-        </div>
-      </div>
-    </footer>
-  );
-}
+// Footer component moved to src/components/Footer.tsx
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -192,6 +175,9 @@ function App() {
               <Route path="/mpg-gains" element={<MpgGains />} />
               <Route path="/maintenance" element={<Maintenance />} />
               <Route path="/fleet" element={<Fleet />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/waitlist" element={<Waitlist />} />
             </Routes>
           </main>
           <Footer />
