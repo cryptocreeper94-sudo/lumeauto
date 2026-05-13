@@ -1,8 +1,24 @@
-import { motion } from 'framer-motion';
-import { ArrowRight, ChevronRight, Activity, Zap, ShieldCheck, Droplets } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, ChevronRight, Activity, Zap, ShieldCheck, Droplets, Volume2, Wrench, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const HERO_IMAGES = [
+  '/hero_dashboard.png',
+  '/card_step2.png',
+  '/card_step1.png'
+];
+
 export default function Home() {
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImgIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 8000); // 8 seconds per slide
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '6rem' }}>
       {/* Hero Section */}
@@ -13,18 +29,24 @@ export default function Home() {
         alignItems: 'center',
         overflow: 'hidden'
       }}>
-        <div 
-          className="ken-burns-bg"
-          style={{
-            position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-            backgroundImage: 'url(/hero_dashboard.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.4,
-            zIndex: -2,
-            transformOrigin: 'center center'
-          }}
-        />
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            key={currentImgIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2, ease: "easeInOut" }}
+            className="ken-burns-bg"
+            style={{
+              position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+              backgroundImage: `url(${HERO_IMAGES[currentImgIndex]})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              zIndex: -2,
+              transformOrigin: 'center center'
+            }}
+          />
+        </AnimatePresence>
         <div 
           style={{
             position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
@@ -92,6 +114,42 @@ export default function Home() {
               </div>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* New Features Section */}
+      <section className="container">
+        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Passive Savings. Zero Effort.</h2>
+          <p className="text-muted">A massive lifestyle upgrade that pays for itself over and over again.</p>
+        </div>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+          
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="panel flex flex-col gap-4">
+            <div style={{ display: 'inline-flex', padding: '12px', background: 'rgba(6, 182, 212, 0.1)', borderRadius: '12px', alignSelf: 'flex-start' }}>
+              <Volume2 size={24} color="var(--accent-cyan)" />
+            </div>
+            <h3 style={{ fontSize: '1.5rem' }}>Passive Audio Coach</h3>
+            <p className="text-muted">Save fuel without ever looking at a screen. Connect to your car's Bluetooth and satisfy your brain with a high-pitched 'chime' when you hit the perfect Flow State, or a subtle 'buzz' when you aggressively waste fuel. Pure classical conditioning.</p>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="panel flex flex-col gap-4">
+            <div style={{ display: 'inline-flex', padding: '12px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '12px', alignSelf: 'flex-start' }}>
+              <Wrench size={24} color="var(--accent-emerald)" />
+            </div>
+            <h3 style={{ fontSize: '1.5rem' }}>The Mechanic Killer</h3>
+            <p className="text-muted">Stop paying $150 just to figure out why your Check Engine light is on. We passively run diagnostics in the background, translate complex codes into plain English, and instantly link you to the exact $45 part you need on Amazon.</p>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }} className="panel flex flex-col gap-4">
+            <div style={{ display: 'inline-flex', padding: '12px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '12px', alignSelf: 'flex-start' }}>
+              <Users size={24} color="var(--text-main)" />
+            </div>
+            <h3 style={{ fontSize: '1.5rem' }}>Passenger Telemetry</h3>
+            <p className="text-muted">Turn your morning commute into a shared experience. Let your passengers monitor your real-time telemetry, engine load, and efficiency score, gamifying your driving habits while holding you accountable.</p>
+          </motion.div>
+
         </div>
       </section>
 
