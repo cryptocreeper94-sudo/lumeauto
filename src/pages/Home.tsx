@@ -68,7 +68,7 @@ export default function Home() {
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
           {[
-            { step: '1', title: 'Plug in.', desc: 'Connect a standard OBD-II Bluetooth adapter to the port under your dashboard. Ships with Lume-Auto or use one you already own.', img: '/card_step1.png' },
+            { step: '1', title: 'Plug in.', desc: 'Connect any standard ELM327 OBD-II Bluetooth adapter to the port under your dashboard. Use an existing scanner or join the waitlist for the official adapter.', img: '/card_step1.png' },
             { step: '2', title: 'Drive normally.', desc: 'The organism learns your vehicle over your first few hundred miles. It builds a model of your specific engine, your driving patterns, and your component health.', img: '/card_step2.png' },
             { step: '3', title: 'Get smarter.', desc: 'Real-time guidance appears in the app as you drive. Maintenance predictions, efficiency scores, and quantified MPG improvements — for your car.', img: '/card_step3.png' }
           ].map((item, i) => (
