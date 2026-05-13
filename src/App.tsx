@@ -12,6 +12,7 @@ import Fleet from './pages/Fleet';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import Waitlist from './pages/Waitlist';
+import Blog from './pages/Blog';
 import Footer from './components/Footer';
 
 function LoadingScreen() {
@@ -39,6 +40,16 @@ function LoadingScreen() {
       <div style={{ fontSize: '0.8rem', letterSpacing: '0.1em' }} className="text-dim">
         INITIALIZING DETERMINISTIC GOVERNANCE
       </div>
+      <motion.div
+        style={{ width: '200px', height: '2px', background: 'var(--border-light)', borderRadius: '1px', marginTop: '1rem', overflow: 'hidden' }}
+      >
+        <motion.div
+          initial={{ width: '0%' }}
+          animate={{ width: '100%' }}
+          transition={{ duration: 2, ease: 'easeInOut' }}
+          style={{ height: '100%', background: 'var(--accent-cyan)' }}
+        />
+      </motion.div>
     </motion.div>
   );
 }
@@ -55,19 +66,23 @@ function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
+  // Close mobile nav on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
   const links = [
     { path: '/', label: 'Home' },
     { path: '/technology', label: 'Technology' },
-    { path: '/mpg-gains', label: 'MPG Gains' },
-    { path: '/maintenance', label: 'Maintenance' },
     { path: '/fleet', label: 'Fleet' },
+    { path: '/blog', label: 'Journal' },
   ];
 
   return (
     <nav style={{
       position: 'fixed', top: 0, width: '100%', zIndex: 50,
-      background: 'rgba(10, 10, 12, 0.8)',
-      backdropFilter: 'blur(12px)',
+      background: 'rgba(10, 10, 12, 0.85)',
+      backdropFilter: 'blur(16px)',
       borderBottom: '1px solid var(--border-light)'
     }}>
       <div className="container flex justify-between items-center" style={{ height: '70px' }}>
@@ -79,11 +94,11 @@ function Navigation() {
         {/* Desktop Nav */}
         <div className="flex items-center gap-6" style={{ display: 'none' }} id="desktop-nav">
           {links.map(link => (
-            <Link 
-              key={link.path} 
+            <Link
+              key={link.path}
               to={link.path}
-              style={{ 
-                fontSize: '0.9rem', 
+              style={{
+                fontSize: '0.9rem',
                 fontWeight: 500,
                 color: location.pathname === link.path ? 'var(--text-main)' : 'var(--text-muted)',
                 transition: 'color 0.2s'
@@ -98,10 +113,11 @@ function Navigation() {
         </div>
 
         {/* Mobile Toggle */}
-        <button 
+        <button
           id="mobile-toggle"
-          style={{ display: 'block', padding: '0.5rem' }} 
+          style={{ display: 'block', padding: '0.5rem' }}
           onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle navigation menu"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -110,29 +126,36 @@ function Navigation() {
       {/* Mobile Nav */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            style={{ 
-              position: 'absolute', top: '70px', left: 0, right: 0, 
-              background: 'var(--bg-dark)', borderBottom: '1px solid var(--border-light)',
-              padding: '1rem 2rem', display: 'flex', flexDirection: 'column', gap: '1rem'
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            style={{
+              position: 'absolute', top: '70px', left: 0, right: 0,
+              background: 'rgba(10, 10, 12, 0.98)', backdropFilter: 'blur(16px)',
+              borderBottom: '1px solid var(--border-light)',
+              padding: '1.5rem 2rem', display: 'flex', flexDirection: 'column', gap: '1.25rem'
             }}
           >
             {links.map(link => (
-              <Link 
-                key={link.path} 
+              <Link
+                key={link.path}
                 to={link.path}
-                onClick={() => setIsOpen(false)}
-                style={{ 
-                  fontSize: '1rem', 
-                  color: location.pathname === link.path ? 'var(--text-main)' : 'var(--text-muted)'
+                style={{
+                  fontSize: '1.1rem',
+                  fontWeight: 500,
+                  color: location.pathname === link.path ? 'var(--accent-cyan)' : 'var(--text-muted)'
                 }}
               >
                 {link.label}
               </Link>
             ))}
+            <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '1rem' }}>
+              <Link to="/waitlist" className="btn-primary" style={{ width: '100%', justifyContent: 'center', padding: '0.75rem' }}>
+                Get Early Access
+              </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -140,15 +163,13 @@ function Navigation() {
   );
 }
 
-// Footer component moved to src/components/Footer.tsx
-
 function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 2200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -157,7 +178,7 @@ function App() {
       <AnimatePresence>
         {loading && <LoadingScreen key="loading" />}
       </AnimatePresence>
-      
+
       {!loading && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
           <ScrollToTop />
@@ -178,6 +199,7 @@ function App() {
               <Route path="/terms" element={<Terms />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/waitlist" element={<Waitlist />} />
+              <Route path="/blog" element={<Blog />} />
             </Routes>
           </main>
           <Footer />
