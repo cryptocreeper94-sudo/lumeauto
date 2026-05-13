@@ -151,6 +151,16 @@ function Navigation() {
                 {link.label}
               </Link>
             ))}
+            {/* Executive Summary */}
+            <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '1.25rem' }}>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.7, marginBottom: '0.75rem' }}>
+                Lume-Auto reads 42 real-time signals from your vehicle's OBD-II port to passively improve fuel efficiency, predict maintenance failures, and eliminate diagnostic fees — using hardware you already own.
+              </p>
+              <p style={{ fontSize: '0.7rem', color: 'var(--text-dim)', letterSpacing: '0.05em' }}>
+                US Provisional Patent 64/032,339<br />
+                DarkWave Studios LLC / Lume42 Labs
+              </p>
+            </div>
             <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '1rem' }}>
               <Link to="/waitlist" className="btn-primary" style={{ width: '100%', justifyContent: 'center', padding: '0.75rem' }}>
                 Get Early Access

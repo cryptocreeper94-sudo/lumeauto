@@ -29,34 +29,37 @@ export default function Home() {
         alignItems: 'center',
         overflow: 'hidden'
       }}>
-        <AnimatePresence mode="popLayout">
-          <motion.div
-            key={currentImgIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.4 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 2, ease: "easeInOut" }}
-            className="ken-burns-bg"
-            style={{
-              position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-              backgroundImage: `url(${HERO_IMAGES[currentImgIndex]})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              zIndex: -2,
-              transformOrigin: 'center center'
-            }}
-          />
-        </AnimatePresence>
+        {/* Ken Burns Slideshow Layer */}
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentImgIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.45 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 2, ease: "easeInOut" }}
+              className="ken-burns-bg"
+              style={{
+                position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+                backgroundImage: `url(${HERO_IMAGES[currentImgIndex]})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                transformOrigin: 'center center'
+              }}
+            />
+          </AnimatePresence>
+        </div>
+        {/* Gradient overlay */}
         <div 
           style={{
             position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-            background: 'linear-gradient(to bottom, rgba(10,10,12,0.1), var(--bg-dark))',
-            zIndex: -1
+            background: 'linear-gradient(to bottom, rgba(10,10,12,0.2), var(--bg-dark))',
+            zIndex: 1
           }}
         />
-        <div className="hero-glow" />
+        <div className="hero-glow" style={{ zIndex: 1 }} />
 
-        <div className="container flex flex-col gap-8" style={{ zIndex: 10 }}>
+        <div className="container flex flex-col gap-8" style={{ position: 'relative', zIndex: 2 }}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
