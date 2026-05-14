@@ -15,6 +15,7 @@ import Waitlist from './pages/Waitlist';
 import Blog from './pages/Blog';
 import Enterprise from './pages/Enterprise';
 import GetStarted from './pages/GetStarted';
+import ManheimPitch from './pages/ManheimPitch';
 import Footer from './components/Footer';
 
 function LoadingScreen() {
@@ -215,6 +216,7 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/enterprise" element={<Enterprise />} />
               <Route path="/get-started" element={<GetStarted />} />
+              <Route path="/manheim" element={<ManheimPitch />} />
             </Routes>
           </main>
           <Footer />
