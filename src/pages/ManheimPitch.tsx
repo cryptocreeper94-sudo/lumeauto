@@ -19,7 +19,7 @@ export default function ManheimPitch() {
             </h1>
             <p className="text-muted" style={{ fontSize: '1.15rem', lineHeight: 1.6, maxWidth: '700px', margin: '0 auto 3rem' }}>
               42 OBD-II telemetry signals. 100 Hz polling rate. Pure deterministic governance. 
-              Zero AI in the critical path. Watch the live 2-minute demonstration below.
+              Zero AI in the critical path. Initiate the live 15-second scan simulation below.
             </p>
 
             {/* Live Scan Simulator */}
