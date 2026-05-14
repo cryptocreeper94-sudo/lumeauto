@@ -129,7 +129,7 @@ export default function Enterprise() {
             </div>
             <h2 style={{ fontSize: '2.25rem', marginBottom: '1rem' }}>The Lume Dongle</h2>
             <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto' }}>
-              Every OBD-II adapter on the market uses a 2005-era chip with a single radio — WiFi or Bluetooth, never both. We're building a smart endpoint that does all three on a $13 BOM.
+              Every OBD-II adapter on the market uses a 2005-era chip with a single radio — WiFi or Bluetooth, never both. I'm building a smart endpoint that does all three on a $13 BOM.
             </p>
           </div>
 
@@ -160,6 +160,7 @@ export default function Enterprise() {
               <div className="flex flex-col gap-2">
                 {[
                   { label: 'Connectivity', generic: 'WiFi OR Bluetooth', lume: 'All three — user\'s choice' },
+                  { label: 'Protocol', generic: 'J1979 Polling', lume: 'Passive CAN Sniffing (Instant)' },
                   { label: 'Intelligence', generic: 'Dumb pipe', lume: 'On-device governance' },
                   { label: 'Firmware', generic: 'Burned at factory', lume: 'OTA updates via WiFi' },
                   { label: 'Fleet tracking', generic: 'Not possible', lume: 'Unique device ID + registry' },
@@ -183,6 +184,7 @@ export default function Enterprise() {
             <div className="flex flex-col gap-2">
               {[
                 'One device per intake station — connects to any phone, any platform, any protocol.',
+                'Zero discovery time — drops into Listen-Only mode to sniff raw CAN broadcasts. Connects instantly and bypasses modern Secure Gateways.',
                 'On-device fault detection starts the moment the vehicle powers on — before the app connects.',
                 'Fleet-level device management: track which adapter is at which station, push firmware OTA.',
                 'Tamper-evident scan logs: condition data signed on-device with unique key. Cryptographic arbitration defense.',
