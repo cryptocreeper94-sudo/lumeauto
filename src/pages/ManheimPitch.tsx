@@ -49,7 +49,7 @@ export default function ManheimPitch() {
                 <Play size={32} color="var(--accent-emerald)" style={{ marginLeft: '6px' }} />
               </div>
               <div style={{ position: 'absolute', bottom: '2rem', left: '2rem', zIndex: 10, textAlign: 'left' }}>
-                <div style={{ fontWeight: 700, fontSize: '1.2rem', color: '#fff' }}>Live F-150 Intake Demonstration</div>
+                <div style={{ fontWeight: 700, fontSize: '1.2rem', color: '#fff' }}>Live 2014 RAM Intake Demonstration</div>
                 <div style={{ color: 'var(--accent-cyan)', fontSize: '0.9rem', fontWeight: 600 }}>2 MIN WATCH</div>
               </div>
             </div>
@@ -63,13 +63,14 @@ export default function ManheimPitch() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '3rem' }}>
             
             {/* Phase 1 */}
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} style={{ display: 'flex', flexDirection: 'column' }}>
+              <img src="/assets/images/phase1.png" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '16px', marginBottom: '1.5rem', border: '1px solid var(--border-light)' }} alt="Standard OBD-II Dongle" />
               <div style={{ color: 'var(--accent-cyan)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>PHASE 1: THE REALITY</div>
               <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>Commodity Hardware.</h3>
-              <p className="text-muted" style={{ marginBottom: '2rem', lineHeight: 1.6 }}>
+              <p className="text-muted" style={{ marginBottom: '2rem', lineHeight: 1.6, flexGrow: 1 }}>
                 The demonstration above is running on a standard <strong>$25 off-the-shelf ELM327 BLE dongle</strong> (Veepeak/Vgate). We built our software to run perfectly on commodity hardware so you can deploy tomorrow without capital investment.
               </p>
-              <div className="panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div className="panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: 'auto' }}>
                 <div className="flex items-center gap-3"><CheckCircle size={18} color="var(--accent-cyan)" /> <span style={{ fontSize: '0.9rem' }}>Standard J1979 request/response protocol</span></div>
                 <div className="flex items-center gap-3"><CheckCircle size={18} color="var(--accent-cyan)" /> <span style={{ fontSize: '0.9rem' }}>Compatible with iOS and Android</span></div>
                 <div className="flex items-center gap-3"><CheckCircle size={18} color="var(--accent-cyan)" /> <span style={{ fontSize: '0.9rem' }}>No custom manufacturing required for pilot</span></div>
@@ -77,13 +78,14 @@ export default function ManheimPitch() {
             </motion.div>
 
             {/* Phase 2 */}
-            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} style={{ display: 'flex', flexDirection: 'column' }}>
+              <img src="/assets/images/phase2.png" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '16px', marginBottom: '1.5rem', border: '1px solid rgba(251,146,60,0.3)' }} alt="Futuristic ESP32 Smart Dongle PCB" />
               <div style={{ color: '#fb923c', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>PHASE 2: THE MOAT</div>
               <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>The Lume Dongle.</h3>
-              <p className="text-muted" style={{ marginBottom: '2rem', lineHeight: 1.6 }}>
+              <p className="text-muted" style={{ marginBottom: '2rem', lineHeight: 1.6, flexGrow: 1 }}>
                 Every scanner on the market is a dumb pipe. I'm building a smart endpoint on a <strong>$13 ESP32 BOM</strong> that will completely redefine connection speed and security bypass.
               </p>
-              <div className="panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', borderColor: 'rgba(251,146,60,0.3)', background: 'rgba(251,146,60,0.02)' }}>
+              <div className="panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', borderColor: 'rgba(251,146,60,0.3)', background: 'rgba(251,146,60,0.02)', marginTop: 'auto' }}>
                 <div className="flex items-center gap-3"><Zap size={18} color="#fb923c" /> <span style={{ fontSize: '0.9rem' }}><strong>Zero Discovery Time:</strong> Passive CAN bus sniffing</span></div>
                 <div className="flex items-center gap-3"><Shield size={18} color="#fb923c" /> <span style={{ fontSize: '0.9rem' }}><strong>Ghost Mode:</strong> Bypasses modern Secure Gateways (SGW)</span></div>
                 <div className="flex items-center gap-3"><Server size={18} color="#fb923c" /> <span style={{ fontSize: '0.9rem' }}><strong>Fleet Management:</strong> Unique ID and OTA firmware updates</span></div>
