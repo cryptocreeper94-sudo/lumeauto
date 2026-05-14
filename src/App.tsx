@@ -14,6 +14,7 @@ import Privacy from './pages/Privacy';
 import Waitlist from './pages/Waitlist';
 import Blog from './pages/Blog';
 import Enterprise from './pages/Enterprise';
+import GetStarted from './pages/GetStarted';
 import Footer from './components/Footer';
 
 function LoadingScreen() {
@@ -74,7 +75,7 @@ function Navigation() {
 
   const links = [
     { path: '/', label: 'Home' },
-    { path: '/technology', label: 'Technology' },
+    { path: '/get-started', label: 'Get Started' },
     { path: '/fleet', label: 'Pricing' },
     { path: '/enterprise', label: 'Enterprise' },
     { path: '/blog', label: 'Journal' },
@@ -213,6 +214,7 @@ function App() {
               <Route path="/waitlist" element={<Waitlist />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/enterprise" element={<Enterprise />} />
+              <Route path="/get-started" element={<GetStarted />} />
             </Routes>
           </main>
           <Footer />
