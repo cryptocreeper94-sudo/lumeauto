@@ -120,6 +120,86 @@ export default function Enterprise() {
         </div>
       </section>
 
+      {/* Lume Dongle — Proprietary Hardware */}
+      <section style={{ padding: '5rem 0', borderBottom: '1px solid var(--border-light)' }}>
+        <div className="container" style={{ maxWidth: '900px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <div style={{ display: 'inline-block', padding: '6px 14px', background: 'rgba(251,146,60,0.1)', border: '1px solid rgba(251,146,60,0.3)', borderRadius: '20px', fontSize: '0.7rem', color: '#fb923c', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
+              Phase 2 · In Development
+            </div>
+            <h2 style={{ fontSize: '2.25rem', marginBottom: '1rem' }}>The Lume Dongle</h2>
+            <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto' }}>
+              Every OBD-II adapter on the market uses a 2005-era chip with a single radio — WiFi or Bluetooth, never both. We're building a smart endpoint that does all three on a $13 BOM.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '2.5rem' }}>
+            <div className="panel" style={{ padding: '2rem' }}>
+              <h4 style={{ fontSize: '1rem', marginBottom: '1rem', color: '#fb923c' }}>Hardware</h4>
+              <div className="flex flex-col gap-2">
+                {[
+                  { part: 'ESP32-S3', desc: 'WiFi + BT Classic + BLE on one chip', cost: '~$3' },
+                  { part: 'MCP2515 + TJA1050', desc: 'CAN bus controller + transceiver', cost: '~$2' },
+                  { part: 'OBD-II Connector', desc: 'Standard 16-pin (every car since 1996)', cost: '~$3' },
+                  { part: 'Custom PCB', desc: 'Lume-branded board + firmware', cost: '~$5' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3" style={{ fontSize: '0.85rem' }}>
+                    <span style={{ color: '#fb923c', fontFamily: 'var(--font-mono)', fontWeight: 600, minWidth: '40px' }}>{item.cost}</span>
+                    <span className="text-muted">{item.part} — {item.desc}</span>
+                  </div>
+                ))}
+                <div className="flex items-center gap-3" style={{ fontSize: '0.95rem', marginTop: '0.5rem', paddingTop: '0.75rem', borderTop: '1px solid var(--border-light)' }}>
+                  <span style={{ color: 'var(--accent-emerald)', fontFamily: 'var(--font-mono)', fontWeight: 700, minWidth: '40px' }}>$13</span>
+                  <span style={{ fontWeight: 600 }}>Total BOM → <span style={{ color: 'var(--accent-cyan)' }}>$39–$49 retail</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div className="panel" style={{ padding: '2rem' }}>
+              <h4 style={{ fontSize: '1rem', marginBottom: '1rem', color: '#fb923c' }}>vs. Generic Adapters</h4>
+              <div className="flex flex-col gap-2">
+                {[
+                  { label: 'Connectivity', generic: 'WiFi OR Bluetooth', lume: 'All three — user\'s choice' },
+                  { label: 'Intelligence', generic: 'Dumb pipe', lume: 'On-device governance' },
+                  { label: 'Firmware', generic: 'Burned at factory', lume: 'OTA updates via WiFi' },
+                  { label: 'Fleet tracking', generic: 'Not possible', lume: 'Unique device ID + registry' },
+                  { label: 'Edge processing', generic: 'None', lume: 'Anomaly detection on-chip' },
+                ].map((item, i) => (
+                  <div key={i} style={{ fontSize: '0.8rem' }}>
+                    <div style={{ fontWeight: 600, fontSize: '0.7rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{item.label}</div>
+                    <div className="flex gap-2">
+                      <span className="text-muted" style={{ textDecoration: 'line-through', opacity: 0.5 }}>{item.generic}</span>
+                      <span>→</span>
+                      <span style={{ color: 'var(--accent-emerald)' }}>{item.lume}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="panel" style={{ padding: '1.5rem', background: 'rgba(251,146,60,0.03)', borderColor: 'rgba(251,146,60,0.15)' }}>
+            <h4 style={{ fontSize: '0.9rem', marginBottom: '1rem', color: '#fb923c' }}>What This Means for Manheim</h4>
+            <div className="flex flex-col gap-2">
+              {[
+                'One device per intake station — connects to any phone, any platform, any protocol.',
+                'On-device fault detection starts the moment the vehicle powers on — before the app connects.',
+                'Fleet-level device management: track which adapter is at which station, push firmware OTA.',
+                'Tamper-evident scan logs: condition data signed on-device with unique key. Cryptographic arbitration defense.',
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-2 text-muted" style={{ fontSize: '0.85rem' }}>
+                  <CheckCircle size={14} color="#fb923c" style={{ flexShrink: 0, marginTop: '3px' }} /> {item}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <p className="text-dim" style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.8rem' }}>
+            When you own the firmware, the runtime, the governance engine, and the operations platform — you own the full stack from silicon to organism.
+          </p>
+        </div>
+      </section>
+
       {/* Why Deterministic */}
       <section style={{ padding: '5rem 0', borderBottom: '1px solid var(--border-light)' }}>
         <div className="container" style={{ maxWidth: '800px' }}>
