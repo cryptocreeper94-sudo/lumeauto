@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Smartphone, Bluetooth, Gauge, CheckCircle, Download, ShieldCheck, Zap, Star, DollarSign, Wrench, Activity } from 'lucide-react';
+import { Smartphone, Wifi, Gauge, CheckCircle, Download, ShieldCheck, Zap, Star, DollarSign, Wrench, Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function GetStarted() {
@@ -22,7 +22,7 @@ export default function GetStarted() {
               Plug In. <span className="text-gradient">Save Money.</span><br/>That's It.
             </h1>
             <p className="text-muted" style={{ fontSize: '1.25rem', maxWidth: '600px', margin: '0 auto 1rem', lineHeight: 1.6 }}>
-              A $24 adapter. A free app. <strong style={{ color: 'var(--text-main)' }}>$180–$320 saved</strong> every year on gas.<br/>Works on any car made after 1996.
+              A $12 WiFi adapter. A free app. <strong style={{ color: 'var(--text-main)' }}>$180–$320 saved</strong> every year on gas.<br/>Works on any car made after 1996.
             </p>
             <p style={{ fontSize: '0.9rem', color: 'var(--accent-emerald)', fontWeight: 600, marginBottom: '2.5rem' }}>
               No mechanic. No modifications. No subscription required to start.
@@ -42,14 +42,14 @@ export default function GetStarted() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
             {[
               {
-                step: '01', icon: <Bluetooth size={32} />, title: 'Buy the Adapter',
-                desc: 'Any Bluetooth ELM327 OBD-II adapter. We recommend the BAFX 34t5 ($24 on Amazon). It plugs into the port under your dashboard — every car sold after 1996 has one.',
-                highlight: '$24',
-                cta: { text: 'Buy on Amazon →', url: 'https://www.amazon.com/dp/B005NLQAHS' }
+                step: '01', icon: <Wifi size={32} />, title: 'Buy the Adapter',
+                desc: 'Any WiFi ELM327 OBD-II adapter — $12 to $30 on Amazon. It plugs into the port under your dashboard. Every car sold after 1996 has one. WiFi adapters work on both iPhone and Android with zero pairing hassle.',
+                highlight: '$12–$30',
+                cta: { text: 'Buy on Amazon →', url: 'https://www.amazon.com/s?k=wifi+elm327+obd2' }
               },
               {
                 step: '02', icon: <Smartphone size={32} />, title: 'Download the App',
-                desc: 'Install Lume-Auto on your phone. Open it, tap "Scan for Adapter." The app finds your adapter via Bluetooth and connects automatically. No pairing codes, no setup.',
+                desc: 'Install Lume-Auto on your phone. Connect to the adapter\'s WiFi hotspot (it creates one automatically). Open the app, tap "Connect via WiFi." That\'s it — no pairing codes, no Bluetooth setup, no app store build required.',
                 highlight: 'Free',
                 cta: { text: 'Download Lume-Auto →', url: '#download' }
               },
@@ -136,13 +136,13 @@ export default function GetStarted() {
         <div className="container" style={{ maxWidth: '800px' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Compatible Adapters</h2>
-            <p className="text-muted">Any Bluetooth Low Energy (BLE) ELM327 adapter works. Here are our tested picks.</p>
+            <p className="text-muted">WiFi or Bluetooth — both work. WiFi is instant on iPhone and Android. Here are our tested picks.</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
             {[
-              { name: 'BAFX 34t5', price: '$24', rating: '4.5★', badge: 'Best Value', link: 'https://www.amazon.com/dp/B005NLQAHS' },
-              { name: 'OBDLink MX+', price: '$80', rating: '4.8★', badge: 'Fastest', link: 'https://www.amazon.com/dp/B07JFRFJG6' },
-              { name: 'Veepeak OBDCheck', price: '$30', rating: '4.4★', badge: 'Budget BLE', link: 'https://www.amazon.com/dp/B076XVQMVS' },
+              { name: 'Vgate iCar Pro WiFi', price: '$12', rating: '4.5★', badge: 'Best Value', link: 'https://www.amazon.com/s?k=vgate+icar+pro+wifi+obd2' },
+              { name: 'OBDLink MX WiFi', price: '$70', rating: '4.8★', badge: 'Pro Grade', link: 'https://www.amazon.com/dp/B00WPW6BAE' },
+              { name: 'Veepeak WiFi OBD2', price: '$22', rating: '4.4★', badge: 'iPhone Ready', link: 'https://www.amazon.com/dp/B00WPW6BAE' },
             ].map((adapter, i) => (
               <a key={i} href={adapter.link} target="_blank" rel="noopener noreferrer" className="panel" style={{ padding: '1.5rem', textDecoration: 'none', display: 'block', transition: 'border-color 0.3s', cursor: 'pointer' }}>
                 <div style={{ fontSize: '0.7rem', color: 'var(--accent-cyan)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>{adapter.badge}</div>
