@@ -59,7 +59,7 @@ export default function ManheimPitch() {
               <div style={{ color: 'var(--accent-cyan)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>PHASE 1: THE REALITY</div>
               <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>Commodity Hardware.</h3>
               <p className="text-muted" style={{ marginBottom: '2rem', lineHeight: 1.6, flexGrow: 1 }}>
-                The demonstration above is running on a standard <strong>$25 off-the-shelf ELM327 BLE dongle</strong> (Veepeak/Vgate). We built our software to run perfectly on commodity hardware so you can deploy tomorrow without capital investment.
+                The demonstration above is running on a standard <strong>$25 off-the-shelf ELM327 BLE dongle</strong> (Veepeak/Vgate). I built my software to run perfectly on commodity hardware so you can deploy tomorrow without capital investment.
               </p>
               <div className="panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: 'auto' }}>
                 <div className="flex items-center gap-3"><CheckCircle size={18} color="var(--accent-cyan)" /> <span style={{ fontSize: '0.9rem' }}>Standard J1979 request/response protocol</span></div>
