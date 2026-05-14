@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, Play, Shield, Activity, Zap, Server, MapPin } from 'lucide-react';
+import { ArrowRight, CheckCircle, Shield, Activity, Zap, Server, MapPin, AlertTriangle } from 'lucide-react';
+import LiveScanSimulator from '../components/LiveScanSimulator';
+import ROICalculator from '../components/ROICalculator';
 
 export default function ManheimPitch() {
   return (
@@ -20,40 +22,29 @@ export default function ManheimPitch() {
               Zero AI in the critical path. Watch the live 2-minute demonstration below.
             </p>
 
-            {/* Video Placeholder */}
-            <div className="panel" style={{ 
-              position: 'relative', 
-              aspectRatio: '16/9', 
-              width: '100%', 
-              overflow: 'hidden', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              background: 'url(https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80) center/cover',
-              cursor: 'pointer'
-            }}>
-              <div style={{ position: 'absolute', inset: 0, background: 'rgba(10, 10, 10, 0.6)', backdropFilter: 'blur(4px)' }} />
-              <div style={{ 
-                width: '80px', 
-                height: '80px', 
-                borderRadius: '50%', 
-                background: 'rgba(16, 185, 129, 0.2)', 
-                border: '2px solid var(--accent-emerald)', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                position: 'relative',
-                zIndex: 10,
-                boxShadow: '0 0 30px rgba(16, 185, 129, 0.4)'
-              }}>
-                <Play size={32} color="var(--accent-emerald)" style={{ marginLeft: '6px' }} />
-              </div>
-              <div style={{ position: 'absolute', bottom: '2rem', left: '2rem', zIndex: 10, textAlign: 'left' }}>
-                <div style={{ fontWeight: 700, fontSize: '1.2rem', color: '#fff' }}>Live 2014 RAM Intake Demonstration</div>
-                <div style={{ color: 'var(--accent-cyan)', fontSize: '0.9rem', fontWeight: 600 }}>2 MIN WATCH</div>
-              </div>
+            {/* Live Scan Simulator */}
+            <div style={{ marginTop: '2rem', textAlign: 'left' }}>
+              <LiveScanSimulator />
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* The Consumer Threat (FOMO) */}
+      <section style={{ padding: '4rem 0', background: 'var(--bg-darker)', borderBottom: '1px solid var(--border-light)' }}>
+        <div className="container" style={{ maxWidth: '900px' }}>
+          <div className="panel flex gap-6 items-start" style={{ padding: '2.5rem', borderColor: 'rgba(239,68,68,0.3)', background: 'linear-gradient(90deg, rgba(239,68,68,0.05) 0%, rgba(10,10,12,0) 100%)' }}>
+            <AlertTriangle size={48} color="#ef4444" style={{ flexShrink: 0 }} />
+            <div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#ef4444' }}>The Information Parity Threat</h3>
+              <p className="text-muted" style={{ lineHeight: 1.6, marginBottom: '1rem' }}>
+                Lume-Auto is launching to the public. Within six months, consumers and independent dealers will walk onto the auction block with our deterministic diagnostics in their pockets. 
+              </p>
+              <p style={{ fontWeight: 600, color: 'var(--text-main)', lineHeight: 1.6 }}>
+                If a buyer scans a vehicle and flags a failing catalytic converter that your inspectors missed, you lose the arbitration. Adopting Lume-Auto at intake is no longer just about efficiency — it is required to maintain information parity with your own buyers.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -159,6 +150,24 @@ export default function ManheimPitch() {
               <div>
                 <div style={{ color: 'var(--text-dim)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.25rem' }}>Deliverable</div>
                 <div style={{ fontSize: '1.2rem', fontWeight: 600 }}>Signed ROI Report</div>
+              </div>
+            </div>
+
+            {/* Interactive ROI Calculator */}
+            <ROICalculator />
+            
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '3rem', margin: '4rem 0', alignItems: 'center' }}>
+              <div>
+                <h4 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>The Deterministic Output</h4>
+                <p className="text-muted" style={{ lineHeight: 1.6 }}>
+                  This is the resulting <strong>Lume-Auto Vehicle Condition Certificate</strong>. It is a cryptographic receipt of the vehicle's exact state at the moment of intake. 
+                </p>
+                <p className="text-muted" style={{ lineHeight: 1.6, marginTop: '1rem' }}>
+                  If a dispute arises, you present this hash. The data is immutable, undeniable, and completely bypasses human inspector error.
+                </p>
+              </div>
+              <div>
+                <img src="/assets/images/condition_report.png" alt="Lume-Auto Condition Report" style={{ width: '100%', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', border: '1px solid var(--border-light)' }} />
               </div>
             </div>
             
