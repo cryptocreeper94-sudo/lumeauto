@@ -66,9 +66,14 @@ export default function LiveScanSimulator() {
         <AnimatePresence mode="wait">
           {!scanning && !complete && (
             <motion.div key="start" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(10,10,12,0.8)', backdropFilter: 'blur(4px)', zIndex: 10 }}>
-              <button onClick={handleStart} style={{ display: 'flex', alignItems: 'center', gap: '1rem', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid var(--accent-emerald)', padding: '1rem 2rem', borderRadius: '30px', color: 'var(--accent-emerald)', fontWeight: 600, fontSize: '1.1rem', cursor: 'pointer', transition: 'all 0.2s' }} onMouseOver={e => e.currentTarget.style.background = 'rgba(16, 185, 129, 0.2)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(16, 185, 129, 0.1)'}>
-                <Play fill="currentColor" /> INITIATE LIVE SCAN
-              </button>
+              <motion.button 
+                onClick={handleStart} 
+                animate={{ boxShadow: ['0 0 0px rgba(16,185,129,0)', '0 0 30px rgba(16,185,129,0.5)', '0 0 0px rgba(16,185,129,0)'] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                style={{ display: 'flex', alignItems: 'center', gap: '1rem', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid var(--accent-emerald)', padding: '1rem 2.5rem', borderRadius: '30px', color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '1.2rem', cursor: 'pointer', letterSpacing: '0.05em' }}
+              >
+                <Play fill="currentColor" size={24} /> INITIATE LIVE SCAN
+              </motion.button>
             </motion.div>
           )}
 
@@ -117,7 +122,7 @@ export default function LiveScanSimulator() {
                 </div>
               </div>
 
-              <div style={{ width: '100%', marginTop: '1rem', padding: '1rem', background: 'var(--bg-dark)', borderRadius: '8px', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--text-dim)', wordBreak: 'break-all' }}>
+              <div style={{ width: '100%', marginTop: '1rem', padding: '1rem', background: 'rgba(16, 185, 129, 0.05)', borderRadius: '8px', border: '1px dashed rgba(16, 185, 129, 0.4)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--accent-emerald)', wordBreak: 'break-all', letterSpacing: '0.05em' }}>
                 LUME_HASH: 0x8f2c3b4a...9d1e 1778774560363
               </div>
 
