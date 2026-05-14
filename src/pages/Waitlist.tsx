@@ -24,7 +24,7 @@ export default function Waitlist() {
       } else {
         setStatus('error');
       }
-    } catch (err) {
+    } catch {
       setStatus('error');
     }
   };

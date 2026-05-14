@@ -118,7 +118,7 @@ export default function LiveScanSimulator() {
               </div>
 
               <div style={{ width: '100%', marginTop: '1rem', padding: '1rem', background: 'var(--bg-dark)', borderRadius: '8px', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--text-dim)', wordBreak: 'break-all' }}>
-                LUME_HASH: 0x8f2c3b4a...9d1e {Date.now()}
+                LUME_HASH: 0x8f2c3b4a...9d1e 1778774560363
               </div>
 
               <button onClick={() => { setComplete(false); setProgress(0); }} style={{ marginTop: '1rem', background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', textDecoration: 'underline', fontSize: '0.9rem' }}>
