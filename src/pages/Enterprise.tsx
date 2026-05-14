@@ -39,7 +39,7 @@ export default function Enterprise() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
             {[
               {
-                badge: 'Manheim-Tested',
+                badge: 'Manheim-Designed',
                 title: 'Lume Ops Recon',
                 subtitle: 'Lot Operations',
                 icon: <MapPin size={28} />,
