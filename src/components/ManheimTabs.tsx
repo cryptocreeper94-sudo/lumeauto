@@ -1,11 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Zap, Activity } from 'lucide-react';
+import { Zap, Activity, Cpu } from 'lucide-react';
 
 export default function ManheimTabs() {
   const { pathname } = useLocation();
   const tabs = [
     { path: '/manheim', label: 'Phase 1 · OBD-II Intelligence', icon: <Activity size={16} />, color: 'var(--accent-emerald)' },
     { path: '/manheim-meridian', label: 'Phase 2 · Meridian Energy', icon: <Zap size={16} />, color: '#a78bfa' },
+    { path: '/manheim-engineering', label: 'Engineering Brief', icon: <Cpu size={16} />, color: 'var(--accent-cyan)' },
   ];
 
   return (

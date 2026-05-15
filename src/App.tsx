@@ -17,6 +17,7 @@ import Enterprise from './pages/Enterprise';
 import GetStarted from './pages/GetStarted';
 import ManheimPitch from './pages/ManheimPitch';
 import MeridianPitch from './pages/MeridianPitch';
+import EngineeringBrief from './pages/EngineeringBrief';
 import Footer from './components/Footer';
 
 function LoadingScreen() {
@@ -220,6 +221,7 @@ function App() {
               <Route path="/get-started" element={<GetStarted />} />
               <Route path="/manheim" element={<ManheimPitch />} />
               <Route path="/manheim-meridian" element={<MeridianPitch />} />
+              <Route path="/manheim-engineering" element={<EngineeringBrief />} />
             </Routes>
           </main>
           <Footer />
