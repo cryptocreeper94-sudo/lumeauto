@@ -3,10 +3,11 @@ import { Zap, Activity, Cpu } from 'lucide-react';
 
 export default function ManheimTabs() {
   const { pathname } = useLocation();
+  const isSubdomain = window.location.hostname.includes('manheim');
   const tabs = [
-    { path: '/manheim', label: 'Phase 1 · OBD-II Intelligence', icon: <Activity size={16} />, color: 'var(--accent-emerald)' },
-    { path: '/manheim-meridian', label: 'Phase 2 · Meridian Energy', icon: <Zap size={16} />, color: '#a78bfa' },
-    { path: '/manheim-engineering', label: 'Engineering Brief', icon: <Cpu size={16} />, color: 'var(--accent-cyan)' },
+    { path: isSubdomain ? '/' : '/manheim', label: 'Phase 1 · OBD-II Intelligence', icon: <Activity size={16} />, color: 'var(--accent-emerald)' },
+    { path: isSubdomain ? '/meridian' : '/manheim-meridian', label: 'Phase 2 · Meridian Energy', icon: <Zap size={16} />, color: '#a78bfa' },
+    { path: isSubdomain ? '/engineering' : '/manheim-engineering', label: 'Engineering Brief', icon: <Cpu size={16} />, color: 'var(--accent-cyan)' },
   ];
 
   return (

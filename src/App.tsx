@@ -208,7 +208,7 @@ function App() {
           <Navigation />
           <main style={{ paddingTop: '70px', minHeight: 'calc(100vh - 200px)' }}>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={window.location.hostname.includes('manheim') ? <ManheimPitch /> : <Home />} />
               <Route path="/technology" element={<Technology />} />
               <Route path="/mpg-gains" element={<MpgGains />} />
               <Route path="/maintenance" element={<Maintenance />} />
@@ -222,6 +222,9 @@ function App() {
               <Route path="/manheim" element={<ManheimPitch />} />
               <Route path="/manheim-meridian" element={<MeridianPitch />} />
               <Route path="/manheim-engineering" element={<EngineeringBrief />} />
+              {/* Clean subdomain routes */}
+              <Route path="/meridian" element={<MeridianPitch />} />
+              <Route path="/engineering" element={<EngineeringBrief />} />
             </Routes>
           </main>
           <Footer />
