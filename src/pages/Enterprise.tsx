@@ -36,7 +36,7 @@ export default function Enterprise() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
             {[
               {
-                badge: 'Manheim-Designed',
+                badge: 'Independently Designed',
                 title: 'Lume Ops Recon',
                 subtitle: 'Lot Operations',
                 icon: <MapPin size={28} />,
@@ -221,13 +221,13 @@ export default function Enterprise() {
         </div>
       </section>
 
-      {/* Pilot Proposal */}
+      {/* Production Deployment */}
       <section style={{ padding: '5rem 0', borderBottom: '1px solid var(--border-light)' }}>
         <div className="container" style={{ maxWidth: '800px' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <p className="text-emerald" style={{ fontSize: '0.85rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>30-Day Pilot</p>
-            <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Pilot Proposal</h2>
-            <p className="text-muted">500–1,000 vehicles · One location · Both products deployed · Signed ROI report at close</p>
+            <p className="text-emerald" style={{ fontSize: '0.85rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>Production Ready</p>
+            <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Deployment Strategy</h2>
+            <p className="text-muted">Standard integration path for multi-lane facilities</p>
           </div>
 
           <div className="panel" style={{ padding: '2rem', marginBottom: '2rem' }}>
