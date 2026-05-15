@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { Activity, FileText, BookOpen } from 'lucide-react';
-import LiveScanSimulator from '../LiveScanSimulator';
 
 export default function HeroSection() {
   return (
@@ -35,10 +34,6 @@ export default function HeroSection() {
             ))}
           </div>
 
-          {/* Live scan */}
-          <div style={{ textAlign: 'left' }}>
-            <LiveScanSimulator />
-          </div>
         </motion.div>
       </div>
     </section>
