@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Terminal, Database, Wifi, Lock, Cpu, GitBranch, Radio, Eye, Fingerprint, FileCode, Gauge } from 'lucide-react';
+import { Terminal, Database, Wifi, Lock, Cpu, GitBranch, Radio, Eye, Fingerprint, FileCode, Gauge, Wrench } from 'lucide-react';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 export default function TechDeepDive() {
@@ -51,6 +51,7 @@ export default function TechDeepDive() {
             { icon: <Gauge size={18}/>, title: 'Performance Engine', items: ['Moves-per-hour real-time tracking', '4.5 MPH quota monitoring', 'Automated bonus estimation', 'Daily / weekly / monthly aggregation', 'Speed tier alerts: 15 / 17 / 22 MPH', 'GPS accuracy: ±3 meter precision'], color: 'var(--accent-emerald)' },
             { icon: <GitBranch size={18}/>, title: 'Organism Architecture', items: ['4-layer governance topology', '42 nodes per organism instance', 'Cross-validation consensus protocol', 'Self-healing drift correction', 'Deterministic state transitions', 'Formal safety envelope verification'], color: '#fb923c' },
             { icon: <Fingerprint size={18}/>, title: 'Condition Certificate', items: ['Structured JSON output per vehicle', 'DTC severity classification (Critical/Warning/Info)', 'Readiness monitor status mapping', 'Freeze frame data capture', 'Cryptographic hash of full scan state', 'Replay-verifiable to bit-level'], color: 'var(--accent-cyan)' },
+            { icon: <Wrench size={18}/>, title: 'Lume-V Verification Wrapper', items: ['Production-deployed across multiple sites', 'Wraps any existing system or API', 'No source code modification required', 'Injects deterministic audit trail', 'Incremental adoption — system by system', 'Published: DOI 10.5281/zenodo.19645097'], color: '#fb923c' },
           ].map((sys, i) => (
             <motion.div key={i} {...f} transition={{ delay: i * 0.05 }} className="panel" style={{ padding: '1.5rem', borderColor: `${sys.color}18` }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1rem' }}>
