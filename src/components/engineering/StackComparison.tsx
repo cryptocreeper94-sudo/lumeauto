@@ -9,7 +9,7 @@ export default function StackComparison() {
           <p style={{ color: 'var(--accent-cyan)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>Architecture Comparison</p>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Two Builds. One Vision.</h2>
           <p className="text-muted" style={{ maxWidth: '680px', margin: '0 auto', lineHeight: 1.7 }}>
-            The current deployment runs on a React + PostgreSQL stack — built to prove the concept with zero risk. Behind it sits a fully native Lume runtime, purpose-built from the compiler up. Here is what changes.
+            The current deployment runs on a React + PostgreSQL stack — a deliberate decision to prove the architecture using industry-standard tools with zero risk and zero learning curve for the engineering team. Behind it sits a fully native Lume runtime, purpose-built from the compiler up, that takes every governance guarantee currently enforced in application logic and compiles it into the runtime itself. Both builds are live. Here is exactly what changes between them.
           </p>
         </div>
 
@@ -49,8 +49,8 @@ export default function StackComparison() {
         </div>
 
         <motion.div {...f} className="panel" style={{ padding: '1.5rem', textAlign: 'center', borderColor: 'rgba(56,189,248,0.2)' }}>
-          <p className="text-muted" style={{ fontSize: '0.9rem', lineHeight: 1.6 }}>
-            <strong style={{ color: 'var(--accent-cyan)' }}>Key insight:</strong> The React build proves the architecture works in production. The Lume build makes it <em>deterministic at the runtime level</em> — meaning the governance guarantees are no longer application logic. They are compiled into the system itself. The upgrade path is clean because both builds share the same organism topology.
+          <p className="text-muted" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
+            <strong style={{ color: 'var(--accent-cyan)' }}>Key insight:</strong> The React build proves the architecture works in production — real drivers, real vehicles, real data, real results. The Lume build takes those same governance guarantees and moves them from application-level enforcement to <em>compiled runtime enforcement</em>. That distinction matters: in the React build, governance is logic that <em>could</em> be bypassed. In the Lume build, governance is physics — it cannot be circumvented because it is the runtime itself. The upgrade path is clean because both builds share the identical 4/42 organism topology. No rewrite. No rearchitecture. Just a deeper level of determinism.
           </p>
         </motion.div>
       </div>

@@ -10,7 +10,7 @@ export default function LotOpsProSection() {
           <p style={{ color: 'var(--accent-emerald)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>The Operating System</p>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Lot Ops Pro</h2>
           <p className="text-muted" style={{ maxWidth: '680px', margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7 }}>
-            The platform that started it all. A production-ready, mobile-first autonomous lot management system — independently designed for wholesale automotive operations, currently deployed at multiple facilities. Multi-tenant by design. Every facility gets its own isolated environment, branding, and configuration from a single deployment.
+            The platform that started it all. A production-ready, mobile-first autonomous lot management system — independently designed for wholesale automotive operations, currently deployed at multiple facilities. Multi-tenant by design. Every facility gets its own isolated environment, branding, and configuration from a single deployment. Drivers use their own phones. Supervisors manage from anywhere. The entire lot runs on one system — from ticket scanning to vehicle routing to performance tracking to real-time messaging.
           </p>
         </div>
 
@@ -45,9 +45,9 @@ export default function LotOpsProSection() {
           <h3 style={{ fontSize: '1.2rem', marginBottom: '1.25rem', textAlign: 'center' }}>How Everything Connects</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', textAlign: 'center' }}>
             {[
-              { label: 'Lot Ops Pro', role: 'The Operating System', desc: 'Driver management, routing, performance, communication — the platform running the lot.', color: 'var(--accent-emerald)' },
-              { label: 'Lume-Auto', role: 'The Intelligence Layer', desc: 'OBD-II diagnostics, condition reports, arbitration defense — vehicle health at intake.', color: 'var(--accent-cyan)' },
-              { label: 'Meridian', role: 'The Energy Layer', desc: 'Wireless charging, overhead routing, cryptographic billing — Phase 2 infrastructure.', color: '#a78bfa' },
+              { label: 'Lot Ops Pro', role: 'The Operating System', desc: 'Driver management, GPS routing, performance analytics, real-time messaging, OCR ticket scanning, role-based dashboards — the complete platform running daily lot operations from a single mobile app.', color: 'var(--accent-emerald)' },
+              { label: 'Lume-Auto', role: 'The Intelligence Layer', desc: 'OBD-II diagnostics at intake, deterministic condition certificates, arbitration-grade scan history, population health analytics — every vehicle assessed in 45 seconds with cryptographic proof.', color: 'var(--accent-cyan)' },
+              { label: 'Meridian', role: 'The Energy Layer', desc: 'Wireless EV charging from overhead anchor nodes, adapter-agnostic energy routing, cryptographic billing ledger — Phase 2 infrastructure that eliminates every ground-level charging bottleneck.', color: '#a78bfa' },
             ].map((item, i) => (
               <div key={i}>
                 <div style={{ fontSize: '1.1rem', fontWeight: 700, color: item.color, marginBottom: '0.25rem' }}>{item.label}</div>

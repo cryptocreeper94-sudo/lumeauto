@@ -22,7 +22,7 @@ export default function EngineeringBrief() {
               <span style={{ color: 'var(--accent-cyan)' }}>For Engineering Review.</span>
             </h1>
             <p className="text-muted" style={{ fontSize: '1.05rem', lineHeight: 1.7, maxWidth: '700px', margin: '0 auto 2.5rem' }}>
-              This document details the complete system architecture — from OBD-II protocol parsing to governance organism topology to the native Lume build migration path. Every subsystem, protocol, and integration point is specified for engineering-grade review.
+              This document details the complete system architecture — from OBD-II protocol parsing to governance organism topology to the native Lume build migration path. Every subsystem, protocol, and integration point is specified for engineering-grade review. The intent is simple: any qualified engineer should be able to read this document, review the published research, and independently verify every claim.
             </p>
 
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -50,7 +50,7 @@ export default function EngineeringBrief() {
       <section style={{ padding: '4rem 0', textAlign: 'center' }}>
         <div className="container" style={{ maxWidth: '700px' }}>
           <p className="text-muted" style={{ fontSize: '0.95rem', lineHeight: 1.7 }}>
-            The architecture documented above is production-deployed and verifiable. The React build is live. The native Lume build is architecturally complete. Both share the same 4/42 organism topology and are migration-compatible.
+            The architecture documented above is production-deployed and verifiable. The React build is live and operating at multiple facilities. The native Lume build is architecturally complete and migration-ready. Both share the same 4/42 organism topology — the upgrade path requires no rearchitecture, only a deeper level of runtime enforcement. Every technical claim in this document is backed by published research with verifiable DOIs.
           </p>
           <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '1.5rem' }}>
             © 2026 DarkWave Studios LLC / Lume42 Labs · 6 U.S. Provisional Patents Pending · 96 Published Papers

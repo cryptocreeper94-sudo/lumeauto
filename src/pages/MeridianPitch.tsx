@@ -78,7 +78,7 @@ export default function MeridianPitch() {
               <AlertTriangle size={32} color="#ef4444" style={{ marginBottom: '1rem' }} />
               <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', color: '#fca5a5' }}>The Ground Charging Bottleneck</h3>
               <p className="text-muted" style={{ lineHeight: 1.7, marginBottom: '1rem', fontSize: '0.95rem' }}>
-                16–20 EVs fighting for physical ports. Broken cables, missing adapters, labor costs of moving vehicles between stations.
+                Every wholesale auction facility running EVs faces the same physics problem. 16–20 electric vehicles competing for a handful of physical charging ports. Cables get damaged. Adapters go missing. Drivers spend 15 minutes hunting for the right connector instead of moving inventory. Ground-mounted bollards consume valuable lot space that should hold vehicles. The labor cost of manually rotating vehicles through charge stations adds up fast — and none of it scales.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1.5rem' }}>
                 {['Tangled cables & broken connectors', 'Adapter hunting (J1772, NACS, CCS)', 'Ground space consumed by bollards', 'Manual move labor per charge cycle'].map((item, i) => (
@@ -94,7 +94,7 @@ export default function MeridianPitch() {
               <Zap size={32} color="#a78bfa" style={{ marginBottom: '1rem' }} />
               <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', color: '#c4b5fd' }}>The Overhead Solution</h3>
               <p className="text-muted" style={{ lineHeight: 1.7, marginBottom: '1rem', fontSize: '0.95rem' }}>
-                Meridian Anchor Nodes mount overhead. Vehicles drive under, charge wirelessly, drive out. Zero friction.
+                Meridian eliminates the ground entirely. Anchor Nodes mount overhead in existing staging canopies. Vehicles drive under, receive energy wirelessly through a deterministic routing protocol, and drive out. No cables. No adapters. No manual intervention. The charging infrastructure becomes invisible — and infinitely scalable.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1.5rem' }}>
                 {['Zero ground infrastructure', 'Adapter-agnostic energy routing', 'Automatic vehicle identification', 'Cryptographic billing receipts'].map((item, i) => (
@@ -123,7 +123,7 @@ export default function MeridianPitch() {
             <p style={{ color: '#a78bfa', fontSize: '0.85rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>Architecture</p>
             <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>The Overhead Advantage</h2>
             <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto' }}>
-              Meridian pulls the entire charging infrastructure off the ground. Anchor Nodes mount in your staging canopies and route energy deterministically.
+              Meridian pulls the entire charging infrastructure off the ground and into existing overhead structures. Anchor Nodes mount in staging canopies and route energy deterministically — no cables, no adapters, no wasted lot space. The protocol is not probabilistic. Every energy packet follows a governance chain with cryptographic billing at every step.
             </p>
           </div>
 
