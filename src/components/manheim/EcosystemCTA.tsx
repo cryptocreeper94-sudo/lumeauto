@@ -83,13 +83,10 @@ export default function EcosystemCTA() {
           <ROICalculator />
 
           <motion.div {...f} style={{ textAlign: 'center', marginTop: '4rem' }}>
-            <p className="text-muted" style={{ fontSize: '1.05rem', marginBottom: '1rem', maxWidth: '650px', margin: '0 auto 1rem' }}>
-              This system exists. It is production-ready. The papers are published. The patents are filed. The architecture scales to every facility in the network.
+            <p className="text-muted" style={{ fontSize: '1.05rem', maxWidth: '600px', margin: '0 auto', lineHeight: 1.7 }}>
+              The system is built. The research is published. The patents are filed. Everything documented above is production-ready and verifiable.
             </p>
-            <p style={{ fontSize: '1rem', marginBottom: '2.5rem', maxWidth: '600px', margin: '0 auto 2.5rem', color: 'var(--text-main)', fontWeight: 500 }}>
-              The only question is whether it launches under the Manheim brand — or someone else's.
-            </p>
-            <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '1.25rem' }}>
+            <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '2rem' }}>
               © 2026 DarkWave Studios LLC / Lume42 Labs · 6 U.S. Provisional Patents Pending · 96 Published Papers
             </p>
           </motion.div>
