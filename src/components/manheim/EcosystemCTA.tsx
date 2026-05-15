@@ -19,9 +19,9 @@ export default function EcosystemCTA() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '2.5rem' }}>
             {[
-              { title: 'Canon 1', sub: 'Lume Language & Trust Layer', papers: '42 papers', desc: 'Deterministic compilation, governance organisms, the 4/42 fractal law, trust layer cryptography.', color: 'var(--accent-emerald)' },
-              { title: 'Canon 2', sub: 'DAIGS & Synthetic Organisms', papers: '31 papers', desc: 'Deterministic AI governance systems, organism architecture, self-healing runtime, planetary-scale systems.', color: 'var(--accent-cyan)' },
-              { title: 'Canon 3', sub: 'Meridian Energy Architecture', papers: '10 papers + collected edition', desc: 'Wireless energy routing, anchor nodes, beam geometry, the Energy Internet protocol stack.', color: '#a78bfa' },
+              { title: 'Canon 1', sub: 'Lume Language & Trust Layer', papers: '42 papers', desc: 'Deterministic compilation, governance organisms, the 4/42 fractal law, trust layer cryptography.', color: 'var(--accent-emerald)', doi: '10.5281/zenodo.19382282' },
+              { title: 'Canon 2', sub: 'DAIGS & Synthetic Organisms', papers: '31 papers', desc: 'Deterministic AI governance systems, organism architecture, self-healing runtime, planetary-scale systems.', color: 'var(--accent-cyan)', doi: '10.5281/zenodo.19491784' },
+              { title: 'Canon 3', sub: 'Meridian Energy Architecture', papers: '10 papers + collected edition', desc: 'Wireless energy routing, anchor nodes, beam geometry, the Energy Internet protocol stack.', color: '#a78bfa', doi: '10.5281/zenodo.20028362' },
             ].map((canon, i) => (
               <motion.div key={i} {...f} transition={{ delay: i * 0.1 }} className="panel" style={{ padding: '1.75rem', borderColor: `${canon.color}22` }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
@@ -29,7 +29,10 @@ export default function EcosystemCTA() {
                   <span style={{ fontSize: '0.7rem', padding: '3px 10px', borderRadius: '10px', background: `${canon.color}12`, color: canon.color, fontWeight: 600 }}>{canon.papers}</span>
                 </div>
                 <div style={{ fontSize: '0.8rem', color: 'var(--text-dim)', marginBottom: '0.5rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{canon.sub}</div>
-                <p className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.5 }}>{canon.desc}</p>
+                <p className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.5, marginBottom: '0.75rem' }}>{canon.desc}</p>
+                <a href={`https://doi.org/${canon.doi}`} target="_blank" rel="noopener" style={{ fontSize: '0.7rem', color: canon.color, fontFamily: 'var(--font-mono)', opacity: 0.7 }}>
+                  DOI: {canon.doi} ↗
+                </a>
               </motion.div>
             ))}
           </div>
@@ -37,8 +40,8 @@ export default function EcosystemCTA() {
           {/* Patent bar */}
           <motion.div {...f} className="panel" style={{ padding: '1.5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', borderColor: 'rgba(251,146,60,0.2)', background: 'rgba(251,146,60,0.02)' }}>
             {[
-              { icon: <FileText size={16}/>, label: 'U.S. Patent 64/032,339', desc: 'Lume Deterministic Governance' },
-              { icon: <FileText size={16}/>, label: 'U.S. Patent 64/056,378', desc: 'Meridian Energy Architecture' },
+              { icon: <FileText size={16}/>, label: 'U.S. Provisional 64/032,339', desc: 'Lume Deterministic Governance' },
+              { icon: <FileText size={16}/>, label: 'U.S. Provisional 64/056,378', desc: 'Meridian Energy Architecture' },
               { icon: <Shield size={16}/>, label: '4 Additional Filings', desc: 'Runtime, Dongle, Organisms, Trust Layer' },
             ].map((p, i) => (
               <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
@@ -54,6 +57,7 @@ export default function EcosystemCTA() {
           {/* External links */}
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem', flexWrap: 'wrap' }}>
             {[
+              { label: 'Lume Core · DOI', href: 'https://doi.org/10.5281/zenodo.19382282', icon: <BookOpen size={14}/> },
               { label: 'Zenodo Archive', href: 'https://zenodo.org/communities/meridian-canon', icon: <BookOpen size={14}/> },
               { label: 'MeridianCanon.com', href: 'https://meridiancanon.com', icon: <Globe size={14}/> },
               { label: 'ORCID Profile', href: 'https://orcid.org/0009-0007-5214-649X', icon: <ExternalLink size={14}/> },
