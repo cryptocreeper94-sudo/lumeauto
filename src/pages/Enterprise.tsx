@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, MapPin, Layers, Radio } from 'lucide-react';
+import { CheckCircle, MapPin, Layers, Radio } from 'lucide-react';
 
 export default function Enterprise() {
   return (
