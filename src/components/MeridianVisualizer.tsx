@@ -1,116 +1,147 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Battery, Zap, ShieldCheck } from 'lucide-react';
+import { useRef, useMemo } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, useGLTF, Environment } from '@react-three/drei';
 
-export default function MeridianVisualizer() {
-  const [chargingState, setChargingState] = useState<'idle' | 'charging' | 'complete'>('idle');
-  const [chargeLevel, setChargeLevel] = useState(24);
-  const [hash, setHash] = useState('');
+import * as THREE from 'three';
 
-  useEffect(() => {
-    let interval: ReturnType<typeof setInterval>;
-    if (chargingState === 'charging') {
-      interval = setInterval(() => {
-        setChargeLevel(prev => {
-          if (prev >= 100) {
-            setChargingState('complete');
-            setHash('0x' + Array.from({length: 16}, () => Math.floor(Math.random()*16).toString(16)).join(''));
-            return 100;
+
+
+function CanopyFrame() {
+  const { scene } = useGLTF('/models/canopy-frame.glb');
+  return <primitive object={scene} position={[0, 0, 0]} />;
+}
+
+function EVSedan({ position }: { position: [number, number, number] }) {
+  const { scene } = useGLTF('/models/ev-sedan.glb');
+  const clone = useMemo(() => scene.clone(), [scene]);
+  return <primitive object={clone} position={position} />;
+}
+
+function LotSurface() {
+  const { scene } = useGLTF('/models/lot-surface.glb');
+  return <primitive object={scene} position={[0, -0.1, 0]} />;
+}
+
+function EnergyBeam({ position, active }: { position: [number, number, number]; active: boolean }) {
+  const ref = useRef<THREE.Group>(null);
+  const { scene } = useGLTF('/models/energy-beam.glb');
+  const clone = useMemo(() => scene.clone(), [scene]);
+
+  useFrame((state) => {
+    if (ref.current && active) {
+      const t = state.clock.elapsedTime;
+      ref.current.children.forEach((child, i) => {
+        if ((child as THREE.Mesh).material && 'opacity' in ((child as THREE.Mesh).material as THREE.Material)) {
+          const mat = (child as THREE.Mesh).material as THREE.MeshBasicMaterial;
+          if (mat.transparent) {
+            mat.opacity = 0.3 + Math.sin(t * 3 + i) * 0.3;
           }
-          return prev + 1;
-        });
-      }, 30); // Fast simulation
+        }
+      });
     }
-    return () => clearInterval(interval);
-  }, [chargingState]);
-
-  const initiateCharge = () => {
-    setChargeLevel(24);
-    setHash('');
-    setChargingState('charging');
-  };
+  });
 
   return (
-    <div className="panel" style={{ width: '100%', height: '500px', display: 'flex', flexDirection: 'column', background: '#0a0a0c', border: '1px solid rgba(167, 139, 250, 0.3)', borderRadius: '16px', overflow: 'hidden' }}>
-      
-      {/* Visualizer Area */}
-      <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-        
-        {/* Overhead Canopy (Anchor Nodes) */}
-        <div style={{ position: 'absolute', top: 0, left: '10%', right: '10%', height: '40px', background: 'rgba(167, 139, 250, 0.1)', borderBottom: '2px solid #a78bfa', display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end', paddingBottom: '5px' }}>
-          {[1, 2, 3, 4, 5].map(node => (
-            <div key={node} style={{ width: '12px', height: '8px', background: chargingState === 'charging' ? '#fff' : '#a78bfa', borderRadius: '2px', boxShadow: chargingState === 'charging' ? '0 0 15px #a78bfa' : 'none', transition: 'all 0.3s' }} />
-          ))}
-        </div>
+    <group ref={ref} visible={active}>
+      <primitive object={clone} position={position} />
+    </group>
+  );
+}
 
-        {/* Wireless Energy Beams */}
-        <AnimatePresence>
-          {chargingState === 'charging' && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0.3, 0.8, 0.3] }}
-              exit={{ opacity: 0 }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
-              style={{ position: 'absolute', top: '40px', bottom: '150px', left: '20%', right: '20%', background: 'linear-gradient(180deg, rgba(167,139,250,0.4) 0%, rgba(167,139,250,0) 100%)', pointerEvents: 'none' }}
-            />
-          )}
-        </AnimatePresence>
+function FloatingParticles() {
+  const ref = useRef<THREE.Points>(null);
+  const count = 200;
+  const positions = useMemo(() => {
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 20;
+      pos[i * 3 + 1] = Math.random() * 8;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 12;
+    }
+    return pos;
+  }, []);
 
-        {/* Vehicle Envelope */}
-        <motion.div
-          animate={{
-            x: chargingState === 'idle' ? ['-200%', '0%'] : chargingState === 'complete' ? ['0%', '200%'] : '0%',
-            opacity: chargingState === 'complete' ? [1, 0] : 1
-          }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
-          style={{ width: '280px', height: '100px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '16px 40px 16px 16px', background: 'rgba(255,255,255,0.02)', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '100px' }}
-        >
-          {/* Battery Indicator on Vehicle */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: chargingState === 'charging' ? '#a78bfa' : 'var(--text-muted)' }}>
-            <Battery size={24} />
-            <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 600 }}>{Math.floor(chargeLevel)}%</span>
-          </div>
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.rotation.y = state.clock.elapsedTime * 0.02;
+      const arr = ref.current.geometry.attributes.position.array as Float32Array;
+      for (let i = 0; i < count; i++) {
+        arr[i * 3 + 1] += 0.005;
+        if (arr[i * 3 + 1] > 8) arr[i * 3 + 1] = 0;
+      }
+      ref.current.geometry.attributes.position.needsUpdate = true;
+    }
+  });
 
-          {/* Glowing receiver plate */}
-          <div style={{ position: 'absolute', top: -10, left: '50%', transform: 'translateX(-50%)', width: '60px', height: '4px', background: chargingState === 'charging' ? '#a78bfa' : 'rgba(255,255,255,0.2)', borderRadius: '2px', boxShadow: chargingState === 'charging' ? '0 0 20px #a78bfa' : 'none', transition: 'all 0.3s' }} />
-        </motion.div>
+  return (
+    <points ref={ref}>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+      </bufferGeometry>
+      <pointsMaterial size={0.04} color="#a78bfa" transparent opacity={0.4} blending={THREE.AdditiveBlending} />
+    </points>
+  );
+}
 
-        {/* Ground */}
-        <div style={{ position: 'absolute', bottom: '0', width: '100%', height: '100px', borderTop: '1px solid rgba(255,255,255,0.05)', background: 'repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 80px)' }} />
+function GridFloor() {
+  return (
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.15, 0]} receiveShadow>
+      <planeGeometry args={[40, 40]} />
+      <meshStandardMaterial color="#080810" metalness={0.5} roughness={0.6} />
+    </mesh>
+  );
+}
 
-      </div>
+export default function MeridianScene3D() {
+  return (
+    <div style={{
+      width: '100%', height: '500px', borderRadius: '16px', overflow: 'hidden',
+      border: '1px solid rgba(167, 139, 250, 0.3)',
+      background: '#04060c',
+    }}>
+      <Canvas
+        camera={{ position: [18, 10, 16], fov: 45 }}
+        gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 2.0 }}
+        shadows
+      >
+        <color attach="background" args={['#04060c']} />
+        <fog attach="fog" args={['#04060c', 20, 60]} />
 
-      {/* Control Panel & Output */}
-      <div style={{ padding: '1.5rem', background: 'rgba(0,0,0,0.5)', borderTop: '1px solid rgba(167, 139, 250, 0.2)', display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '1.5rem', alignItems: 'center' }}>
-        <button 
-          onClick={initiateCharge}
-          disabled={chargingState === 'charging'}
-          className="btn-primary"
-          style={{ background: chargingState === 'charging' ? 'transparent' : '#a78bfa', color: chargingState === 'charging' ? '#a78bfa' : '#fff', border: chargingState === 'charging' ? '1px solid #a78bfa' : 'none', width: '100%', justifyContent: 'center', height: '48px' }}
-        >
-          {chargingState === 'charging' ? (
-            <><Zap className="spin" size={18} /> Routing...</>
-          ) : chargingState === 'complete' ? (
-            'Next Vehicle in Queue'
-          ) : (
-            'Enter Charging Zone'
-          )}
-        </button>
+        {/* Lighting */}
+        <ambientLight intensity={0.4} />
+        <hemisphereLight args={['#667799', '#111118', 0.8]} />
+        <directionalLight position={[8, 15, 5]} intensity={2.0} color="#ffffff" castShadow />
+        <directionalLight position={[-5, 8, -3]} intensity={0.8} color="#c4b5fd" />
+        <pointLight position={[0, 7, 0]} intensity={1.5} color="#a78bfa" distance={20} />
 
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--accent-emerald)', background: '#020205', padding: '0.75rem', borderRadius: '8px', border: '1px dashed rgba(16, 185, 129, 0.3)', height: '48px', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <ShieldCheck size={16} />
-          {chargingState === 'idle' ? (
-            <span style={{ color: 'var(--text-dim)' }}>WAITING FOR VEHICLE SIGN-IN...</span>
-          ) : chargingState === 'charging' ? (
-            <span>GENERATING CRYPTOGRAPHIC RECEIPT...</span>
-          ) : (
-            <span style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-              <span>TX_HASH:</span>
-              <span style={{ color: '#fff' }}>{hash}</span>
-            </span>
-          )}
-        </div>
-      </div>
+        {/* Scene */}
+        <CanopyFrame />
+        <EVSedan position={[-2, 0, 0]} />
+        <EVSedan position={[3, 0, 0]} />
+        <EnergyBeam position={[-2, 0, 0]} active={true} />
+        <EnergyBeam position={[3, 0, 0]} active={true} />
+        <LotSurface />
+        <GridFloor />
+        <FloatingParticles />
+
+
+
+        {/* Controls */}
+        <OrbitControls
+          autoRotate autoRotateSpeed={0.4}
+          enableDamping dampingFactor={0.08}
+          minDistance={8} maxDistance={40}
+          target={[0, 3, 0]}
+        />
+        <Environment preset="night" />
+      </Canvas>
     </div>
   );
 }
+
+// Preload GLBs
+useGLTF.preload('/models/anchor-node.glb');
+useGLTF.preload('/models/canopy-frame.glb');
+useGLTF.preload('/models/ev-sedan.glb');
+useGLTF.preload('/models/lot-surface.glb');
+useGLTF.preload('/models/energy-beam.glb');

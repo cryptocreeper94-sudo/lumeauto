@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Meridian Canon GLB Generator — TrustGen Pipeline</title>
+<style>
+  body { background:#0a0c14; color:#e0e4e8; font-family:'Inter',system-ui,sans-serif; margin:0; padding:40px; }
+  h1 { color:#a78bfa; font-size:24px; margin-bottom:8px; }
+  .sub { color:rgba(240,244,248,0.5); font-size:13px; margin-bottom:32px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:16px; }
+  .card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:20px; }
+  .card h3 { margin:0 0 4px; font-size:15px; color:#a78bfa; }
+  .card p { margin:0 0 12px; font-size:12px; color:rgba(240,244,248,0.6); }
+  .card canvas { width:100%; height:180px; border-radius:8px; background:#04060c; }
+  button { background:rgba(167,139,250,0.15); border:1px solid rgba(167,139,250,0.3); color:#a78bfa; padding:8px 20px; border-radius:8px; cursor:pointer; font-weight:700; font-size:12px; letter-spacing:0.05em; transition:all 0.2s; }
+  button:hover { background:rgba(167,139,250,0.3); }
+  .status { margin-top:8px; font-size:11px; color:#22c55e; min-height:16px; }
+  #batch-btn { font-size:14px; padding:12px 32px; margin-bottom:24px; }
+</style>
+</head>
+<body>
+
+<h1>Meridian Canon GLB Generator</h1>
+<p class="sub">Procedurally generates 3D models for the Meridian wireless energy system, then exports to .glb for the Lume-Auto site.</p>
+<button id="batch-btn" onclick="generateAll()">⚡ Generate &amp; Export All GLBs</button>
+
+<div class="grid" id="grid"></div>
+
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.162.0/build/three.module.js", "three/examples/jsm/exporters/GLTFExporter.js": "https://unpkg.com/three@0.162.0/examples/jsm/exporters/GLTFExporter.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
+
+const recipes = [
+  {
+    id: 'anchor-node', name: 'Meridian Anchor Node',
+    build(scene) {
+      const shellMat = new THREE.MeshPhysicalMaterial({ color:0x8090a0, metalness:0.7, roughness:0.2, clearcoat:0.8 });
+      const glowMat = new THREE.MeshBasicMaterial({ color:0xc4b5fd });
+      const ledMat = new THREE.MeshBasicMaterial({ color:0xd8b4fe });
+      // Main housing
+      const housing = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.4, 1.2), shellMat);
+      housing.castShadow = true; scene.add(housing);
+      // Bottom transmitter plate
+      const plate = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.06, 24), new THREE.MeshPhysicalMaterial({ color:0x556677, metalness:0.8, roughness:0.1 }));
+      plate.position.y = -0.23; scene.add(plate);
+      // Transmitter coil
+      const coil = new THREE.Mesh(new THREE.TorusGeometry(0.4, 0.03, 8, 24), glowMat);
+      coil.position.y = -0.26; coil.rotation.x = Math.PI/2; scene.add(coil);
+      const coil2 = new THREE.Mesh(new THREE.TorusGeometry(0.25, 0.02, 8, 20), glowMat);
+      coil2.position.y = -0.26; coil2.rotation.x = Math.PI/2; scene.add(coil2);
+      // Heat sinks
+      for(let i=0; i<6; i++) {
+        const fin = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.15, 1.0), new THREE.MeshStandardMaterial({ color:0x778899, metalness:0.7, roughness:0.3 }));
+        fin.position.set(-0.6+i*0.24, 0.27, 0); scene.add(fin);
+      }
+      // LED strips
+      [-0.55, 0.55].forEach(z => {
+        const led = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.03, 0.04), ledMat);
+        led.position.set(0, -0.1, z); scene.add(led);
+      });
+      // Antenna arrays
+      [-0.6, 0.6].forEach(x => {
+        const ant = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.3, 6), new THREE.MeshStandardMaterial({ color:0x99aabb, metalness:0.8 }));
+        ant.position.set(x, 0.35, 0); scene.add(ant);
+      });
+      // Mounting bracket
+      const bracket = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.6, 0.15), new THREE.MeshStandardMaterial({ color:0x8899aa, metalness:0.6, roughness:0.4 }));
+      bracket.position.set(0, 0.5, 0); scene.add(bracket);
+    }
+  },
+  {
+    id: 'canopy-frame', name: 'Charging Canopy Frame',
+    build(scene) {
+      const metalMat = new THREE.MeshPhysicalMaterial({ color:0x99aabb, metalness:0.7, roughness:0.2 });
+      const beamMat = new THREE.MeshPhysicalMaterial({ color:0x8899aa, metalness:0.65, roughness:0.25 });
+      // Main crossbeam
+      const beam = new THREE.Mesh(new THREE.BoxGeometry(14, 0.5, 0.5), beamMat);
+      beam.position.y = 6; beam.castShadow = true; scene.add(beam);
+      // Support pillars
+      [-6.5, 6.5].forEach(x => {
+        const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.3, 6, 8), metalMat);
+        pillar.position.set(x, 3, 0); scene.add(pillar);
+        // Base plate
+        const base = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.1, 12), metalMat);
+        base.position.set(x, 0.05, 0); scene.add(base);
+      });
+      // Secondary beams
+      [-3, 0, 3].forEach(x => {
+        const sBeam = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 4), beamMat);
+        sBeam.position.set(x, 5.85, 0); scene.add(sBeam);
+      });
+      // Anchor node mounting points (glowing)
+      const nodeMat = new THREE.MeshBasicMaterial({ color:0xa78bfa, transparent:true, opacity:0.7 });
+      [-4.5, -1.5, 1.5, 4.5].forEach(x => {
+        const mount = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.3, 0.8), new THREE.MeshPhysicalMaterial({ color:0x7080a0, metalness:0.7, roughness:0.15 }));
+        mount.position.set(x, 5.55, 0); scene.add(mount);
+        const coil = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.02, 8, 20), nodeMat);
+        coil.position.set(x, 5.35, 0); coil.rotation.x = Math.PI/2; scene.add(coil);
+        const led = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.02, 0.04), new THREE.MeshBasicMaterial({ color:0xa78bfa }));
+        led.position.set(x, 5.42, 0.35); scene.add(led);
+      });
+      // Roof panels (translucent)
+      const roofMat = new THREE.MeshPhysicalMaterial({ color:0x7788aa, metalness:0.5, roughness:0.3, transparent:true, opacity:0.5 });
+      const roof = new THREE.Mesh(new THREE.BoxGeometry(13, 0.08, 3.5), roofMat);
+      roof.position.set(0, 6.3, 0); scene.add(roof);
+    }
+  },
+  {
+    id: 'ev-sedan', name: 'EV Sedan with Receiver',
+    build(scene) {
+      const bodyMat = new THREE.MeshPhysicalMaterial({ color:0xd0d8e0, metalness:0.85, roughness:0.12, clearcoat:1.0 });
+      const glassMat = new THREE.MeshPhysicalMaterial({ color:0x111122, metalness:0.95, roughness:0.05, transparent:true, opacity:0.7 });
+      // Body profile
+      const s = new THREE.Shape();
+      s.moveTo(-2.8, 0.4); s.lineTo(-2.8, 1.0); s.lineTo(-2.0, 1.1);
+      s.quadraticCurveTo(-1.2, 1.3, -0.8, 2.2); s.lineTo(0.6, 2.4);
+      s.quadraticCurveTo(1.0, 2.4, 1.6, 1.6); s.lineTo(2.4, 1.2);
+      s.quadraticCurveTo(2.8, 1.1, 2.8, 0.6); s.lineTo(2.8, 0.4); s.lineTo(-2.8, 0.4);
+      const bodyGeo = new THREE.ExtrudeGeometry(s, { depth:2.2, bevelEnabled:true, bevelThickness:0.08, bevelSize:0.08, bevelSegments:4 });
+      bodyGeo.translate(0,0,-1.1); bodyGeo.rotateY(Math.PI/2);
+      const body = new THREE.Mesh(bodyGeo, bodyMat);
+      body.castShadow = true; scene.add(body);
+      // Windshield
+      const ws = new THREE.Shape();
+      ws.moveTo(-0.75, 2.22); ws.lineTo(0.6, 2.42); ws.lineTo(1.6, 1.62); ws.lineTo(-0.75, 1.32);
+      const wsGeo = new THREE.ExtrudeGeometry(ws, { depth:2.1, bevelEnabled:false });
+      wsGeo.translate(0,0,-1.05); wsGeo.rotateY(Math.PI/2);
+      scene.add(new THREE.Mesh(wsGeo, glassMat));
+      // Underbody
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(5.6, 0.15, 2.0), new THREE.MeshStandardMaterial({ color:0x111111, roughness:0.9 })));
+      // Wheels
+      const tireMat = new THREE.MeshStandardMaterial({ color:0x111111, roughness:0.95 });
+      const rimMat = new THREE.MeshStandardMaterial({ color:0xaaaaaa, metalness:0.85, roughness:0.15 });
+      [[-1.8,0.4,-1.15],[-1.8,0.4,1.15],[1.8,0.4,-1.15],[1.8,0.4,1.15]].forEach(p => {
+        const g = new THREE.Group();
+        g.add(new THREE.Mesh(new THREE.TorusGeometry(0.4, 0.14, 16, 32), tireMat));
+        const rim = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 0.12, 20), rimMat);
+        rim.rotation.z = Math.PI/2; g.add(rim);
+        g.position.set(...p); g.children[0].rotation.y = Math.PI/2; scene.add(g);
+      });
+      // Headlights & taillights
+      [-0.7, 0.7].forEach(z => {
+        const hl = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.15, 0.4), new THREE.MeshBasicMaterial({ color:0xffffff }));
+        hl.position.set(2.85, 0.85, z); scene.add(hl);
+        const tl = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.15, 0.4), new THREE.MeshBasicMaterial({ color:0xff2222 }));
+        tl.position.set(-2.85, 0.85, z); scene.add(tl);
+      });
+      // RECEIVER PLATE on roof — the key differentiator
+      const recvPlate = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 0.04, 24), new THREE.MeshPhysicalMaterial({ color:0x556688, metalness:0.8, roughness:0.1 }));
+      recvPlate.position.set(0, 2.45, 0); scene.add(recvPlate);
+      const recvCoil = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.03, 8, 24), new THREE.MeshBasicMaterial({ color:0xa78bfa, transparent:true, opacity:0.6 }));
+      recvCoil.position.set(0, 2.47, 0); recvCoil.rotation.x = Math.PI/2; scene.add(recvCoil);
+      const recvCoil2 = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.02, 8, 20), new THREE.MeshBasicMaterial({ color:0xa78bfa, transparent:true, opacity:0.4 }));
+      recvCoil2.position.set(0, 2.47, 0); recvCoil2.rotation.x = Math.PI/2; scene.add(recvCoil2);
+    }
+  },
+  {
+    id: 'lot-surface', name: 'Smart Lot Surface',
+    build(scene) {
+      // Asphalt
+      const road = new THREE.Mesh(new THREE.BoxGeometry(16, 0.15, 12), new THREE.MeshStandardMaterial({ color:0x1a1a1e, roughness:0.9 }));
+      scene.add(road);
+      // Parking bay markings
+      for(let i=-2; i<=2; i++) {
+        const line = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.16, 5), new THREE.MeshBasicMaterial({ color:0xffffff }));
+        line.position.set(i*3.2, 0, 0); scene.add(line);
+      }
+      // Directional arrows
+      [-4, 0, 4].forEach(x => {
+        const arrow = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.6, 3), new THREE.MeshBasicMaterial({ color:0x444444 }));
+        arrow.position.set(x, 0.1, -4); arrow.rotation.x = -Math.PI/2; scene.add(arrow);
+      });
+      // Embedded sensors
+      for(let x=-6; x<=6; x+=3) {
+        for(let z=-4; z<=4; z+=4) {
+          const sensor = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.17, 8), new THREE.MeshStandardMaterial({ color:0x222233, metalness:0.5 }));
+          sensor.position.set(x, 0, z); scene.add(sensor);
+          const led = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.18, 6), new THREE.MeshBasicMaterial({ color:0x22c55e, transparent:true, opacity:0.5 }));
+          led.position.set(x, 0, z); scene.add(led);
+        }
+      }
+    }
+  },
+  {
+    id: 'energy-beam', name: 'Wireless Energy Beam',
+    build(scene) {
+      // Vertical beam column
+      const beamMat = new THREE.MeshBasicMaterial({ color:0xa78bfa, transparent:true, opacity:0.3 });
+      const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.6, 4, 16), beamMat);
+      beam.position.y = 2; scene.add(beam);
+      // Particle rings at intervals
+      for(let i=0; i<5; i++) {
+        const ring = new THREE.Mesh(new THREE.TorusGeometry(0.2+i*0.08, 0.015, 8, 24), new THREE.MeshBasicMaterial({ color:0xc4b5fd, transparent:true, opacity:0.5-i*0.08 }));
+        ring.position.y = i*0.8+0.5; ring.rotation.x = Math.PI/2; scene.add(ring);
+      }
+      // Source node at top
+      const src = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.2, 0.6), new THREE.MeshPhysicalMaterial({ color:0x7080a0, metalness:0.7, roughness:0.15 }));
+      src.position.y = 4.1; scene.add(src);
+      // Target receiver at bottom
+      const recv = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.04, 20), new THREE.MeshPhysicalMaterial({ color:0x556688, metalness:0.8, roughness:0.1 }));
+      recv.position.y = 0.02; scene.add(recv);
+      const recvGlow = new THREE.Mesh(new THREE.TorusGeometry(0.4, 0.02, 8, 20), new THREE.MeshBasicMaterial({ color:0xa78bfa, transparent:true, opacity:0.6 }));
+      recvGlow.position.y = 0.04; recvGlow.rotation.x = Math.PI/2; scene.add(recvGlow);
+    }
+  }
+];
+
+/* ═══════════ Rendering & Export ═══════════ */
+const offCanvas = document.createElement('canvas');
+offCanvas.width = 560; offCanvas.height = 360;
+const sharedRenderer = new THREE.WebGLRenderer({ canvas: offCanvas, antialias:true, alpha:true });
+sharedRenderer.setSize(560, 360);
+sharedRenderer.setPixelRatio(1);
+sharedRenderer.setClearColor(0x04060c);
+sharedRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+sharedRenderer.toneMappingExposure = 2.5;
+
+function renderPreview(targetCanvas, scene, camPos) {
+  targetCanvas.width = 560; targetCanvas.height = 360;
+  targetCanvas.style.width = '280px'; targetCanvas.style.height = '180px';
+  const cam = new THREE.PerspectiveCamera(45, 560/360, 0.1, 100);
+  const cp = camPos || [6, 4, 6];
+  cam.position.set(...cp); cam.lookAt(0, 1, 0);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x556688, 1.2));
+  const sun = new THREE.DirectionalLight(0xffffff, 2.5);
+  sun.position.set(5, 10, 5); scene.add(sun);
+  const fill = new THREE.DirectionalLight(0xc4b5fd, 1.0);
+  fill.position.set(-5, 8, -3); scene.add(fill);
+  const back = new THREE.DirectionalLight(0xa78bfa, 0.8);
+  back.position.set(-5, 3, -5); scene.add(back);
+  sharedRenderer.render(scene, cam);
+  const ctx = targetCanvas.getContext('2d');
+  ctx.drawImage(offCanvas, 0, 0);
+}
+
+async function exportGLB(scene, filename) {
+  const exporter = new GLTFExporter();
+  return new Promise((resolve, reject) => {
+    exporter.parse(scene, async (result) => {
+      const name = filename.replace('.glb', '');
+      const resp = await fetch(`/save?name=${name}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/octet-stream' },
+        body: result
+      });
+      if (resp.ok) resolve(true);
+      else reject(new Error(`Server returned ${resp.status}`));
+    }, (err) => reject(err), { binary:true });
+  });
+}
+
+/* ═══════════ UI ═══════════ */
+const grid = document.getElementById('grid');
+const camPositions = {
+  'anchor-node': [3, 2, 3],
+  'canopy-frame': [18, 10, 18],
+  'ev-sedan': [5, 3, 5],
+  'lot-surface': [12, 8, 12],
+  'energy-beam': [4, 3, 4]
+};
+
+recipes.forEach(recipe => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `<h3>${recipe.name}</h3><p>${recipe.id}.glb</p><canvas id="c-${recipe.id}"></canvas><button onclick="generateOne('${recipe.id}')">Export GLB</button><div class="status" id="s-${recipe.id}"></div>`;
+  grid.appendChild(card);
+});
+
+requestAnimationFrame(() => {
+  recipes.forEach(recipe => {
+    const canvas = document.getElementById(`c-${recipe.id}`);
+    const scene = new THREE.Scene();
+    recipe.build(scene);
+    recipe._scene = scene;
+    renderPreview(canvas, scene, camPositions[recipe.id]);
+  });
+});
+
+window.generateOne = async function(id) {
+  const recipe = recipes.find(r => r.id === id);
+  const status = document.getElementById(`s-${id}`);
+  status.textContent = 'Exporting...';
+  try {
+    await exportGLB(recipe._scene, `${id}.glb`);
+    status.textContent = '✓ Downloaded!';
+  } catch(e) { status.textContent = `✗ ${e.message}`; }
+};
+
+window.generateAll = async function() {
+  for (const recipe of recipes) {
+    await window.generateOne(recipe.id);
+    await new Promise(r => setTimeout(r, 600));
+  }
+};
+</script>
+</body>
+</html>
