@@ -78,7 +78,7 @@ export default function EcosystemCTA() {
         <div className="container" style={{ maxWidth: '900px', position: 'relative', zIndex: 2 }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>The Numbers</h2>
-            <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto' }}>Adjust the sliders to see what deterministic vehicle intelligence looks like at your scale.</p>
+            <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto' }}>Adjust the parameters to model deterministic vehicle intelligence at different scales.</p>
           </div>
           <ROICalculator />
 

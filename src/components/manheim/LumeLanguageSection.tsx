@@ -39,7 +39,7 @@ export default function LumeLanguageSection() {
         <motion.div {...f} className="panel" style={{ padding: '2rem', borderColor: 'rgba(167,139,250,0.25)', background: 'linear-gradient(135deg, rgba(167,139,250,0.04) 0%, transparent 100%)', textAlign: 'center' }}>
           <h4 style={{ fontSize: '1.2rem', marginBottom: '0.75rem', color: '#c4b5fd' }}>A Full Native Lume Build Is Waiting in the Wings</h4>
           <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto', lineHeight: 1.7 }}>
-            The current deployment runs on React and commodity hardware to prove the concept with zero risk. Behind it sits a fully native Lume runtime — purpose-built from the compiler up — ready to deploy when the pilot validates the architecture. The React layer is the proof. The native layer is the product.
+            The current deployment runs on React and commodity hardware to prove the architecture with zero risk. Behind it sits a fully native Lume runtime — purpose-built from the compiler up — ready for production deployment. The React layer is the proof. The native layer is the product.
           </p>
         </motion.div>
 

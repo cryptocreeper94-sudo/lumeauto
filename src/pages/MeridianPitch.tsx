@@ -29,7 +29,7 @@ export default function MeridianPitch() {
             </div>
             <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 1.08, marginBottom: '1.5rem' }}>
               Deterministic Wireless Energy<br />
-              <span style={{ background: 'linear-gradient(135deg, #c4b5fd, #a78bfa, #7c3aed)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Built for Manheim.</span>
+              <span style={{ background: 'linear-gradient(135deg, #c4b5fd, #a78bfa, #7c3aed)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Built for Scale.</span>
             </h1>
             <p className="text-muted" style={{ fontSize: '1.15rem', lineHeight: 1.7, maxWidth: '700px', marginBottom: '2rem' }}>
               No ground stations. No broken adapters. No physical bottlenecks. Route energy to EVs deterministically from overhead while maintaining a perfect cryptographic billing ledger.

@@ -17,7 +17,7 @@ export default function HardwareSection() {
               Any facility with WiFi or BLE-capable OBD-II dongles already has the hardware to run Lume-Auto today. Tens of thousands of compatible devices are already deployed across the industry. The software is the differentiator — not the hardware.
             </p>
             <div className="panel" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              {['Works with any ELM327 WiFi or BLE dongle', 'Compatible with iOS and Android', 'Your existing fleet of dongles is ready now', 'Zero capital investment to start'].map((t, i) => (
+              {['Works with any ELM327 WiFi or BLE dongle', 'Compatible with iOS and Android', 'Existing dongle inventory is deployment-ready', 'Zero capital investment to start'].map((t, i) => (
                 <div key={i} className="flex items-center gap-3"><CheckCircle size={15} color="var(--accent-cyan)" /><span style={{ fontSize: '0.85rem' }}>{t}</span></div>
               ))}
             </div>

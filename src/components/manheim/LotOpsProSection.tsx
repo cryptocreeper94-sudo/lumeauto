@@ -10,7 +10,7 @@ export default function LotOpsProSection() {
           <p style={{ color: 'var(--accent-emerald)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>The Operating System</p>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Lot Ops Pro</h2>
           <p className="text-muted" style={{ maxWidth: '680px', margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7 }}>
-            The platform that started it all. A production-ready, mobile-first autonomous lot management system — built at Manheim Nashville, now expanding to Atlanta. Multi-tenant by design. Every facility gets its own isolated environment, branding, and configuration from a single deployment.
+            The platform that started it all. A production-ready, mobile-first autonomous lot management system — independently designed for wholesale automotive operations, currently deployed at multiple facilities. Multi-tenant by design. Every facility gets its own isolated environment, branding, and configuration from a single deployment.
           </p>
         </div>
 
@@ -67,7 +67,7 @@ export default function LotOpsProSection() {
             { val: '2', unit: '', label: 'Active Facilities' },
             { val: '20K', unit: '+', label: 'Vehicles Managed' },
             { val: '$0', unit: '', label: 'Hardware Investment' },
-            { val: '300', unit: '+', label: 'Manheim Locations' },
+            { val: '300', unit: '+', label: 'Potential Facilities' },
             { val: '20+', unit: '', label: 'Production Features' },
           ].map((s, i) => (
             <motion.div key={i} {...f} transition={{ delay: 0.2 + i * 0.08 }} style={{ textAlign: 'center' }}>
