@@ -52,7 +52,7 @@ export default function ManheimPitch() {
       {/* The Reality vs The Vision (Hardware) */}
       <section style={{ padding: '6rem 0', borderBottom: '1px solid var(--border-light)' }}>
         <div className="container" style={{ maxWidth: '1000px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '3rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem' }}>
             
             {/* Phase 1 */}
             <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} style={{ display: 'flex', flexDirection: 'column' }}>
@@ -91,7 +91,7 @@ export default function ManheimPitch() {
       {/* The Synthetic Organism (Deep Tech) */}
       <section style={{ padding: '6rem 0', background: 'linear-gradient(180deg, var(--bg-dark) 0%, rgba(16,185,129,0.02) 100%)', borderBottom: '1px solid var(--border-light)' }}>
         <div className="container" style={{ maxWidth: '1000px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
+          <div className="responsive-grid">
             
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <div style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>ARCHITECTURE: LUME CORE</div>
@@ -171,7 +171,7 @@ export default function ManheimPitch() {
         <div className="container" style={{ maxWidth: '800px', textAlign: 'center' }}>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>The 30-Day Pilot Offer</h2>
           <div className="panel" style={{ padding: '3rem', textAlign: 'left' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '2rem' }}>
+            <div className="responsive-grid-stats" style={{ marginBottom: '2rem' }}>
               <div>
                 <div style={{ color: 'var(--text-dim)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.25rem' }}>Volume</div>
                 <div style={{ fontSize: '1.5rem', fontWeight: 600 }}>500 Vehicles</div>
@@ -193,7 +193,7 @@ export default function ManheimPitch() {
             {/* Interactive ROI Calculator */}
             <ROICalculator />
             
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '3rem', margin: '4rem 0', alignItems: 'center' }}>
+            <div className="responsive-grid-uneven" style={{ margin: '4rem 0' }}>
               <div>
                 <h4 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>The Deterministic Output</h4>
                 <p className="text-muted" style={{ lineHeight: 1.6 }}>

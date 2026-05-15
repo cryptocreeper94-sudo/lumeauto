@@ -74,6 +74,30 @@ h1, h2, h3, h4 {
   .container {
     padding: 0 1rem;
   }
+  .responsive-grid, .responsive-grid-uneven, .responsive-grid-stats {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+}
+
+.responsive-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.responsive-grid-uneven {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.responsive-grid-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
 }
 
 .flex { display: flex; }

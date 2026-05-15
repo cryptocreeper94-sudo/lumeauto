@@ -49,7 +49,7 @@ export default function MeridianPitch() {
       {/* The Overhead Architecture */}
       <section style={{ padding: '6rem 0', borderBottom: '1px solid var(--border-light)' }}>
         <div className="container" style={{ maxWidth: '1000px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
+          <div className="responsive-grid">
             
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <div style={{ color: '#a78bfa', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>ARCHITECTURE: MERIDIAN CANON</div>
