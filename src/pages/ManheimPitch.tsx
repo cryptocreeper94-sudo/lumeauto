@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle, Shield, Activity, Zap, Server, MapPin, AlertTriangle } from 'lucide-react';
 import LiveScanSimulator from '../components/LiveScanSimulator';
 import ROICalculator from '../components/ROICalculator';
+import OrganismVisualizer from '../components/OrganismVisualizer';
 
 export default function ManheimPitch() {
   return (
@@ -81,6 +82,42 @@ export default function ManheimPitch() {
                 <div className="flex items-center gap-3"><Shield size={18} color="#fb923c" /> <span style={{ fontSize: '0.9rem' }}><strong>Ghost Mode:</strong> Bypasses modern Secure Gateways (SGW)</span></div>
                 <div className="flex items-center gap-3"><Server size={18} color="#fb923c" /> <span style={{ fontSize: '0.9rem' }}><strong>Fleet Management:</strong> Unique ID and OTA firmware updates</span></div>
               </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* The Synthetic Organism (Deep Tech) */}
+      <section style={{ padding: '6rem 0', background: 'linear-gradient(180deg, var(--bg-dark) 0%, rgba(16,185,129,0.02) 100%)', borderBottom: '1px solid var(--border-light)' }}>
+        <div className="container" style={{ maxWidth: '1000px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
+            
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>ARCHITECTURE: LUME CORE</div>
+              <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', lineHeight: 1.1 }}>The Synthetic Organism.</h2>
+              <p className="text-muted" style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+                Lume-Auto is not an algorithm. It does not ask the cloud for permission to diagnose a vehicle. I built a deterministic synthetic organism that runs entirely on the edge.
+              </p>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <div>
+                  <h4 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', color: 'var(--text-main)' }}>The 4/42 Fractal Law</h4>
+                  <p className="text-muted" style={{ fontSize: '0.95rem', lineHeight: 1.5 }}>
+                    The Core monitors 42 critical nodes simultaneously at an aggressive 100Hz polling rate. It identifies microscopic voltage drops and timing deviations fractions of a second before a human inspector or a standard scanner could ever detect them.
+                  </p>
+                </div>
+                <div>
+                  <h4 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', color: 'var(--text-main)' }}>Zero AI Hallucination</h4>
+                  <p className="text-muted" style={{ fontSize: '0.95rem', lineHeight: 1.5 }}>
+                    In the critical diagnostic path, there is zero generative AI. The safety envelope relies entirely on pure, immutable mathematics. When it flags a failing catalytic converter, it is a deterministic certainty, not a statistical guess.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
+              <OrganismVisualizer />
             </motion.div>
 
           </div>
