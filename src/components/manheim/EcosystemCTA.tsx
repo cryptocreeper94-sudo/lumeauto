@@ -59,6 +59,7 @@ export default function EcosystemCTA() {
             {[
               { label: 'Lume Core · DOI', href: 'https://doi.org/10.5281/zenodo.19382282', icon: <BookOpen size={14}/> },
               { label: 'Zenodo Archive', href: 'https://zenodo.org/communities/meridian-canon', icon: <BookOpen size={14}/> },
+              { label: 'TrustShield', href: 'https://trustshield.tech', icon: <Globe size={14}/> },
               { label: 'MeridianCanon.com', href: 'https://meridiancanon.com', icon: <Globe size={14}/> },
               { label: 'ORCID Profile', href: 'https://orcid.org/0009-0007-5214-649X', icon: <ExternalLink size={14}/> },
             ].map((link, i) => (
