@@ -19,11 +19,8 @@ export default function Enterprise() {
               Condition scanning at intake. Lot operations and driver management. Arbitration defense by data replay. All on a single deterministic runtime. All sharing one data layer. All auditable to the sensor level.
             </p>
             <p className="text-muted" style={{ fontSize: '1rem', lineHeight: 1.7, marginBottom: '2.5rem' }}>
-              <strong style={{ color: 'var(--text-main)' }}>No other vendor offers this integration.</strong> Lume Ops Recon + Lume-Auto + Lume Build = a unified vehicle intelligence layer purpose-built for wholesale automotive.
+              <strong style={{ color: 'var(--text-main)' }}>No other platform offers this integration.</strong> Lume Ops Recon + Lume-Auto + Lume Build = a unified vehicle intelligence layer purpose-built for wholesale automotive.
             </p>
-            <a href="mailto:team@dwsc.io" className="btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.05rem' }}>
-              Request Engineering Brief <ArrowRight size={20} />
-            </a>
           </motion.div>
         </div>
       </section>
@@ -262,15 +259,12 @@ export default function Enterprise() {
 
           <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
             <p className="text-muted" style={{ marginBottom: '1rem', fontSize: '0.95rem' }}>
-              Zero infrastructure investment. WiFi adapters provided. Deployable in 30 days.
+              Zero infrastructure investment. Standard hardware. Deployable in 30 days.
             </p>
-            <p className="text-dim" style={{ marginBottom: '2rem', fontSize: '0.85rem' }}>
-              This platform is launching publicly. This pilot is a courtesy based on our existing relationship<br/>and because it was designed around your operational model.
+            <p className="text-muted" style={{ fontSize: '0.95rem', lineHeight: 1.7 }}>
+              The system is built. The architecture is documented. Everything above is production-ready and verifiable.
             </p>
-            <a href="mailto:team@dwsc.io" className="btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.05rem' }}>
-              Contact: team@dwsc.io <ArrowRight size={20} />
-            </a>
-            <p className="text-dim" style={{ fontSize: '0.8rem', marginTop: '1rem' }}>Jason Andrews · DarkWave Studios LLC / Lume42 Labs · US Provisional Patent 64/032,339</p>
+            <p className="text-dim" style={{ fontSize: '0.8rem', marginTop: '1.5rem' }}>DarkWave Studios LLC / Lume42 Labs · 6 U.S. Provisional Patents Pending</p>
           </div>
         </div>
       </section>
