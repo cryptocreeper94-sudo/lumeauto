@@ -78,10 +78,11 @@ export default function ArchitectureSection() {
               <tr><td>Audit trail: "the model decided"</td><td style={{ color: 'var(--accent-emerald)' }}>Audit trail: sensor → decision chain</td></tr>
               <tr><td>Requires retraining as data shifts</td><td style={{ color: 'var(--accent-emerald)' }}>Self-healing: detects & corrects own drift</td></tr>
               <tr><td>Black box scoring</td><td style={{ color: 'var(--accent-emerald)' }}>Every score → specific input + timestamp</td></tr>
+              <tr><td>Results stored in mutable databases</td><td style={{ color: 'var(--accent-emerald)' }}>Results anchored to PoA enterprise trust chain</td></tr>
             </tbody>
           </table>
           <p className="text-dim" style={{ textAlign: 'center', marginTop: '1rem', fontSize: '0.8rem' }}>
-            When a $2,500 arbitration dispute hinges on a condition report, "the AI thought" is not an acceptable answer.
+            When a $2,500 arbitration dispute hinges on a condition report, "the AI thought" is not an acceptable answer. On-chain anchoring makes the report immutable and verifiable by any party.
           </p>
         </motion.div>
       </div>

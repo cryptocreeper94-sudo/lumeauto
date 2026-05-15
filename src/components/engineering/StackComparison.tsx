@@ -33,6 +33,7 @@ export default function StackComparison() {
             { label: 'Safety', react: 'Application error boundaries', lume: 'Formal safety envelope — provable bounds' },
             { label: 'Replay', react: 'Log-based reconstruction', lume: 'Deterministic replay — bit-identical' },
             { label: 'Deployment', react: 'Render / Vercel / any PaaS', lume: 'Edge-native — runs on-device' },
+            { label: 'Trust Chain', react: 'PostgreSQL audit logs', lume: 'PoA enterprise blockchain — immutable' },
             { label: 'AI Usage', react: 'GPT-5 for voice + summaries', lume: 'GPT-5 for voice + summaries (unchanged)' },
           ].map((row, i) => (
             <motion.div key={i} {...f} transition={{ delay: i * 0.03 }} style={{ display: 'contents' }}>
