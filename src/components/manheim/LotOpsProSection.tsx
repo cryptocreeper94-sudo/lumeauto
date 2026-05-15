@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CheckCircle, MapPin, Radio, Camera, Shield, Gauge, MessageSquare, Cloud, Smartphone, Users } from 'lucide-react';
+import { MapPin, Radio, Camera, Shield, Gauge, MessageSquare, Cloud, Smartphone, Users } from 'lucide-react';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 export default function LotOpsProSection() {
