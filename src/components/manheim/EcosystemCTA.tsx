@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, ExternalLink, BookOpen, FileText, Globe, Shield } from 'lucide-react';
+import { ExternalLink, BookOpen, FileText, Globe, Shield } from 'lucide-react';
 import ROICalculator from '../ROICalculator';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
@@ -83,14 +83,14 @@ export default function EcosystemCTA() {
           <ROICalculator />
 
           <motion.div {...f} style={{ textAlign: 'center', marginTop: '4rem' }}>
-            <p className="text-muted" style={{ fontSize: '1.05rem', marginBottom: '2rem', maxWidth: '600px', margin: '0 auto 2rem' }}>
-              This platform is launching publicly. The architecture is proven. The papers are published. The patents are filed. The only question is who deploys it first.
+            <p className="text-muted" style={{ fontSize: '1.05rem', marginBottom: '1rem', maxWidth: '650px', margin: '0 auto 1rem' }}>
+              This system exists. It is production-ready. The papers are published. The patents are filed. The architecture scales to every facility in the network.
             </p>
-            <a href="mailto:team@dwsc.io" className="btn-primary" style={{ padding: '1rem 3rem', fontSize: '1.1rem', background: 'linear-gradient(135deg, var(--accent-emerald), #059669)', color: '#fff', border: 'none', borderRadius: '10px', boxShadow: '0 8px 30px rgba(16,185,129,0.3)' }}>
-              Start the Conversation <ArrowRight size={20} />
-            </a>
+            <p style={{ fontSize: '1rem', marginBottom: '2.5rem', maxWidth: '600px', margin: '0 auto 2.5rem', color: 'var(--text-main)', fontWeight: 500 }}>
+              The only question is whether it launches under the Manheim brand — or someone else's.
+            </p>
             <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '1.25rem' }}>
-              Ronald Jason Andrews · DarkWave Studios LLC / Lume42 Labs · 6 U.S. Provisional Patents Pending
+              © 2026 DarkWave Studios LLC / Lume42 Labs · 6 U.S. Provisional Patents Pending · 96 Published Papers
             </p>
           </motion.div>
         </div>

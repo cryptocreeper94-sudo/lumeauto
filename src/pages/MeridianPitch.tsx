@@ -189,17 +189,13 @@ export default function MeridianPitch() {
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(167,139,250,0.08) 0%, transparent 70%)' }} />
         <div className="container" style={{ maxWidth: '800px', textAlign: 'center', position: 'relative', zIndex: 2 }}>
           <motion.div {...fadeUp}>
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>Modernize Your EV Fleet</h2>
-            <p className="text-muted" style={{ fontSize: '1.1rem', marginBottom: '3rem', maxWidth: '600px', margin: '0 auto 3rem' }}>
-              Let's pilot the Meridian Canon architecture over your busiest EV intake lane. Stop fighting for ground space and adapters.
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>The Overhead Advantage</h2>
+            <p className="text-muted" style={{ fontSize: '1.1rem', marginBottom: '1.5rem', maxWidth: '600px', margin: '0 auto 1.5rem' }}>
+              No ground stations. No adapter hunting. No manual billing. The Meridian architecture eliminates every physical bottleneck in EV fleet charging.
             </p>
-            <a href="mailto:team@dwsc.io" className="btn-primary" style={{
-              padding: '1rem 3rem', fontSize: '1.1rem', background: 'linear-gradient(135deg, #a78bfa, #7c3aed)',
-              color: '#fff', border: 'none', borderRadius: '10px',
-              boxShadow: '0 8px 30px rgba(167,139,250,0.3)',
-            }}>
-              Discuss Phase 2 <ArrowRight size={20} />
-            </a>
+            <p style={{ fontSize: '1rem', maxWidth: '550px', margin: '0 auto', color: 'var(--text-main)', fontWeight: 500, lineHeight: 1.6 }}>
+              9 published papers. Provisional patent filed. Full deployment architecture documented. This is not a concept — it is an engineering specification ready for implementation.
+            </p>
           </motion.div>
         </div>
       </section>
