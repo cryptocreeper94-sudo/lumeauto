@@ -10,7 +10,7 @@ export default function LotOpsProSection() {
           <p style={{ color: 'var(--accent-emerald)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>The Operating System</p>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Lot Ops Pro</h2>
           <p className="text-muted" style={{ maxWidth: '680px', margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7 }}>
-            The platform that started it all. A production-ready, mobile-first autonomous lot management system — independently designed for wholesale automotive operations, currently deployed at multiple facilities. Multi-tenant by design. Every facility gets its own isolated environment, branding, and configuration from a single deployment. Drivers use their own phones. Supervisors manage from anywhere. The entire lot runs on one system — from ticket scanning to vehicle routing to performance tracking to real-time messaging.
+            The platform that started it all. A production-ready, mobile-first autonomous lot management system — independently designed for wholesale automotive operations, currently deployed at multiple facilities. Multi-tenant by design. Every facility gets its own isolated environment, branding, and configuration from a single deployment. Drivers use their own phones or a $90 provided device — no specialized hardware required. Supervisors manage from anywhere. The entire lot runs on one system — from ticket scanning to vehicle routing to performance tracking to real-time messaging.
           </p>
         </div>
 
@@ -24,7 +24,7 @@ export default function LotOpsProSection() {
             { icon: <Users size={18}/>, title: 'Role-Based Dashboards', desc: 'Ops Manager, Supervisor, Van Driver, Inventory Driver — each sees exactly what they need.', color: 'var(--accent-cyan)' },
             { icon: <MessageSquare size={18}/>, title: 'Real-Time Messaging', desc: 'Supervisor ↔ driver communication. Broadcast or individual. 2-second polling. Toast notifications.', color: '#a78bfa' },
             { icon: <Radio size={18}/>, title: 'AI Voice Assistant', desc: 'GPT-5 powered bidirectional voice. 15+ hands-free commands. Speech pattern learning.', color: '#fb923c' },
-            { icon: <Smartphone size={18}/>, title: 'Zero Hardware Cost', desc: 'BYOD model — runs on drivers\' personal phones. PWA installable. No scanners to buy or maintain.', color: 'var(--accent-emerald)' },
+            { icon: <Smartphone size={18}/>, title: 'Zero Hardware Cost', desc: 'BYOD or provide a $90 Android device. Runs as a PWA — installable, offline-capable. No scanners, no specialized equipment, no IT deployment.', color: 'var(--accent-emerald)' },
             { icon: <Cloud size={18}/>, title: 'Multi-Tenant Architecture', desc: 'Nashville. Atlanta. Any facility. Isolated data, custom branding, facility-specific configs — one codebase, unlimited sites.', color: 'var(--accent-cyan)' },
           ].map((feat, i) => (
             <motion.div key={i} {...f} transition={{ delay: i * 0.05 }}
