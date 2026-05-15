@@ -200,12 +200,32 @@ function App() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
           <ScrollToTop />
           <style>{`
-            @media (min-width: 768px) {
+            @media (min-width: 769px) {
               #desktop-nav { display: flex !important; }
               #mobile-toggle { display: none !important; }
             }
           `}</style>
-          <Navigation />
+          {window.location.hostname.includes('manheim') ? (
+            /* Minimal branded header for subdomain */
+            <nav style={{
+              position: 'fixed', top: 0, width: '100%', zIndex: 50,
+              background: 'rgba(10, 10, 12, 0.85)', backdropFilter: 'blur(16px)',
+              borderBottom: '1px solid var(--border-light)',
+            }}>
+              <div className="container flex justify-between items-center" style={{ height: '70px' }}>
+                <div className="flex items-center gap-2" style={{ fontWeight: 700, fontSize: '1.2rem', letterSpacing: '-0.03em' }}>
+                  <Activity className="text-cyan" size={24} />
+                  <span>Lume<span style={{ opacity: 0.5 }}>Auto</span></span>
+                </div>
+                <div className="flex items-center gap-4" style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
+                  <span>DarkWave Studios LLC</span>
+                  <span style={{ color: 'var(--accent-emerald)' }}>● Live</span>
+                </div>
+              </div>
+            </nav>
+          ) : (
+            <Navigation />
+          )}
           <main style={{ paddingTop: '70px', minHeight: 'calc(100vh - 200px)' }}>
             <Routes>
               <Route path="/" element={window.location.hostname.includes('manheim') ? <ManheimPitch /> : <Home />} />
@@ -227,7 +247,7 @@ function App() {
               <Route path="/engineering" element={<EngineeringBrief />} />
             </Routes>
           </main>
-          <Footer />
+          {!window.location.hostname.includes('manheim') && <Footer />}
         </motion.div>
       )}
     </Router>
