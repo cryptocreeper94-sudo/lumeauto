@@ -10,7 +10,7 @@ export default function LotOpsProSection() {
           <p style={{ color: 'var(--accent-emerald)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>The Operating System</p>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Lot Ops Pro</h2>
           <p className="text-muted" style={{ maxWidth: '680px', margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7 }}>
-            The platform they already know. A production-ready, mobile-first autonomous lot management system built from the ground up at Manheim Nashville. Lume-Auto and Meridian plug directly into this foundation.
+            The platform that started it all. A production-ready, mobile-first autonomous lot management system — built at Manheim Nashville, now expanding to Atlanta. Multi-tenant by design. Every facility gets its own isolated environment, branding, and configuration from a single deployment.
           </p>
         </div>
 
@@ -19,13 +19,13 @@ export default function LotOpsProSection() {
           {[
             { icon: <Camera size={18}/>, title: 'Autonomous OCR Scanning', desc: 'Camera-based ticket scanning — no external database needed. Three input methods. Works offline.', color: 'var(--accent-emerald)' },
             { icon: <MapPin size={18}/>, title: 'GPS Routing & Navigation', desc: 'Real-time compass guidance with distance countdown. Smart group code routing to correct lanes.', color: 'var(--accent-cyan)' },
-            { icon: <Gauge size={18}/>, title: 'Live Performance Tracking', desc: 'Moves-per-hour against 4.5 MPH quota. Real-time alerts. Daily, weekly, monthly aggregation.', color: 'var(--accent-emerald)' },
+            { icon: <Gauge size={18}/>, title: 'Live Performance Tracking', desc: 'Moves-per-hour against 4.5 MPH quota. Real-time alerts. Daily, weekly, monthly aggregation. Automated bonus estimation.', color: 'var(--accent-emerald)' },
             { icon: <Shield size={18}/>, title: 'Safety & Speed Monitoring', desc: '15/17/22 MPH tiered alerts. Incident reporting with photo capture. Weather radar with tornado alerts.', color: '#ef4444' },
             { icon: <Users size={18}/>, title: 'Role-Based Dashboards', desc: 'Ops Manager, Supervisor, Van Driver, Inventory Driver — each sees exactly what they need.', color: 'var(--accent-cyan)' },
             { icon: <MessageSquare size={18}/>, title: 'Real-Time Messaging', desc: 'Supervisor ↔ driver communication. Broadcast or individual. 2-second polling. Toast notifications.', color: '#a78bfa' },
             { icon: <Radio size={18}/>, title: 'AI Voice Assistant', desc: 'GPT-5 powered bidirectional voice. 15+ hands-free commands. Speech pattern learning.', color: '#fb923c' },
             { icon: <Smartphone size={18}/>, title: 'Zero Hardware Cost', desc: 'BYOD model — runs on drivers\' personal phones. PWA installable. No scanners to buy or maintain.', color: 'var(--accent-emerald)' },
-            { icon: <Cloud size={18}/>, title: 'Full Shift Persistence', desc: '12-hour sessions survive server restarts. PostgreSQL-backed. Complete audit trail on every move.', color: 'var(--accent-cyan)' },
+            { icon: <Cloud size={18}/>, title: 'Multi-Tenant Architecture', desc: 'Nashville. Atlanta. Any facility. Isolated data, custom branding, facility-specific configs — one codebase, unlimited sites.', color: 'var(--accent-cyan)' },
           ].map((feat, i) => (
             <motion.div key={i} {...f} transition={{ delay: i * 0.05 }}
               style={{ padding: '1.25rem', background: 'rgba(255,255,255,0.015)', border: '1px solid var(--border-light)', borderRadius: '12px', transition: 'border-color 0.3s' }}
@@ -57,17 +57,17 @@ export default function LotOpsProSection() {
             ))}
           </div>
           <p className="text-dim" style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.8rem' }}>
-            Three products. One deterministic runtime. One data layer. All auditable to the sensor level.
+            Three products. One deterministic runtime. One data layer. Nashville first. Atlanta next. Every facility after that.
           </p>
         </motion.div>
 
         {/* Stats bar */}
         <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', marginTop: '2.5rem' }}>
           {[
-            { val: '263', unit: 'acres', label: 'Facility Coverage' },
+            { val: '2', unit: '', label: 'Active Facilities' },
             { val: '20K', unit: '+', label: 'Vehicles Managed' },
             { val: '$0', unit: '', label: 'Hardware Investment' },
-            { val: '7', unit: 'mo', label: 'Development Time' },
+            { val: '300', unit: '+', label: 'Manheim Locations' },
             { val: '20+', unit: '', label: 'Production Features' },
           ].map((s, i) => (
             <motion.div key={i} {...f} transition={{ delay: 0.2 + i * 0.08 }} style={{ textAlign: 'center' }}>
