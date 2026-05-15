@@ -6,8 +6,8 @@
   --bg-panel-hover: rgba(255, 255, 255, 0.05);
   
   --text-main: #e6edf3;
-  --text-muted: rgba(230, 237, 243, 0.6);
-  --text-dim: rgba(230, 237, 243, 0.3);
+  --text-muted: rgba(230, 237, 243, 0.7);
+  --text-dim: rgba(230, 237, 243, 0.45);
   
   --accent-cyan: #06b6d4;
   --accent-cyan-glow: rgba(6, 182, 212, 0.2);
