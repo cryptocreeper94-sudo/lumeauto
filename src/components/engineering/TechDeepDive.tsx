@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Terminal, Database, Wifi, Lock, Cpu, Layers, GitBranch, Radio, Eye, Fingerprint, FileCode, Gauge } from 'lucide-react';
+import { Terminal, Database, Wifi, Lock, Cpu, GitBranch, Radio, Eye, Fingerprint, FileCode, Gauge } from 'lucide-react';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 export default function TechDeepDive() {
