@@ -166,7 +166,7 @@ export default function ImplementationPath() {
         <motion.div {...fadeIn} transition={{ delay: 0.5 }} className="panel" style={{ padding: '3rem', textAlign: 'center', borderColor: 'rgba(16,185,129,0.25)', background: 'linear-gradient(180deg, rgba(16,185,129,0.05) 0%, rgba(16,185,129,0.01) 100%)', boxShadow: '0 10px 40px rgba(16,185,129,0.05)' }}>
           <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: accent }}>Ready When Manheim Is</h3>
           <p className="text-muted" style={{ maxWidth: '700px', margin: '0 auto', fontSize: '1rem', lineHeight: 1.7, marginBottom: '1.5rem' }}>
-            The infrastructure is built. The hardware is manufactured. The ledger is live. The organisms are running. This is not a proposal for future development — it is a deployment schedule for systems that already exist.
+            The infrastructure is built. The ledger is live. The governance wrapper is deployed. The organisms are running. The diagnostic software is complete. This is not a proposal for future development — it is a deployment schedule for a pilot that validates the operational layer at a live facility.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
             <a href="/whitepaper" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', background: accent, color: '#0a0a0c', borderRadius: '10px', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none', transition: 'transform 0.2s' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'}>

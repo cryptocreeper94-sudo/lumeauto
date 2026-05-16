@@ -89,7 +89,7 @@ export default function EcosystemCTA() {
 
           <motion.div {...f} style={{ textAlign: 'center', marginTop: '4rem' }}>
             <p className="text-muted" style={{ fontSize: '1.05rem', maxWidth: '600px', margin: '0 auto', lineHeight: 1.7 }}>
-              The system is built. The research is published. The patents are filed. Everything documented above is production-ready and verifiable.
+              The system is built. The research is published. The patents are filed. The governance layer and ledger are deployed. The operational platform is ready for pilot validation.
             </p>
             <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '2rem' }}>
               © 2026 DarkWave Studios LLC / Lume42 Labs · 6 U.S. Provisional Patents Pending · Published Research on Zenodo

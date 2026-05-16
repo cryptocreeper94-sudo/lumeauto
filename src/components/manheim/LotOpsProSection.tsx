@@ -10,7 +10,7 @@ export default function LotOpsProSection() {
           <p style={{ color: 'var(--accent-emerald)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>The Operating System</p>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Lot Ops Pro</h2>
           <p className="text-muted" style={{ maxWidth: '680px', margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7 }}>
-            The platform that started it all. A production-ready, mobile-first autonomous lot management system — independently designed for wholesale automotive operations and engineered for pilot-scale deployment. Multi-tenant by design. Every facility gets its own isolated environment, branding, and configuration from a single deployment. Drivers use their own phones or a low-cost provided device — no specialized hardware required. Supervisors manage from anywhere. The entire lot runs on one system — from ticket scanning to vehicle routing to performance tracking to real-time messaging.
+            The platform that started it all. A mobile-first autonomous lot management system — independently designed for wholesale automotive operations and engineered for pilot-scale deployment. The software is complete and ready for field validation. Multi-tenant by design. Every facility gets its own isolated environment, branding, and configuration from a single deployment. Drivers use their own phones or a low-cost provided device — no specialized hardware required. Supervisors manage from anywhere. The entire lot runs on one system — from ticket scanning to vehicle routing to performance tracking to real-time messaging.
           </p>
         </div>
 

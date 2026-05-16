@@ -213,7 +213,7 @@ export default function Whitepaper() {
           {/* 6. Lot Ops Pro */}
           <WpSection num={6} title="Lot Ops Pro — Operational Platform">
             <p>
-              Lot Ops Pro is the real-time operational platform that manages the physical side of Manheim's business. It is a production-ready, mobile-first autonomous lot management system — multi-tenant by design, offline-capable, and deployable on commodity hardware.
+              Lot Ops Pro is the real-time operational platform that manages the physical side of Manheim's business. It is a mobile-first autonomous lot management system — multi-tenant by design, offline-capable, and deployable on commodity hardware. The software is complete and ready for field validation at a pilot facility.
             </p>
             <h4>Core Capabilities</h4>
             <ul>
@@ -398,7 +398,7 @@ export default function Whitepaper() {
               Meridian is not a separate system. It runs on the same Lume runtime, uses the same 4/42 organism architecture, is governed by the same LUME-V wrapper, and anchors its records to the same CAL ledger. Energy routing is deterministic. Billing is cryptographically verified through the Trust Layer. Lot Ops Pro coordinates charging schedules with vehicle movement.
             </p>
             <p>
-              The Meridian architecture is fully documented in published research (DOI: 10.5281/zenodo.20028362) and covered by US Provisional Patent 64/056,378. Meridian is the next deployment phase — all other platform components described in this document are built, tested, and production-ready today.
+              The Meridian architecture is fully documented in published research (DOI: 10.5281/zenodo.20028362) and covered by US Provisional Patent 64/056,378. Meridian is the next deployment phase — the governance layer, the ledger, the trust layer, the runtime, and the diagnostic software are built and operational today.
             </p>
           </WpSection>
 
@@ -477,7 +477,7 @@ export default function Whitepaper() {
               DarkWave Studios LLC is the research and engineering organization behind the Lume ecosystem. Founded on the principle that enterprise infrastructure should be deterministic, auditable, and mathematically provable, DarkWave develops the languages, runtimes, governance systems, and hardware that make this vision operational.
             </p>
             <p>
-              The technologies described in this document are not concepts or proposals. They are built, tested, and deployed systems — the hardware is manufactured, the ledger is live, the organisms are running, and the platform is production-ready.
+              The technologies described in this document are not concepts or proposals. They are built and tested systems — the ledger is live, the governance wrapper is deployed, the organisms are running, and the diagnostic software is complete. Lot Ops Pro and OBD-II dongle field connectivity are ready for pilot validation.
             </p>
             <div style={{ marginTop: '2rem', padding: '1.5rem', border: '1px solid var(--border-light)', borderRadius: '8px', textAlign: 'center' }}>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-dim)', margin: 0 }}>
