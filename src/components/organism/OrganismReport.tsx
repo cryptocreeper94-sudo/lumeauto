@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, AlertTriangle, XCircle, ArrowLeft, Activity, Trash2, List, Hash, Clock, AlertOctagon } from 'lucide-react';
+import { CheckCircle, AlertTriangle, XCircle, ArrowLeft, Activity, Trash2, List, Hash, Clock, AlertOctagon, Lock } from 'lucide-react';
 import { generateConditionReport } from '../../telemetry/SimulatedEngine';
 import { clearDTCs, readStoredDTCs, readPendingDTCs, readFreezeFrame, readVIN, type FreezeFrameData } from '../../telemetry/BLEConnector';
+import { anchorReport, type AnchorResult } from '../../telemetry/AnchorService';
 
 const STATUS_ICONS: Record<string, React.ReactNode> = {
   ok: <CheckCircle size={14} style={{ color: 'var(--accent-emerald)', flexShrink: 0 }} />,
@@ -27,6 +28,8 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
   const [pendingDTCs, setPendingDTCs] = useState<string[]>([]);
   const [freezeFrame, setFreezeFrame] = useState<FreezeFrameData | null>(null);
   const [ecuVIN, setEcuVIN] = useState<string>('');
+  const [anchor, setAnchor] = useState<AnchorResult | null>(null);
+  const [anchoring, setAnchoring] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setReport(generateConditionReport()), 2000);
@@ -45,6 +48,12 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
       setEcuVIN(vin);
       setPendingDTCs(pending);
       setFreezeFrame(ff);
+
+      // Anchor to ledger
+      setAnchoring(true);
+      const result = await anchorReport(report, { vin: vin || undefined });
+      setAnchor(result);
+      setAnchoring(false);
     })();
   }, [report]);
 
@@ -304,6 +313,58 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
             42 nodes scanned · 4 primitives · Zero AI calls<br />
             US Provisional Patent 64/032,339
           </p>
+        </div>
+
+        {/* Cryptographic Anchor */}
+        <div style={{
+          background: anchor?.status === 'anchored'
+            ? 'rgba(16,185,129,0.04)' : 'rgba(6,182,212,0.04)',
+          borderRadius: '12px', padding: '16px', marginTop: '12px',
+          border: `1px solid ${anchor?.status === 'anchored' ? 'rgba(16,185,129,0.2)' : 'rgba(6,182,212,0.15)'}`,
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+            <Lock size={14} style={{ color: anchor?.status === 'anchored' ? 'var(--accent-emerald)' : 'var(--accent-cyan)' }} />
+            <span style={{
+              fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em',
+              color: anchor?.status === 'anchored' ? 'var(--accent-emerald)' : 'var(--accent-cyan)',
+            }}>
+              {anchoring ? 'ANCHORING TO LEDGER...' :
+               anchor?.status === 'anchored' ? `ANCHORED TO ${anchor.anchoredTo}` :
+               anchor?.status === 'pending' ? 'ANCHOR PENDING' :
+               anchor ? 'HASH COMPUTED · LOCAL' : 'COMPUTING HASH...'}
+            </span>
+          </div>
+
+          {anchor && (
+            <>
+              {/* Hash */}
+              <div style={{ marginBottom: '8px' }}>
+                <p style={{ fontSize: '0.55rem', color: 'var(--text-dim)', marginBottom: '4px', letterSpacing: '0.05em' }}>SHA-256 FINGERPRINT</p>
+                <p style={{
+                  fontSize: '0.6rem', fontFamily: 'var(--font-mono)', color: 'var(--accent-cyan)',
+                  wordBreak: 'break-all', lineHeight: 1.5, background: 'rgba(0,0,0,0.3)',
+                  padding: '8px 10px', borderRadius: '6px',
+                }}>
+                  {anchor.hash}
+                </p>
+              </div>
+
+              {/* Certificate ID */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.55rem', color: 'var(--text-dim)' }}>
+                <span>Certificate: <span style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{anchor.certificateId.slice(0, 8)}...{anchor.certificateId.slice(-4)}</span></span>
+                <span>{anchor.timestamp.slice(0, 19).replace('T', ' ')}</span>
+              </div>
+
+              {/* Verification note */}
+              <p style={{ fontSize: '0.5rem', color: 'var(--text-dim)', marginTop: '8px', textAlign: 'center' }}>
+                {anchor.anchoredTo === 'CAL'
+                  ? 'This report is sealed on the Cox Automotive Ledger. Any modification to the scan data will produce a different hash.'
+                  : anchor.anchoredTo === 'TrustLayer'
+                  ? 'This report is publicly verifiable via the Trust Layer. Share the certificate ID for third-party verification.'
+                  : 'Hash computed locally. Will be anchored to the ledger when network connectivity is available.'}
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>
