@@ -1,13 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Zap, Activity, Cpu } from 'lucide-react';
+import { Shield, Activity, Cpu } from 'lucide-react';
 
 export default function ManheimTabs() {
   const { pathname } = useLocation();
   const isSubdomain = window.location.hostname.includes('manheim');
   const tabs = [
-    { path: isSubdomain ? '/' : '/manheim', label: 'OBD-II', fullLabel: 'Phase 1 · OBD-II Intelligence', icon: <Activity size={14} />, color: 'var(--accent-emerald)' },
-    { path: isSubdomain ? '/meridian' : '/manheim-meridian', label: 'Meridian', fullLabel: 'Phase 2 · Meridian Energy', icon: <Zap size={14} />, color: '#a78bfa' },
-    { path: isSubdomain ? '/engineering' : '/manheim-engineering', label: 'Engineering', fullLabel: 'Engineering Brief', icon: <Cpu size={14} />, color: 'var(--accent-cyan)' },
+    { path: isSubdomain ? '/' : '/manheim', label: 'Platform', fullLabel: 'Platform Overview', icon: <Shield size={14} />, color: 'var(--accent-cyan)' },
+    { path: isSubdomain ? '/meridian' : '/manheim-meridian', label: 'Meridian', fullLabel: 'Meridian Energy', icon: <Activity size={14} />, color: '#a78bfa' },
+    { path: isSubdomain ? '/engineering' : '/manheim-engineering', label: 'Engineering', fullLabel: 'Engineering Brief', icon: <Cpu size={14} />, color: 'var(--accent-emerald)' },
   ];
 
   return (
@@ -46,7 +46,8 @@ export default function ManheimTabs() {
           .tab-full { display: none !important; }
           .tab-short { display: inline !important; }
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 }

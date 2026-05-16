@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Activity, Menu, X } from 'lucide-react';
+import { Activity, Menu, X, Shield } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -213,13 +213,17 @@ function App() {
               borderBottom: '1px solid var(--border-light)',
             }}>
               <div className="container flex justify-between items-center" style={{ height: '70px' }}>
-                <div className="flex items-center gap-2" style={{ fontWeight: 700, fontSize: '1.2rem', letterSpacing: '-0.03em' }}>
-                  <Activity className="text-cyan" size={24} />
-                  <span>Lume<span style={{ opacity: 0.5 }}>Auto</span></span>
+                <div className="flex items-center gap-3">
+                  <div style={{ width: 36, height: 36, background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Shield size={20} color="#0a0a0c" />
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: 700, fontSize: '1.05rem', letterSpacing: '-0.02em', lineHeight: 1.2 }}>Manheim Vehicle Intelligence</div>
+                    <div style={{ fontSize: '0.6rem', color: 'var(--text-dim)', letterSpacing: '0.06em' }}>Powered by DarkWave Studios LLC</div>
+                  </div>
                 </div>
                 <div className="flex items-center gap-4" style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
-                  <span>DarkWave Studios LLC</span>
-                  <span style={{ color: 'var(--accent-emerald)' }}>● Live</span>
+                  <span style={{ color: 'var(--accent-emerald)' }}>● System Active</span>
                 </div>
               </div>
             </nav>
