@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { Activity } from 'lucide-react';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 const screens = [
@@ -28,6 +29,16 @@ export default function AppShowcase() {
           <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto', lineHeight: 1.7 }}>
             Four primary interfaces. Every screen is a window into the deterministic organism — not a static dashboard, but a live view of a self-governing runtime.
           </p>
+          <a href="/app" style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            marginTop: '1.25rem', padding: '12px 28px',
+            background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)',
+            color: 'var(--accent-cyan)', borderRadius: '30px',
+            fontSize: '0.85rem', fontWeight: 700, textDecoration: 'none',
+            letterSpacing: '0.05em', transition: 'all 0.2s',
+          }}>
+            <Activity size={16} /> Try It Live — Demo Mode Available
+          </a>
         </div>
 
         {/* Tab selector — short labels on mobile */}
