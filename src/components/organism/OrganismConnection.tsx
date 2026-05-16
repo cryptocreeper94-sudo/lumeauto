@@ -226,9 +226,12 @@ export default function OrganismConnection({ onConnect }: { onConnect: () => voi
             <p>• Live telemetry (RPM, speed, MPG, 42 signals)<br/>
                • Read stored diagnostic trouble codes<br/>
                • Clear codes + reset Check Engine Light<br/>
+               • Pending DTCs — catch faults before MIL<br/>
+               • Freeze frame — engine state at fault time<br/>
+               • VIN auto-read directly from ECU<br/>
                • 8 readiness monitors for inspections<br/>
-               • Deterministic condition reports<br/>
-               • Freeze frame data at fault time</p>
+               • CSV telemetry export for fleet analysis<br/>
+               • Deterministic condition reports</p>
           </InfoBubble>
         </div>
 

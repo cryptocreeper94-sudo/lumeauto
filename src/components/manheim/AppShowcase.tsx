@@ -12,8 +12,8 @@ const screens = [
 ];
 
 const features: Record<number, string[]> = {
-  0: ['Live RPM, MPH, MPG telemetry', 'Driver performance scoring', 'Organism throughput monitoring', 'Dead-battery and cold-start detection', '60% of condition report auto-generated', 'One-tap full report generation'],
-  1: ['Read stored DTCs with severity codes', 'Clear codes + reset Check Engine Light', 'Freeze frame data at fault time', '8 readiness monitors — pass/fail', 'Catalyst efficiency + O2 sensor health', 'Fuel trims, battery, engine hours', 'Pending fault detection before lane'],
+  0: ['Live RPM, MPH, MPG telemetry', 'Driver performance scoring', 'Organism throughput monitoring', 'CSV telemetry export for analysis', '60% of condition report auto-generated', 'One-tap full report generation'],
+  1: ['Read stored DTCs with severity codes', 'Clear codes + reset Check Engine Light', 'Freeze frame data at fault time', 'Pending DTCs — catch faults before MIL', 'VIN auto-read directly from ECU', '8 readiness monitors — pass/fail', 'Catalyst efficiency + O2 sensor health'],
   2: ['42-node visualization in real-time', '4-layer concentric topology', 'Drift detection + auto-correction', 'Self-healing runtime monitoring', 'Consensus percentage tracking'],
   3: ['SHA-256 cryptographic hash', 'Per-system health percentages', 'VIN read directly from ECU', 'Deterministic replay for arbitration', 'Tamper-proof custody chain record', 'Publicly verifiable without login'],
 };
