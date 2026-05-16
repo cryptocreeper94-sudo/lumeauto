@@ -4,6 +4,7 @@ import LumeVSection from '../components/manheim/LumeVSection';
 import LotOpsProSection from '../components/manheim/LotOpsProSection';
 import LumeLanguageSection from '../components/manheim/LumeLanguageSection';
 import ArchitectureSection from '../components/manheim/ArchitectureSection';
+import CoxLedgerSection from '../components/manheim/CoxLedgerSection';
 import AppShowcase from '../components/manheim/AppShowcase';
 import HardwareSection from '../components/manheim/HardwareSection';
 import EcosystemCTA from '../components/manheim/EcosystemCTA';
@@ -17,6 +18,7 @@ export default function ManheimPitch() {
       <LotOpsProSection />
       <LumeLanguageSection />
       <ArchitectureSection />
+      <CoxLedgerSection />
       <AppShowcase />
       <HardwareSection />
       <EcosystemCTA />
