@@ -112,7 +112,7 @@ export default function PlainEnglish() {
                 It's an infrastructure layer that sits on top of what Manheim already runs. It doesn't replace anything. 
                 It adds three things your current systems don't have: vehicle condition reports that can't be argued with, 
                 a custody record that can't be tampered with, and an operational platform that replaces clipboards and radios 
-                with phones your drivers already own. Every piece works on its own. You don't have to buy the whole thing to get value from one part.
+                with phones your drivers already own or an inexpensive browser-based device provided by Manheim. Every piece works on its own. You don't have to buy the whole thing to get value from one part.
               </p>
             </div>
 
