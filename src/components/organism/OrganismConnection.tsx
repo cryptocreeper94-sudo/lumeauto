@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Bluetooth, Wifi, Zap, ChevronRight, AlertTriangle } from 'lucide-react';
 import { connectBLE, type BLEConnection, enterBLEDemoMode, isBLESupported } from '../../telemetry/BLEConnector';
-import { probeForAdapter, type WiFiConnection, enterDemoMode as enterWiFiDemo } from '../../telemetry/WiFiConnector';
+import { probeForAdapter, type WiFiConnection } from '../../telemetry/WiFiConnector';
 
 type ConnectionMode = 'idle' | 'ble' | 'wifi';
 
