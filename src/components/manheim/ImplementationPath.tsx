@@ -129,33 +129,30 @@ export default function ImplementationPath() {
         {/* Modular Adoption */}
         <motion.div {...fadeIn} transition={{ delay: 0.5 }} style={{ marginBottom: '3rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-            <h3 style={{ fontSize: '1.3rem', marginBottom: '0.5rem' }}>Modular by Design</h3>
+            <h3 style={{ fontSize: '1.3rem', marginBottom: '0.5rem' }}>Modular Architecture</h3>
             <p className="text-muted" style={{ maxWidth: '700px', margin: '0 auto', fontSize: '0.95rem', lineHeight: 1.6 }}>
-              This is the full-picture implementation vision — but every component is independently deployable. Manheim can adopt the pieces that solve today's problems and expand as needs evolve.
+              The platform is designed so that each layer operates independently. Manheim can begin with the components that address immediate operational needs and integrate additional layers over time — without rearchitecting what's already running.
             </p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
             {[
-              { title: 'LUME-Auto', desc: 'OBD-II diagnostics and condition reporting — standalone hardware + software.', color: 'var(--accent-cyan)', standalone: true },
-              { title: 'Lot Ops Pro', desc: 'Operational workforce platform — custody tracking, routing, messaging.', color: '#a78bfa', standalone: true },
-              { title: 'LUME-V', desc: 'Deterministic governance wrapper — licensable across any legacy enterprise stack.', color: 'var(--accent-emerald)', standalone: true },
-              { title: 'CAL + Trust Layer', desc: 'Private ledger + commercial verification — the cryptographic audit fabric.', color: '#38bdf8', standalone: true },
-              { title: 'Full Stack', desc: 'Maximum value — every component amplifies the others when deployed together.', color: '#fb923c', standalone: false },
+              { title: 'LUME-Auto', desc: 'OBD-II diagnostics and condition reporting — standalone hardware and software.', color: 'var(--accent-cyan)', full: false },
+              { title: 'Lot Ops Pro', desc: 'Operational workforce platform — custody tracking, routing, messaging.', color: '#a78bfa', full: false },
+              { title: 'LUME-V', desc: 'Deterministic governance wrapper — operates across any legacy enterprise stack.', color: 'var(--accent-emerald)', full: false },
+              { title: 'CAL + Trust Layer', desc: 'Private ledger and commercial verification — the cryptographic audit fabric.', color: '#38bdf8', full: false },
+              { title: 'Unified Platform', desc: 'When deployed together, every component amplifies the others — the whole exceeds the sum of its parts.', color: '#fb923c', full: true },
             ].map((mod, i) => (
               <motion.div key={i} {...fadeIn} transition={{ delay: 0.55 + i * 0.06 }}
                 style={{
                   padding: '1.25rem', borderRadius: '12px',
-                  background: mod.standalone ? 'rgba(255,255,255,0.02)' : `linear-gradient(135deg, rgba(251,146,60,0.08) 0%, rgba(251,146,60,0.02) 100%)`,
-                  border: `1px solid ${mod.standalone ? 'var(--border-light)' : 'rgba(251,146,60,0.25)'}`,
+                  background: mod.full ? `linear-gradient(135deg, rgba(251,146,60,0.08) 0%, rgba(251,146,60,0.02) 100%)` : 'rgba(255,255,255,0.02)',
+                  border: `1px solid ${mod.full ? 'rgba(251,146,60,0.25)' : 'var(--border-light)'}`,
                 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.5rem' }}>
                   <div style={{ width: 8, height: 8, borderRadius: '50%', background: mod.color }} />
                   <h4 style={{ fontSize: '0.95rem', color: mod.color }}>{mod.title}</h4>
                 </div>
-                <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5, marginBottom: '0.5rem' }}>{mod.desc}</p>
-                <div style={{ fontSize: '0.65rem', color: mod.standalone ? 'var(--text-dim)' : '#fb923c', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' as const }}>
-                  {mod.standalone ? '● Available Independently' : '★ Maximum Enterprise Value'}
-                </div>
+                <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5 }}>{mod.desc}</p>
               </motion.div>
             ))}
           </div>
