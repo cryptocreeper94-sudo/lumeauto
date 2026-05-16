@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, Zap, Droplets, ShieldCheck, ActivitySquare, FileText } from 'lucide-react';
 import { type TelemetrySnapshot } from '../../telemetry/SimulatedEngine';
-import { startWiFiTelemetryLoop, getWiFiStatus } from '../../telemetry/WiFiConnector';
+import { startBLETelemetryLoop, getBLEStatus } from '../../telemetry/BLEConnector';
 
 function DataRow({ label, value, color }: { label: string; value: string; color?: string }) {
   return (
@@ -17,7 +17,7 @@ export default function OrganismDashboard({ onReport }: { onReport?: () => void 
   const [data, setData] = useState<TelemetrySnapshot | null>(null);
 
   useEffect(() => {
-    const stop = startWiFiTelemetryLoop((snapshot) => setData(snapshot), 150);
+    const stop = startBLETelemetryLoop((snapshot) => setData(snapshot), 150);
     return () => stop();
   }, []);
 
@@ -55,7 +55,7 @@ export default function OrganismDashboard({ onReport }: { onReport?: () => void 
               style={{ width: 8, height: 8, borderRadius: 4, background: 'var(--accent-emerald)' }}
             />
             <span style={{ color: 'var(--accent-emerald)', fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.05em' }}>
-              {getWiFiStatus().isSimulated ? 'DEMO MODE' : 'WIFI CONNECTED'}
+              {getBLEStatus().isSimulated ? 'DEMO MODE' : 'BLE CONNECTED'}
             </span>
           </div>
         </div>
