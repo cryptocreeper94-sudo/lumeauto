@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CheckCircle, Zap, Shield, Server } from 'lucide-react';
+import { CheckCircle, Zap, Shield, Server, Download } from 'lucide-react';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 export default function HardwareSection() {
@@ -42,6 +42,18 @@ export default function HardwareSection() {
             </div>
           </motion.div>
         </div>
+
+        <motion.div {...f} style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <a href="/download" style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            padding: '12px 28px', borderRadius: '30px',
+            background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)',
+            color: 'var(--accent-cyan)', fontSize: '0.85rem', fontWeight: 700,
+            textDecoration: 'none', letterSpacing: '0.05em', transition: 'all 0.2s',
+          }}>
+            <Download size={16} /> Download Native App for WiFi Testing
+          </a>
+        </motion.div>
 
         <motion.p {...f} className="text-dim" style={{ textAlign: 'center', marginTop: '2rem', fontSize: '0.85rem', maxWidth: '650px', margin: '2rem auto 0' }}>
           The software runs on commodity hardware today. The Lume Dongle is the branded product built for the wider market — dealerships, independent shops, fleet operators. When you own the firmware, the runtime, and the governance engine, you own the full stack from silicon to organism.

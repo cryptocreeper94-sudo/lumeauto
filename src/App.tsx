@@ -20,6 +20,7 @@ import MeridianPitch from './pages/MeridianPitch';
 import EngineeringBrief from './pages/EngineeringBrief';
 import Whitepaper from './pages/Whitepaper';
 import OrganismApp from './pages/OrganismApp';
+import DownloadPage from './pages/DownloadPage';
 import Footer from './components/Footer';
 import AuthGate from './components/AuthGate';
 import { firebaseSignOut } from './lib/firebase';
@@ -266,6 +267,7 @@ function App() {
                   <Route path="/manheim-meridian" element={<MeridianPitch />} />
                   <Route path="/manheim-engineering" element={<EngineeringBrief />} />
                   <Route path="/app" element={<OrganismApp />} />
+                  <Route path="/download" element={<DownloadPage />} />
                 </Routes>
               </main>
             </AuthGate>
