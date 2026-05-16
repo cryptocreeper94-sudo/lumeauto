@@ -169,14 +169,7 @@ export default function LumeLanguageSection() {
           ))}
         </div>
 
-        {/* Native build callout */}
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          style={{ ...glassCard, padding: '2rem', borderColor: 'rgba(167,139,250,0.2)', textAlign: 'center', background: 'rgba(167,139,250,0.03)', backdropFilter: 'blur(20px)' }}>
-          <h4 style={{ fontSize: '1.2rem', marginBottom: '0.75rem', color: '#c4b5fd' }}>A Full Native Lume Build Is Waiting in the Wings</h4>
-          <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto', lineHeight: 1.7 }}>
-            The current deployment runs on React and commodity hardware to prove the architecture with zero risk. Behind it sits a fully native Lume runtime — purpose-built from the compiler up — ready for production deployment. The React layer is the proof. The native layer is the product.
-          </p>
-        </motion.div>
+
 
       </div>
 
