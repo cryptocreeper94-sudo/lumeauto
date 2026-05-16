@@ -19,10 +19,10 @@ export default function LumeVSection() {
               <Network size={14} style={{ marginRight: 6 }} /> The Modernization Engine
             </div>
             <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '1.25rem', lineHeight: 1.1 }}>
-              LUME-V: <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(to right, #38bdf8, #a78bfa)' }}>The Deterministic Wrapper</span>
+              LUME-V: <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(to right, #38bdf8, #a78bfa)' }}>Deterministic Governance Wrapper</span>
             </h2>
             <p className="text-muted" style={{ maxWidth: '780px', margin: '0 auto', fontSize: '1.15rem', lineHeight: 1.7 }}>
-              The modernization solution Manheim has been unable to achieve for 25 years. LUME-V sits on top of legacy systems, unifying logic and governing workflows without requiring a rip-and-replace migration.
+              The modernization solution Manheim has been unable to achieve for 25 years. LUME-V wraps your entire legacy stack in deterministic governance—unifying logic and orchestrating workflows without requiring a multi-million dollar rip-and-replace migration.
             </p>
           </motion.div>
         </div>
@@ -59,10 +59,10 @@ export default function LumeVSection() {
             </p>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {[
-                { icon: <Database size={18} />, text: 'Sits directly on top of legacy systems' },
-                { icon: <Workflow size={18} />, text: 'Unifies logic and orchestrates data' },
-                { icon: <ShieldCheck size={18} />, text: 'Modernizes behavior with provable security' },
-                { icon: <Activity size={18} />, text: 'Requires zero downtime and zero migration' }
+                { icon: <Database size={18} />, text: 'Wraps your legacy stack in deterministic governance' },
+                { icon: <Workflow size={18} />, text: 'Unifies fragmented logic into a single source of truth' },
+                { icon: <ShieldCheck size={18} />, text: 'Modernizes behavior without altering source code' },
+                { icon: <Activity size={18} />, text: 'Requires zero downtime and zero database migration' }
               ].map((item, i) => (
                 <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '14px', fontSize: '1rem', color: 'var(--text-main)' }}>
                   <div style={{ color: 'var(--accent-cyan)', padding: '6px', background: 'rgba(56,189,248,0.1)', borderRadius: '8px', display: 'flex' }}>
