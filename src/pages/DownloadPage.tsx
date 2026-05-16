@@ -1,80 +1,26 @@
 import { motion } from 'framer-motion';
 import { Smartphone, Download, Bluetooth, Wifi, Shield, Activity, ArrowLeft, QrCode } from 'lucide-react';
 import { useEffect, useRef } from 'react';
+import QRCodeLib from 'qrcode';
 
-// Lightweight QR code generator — no dependencies
-// Based on nayuki.io/page/qr-code-generator-library (simplified)
-function generateQRDataURL(text: string): string {
-  // Use a canvas-based approach with the native QR encoding
-  // For simplicity, encode the URL as a simple pixel grid
-  const canvas = document.createElement('canvas');
-  const size = 256;
-  canvas.width = size;
-  canvas.height = size;
-  const ctx = canvas.getContext('2d')!;
-
-  // Background
-  ctx.fillStyle = '#0a0a0c';
-  ctx.fillRect(0, 0, size, size);
-
-  // Simple data matrix encoding (visual representation)
-  // In production, use a real QR lib — for now this creates a recognizable pattern
-  const data = text.split('').map(c => c.charCodeAt(0));
-  const gridSize = 25;
-  const cellSize = Math.floor((size - 20) / gridSize);
-  const offset = Math.floor((size - cellSize * gridSize) / 2);
-
-  // Timing patterns
-  ctx.fillStyle = '#06b6d4';
-
-  // Position detection patterns (3 corners)
-  const drawFinder = (x: number, y: number) => {
-    for (let i = 0; i < 7; i++) {
-      for (let j = 0; j < 7; j++) {
-        const isOuter = i === 0 || i === 6 || j === 0 || j === 6;
-        const isInner = i >= 2 && i <= 4 && j >= 2 && j <= 4;
-        if (isOuter || isInner) {
-          ctx.fillRect(offset + (x + j) * cellSize, offset + (y + i) * cellSize, cellSize, cellSize);
-        }
-      }
-    }
-  };
-
-  drawFinder(0, 0);
-  drawFinder(gridSize - 7, 0);
-  drawFinder(0, gridSize - 7);
-
-  // Data modules
-  let bitIndex = 0;
-  for (let row = 0; row < gridSize; row++) {
-    for (let col = 0; col < gridSize; col++) {
-      // Skip finder patterns
-      if ((row < 8 && col < 8) || (row < 8 && col >= gridSize - 8) || (row >= gridSize - 8 && col < 8)) continue;
-
-      const dataIdx = Math.floor(bitIndex / 8) % data.length;
-      const bit = (data[dataIdx] >> (7 - (bitIndex % 8))) & 1;
-      const pseudoRandom = ((row * 31 + col * 17 + data[dataIdx % data.length]) % 3) === 0;
-
-      if (bit || pseudoRandom) {
-        ctx.fillRect(offset + col * cellSize, offset + row * cellSize, cellSize, cellSize);
-      }
-      bitIndex++;
-    }
-  }
-
-  return canvas.toDataURL();
-}
-
-// The actual download URL — will be updated when APK is available
+// The actual download URL
 const APK_URL = 'https://expo.dev/accounts/cryptocreeper/projects/lume-auto/builds/54a610cc-9b14-4fcb-ba2d-a4abfac6099a';
 const DOWNLOAD_URL = 'https://lumeauto.tech/download';
 
 export default function DownloadPage() {
-  const qrRef = useRef<HTMLImageElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (qrRef.current) {
-      qrRef.current.src = generateQRDataURL(DOWNLOAD_URL);
+    if (canvasRef.current) {
+      QRCodeLib.toCanvas(canvasRef.current, DOWNLOAD_URL, {
+        width: 200,
+        margin: 2,
+        color: {
+          dark: '#06b6d4',
+          light: '#0a0a0c',
+        },
+        errorCorrectionLevel: 'M',
+      });
     }
   }, []);
 
@@ -119,7 +65,7 @@ export default function DownloadPage() {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               background: '#0a0a0c',
             }}>
-              <img ref={qrRef} alt="QR Code" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              <canvas ref={canvasRef} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </div>
             <p style={{ color: 'var(--text-dim)', fontSize: '0.65rem', marginTop: '1rem' }}>lumeauto.tech/download</p>
           </motion.div>
