@@ -293,6 +293,8 @@ function App() {
                   <Route path="/manheim-engineering" element={<EngineeringBrief />} />
                   <Route path="/meridian" element={<MeridianPitch />} />
                   <Route path="/engineering" element={<EngineeringBrief />} />
+                  <Route path="/app" element={<OrganismApp />} />
+                  <Route path="/download" element={<DownloadPage />} />
                 </Routes>
               </main>
               <Footer />
