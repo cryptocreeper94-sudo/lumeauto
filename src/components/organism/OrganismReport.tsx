@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, AlertTriangle, XCircle, ArrowLeft, Activity, Trash2, List } from 'lucide-react';
+import { CheckCircle, AlertTriangle, XCircle, ArrowLeft, Activity, Trash2, List, Hash, Clock, AlertOctagon } from 'lucide-react';
 import { generateConditionReport } from '../../telemetry/SimulatedEngine';
-import { clearDTCs, readStoredDTCs } from '../../telemetry/BLEConnector';
+import { clearDTCs, readStoredDTCs, readPendingDTCs, readFreezeFrame, readVIN, type FreezeFrameData } from '../../telemetry/BLEConnector';
 
 const STATUS_ICONS: Record<string, React.ReactNode> = {
   ok: <CheckCircle size={14} style={{ color: 'var(--accent-emerald)', flexShrink: 0 }} />,
@@ -24,11 +24,29 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
   const [clearResult, setClearResult] = useState<string | null>(null);
   const [dtcList, setDtcList] = useState<string[]>([]);
   const [loadingDTCs, setLoadingDTCs] = useState(false);
+  const [pendingDTCs, setPendingDTCs] = useState<string[]>([]);
+  const [freezeFrame, setFreezeFrame] = useState<FreezeFrameData | null>(null);
+  const [ecuVIN, setEcuVIN] = useState<string>('');
 
   useEffect(() => {
     const timer = setTimeout(() => setReport(generateConditionReport()), 2000);
     return () => clearTimeout(timer);
   }, []);
+
+  // Auto-read VIN, pending DTCs, and freeze frame when report loads
+  useEffect(() => {
+    if (!report) return;
+    (async () => {
+      const [vin, pending, ff] = await Promise.all([
+        readVIN(),
+        readPendingDTCs(),
+        readFreezeFrame(),
+      ]);
+      setEcuVIN(vin);
+      setPendingDTCs(pending);
+      setFreezeFrame(ff);
+    })();
+  }, [report]);
 
   if (!report) {
     return (
@@ -70,7 +88,13 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
           border: '1px solid var(--border-light)', marginBottom: '16px',
         }}>
           <p style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '4px' }}>{report.vehicle}</p>
-          <p style={{ color: 'var(--text-dim)', fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>{report.vin}</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Hash size={12} style={{ color: 'var(--accent-cyan)' }} />
+            <p style={{ color: 'var(--text-dim)', fontSize: '0.75rem', fontFamily: 'var(--font-mono)', margin: 0 }}>
+              {ecuVIN || report.vin}
+              {ecuVIN && <span style={{ color: 'var(--accent-emerald)', fontSize: '0.6rem', marginLeft: '8px' }}>✓ ECU verified</span>}
+            </p>
+          </div>
         </div>
 
         {/* Overall Status */}
@@ -209,6 +233,62 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
           }}>
             <p style={{ color: 'var(--accent-emerald)', fontSize: '0.75rem', fontWeight: 700 }}>
               ✓ {clearResult}
+            </p>
+          </div>
+        )}
+
+        {/* Pending DTCs */}
+        {pendingDTCs.length > 0 && (
+          <div style={{
+            background: 'rgba(245,158,11,0.05)', borderRadius: '12px', padding: '16px',
+            border: '1px solid rgba(245,158,11,0.2)', marginBottom: '12px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+              <AlertOctagon size={14} style={{ color: '#f59e0b' }} />
+              <p style={{ color: '#f59e0b', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', margin: 0 }}>
+                {pendingDTCs.length} PENDING DTC{pendingDTCs.length !== 1 ? 'S' : ''} — NOT YET TRIGGERING MIL
+              </p>
+            </div>
+            {pendingDTCs.map((code, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                <AlertTriangle size={14} style={{ color: '#f59e0b', flexShrink: 0 }} />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', fontWeight: 700, color: '#f59e0b' }}>{code}</span>
+                <span style={{ fontSize: '0.6rem', color: 'var(--text-dim)' }}>pending</span>
+              </div>
+            ))}
+            <p style={{ fontSize: '0.6rem', color: 'var(--text-dim)', marginTop: '8px' }}>
+              Pending codes indicate intermittent faults detected by the ECU but not yet confirmed. May clear on next drive cycle.
+            </p>
+          </div>
+        )}
+
+        {/* Freeze Frame */}
+        {freezeFrame && (
+          <div style={{
+            background: 'rgba(139,92,246,0.05)', borderRadius: '12px', padding: '16px',
+            border: '1px solid rgba(139,92,246,0.2)', marginBottom: '12px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', paddingBottom: '10px', borderBottom: '1px solid rgba(139,92,246,0.15)' }}>
+              <Clock size={14} style={{ color: '#a78bfa' }} />
+              <span style={{ color: '#a78bfa', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em' }}>FREEZE FRAME — ENGINE STATE AT FAULT</span>
+            </div>
+            <p style={{ fontSize: '0.6rem', color: 'var(--text-dim)', marginBottom: '10px' }}>
+              Captured: {freezeFrame.timestamp}
+            </p>
+            {[
+              { label: 'RPM', value: `${freezeFrame.rpm.toFixed(0)}`, color: 'var(--accent-cyan)' },
+              { label: 'Speed', value: `${freezeFrame.speed} km/h (${(freezeFrame.speed * 0.621371).toFixed(0)} mph)`, color: 'var(--accent-cyan)' },
+              { label: 'Coolant', value: `${freezeFrame.coolant}°C`, color: freezeFrame.coolant < 100 ? 'var(--accent-emerald)' : '#ef4444' },
+              { label: 'Engine Load', value: `${freezeFrame.engineLoad.toFixed(1)}%`, color: freezeFrame.engineLoad > 70 ? '#f59e0b' : 'var(--accent-cyan)' },
+              { label: 'Fuel Trim', value: `${freezeFrame.fuelTrim > 0 ? '+' : ''}${freezeFrame.fuelTrim.toFixed(1)}%`, color: Math.abs(freezeFrame.fuelTrim) > 10 ? '#f59e0b' : 'var(--accent-emerald)' },
+            ].map((row, i) => (
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.7rem' }}>{row.label}</span>
+                <span style={{ color: row.color, fontSize: '0.7rem', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>{row.value}</span>
+              </div>
+            ))}
+            <p style={{ fontSize: '0.6rem', color: 'var(--text-dim)', marginTop: '8px' }}>
+              Freeze frame shows the exact engine conditions when the first DTC was stored. Use for root-cause diagnosis.
             </p>
           </div>
         )}

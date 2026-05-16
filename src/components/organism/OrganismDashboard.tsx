@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Activity, Zap, Droplets, ShieldCheck, ActivitySquare, FileText } from 'lucide-react';
+import { Activity, Zap, Droplets, ShieldCheck, ActivitySquare, FileText, Download } from 'lucide-react';
 import { type TelemetrySnapshot } from '../../telemetry/SimulatedEngine';
-import { startBLETelemetryLoop, getBLEStatus } from '../../telemetry/BLEConnector';
+import { startBLETelemetryLoop, getBLEStatus, recordTelemetrySnapshot, exportTelemetryCSV, getTelemetryHistoryCount } from '../../telemetry/BLEConnector';
 
 function DataRow({ label, value, color }: { label: string; value: string; color?: string }) {
   return (
@@ -17,7 +17,10 @@ export default function OrganismDashboard({ onReport }: { onReport?: () => void 
   const [data, setData] = useState<TelemetrySnapshot | null>(null);
 
   useEffect(() => {
-    const stop = startBLETelemetryLoop((snapshot) => setData(snapshot), 150);
+    const stop = startBLETelemetryLoop((snapshot) => {
+      setData(snapshot);
+      recordTelemetrySnapshot(snapshot);
+    }, 150);
     return () => stop();
   }, []);
 
@@ -186,6 +189,28 @@ export default function OrganismDashboard({ onReport }: { onReport?: () => void 
             GENERATE CONDITION REPORT
           </button>
         )}
+
+        {/* CSV Export */}
+        <button onClick={() => {
+          const csv = exportTelemetryCSV();
+          if (!csv) return;
+          const blob = new Blob([csv], { type: 'text/csv' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `lume-telemetry-${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.csv`;
+          a.click();
+          URL.revokeObjectURL(url);
+        }} style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+          width: '100%', padding: '12px', borderRadius: '30px', marginTop: '10px',
+          background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)',
+          color: 'var(--accent-emerald)', fontSize: '0.7rem', fontWeight: 700,
+          letterSpacing: '0.08em', cursor: 'pointer', transition: 'all 0.2s',
+        }}>
+          <Download size={16} />
+          EXPORT CSV · {getTelemetryHistoryCount()} SNAPSHOTS
+        </button>
 
         {/* Runtime */}
         <p style={{

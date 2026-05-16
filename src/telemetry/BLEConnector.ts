@@ -443,6 +443,156 @@ export async function readStoredDTCs(): Promise<string[]> {
   return dtcs;
 }
 
+/**
+ * Read Pending DTCs via Mode 07
+ * These are faults detected but not yet triggering MIL
+ */
+export async function readPendingDTCs(): Promise<string[]> {
+  if (connectionState.isSimulated) {
+    return ['P0456']; // Demo: small EVAP leak pending
+  }
+  if (!txCharacteristic) return [];
+
+  const response = await sendBLECommand('07', 5000);
+  if (!response || response.includes('NO DATA')) return [];
+
+  const dtcs: string[] = [];
+  const clean = response.replace(/[\s\r\n]/g, '');
+  const dtcTypes: Record<string, string> = { '0': 'P0', '1': 'P1', '2': 'P2', '3': 'P3', '4': 'C0', '5': 'C1', '6': 'C2', '7': 'C3', '8': 'B0', '9': 'B1', 'A': 'B2', 'B': 'B3', 'C': 'U0', 'D': 'U1', 'E': 'U2', 'F': 'U3' };
+
+  let i = 2; // Skip "47" header
+  while (i + 4 <= clean.length) {
+    const byte1 = clean.substring(i, i + 2);
+    const byte2 = clean.substring(i + 2, i + 4);
+    if (byte1 === '00' && byte2 === '00') { i += 4; continue; }
+    const firstNibble = byte1[0].toUpperCase();
+    const prefix = dtcTypes[firstNibble] || 'P0';
+    const code = prefix + byte1[1] + byte2;
+    dtcs.push(code);
+    i += 4;
+  }
+  return dtcs;
+}
+
+/**
+ * Read Freeze Frame data via Mode 02
+ * Returns engine state at the moment the first DTC was set
+ */
+export interface FreezeFrameData {
+  rpm: number;
+  speed: number;
+  coolant: number;
+  engineLoad: number;
+  fuelTrim: number;
+  timestamp: string;
+}
+
+export async function readFreezeFrame(): Promise<FreezeFrameData | null> {
+  if (connectionState.isSimulated) {
+    return {
+      rpm: 2847, speed: 45, coolant: 91, engineLoad: 67.2, fuelTrim: -3.1,
+      timestamp: new Date(Date.now() - 86400000).toISOString().slice(0, 19).replace('T', ' '),
+    };
+  }
+  if (!txCharacteristic) return null;
+
+  const parsePID = async (pid: string): Promise<string> => {
+    const resp = await sendBLECommand(`02${pid}00`, 2000); // Frame 0
+    if (!resp || resp.includes('NO DATA')) return '';
+    return resp.replace(/[\s\r\n]/g, '').substring(4);
+  };
+
+  try {
+    const rpmHex = await parsePID('0C');
+    const spdHex = await parsePID('0D');
+    const cltHex = await parsePID('05');
+    const lodHex = await parsePID('04');
+    const ftHex = await parsePID('06');
+
+    if (!rpmHex && !spdHex) return null;
+
+    return {
+      rpm: rpmHex ? (parseInt(rpmHex.slice(0, 2), 16) * 256 + parseInt(rpmHex.slice(2, 4), 16)) / 4 : 0,
+      speed: spdHex ? parseInt(spdHex.slice(0, 2), 16) : 0,
+      coolant: cltHex ? parseInt(cltHex.slice(0, 2), 16) - 40 : 0,
+      engineLoad: lodHex ? parseInt(lodHex.slice(0, 2), 16) * 100 / 255 : 0,
+      fuelTrim: ftHex ? (parseInt(ftHex.slice(0, 2), 16) - 128) * 100 / 128 : 0,
+      timestamp: new Date().toISOString().slice(0, 19).replace('T', ' '),
+    };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Read VIN from ECU via Mode 09 PID 02
+ */
+export async function readVIN(): Promise<string> {
+  if (connectionState.isSimulated) {
+    return '1FTEW1EP5KFA12345'; // Demo F-150 VIN
+  }
+  if (!txCharacteristic) return '';
+
+  // Some adapters need multi-line mode for VIN
+  await sendBLECommand('ATH1'); // Headers on for multi-frame
+  const response = await sendBLECommand('0902', 5000);
+  await sendBLECommand('ATH0'); // Headers off again
+
+  if (!response || response.includes('NO DATA') || response.includes('ERROR')) return '';
+
+  // Parse VIN from hex — skip headers, extract ASCII
+  const clean = response.replace(/[\s\r\n:]/g, '');
+  let vin = '';
+
+  // Try to find 17 consecutive printable ASCII chars
+  for (let i = 0; i < clean.length - 1; i += 2) {
+    const byte = parseInt(clean.substring(i, i + 2), 16);
+    if (byte >= 0x30 && byte <= 0x5A) { // 0-9, A-Z
+      vin += String.fromCharCode(byte);
+    }
+  }
+
+  // VINs are exactly 17 characters
+  if (vin.length >= 17) {
+    return vin.substring(vin.length - 17);
+  }
+  return vin || '';
+}
+
+/**
+ * Export telemetry snapshot history as CSV string
+ */
+let telemetryHistory: TelemetrySnapshot[] = [];
+const MAX_HISTORY = 1000;
+
+export function recordTelemetrySnapshot(snapshot: TelemetrySnapshot): void {
+  telemetryHistory.push(snapshot);
+  if (telemetryHistory.length > MAX_HISTORY) telemetryHistory.shift();
+}
+
+export function exportTelemetryCSV(): string {
+  if (telemetryHistory.length === 0) return '';
+
+  const keys = Object.keys(telemetryHistory[0]) as (keyof TelemetrySnapshot)[];
+  const header = keys.join(',');
+  const rows = telemetryHistory.map(snap =>
+    keys.map(k => {
+      const v = snap[k];
+      return typeof v === 'string' ? `"${v}"` : v;
+    }).join(',')
+  );
+
+  return [header, ...rows].join('\n');
+}
+
+export function clearTelemetryHistory(): void {
+  telemetryHistory = [];
+}
+
+export function getTelemetryHistoryCount(): number {
+  return telemetryHistory.length;
+}
+
 export function enterBLEDemoMode(onStatusChange: (status: BLEConnection) => void): void {
   connectionState = { status: 'connected', deviceName: 'SIMULATED', error: null, isSimulated: true, adapterInfo: 'Demo Mode — 2019 F-150 5.0L V8' };
   onStatusChange({ ...connectionState });
