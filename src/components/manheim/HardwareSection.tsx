@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CheckCircle, Zap, Shield, Server, Download, Wifi, Bluetooth } from 'lucide-react';
+import { CheckCircle, Zap, Shield, Server, Download, Wifi } from 'lucide-react';
 import InfoBubble from '../InfoBubble';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
