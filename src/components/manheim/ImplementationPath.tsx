@@ -126,6 +126,41 @@ export default function ImplementationPath() {
           ))}
         </motion.div>
 
+        {/* Modular Adoption */}
+        <motion.div {...fadeIn} transition={{ delay: 0.5 }} style={{ marginBottom: '3rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+            <h3 style={{ fontSize: '1.3rem', marginBottom: '0.5rem' }}>Modular by Design</h3>
+            <p className="text-muted" style={{ maxWidth: '700px', margin: '0 auto', fontSize: '0.95rem', lineHeight: 1.6 }}>
+              This is the full-picture implementation vision — but every component is independently deployable. Manheim can adopt the pieces that solve today's problems and expand as needs evolve.
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+            {[
+              { title: 'LUME-Auto', desc: 'OBD-II diagnostics and condition reporting — standalone hardware + software.', color: 'var(--accent-cyan)', standalone: true },
+              { title: 'Lot Ops Pro', desc: 'Operational workforce platform — custody tracking, routing, messaging.', color: '#a78bfa', standalone: true },
+              { title: 'LUME-V', desc: 'Deterministic governance wrapper — licensable across any legacy enterprise stack.', color: 'var(--accent-emerald)', standalone: true },
+              { title: 'CAL + Trust Layer', desc: 'Private ledger + commercial verification — the cryptographic audit fabric.', color: '#38bdf8', standalone: true },
+              { title: 'Full Stack', desc: 'Maximum value — every component amplifies the others when deployed together.', color: '#fb923c', standalone: false },
+            ].map((mod, i) => (
+              <motion.div key={i} {...fadeIn} transition={{ delay: 0.55 + i * 0.06 }}
+                style={{
+                  padding: '1.25rem', borderRadius: '12px',
+                  background: mod.standalone ? 'rgba(255,255,255,0.02)' : `linear-gradient(135deg, rgba(251,146,60,0.08) 0%, rgba(251,146,60,0.02) 100%)`,
+                  border: `1px solid ${mod.standalone ? 'var(--border-light)' : 'rgba(251,146,60,0.25)'}`,
+                }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.5rem' }}>
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: mod.color }} />
+                  <h4 style={{ fontSize: '0.95rem', color: mod.color }}>{mod.title}</h4>
+                </div>
+                <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5, marginBottom: '0.5rem' }}>{mod.desc}</p>
+                <div style={{ fontSize: '0.65rem', color: mod.standalone ? 'var(--text-dim)' : '#fb923c', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' as const }}>
+                  {mod.standalone ? '● Available Independently' : '★ Maximum Enterprise Value'}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
         {/* CTA */}
         <motion.div {...fadeIn} transition={{ delay: 0.5 }} className="panel" style={{ padding: '3rem', textAlign: 'center', borderColor: 'rgba(16,185,129,0.25)', background: 'linear-gradient(180deg, rgba(16,185,129,0.05) 0%, rgba(16,185,129,0.01) 100%)', boxShadow: '0 10px 40px rgba(16,185,129,0.05)' }}>
           <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: accent }}>Ready When Manheim Is</h3>
