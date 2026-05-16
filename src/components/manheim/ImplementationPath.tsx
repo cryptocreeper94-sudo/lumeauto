@@ -116,6 +116,7 @@ export default function ImplementationPath() {
             { icon: <Zap size={20} />, title: 'Zero Downtime', desc: 'Every phase runs alongside existing operations. Nothing shuts down, nothing migrates, nothing breaks.' },
             { icon: <Building2 size={20} />, title: 'Facility by Facility', desc: 'Start with one pilot location. Prove value. Expand when ready. Each facility is independently operational.' },
             { icon: <Shield size={20} />, title: 'Independently Valuable', desc: 'Each phase delivers measurable ROI on its own. Phase 1 alone eliminates diagnostic costs and reduces arbitration exposure.' },
+            { icon: <Shield size={20} />, title: 'Enterprise Identity Ready', desc: 'The platform integrates with your existing SSO — Azure AD, Okta, SAML 2.0, or any corporate identity provider. Your people sign in with the credentials they already use.' },
           ].map((item, i) => (
             <motion.div key={i} {...fadeIn} transition={{ delay: 0.45 + i * 0.08 }}
               style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-light)', borderRadius: '12px' }}>

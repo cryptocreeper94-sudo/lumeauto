@@ -414,6 +414,10 @@ export default function Whitepaper() {
             <p>
               The platform is modular by design. Each layer operates independently, allowing Manheim to begin with the components that address immediate operational needs and integrate additional layers over time.
             </p>
+            <h4>Enterprise Identity Integration</h4>
+            <p>
+              The platform's authentication layer is designed to integrate with any corporate identity provider. The current deployment uses a centralized SSO service, but the architecture supports direct integration with Azure Active Directory, Okta, SAML 2.0, OpenID Connect, or any enterprise identity system Cox Automotive already operates. Drivers, supervisors, and administrators sign in with the credentials they already use — no separate accounts, no additional password management, no IT provisioning overhead. This integration is a day-one deployment concern, not a future roadmap item.
+            </p>
           </WpSection>
 
           {/* 12. Academic */}
