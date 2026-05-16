@@ -1,7 +1,7 @@
 import ManheimTabs from '../components/ManheimTabs';
 import HeroSection from '../components/manheim/HeroSection';
-import CoxLedgerSection from '../components/manheim/CoxLedgerSection';
 import LumeVSection from '../components/manheim/LumeVSection';
+import CoxLedgerSection from '../components/manheim/CoxLedgerSection';
 import ArchitectureSection from '../components/manheim/ArchitectureSection';
 import LumeLanguageSection from '../components/manheim/LumeLanguageSection';
 import LotOpsProSection from '../components/manheim/LotOpsProSection';
@@ -15,21 +15,21 @@ export default function ManheimPitch() {
       <ManheimTabs />
       {/* 1. Platform Hero — captures the whole system */}
       <HeroSection />
-      {/* 2. Private Ledger — highest-value, most differentiated */}
-      <CoxLedgerSection />
-      {/* 3. Lume-V Vision System — second highest value */}
+      {/* 2. LUME-V — Modernization Wrapper */}
       <LumeVSection />
+      {/* 3. Cox Automotive Ledger — Enterprise Trust Fabric */}
+      <CoxLedgerSection />
       {/* 4. Architecture — how the organism works */}
       <ArchitectureSection />
       {/* 5. The Language — deterministic mathematics */}
       <LumeLanguageSection />
       {/* 6. Lot Ops Pro — operational integration */}
       <LotOpsProSection />
-      {/* 7. App Showcase */}
+      {/* 7. App Showcase — LUME-Auto interfaces */}
       <AppShowcase />
       {/* 8. Hardware */}
       <HardwareSection />
-      {/* 9. CTA */}
+      {/* 9. Academic / Patent / CTA */}
       <EcosystemCTA />
     </div>
   );
