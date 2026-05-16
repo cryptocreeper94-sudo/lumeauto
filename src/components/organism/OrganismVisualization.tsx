@@ -1,8 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Activity, ShieldCheck, Zap, ChevronRight, ArrowLeft } from 'lucide-react';
-import { type TelemetrySnapshot } from '../../telemetry/SimulatedEngine';
-import { startBLETelemetryLoop, getBLEStatus } from '../../telemetry/BLEConnector';
+import { Activity, ShieldCheck, ArrowLeft } from 'lucide-react';
+import { getBLEStatus } from '../../telemetry/BLEConnector';
 
 interface GovernanceEvent {
   time: string;
@@ -47,7 +46,7 @@ function getTimeStr(): string {
   return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
 }
 
-export default function OrganismVisualization({ onBack, data }: { onBack: () => void; data: TelemetrySnapshot | null }) {
+export default function OrganismVisualization({ onBack, data }: { onBack: () => void; data: any }) {
   const [nodes, setNodes] = useState<NodeState[]>(generateNodes);
   const [log, setLog] = useState<GovernanceEvent[]>([]);
   const [driftCount, setDriftCount] = useState(0);
