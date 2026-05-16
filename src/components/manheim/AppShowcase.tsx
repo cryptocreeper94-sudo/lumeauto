@@ -3,10 +3,10 @@ import { useState } from 'react';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 const screens = [
-  { src: '/assets/images/app_dashboard.png', title: 'Live Dashboard', shortTitle: 'Dashboard', desc: 'Real-time MPG recovery, RPM, speed, driver score, and organism throughput at a glance. The control surface for the entire deterministic runtime.' },
-  { src: '/assets/images/app_diagnostic.png', title: 'Diagnostic Scan', shortTitle: 'Diagnostics', desc: 'Full OBD-II readiness monitors, active DTCs with severity classification, and live sensor data — all parsed through the governance organism.' },
-  { src: '/assets/images/app_organism.png', title: 'Organism Governance', shortTitle: 'Organism', desc: 'The 42-node organism visualized in real-time. Watch cross-validation consensus, drift correction, and self-healing happen autonomously.' },
-  { src: '/assets/images/app_certificate.png', title: 'Condition Certificate', shortTitle: 'Certificate', desc: 'Cryptographically signed, replay-verifiable vehicle condition reports. Arbitration-grade evidence generated in 45 seconds.' },
+  { src: '/assets/images/app_dashboard.png', title: 'Live Dashboard', shortTitle: 'Dash', desc: 'Real-time MPG recovery, RPM, speed, driver score, and organism throughput at a glance. The control surface for the entire deterministic runtime.' },
+  { src: '/assets/images/app_diagnostic.png', title: 'Diagnostic Scan', shortTitle: 'Scan', desc: 'Full OBD-II readiness monitors, active DTCs with severity classification, and live sensor data — all parsed through the governance organism.' },
+  { src: '/assets/images/app_organism.png', title: 'Organism Governance', shortTitle: 'Org', desc: 'The 42-node organism visualized in real-time. Watch cross-validation consensus, drift correction, and self-healing happen autonomously.' },
+  { src: '/assets/images/app_certificate.png', title: 'Condition Certificate', shortTitle: 'Cert', desc: 'Cryptographically signed, replay-verifiable vehicle condition reports. Arbitration-grade evidence generated in 45 seconds.' },
 ];
 
 const features: Record<number, string[]> = {
@@ -84,7 +84,7 @@ export default function AppShowcase() {
       </div>
 
       <style>{`
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
           .app-tab-full { display: none !important; }
           .app-tab-short { display: inline !important; }
         }
