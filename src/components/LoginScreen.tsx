@@ -201,7 +201,7 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
               onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setError(''); }}
               style={{ background: 'none', border: 'none', color: b.accent, fontSize: '0.8rem', cursor: 'pointer', fontWeight: 500 }}
             >
-              {mode === 'login' ? "Don't have an account? Register with your Cox email" : 'Already have an account? Sign in'}
+              {mode === 'login' ? "Don't have an account? Register with your authorized email" : 'Already have an account? Sign in'}
             </button>
           </div>
         </div>
@@ -210,7 +210,7 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>
           <p style={{ fontSize: '0.65rem', color: 'var(--text-dim)', lineHeight: 1.6 }}>
             Manheim Vehicle Intelligence Platform<br />
-            Authentication secured by Firebase · Access restricted to @coxautoinc.com
+            Authentication secured by Firebase · Access restricted to authorized addresses
           </p>
         </div>
       </motion.div>

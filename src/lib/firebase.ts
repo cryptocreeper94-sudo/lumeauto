@@ -32,12 +32,15 @@ export const auth = getAuth(app);
 
 // ── Domain Whitelist ──
 const ALLOWED_DOMAINS = ['coxautoinc.com', 'darkwavestudios.com'];
+const ALLOWED_EMAILS = ['kathytidwell74@gmail.com', 'rtaron@bellsouth.net'];
 
 function validateEmailDomain(email: string | null): void {
   if (!email) throw new Error('No email address found on this account.');
-  const domain = email.split('@')[1]?.toLowerCase();
+  const lower = email.toLowerCase();
+  const domain = lower.split('@')[1];
+  if (ALLOWED_EMAILS.includes(lower)) return;
   if (!domain || !ALLOWED_DOMAINS.includes(domain)) {
-    throw new Error('Access restricted to authorized Cox Automotive email addresses.');
+    throw new Error('Access restricted to authorized email addresses.');
   }
 }
 
