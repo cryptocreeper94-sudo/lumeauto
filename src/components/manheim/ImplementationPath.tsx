@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FileText, CheckCircle, Clock, ArrowRight, Building2, Cpu, Shield, Layers, Zap, Globe } from 'lucide-react';
+import { FileText, CheckCircle, Clock, ArrowRight, Building2, Cpu, Shield, Layers, Zap, Globe, Activity } from 'lucide-react';
 
 const fadeIn = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
@@ -177,6 +177,9 @@ export default function ImplementationPath() {
             </a>
             <a href="/engineering" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', background: 'transparent', border: '1px solid rgba(16,185,129,0.3)', color: accent, borderRadius: '10px', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none', transition: 'border-color 0.2s' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(16,185,129,0.6)'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(16,185,129,0.3)'}>
               Engineering Brief <ArrowRight size={14} />
+            </a>
+            <a href="/app" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)', color: '#06b6d4', borderRadius: '10px', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none', transition: 'border-color 0.2s' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(6,182,212,0.6)'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(6,182,212,0.3)'}>
+              <Activity size={14} /> Launch Organism
             </a>
           </div>
         </motion.div>
