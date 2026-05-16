@@ -99,11 +99,10 @@ export default function LumeVSection() {
 
         </div>
 
-        {/* Strategic Value */}
         <motion.div {...fadeIn} transition={{ delay: 0.4 }} className="panel" style={{ padding: '3.5rem', textAlign: 'center', borderColor: 'rgba(16,185,129,0.3)', background: 'linear-gradient(180deg, rgba(16,185,129,0.05) 0%, rgba(16,185,129,0.01) 100%)', boxShadow: '0 10px 40px rgba(16,185,129,0.05)' }}>
-          <h3 style={{ fontSize: '1.75rem', marginBottom: '1.25rem', color: 'var(--accent-emerald)' }}>The Hinge Layer</h3>
-          <p className="text-muted" style={{ maxWidth: '850px', margin: '0 auto', fontSize: '1.15rem', lineHeight: 1.8 }}>
-            LUME-V is not a feature. It is the strategic modernization layer that unlocks the entire platform for Manheim. It is the deterministic engine that makes the entire DarkWave ecosystem deployable at scale. It preserves your legacy stack, eliminates vendor lock-in, unifies operations, and positions your infrastructure for the next decade.
+          <h3 style={{ fontSize: '1.75rem', marginBottom: '1.25rem', color: 'var(--accent-emerald)' }}>Why This Layer Matters</h3>
+          <p className="text-muted" style={{ maxWidth: '850px', margin: '0 auto', fontSize: '1.1rem', lineHeight: 1.8 }}>
+            LUME-V is the reason none of this requires a rip-and-replace. It sits between Manheim's existing systems and the deterministic governance layer — preserving every database, every workflow, every integration that already works. Nothing breaks. Nothing migrates. The systems Manheim already operates simply gain a new layer of cryptographic auditability, cross-system intelligence, and deterministic enforcement. The infrastructure Manheim builds on this foundation is theirs — permanently.
           </p>
         </motion.div>
 
