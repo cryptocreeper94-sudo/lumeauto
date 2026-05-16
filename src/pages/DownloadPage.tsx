@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import QRCodeLib from 'qrcode';
 
 // The actual download URL
-const APK_URL = 'https://expo.dev/accounts/cryptocreeper/projects/lume-auto/builds/54a610cc-9b14-4fcb-ba2d-a4abfac6099a';
+const APK_URL = 'https://expo.dev/accounts/cryptocreeper/projects/lume-auto/builds/7cea4b43-4eeb-4442-bcad-06cf9ff1019c';
 const DOWNLOAD_URL = 'https://lumeauto.tech/download';
 
 export default function DownloadPage() {
