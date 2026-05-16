@@ -10,9 +10,9 @@ const POSTS = [
     tag: 'Engineering',
   },
   {
-    slug: 'the-mechanic-killer-thesis',
+    slug: 'the-diagnostic-gap',
     date: 'May 2026',
-    title: 'The Mechanic Killer Thesis: Why $150 Diagnostic Fees Are Obsolete',
+    title: 'The Diagnostic Gap: Why $150 Reads Should Cost $0',
     excerpt: 'The average check engine light costs $150 just to diagnose at a mechanic shop. With a $15 Bluetooth OBD-II scanner and Lume-Auto, that same information is delivered to your phone instantly — in plain English.',
     tag: 'Product',
   },

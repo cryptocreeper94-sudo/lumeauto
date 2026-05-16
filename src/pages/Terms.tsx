@@ -20,7 +20,7 @@ export default function Terms() {
 
           <div>
             <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>3. Limitation of Liability</h2>
-            <p className="text-muted">Lume-Auto does not modify, write to, or alter your Engine Control Unit (ECU). The hardware dongle is strictly a read-only diagnostic device. Under no circumstances shall Lume-Auto, its directors, employees, or affiliates be liable for any direct, indirect, incidental, or consequential damages resulting from vehicle malfunction, accidents, or warranty voids.</p>
+            <p className="text-muted">Lume-Auto is primarily a diagnostic read tool that retrieves data from your vehicle's Engine Control Unit (ECU). The platform also includes a DTC clearing function (OBD-II Mode 04) that sends a standard reset command to the ECU to clear stored trouble codes and the Malfunction Indicator Lamp. This is the same function performed by any standard OBD-II scan tool and does not alter engine calibration, firmware, or operating parameters. Use of the code-clearing function is at your sole discretion and responsibility. Under no circumstances shall Lume-Auto, DarkWave Studios LLC, its directors, employees, or affiliates be liable for any direct, indirect, incidental, or consequential damages resulting from vehicle malfunction, accidents, warranty disputes, or emissions inspection outcomes.</p>
           </div>
 
           <div>
