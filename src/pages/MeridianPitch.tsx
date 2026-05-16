@@ -62,9 +62,14 @@ export default function MeridianPitch() {
             }>
               <MeridianScene3D />
             </Suspense>
-            <p className="text-dim" style={{ fontSize: '0.75rem', textAlign: 'center', marginTop: '0.75rem', letterSpacing: '0.05em' }}>
-              INTERACTIVE 3D · DRAG TO ROTATE · SCROLL TO ZOOM
-            </p>
+            <div style={{ textAlign: 'center', marginTop: '0.5rem' }}>
+              <p className="text-dim" style={{ fontSize: '0.72rem', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>
+                INTERACTIVE 3D · DRAG TO ROTATE · SCROLL TO ZOOM
+              </p>
+              <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', maxWidth: '500px', margin: '0 auto', lineHeight: 1.5 }}>
+                Overhead Anchor Nodes route wireless energy to vehicles parked beneath the staging canopy. No ground infrastructure required.
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
