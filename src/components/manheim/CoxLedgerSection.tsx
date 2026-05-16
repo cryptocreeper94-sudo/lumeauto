@@ -27,7 +27,7 @@ export default function CoxLedgerSection() {
               Cox Automotive Ledger
             </h2>
             <p className="text-muted" style={{ maxWidth: '800px', margin: '0 auto', fontSize: '1.15rem', lineHeight: 1.7 }}>
-              A private, permissioned blockchain built exclusively for the Cox Automotive ecosystem. Every vehicle scan, custody transfer, and condition report receives a cryptographically sealed certificate on an immutable ledger that Cox controls.
+              A private, permissioned cryptographic ledger built exclusively for the Cox Automotive ecosystem. Every vehicle scan, custody transfer, and condition report receives a cryptographically sealed certificate on an immutable record that Cox controls.
             </p>
           </motion.div>
         </div>
@@ -57,7 +57,7 @@ export default function CoxLedgerSection() {
               <Lock size={20} /> Why a Private Ledger
             </h3>
             <p className="text-muted" style={{ lineHeight: 1.7, marginBottom: '1.25rem' }}>
-              Public blockchains are designed for trustless environments. Cox Automotive is not a trustless environment — it is a known network of verified facilities, employees, and systems. A private ledger delivers the immutability guarantees of blockchain without the latency, gas costs, or data exposure of public chains.
+              Public distributed ledgers are designed for trustless environments. Cox Automotive is not a trustless environment — it is a known network of verified facilities, employees, and systems. A private ledger delivers the same immutability and auditability guarantees without the latency, transaction costs, or data exposure of public networks.
             </p>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {[
