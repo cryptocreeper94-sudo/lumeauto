@@ -10,10 +10,10 @@ const screens = [
 ];
 
 const features: Record<number, string[]> = {
-  0: ['Live RPM, MPH, MPG telemetry', 'Driver performance scoring', 'Organism throughput monitoring', 'System lifecycle health', 'One-tap condition report generation'],
-  1: ['8 readiness monitors — pass/fail', 'DTC codes with severity badges', 'Live sensor data: coolant, MAF, fuel trim', 'All 42 PIDs parsed per cycle', 'Direct condition certificate generation'],
-  2: ['42-node visualization in real-time', '4-layer concentric topology', 'Drift detection + auto-correction', 'Consensus percentage tracking', 'Full governance event log'],
-  3: ['SHA-256 cryptographic hash', 'Per-system health percentages', 'DTC flag summary with severity', 'Replay-verifiable to the bit level', 'Arbitration-grade legal standard'],
+  0: ['Live RPM, MPH, MPG telemetry', 'Driver performance scoring', 'Organism throughput monitoring', 'Dead-battery and cold-start detection', '60% of condition report auto-generated', 'One-tap full report generation'],
+  1: ['8 readiness monitors — pass/fail', 'DTC codes with severity classification', 'Catalyst efficiency + O2 sensor health', 'Fuel trims, battery voltage, engine hours', 'Pending fault detection before lane', 'Auto-generated reconditioning flags'],
+  2: ['42-node visualization in real-time', '4-layer concentric topology', 'Drift detection + auto-correction', 'Self-healing runtime monitoring', 'Consensus percentage tracking'],
+  3: ['SHA-256 cryptographic hash', 'Per-system health percentages', 'Deterministic replay for arbitration', 'Tamper-proof custody chain record', 'Publicly verifiable without login'],
 };
 
 export default function AppShowcase() {

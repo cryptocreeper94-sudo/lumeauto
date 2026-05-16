@@ -42,12 +42,12 @@ export default function LotOpsProSection() {
 
         {/* The integration story */}
         <motion.div {...f} className="panel" style={{ padding: '2rem', borderColor: 'rgba(16,185,129,0.2)', background: 'linear-gradient(135deg, rgba(16,185,129,0.03) 0%, transparent 100%)' }}>
-          <h3 style={{ fontSize: '1.2rem', marginBottom: '1.25rem', textAlign: 'center' }}>How Everything Connects</h3>
+          <h3 style={{ fontSize: '1.2rem', marginBottom: '1.25rem', textAlign: 'center' }}>Three Systems. One Platform.</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', textAlign: 'center' }}>
             {[
               { label: 'Lot Ops Pro', role: 'The Operating System', desc: 'Driver management, GPS routing, performance analytics, real-time messaging, OCR ticket scanning, role-based dashboards — the complete platform running daily lot operations from a single mobile app.', color: 'var(--accent-emerald)' },
-              { label: 'Lume-Auto', role: 'The Intelligence Layer', desc: 'OBD-II diagnostics at intake, deterministic condition certificates, arbitration-grade scan history, population health analytics — every vehicle assessed in 45 seconds with cryptographic proof.', color: 'var(--accent-cyan)' },
-              { label: 'Meridian', role: 'The Energy Layer', desc: 'Wireless EV charging from overhead anchor nodes, adapter-agnostic energy routing, cryptographic billing ledger — Phase 2 infrastructure that eliminates every ground-level charging bottleneck.', color: '#a78bfa' },
+              { label: 'Lume-Auto', role: 'The Intelligence Layer', desc: 'OBD-II diagnostics at intake — 60% of the condition report auto-generated from sensor data before a human inspector touches the vehicle. Dead-battery detection, cold-start flagging, predictive lane readiness, and cryptographic condition certificates in 45 seconds.', color: 'var(--accent-cyan)' },
+              { label: 'Trust Layer', role: 'The Verification Layer', desc: 'Every condition report, custody transfer, and diagnostic result sealed into a tamper-proof record. Arbitration disputes resolved by mathematical replay, not opinion. Public verification available without login or API.', color: '#a78bfa' },
             ].map((item, i) => (
               <div key={i}>
                 <div style={{ fontSize: '1.1rem', fontWeight: 700, color: item.color, marginBottom: '0.25rem' }}>{item.label}</div>
@@ -56,19 +56,36 @@ export default function LotOpsProSection() {
               </div>
             ))}
           </div>
-          <p className="text-dim" style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.8rem' }}>
-            Three products. One deterministic runtime. One data layer. Nashville first. Atlanta next. Every facility after that.
-          </p>
+        </motion.div>
+
+        {/* Operational Intelligence */}
+        <motion.div {...f} style={{ marginTop: '2rem' }}>
+          <h3 style={{ fontSize: '1.2rem', marginBottom: '1.25rem', textAlign: 'center' }}>Who Sees What</h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+            {[
+              { role: 'Lane Managers', feeds: 'Real-time lane readiness. Vehicles flagged for dead batteries, pending faults, or open-loop cold starts before they reach the lane.', color: 'var(--accent-cyan)' },
+              { role: 'Supervisors', feeds: 'Driver performance, GPS tracking, custody chain, facility-wide throughput. Full operational dashboard from any device.', color: 'var(--accent-emerald)' },
+              { role: 'Transport Teams', feeds: 'Pre-dispatch health reports. Automatic flags for vehicles that won\'t start or will fail lane checks. No surprises on the truck.', color: '#38bdf8' },
+              { role: 'Reconditioning', feeds: 'Auto-generated work orders from diagnostic data. Prioritized queues based on severity. Catalyst failures, battery issues, and fluid anomalies surfaced before the vehicle arrives.', color: '#fb923c' },
+              { role: 'Arbitration Teams', feeds: 'Cryptographically sealed condition reports. Deterministic replay of original scan data. Dispute resolution by math, not opinion.', color: '#a78bfa' },
+              { role: 'Facility Management', feeds: 'Population health analytics across all vehicles. Predictive throughput modeling. Cross-facility benchmarking and trend analysis.', color: 'var(--accent-emerald)' },
+            ].map((item, i) => (
+              <div key={i} style={{ padding: '1rem', background: 'rgba(255,255,255,0.015)', border: '1px solid var(--border-light)', borderRadius: '10px' }}>
+                <div style={{ fontSize: '0.85rem', fontWeight: 700, color: item.color, marginBottom: '0.35rem' }}>{item.role}</div>
+                <p className="text-muted" style={{ fontSize: '0.78rem', lineHeight: 1.5, margin: 0 }}>{item.feeds}</p>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Stats bar */}
         <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', marginTop: '2.5rem' }}>
           {[
-            { val: '0', unit: '', label: 'Legacy Tech Debt' },
-            { val: '100', unit: '%', label: 'Offline Capable' },
+            { val: '60', unit: '%', label: 'Auto-Generated Report' },
+            { val: '45', unit: 's', label: 'Per Vehicle Scan' },
             { val: '$0', unit: '', label: 'Hardware Investment' },
             { val: '300', unit: '+', label: 'Potential Facilities' },
-            { val: '20+', unit: '', label: 'Production Features' },
+            { val: '42', unit: '', label: 'Diagnostic Signals' },
           ].map((s, i) => (
             <motion.div key={i} {...f} transition={{ delay: 0.2 + i * 0.08 }} style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--accent-emerald)', fontFamily: 'var(--font-mono)' }}>{s.val}<span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>{s.unit}</span></div>
