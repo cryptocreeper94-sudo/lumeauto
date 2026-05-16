@@ -243,27 +243,32 @@ export default function Whitepaper() {
             </p>
             <h4>Technical Specifications</h4>
             <ul>
-              <li>Dual-core Xtensa LX7 @ 240MHz (ESP32-S3) with WiFi, Bluetooth Classic, and BLE 5.0</li>
-              <li>Passive CAN bus interface via MCP2515 + TJA1050 — zero discovery time</li>
-              <li>42 real-time signals: RPM, MAP, MAF, fuel trims (short and long term), O2 sensors, coolant temp, intake air temp, timing advance, and more</li>
+              <li>42 real-time signals ingested at 100ms intervals: RPM, MAP, MAF, fuel trims (short and long term), O2 sensors, coolant temp, intake air temp, timing advance, catalyst efficiency, battery voltage, engine hours, and more</li>
               <li>45-second scan produces a complete structured condition report</li>
+              <li>60% of the condition report is auto-generated from sensor data before a human inspector touches the vehicle</li>
               <li>Deterministic processing — same inputs always produce the same output on any device</li>
               <li>Cryptographically signed results anchored to CAL at the moment of diagnosis</li>
+              <li>Zero AI dependencies — 42 deterministic test cases passed with zero inference calls</li>
             </ul>
             <h4>Hardware Strategy</h4>
             <p>
-              The platform is designed with a two-phase hardware strategy:
+              The platform uses commodity ELM327-compatible OBD-II adapters — the same adapters mechanics already own. Zero proprietary hardware required. Zero capital investment to start. A branded Lume dongle ($13 BOM, ESP32-S3 based) is available for fleet-scale deployment with OTA firmware updates and Ghost Mode secure gateway bypass.
+            </p>
+            <h4>Lot Flow Intelligence</h4>
+            <p>
+              Beyond individual vehicle diagnostics, LUME-Auto provides facility-wide operational intelligence:
             </p>
             <ul>
-              <li><strong>Phase 1 — Deploy today</strong>: Any facility with WiFi or BLE-capable OBD-II dongles already has the hardware. The software is the differentiator, not the hardware. Zero capital investment to start.</li>
-              <li><strong>Phase 2 — The Lume Dongle</strong>: A branded $13 BOM ESP32-S3 smart endpoint with passive CAN bus sniffing, Ghost Mode (bypasses secure gateways), fleet management via unique ID, and OTA firmware updates. This is the branded hardware product for the broader automotive market.</li>
+              <li><strong>Dead-battery detection</strong> — Vehicles that won't start are identified before they reach a lane or transport</li>
+              <li><strong>Cold-start and open-loop detection</strong> — Flags vehicles still in warm-up phase to prevent false diagnostic readings</li>
+              <li><strong>Pending fault detection</strong> — Catches faults that haven't triggered a check engine light but will affect auction lane readiness</li>
+              <li><strong>Prioritized reconditioning queues</strong> — Auto-generated work orders sorted by severity: catalyst failures, emissions faults, fluid anomalies</li>
+              <li><strong>Pre-dispatch health reports</strong> — Transport teams see vehicle health before loading, eliminating no-start surprises at delivery</li>
+              <li><strong>Predictive throughput modeling</strong> — Population-level analytics that predict lane capacity and reconditioning volume</li>
             </ul>
-            <h4>Operational Impact</h4>
+            <h4>Arbitration Reduction</h4>
             <p>
-              A single LUME-Auto scan replaces a manual inspection that currently costs $150-400 at a dealership. At Manheim's scale of 8 million vehicles annually, even partial deployment eliminates significant diagnostic overhead while producing higher-quality, verifiable, and immutable data.
-            </p>
-            <p>
-              Critical findings — dead batteries, severe misfires, catalytic converter failures — are flagged before a vehicle reaches a lane. Vehicles route automatically to the correct reconditioning queue. Post-sale disputes are resolved by deterministic replay of the original scan data, not by opinion.
+              Deterministic health scoring eliminates subjective inspector variance. Buyers receive transparent, sensor-verified condition data with cryptographic proof of when and how the scan was conducted. Post-sale disputes are resolved by deterministic replay of the original scan data — not by opinion, not by competing inspections, but by mathematical verification.
             </p>
           </WpSection>
 
@@ -348,6 +353,11 @@ export default function Whitepaper() {
               Because Lume programs are deterministic, any historical result can be independently verified. Feed the original sensor data through the same organism version, and you get the identical output — bit for bit, years later, on different hardware. This is the foundation of the platform's arbitration defense: disputes are resolved by mathematical replay, not by opinion.
             </p>
 
+            <h4>Voice-to-Code Authoring</h4>
+            <p>
+              Lume's syntax is designed to mirror natural English structure. The language supports native voice-to-code authoring — engineers and operators can define organisms, declare governance nodes, set safety envelopes, and compile deployable systems entirely by speaking. The compiler does not interpret intent or infer meaning; it parses deterministic structure from spoken input. The same spoken instruction produces the same compiled organism every time. This is not an AI code assistant — it is a voice-native compiler interface built into the language specification.
+            </p>
+
             <h4>Why This Matters Strategically</h4>
             <p>
               The Lume runtime is not a configuration layer on top of existing technology. It is a new computational substrate — a fundamentally different approach to enterprise software that prioritizes provability over flexibility and correctness over speed-to-market. It cannot be replicated by configuring existing tools differently. It is the intellectual property that makes everything else in this platform defensible.
@@ -355,9 +365,9 @@ export default function Whitepaper() {
           </WpSection>
 
           {/* 10. Meridian */}
-          <WpSection num={10} title="Meridian — Wireless Energy Infrastructure">
+          <WpSection num={10} title="Meridian — Wireless Energy Infrastructure (Roadmap)">
             <p>
-              Meridian is the future energy layer of the platform — a deterministic wireless energy routing system that delivers power to vehicles and lot infrastructure the same way the internet delivers data: routed, metered, and cryptographically verified.
+              Meridian is the next-phase energy layer of the platform — a deterministic wireless energy routing system designed for deployment after the diagnostic and operational layers are proven in production. The architecture is fully documented in published research and covered by US Provisional Patent 64/056,378. This section describes the planned system.
             </p>
             <h4>The EV Charging Challenge</h4>
             <p>
@@ -388,7 +398,7 @@ export default function Whitepaper() {
               Meridian is not a separate system. It runs on the same Lume runtime, uses the same 4/42 organism architecture, is governed by the same LUME-V wrapper, and anchors its records to the same CAL ledger. Energy routing is deterministic. Billing is cryptographically verified through the Trust Layer. Lot Ops Pro coordinates charging schedules with vehicle movement.
             </p>
             <p>
-              The Meridian architecture is fully documented in published research (DOI: 10.5281/zenodo.20028362) and covered by US Provisional Patent 64/056,378. This is the next deployment phase after the diagnostic and operational layers are proven in production.
+              The Meridian architecture is fully documented in published research (DOI: 10.5281/zenodo.20028362) and covered by US Provisional Patent 64/056,378. Meridian is the next deployment phase — all other platform components described in this document are built, tested, and production-ready today.
             </p>
           </WpSection>
 
@@ -399,10 +409,10 @@ export default function Whitepaper() {
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1.5rem 0' }}>
               {[
-                { phase: 'Phase 1 — Weeks 1-4', title: 'Hardware Deployment & Baseline', desc: 'Deploy OBD-II dongles to pilot facility. Establish baseline telemetry. Validate scan accuracy against existing condition reports.' },
-                { phase: 'Phase 2 — Weeks 4-8', title: 'CAL Integration & Governance', desc: 'Activate ledger validators. Begin anchoring condition certificates. Deploy LUME-V governance wrapper over existing workflows.' },
-                { phase: 'Phase 3 — Weeks 8-12', title: 'Lot Ops Pro & Operational Integration', desc: 'Integrate telemetry into routing. Deploy supervisor dashboards. Enable driver GPS assignments from health-based routing.' },
-                { phase: 'Phase 4 — Weeks 12-16', title: 'Trust Layer & Multi-Facility Expansion', desc: 'Issue public verification certificates. Expand to additional Manheim locations. Enable cross-facility custody continuity.' },
+                { phase: 'Phase 1 — Weeks 1-4', title: 'Telemetry Capture & Baseline', desc: 'Deploy commodity ELM327 OBD-II adapters at pilot facility. Capture 42-signal telemetry from 500–1,000 vehicles. Generate automated condition reports. Validate scan accuracy against existing inspection reports.' },
+                { phase: 'Phase 2 — Weeks 4-8', title: 'Lot Intelligence & Workflow Integration', desc: 'Enable real-time lane readiness dashboards. Activate dead-battery, cold-start, and pending-fault detection. Integrate transport pre-dispatch health reports and reconditioning work orders. Begin arbitration reduction tracking.' },
+                { phase: 'Phase 3 — Weeks 8-12', title: 'CAL Integration & Trust Certificates', desc: 'Activate Cox Automotive Ledger validators. Anchor all condition certificates on-ledger with cryptographic proof. Deploy LUME-V governance wrapper. Issue Trust Layer certificates for buyer-facing verification.' },
+                { phase: 'Phase 4 — Weeks 12-16', title: 'Network Intelligence & Multi-Facility', desc: 'Full-lot predictive throughput modeling and population health analytics. Cross-facility health scoring and benchmarking. Expand to additional Manheim locations with proven playbook.' },
               ].map((p, i) => (
                 <div key={i} style={{ padding: '1rem 1.25rem', border: '1px solid var(--border-light)', borderRadius: '8px' }}>
                   <div style={{ fontSize: '0.7rem', color: 'var(--accent-cyan)', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '4px' }}>{p.phase}</div>
@@ -473,7 +483,8 @@ export default function Whitepaper() {
               <p style={{ fontSize: '0.85rem', color: 'var(--text-dim)', margin: 0 }}>
                 DarkWave Studios LLC<br />
                 US Provisional Patent 64/032,339<br />
-                <a href="https://lumeauto.tech" style={{ color: 'var(--accent-cyan)', textDecoration: 'none' }}>lumeauto.tech</a> · <a href="https://cal.tlid.io" style={{ color: 'var(--accent-cyan)', textDecoration: 'none' }}>cal.tlid.io</a>
+                <a href="https://lumeauto.tech" style={{ color: 'var(--accent-cyan)', textDecoration: 'none' }}>lumeauto.tech</a> · <a href="https://cal.tlid.io" style={{ color: 'var(--accent-cyan)', textDecoration: 'none' }}>cal.tlid.io</a><br />
+                <a href="mailto:team@dwsc.io" style={{ color: 'var(--accent-cyan)', textDecoration: 'none' }}>team@dwsc.io</a>
               </p>
             </div>
           </WpSection>
