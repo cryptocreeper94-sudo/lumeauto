@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useCallback } from 'react';
-import { Code2, Cpu, Shield, Layers, Zap, GitBranch, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Code2, Cpu, Shield, Layers, Zap, GitBranch, Mic, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const features = [
   { icon: <Code2 size={24}/>, title: 'Deterministic Compilation', desc: 'Lume source compiles to governance organisms — not executables. Same inputs always produce same outputs. No randomness, no inference, no hallucination surface.', color: '#a78bfa' },
@@ -9,6 +9,7 @@ const features = [
   { icon: <Layers size={24}/>, title: 'The 4/42 Fractal Law', desc: '4 layers, 42 nodes per organism. This structural ratio emerges naturally across all deterministic cognitive architectures — from vehicle diagnostics to energy routing to planetary infrastructure.', color: '#fb923c' },
   { icon: <GitBranch size={24}/>, title: 'Self-Healing Runtime', desc: 'When a node drifts or fails, the organism detects the deviation and corrects it autonomously. No retraining. No manual intervention. The system heals itself.', color: 'var(--accent-emerald)' },
   { icon: <Zap size={24}/>, title: 'Edge-Native Execution', desc: 'Organisms run on the device. No cloud dependency. No latency. A vehicle diagnosis completes in 45 seconds on a phone connected to a commodity dongle.', color: '#a78bfa' },
+  { icon: <Mic size={24}/>, title: 'Voice-to-Code Authoring', desc: 'Lume is designed for natural English voice input. Speak governance logic, organism definitions, or node behaviors — the deterministic compiler processes spoken structure into verifiable organisms. No syntax memorization. No keyboard required.', color: 'var(--accent-cyan)' },
 ];
 
 const glassCard = {
@@ -169,7 +170,24 @@ export default function LumeLanguageSection() {
           ))}
         </div>
 
-
+        {/* Voice-to-Code callout */}
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          style={{ ...glassCard, padding: '2rem', borderColor: 'rgba(56,189,248,0.2)', textAlign: 'center', background: 'rgba(56,189,248,0.03)', height: 'auto' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '1rem' }}>
+            <Mic size={20} style={{ color: 'var(--accent-cyan)' }} />
+            <h4 style={{ fontSize: '1.2rem', color: 'var(--accent-cyan)', margin: 0 }}>Write Code by Speaking</h4>
+          </div>
+          <p className="text-muted" style={{ maxWidth: '700px', margin: '0 auto', lineHeight: 1.7, fontSize: '0.95rem' }}>
+            Lume's syntax is designed to mirror natural English structure. Define an organism, declare a governance node, set a safety envelope — all by voice. The compiler doesn't interpret intent; it parses deterministic structure from spoken input. No ambiguity. No inference. The same spoken instruction produces the same compiled organism every time. This is not an AI code assistant — it is a voice-native compiler interface.
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', marginTop: '1.5rem' }}>
+            {['"Define organism: vehicle intake"', '"Add node: catalyst efficiency"', '"Set safety envelope: 85 to 100"', '"Compile and deploy"'].map((cmd, i) => (
+              <div key={i} style={{ padding: '6px 14px', background: 'rgba(56,189,248,0.08)', border: '1px solid rgba(56,189,248,0.15)', borderRadius: '8px', fontSize: '0.78rem', color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)', fontStyle: 'italic' }}>
+                {cmd}
+              </div>
+            ))}
+          </div>
+        </motion.div>
 
       </div>
 
