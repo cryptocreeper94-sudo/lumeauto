@@ -1,6 +1,7 @@
 import ManheimTabs from '../components/ManheimTabs';
 import HeroSection from '../components/manheim/HeroSection';
 import PersonalNote from '../components/manheim/PersonalNote';
+import PlainEnglish from '../components/manheim/PlainEnglish';
 import LumeVSection from '../components/manheim/LumeVSection';
 import CoxLedgerSection from '../components/manheim/CoxLedgerSection';
 import LotOpsProSection from '../components/manheim/LotOpsProSection';
@@ -21,6 +22,8 @@ export default function ManheimPitch() {
       <HeroSection />
       {/* Personal context from Jason */}
       <PersonalNote />
+      {/* Plain-English explainer — kills AI/blockchain fears before they start */}
+      <PlainEnglish />
       {/* 2. LUME-V — Modernization Wrapper */}
       <LumeVSection />
       {/* 3. Cox Automotive Ledger — Enterprise Trust Fabric */}
