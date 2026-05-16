@@ -50,7 +50,7 @@ export default function EngineeringBrief() {
       <section style={{ padding: '4rem 0', textAlign: 'center' }}>
         <div className="container" style={{ maxWidth: '700px' }}>
           <p className="text-muted" style={{ fontSize: '0.95rem', lineHeight: 1.7 }}>
-            The architecture documented above is production-deployed and verifiable. The React build is live and operating at multiple facilities. The native Lume build is architecturally complete and migration-ready. Both share the same 4/42 organism topology — the upgrade path requires no rearchitecture, only a deeper level of runtime enforcement. Every technical claim in this document is backed by published research with verifiable DOIs.
+            The architecture documented above is production-ready and verifiable. The React build is live and available for deployment. The native Lume build is architecturally complete and migration-ready. Both share the same 4/42 organism topology — the upgrade path requires no rearchitecture, only a deeper level of runtime enforcement. Every technical claim in this document is backed by published research with verifiable DOIs.
           </p>
           <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '1.5rem' }}>
             © 2026 DarkWave Studios LLC / Lume42 Labs · 6 U.S. Provisional Patents Pending · 96 Published Papers
