@@ -212,51 +212,78 @@ export default function Whitepaper() {
           {/* 6. Lot Ops Pro */}
           <WpSection num={6} title="Lot Ops Pro — Operational Platform">
             <p>
-              Lot Ops Pro is the real-time operational platform that manages the physical side of Manheim's business: vehicle custody, driver assignments, lane routing, and workforce coordination.
+              Lot Ops Pro is the real-time operational platform that manages the physical side of Manheim's business. It is a production-ready, mobile-first autonomous lot management system — multi-tenant by design, offline-capable, and deployable on commodity hardware.
             </p>
+            <h4>Core Capabilities</h4>
             <ul>
-              <li><strong>Custody chain management</strong> — Track every vehicle from intake through sale with signed, timestamped transitions</li>
-              <li><strong>Intelligent routing</strong> — Health data feeds directly into lane assignment and reconditioning queues</li>
-              <li><strong>Driver coordination</strong> — GPS-based move assignments with real-time status updates</li>
-              <li><strong>Supervisor dashboards</strong> — Population-level views of fleet health, worker productivity, and operational throughput</li>
+              <li><strong>Autonomous OCR scanning</strong> — Camera-based ticket scanning with three input methods. No external database dependency. Works offline.</li>
+              <li><strong>GPS routing and navigation</strong> — Real-time compass guidance with distance countdown. Smart group code routing to correct lanes.</li>
+              <li><strong>Live performance tracking</strong> — Moves-per-hour against configurable quotas. Daily, weekly, and monthly aggregation. Automated bonus estimation.</li>
+              <li><strong>Safety and speed monitoring</strong> — Tiered speed alerts (15/17/22 MPH). Incident reporting with photo capture. Weather radar with severe weather alerts.</li>
+              <li><strong>Role-based dashboards</strong> — Ops Manager, Supervisor, Van Driver, and Inventory Driver each see exactly what they need.</li>
+              <li><strong>Real-time messaging</strong> — Supervisor-to-driver communication. Broadcast or individual. 2-second polling with toast notifications.</li>
+              <li><strong>AI voice assistant</strong> — Bidirectional voice commands for hands-free operation. 15+ supported commands with speech pattern learning.</li>
+            </ul>
+            <h4>Architecture Advantages</h4>
+            <ul>
+              <li><strong>Zero hardware investment</strong> — BYOD or provide a commodity Android device. Runs as a PWA — installable, offline-capable. No scanners, no specialized equipment.</li>
+              <li><strong>Multi-tenant by design</strong> — Every facility gets its own isolated environment, branding, and configuration from a single deployment.</li>
+              <li><strong>300+ facility scalability</strong> — Nashville first. Atlanta next. The architecture supports every Manheim location from a single codebase.</li>
             </ul>
             <p>
-              Lot Ops Pro integrates with LUME-Auto for diagnostic data, CAL for custody verification, and LUME-V for governance enforcement — but operates independently as a standalone workforce platform.
+              Lot Ops Pro integrates with LUME-Auto for diagnostic data, CAL for custody verification, and LUME-V for governance enforcement — but operates independently as a standalone workforce platform with zero dependency on any other component.
             </p>
           </WpSection>
 
           {/* 7. LUME-Auto */}
           <WpSection num={7} title="LUME-Auto — Diagnostic Organism">
             <p>
-              LUME-Auto is a 42-node synthetic organism that processes real-time OBD-II telemetry to produce structured, deterministic vehicle condition reports. It is deployed via a custom ESP32-S3 dongle with a bill of materials under $13.
+              LUME-Auto is a 42-node synthetic organism that processes real-time OBD-II telemetry to produce structured, deterministic vehicle condition reports. It represents the diagnostic intelligence layer of the platform — the system that turns raw vehicle data into cryptographically verifiable condition certificates.
             </p>
             <h4>Technical Specifications</h4>
             <ul>
-              <li>Dual-core Xtensa LX7 @ 240MHz with WiFi and BLE 5.0</li>
-              <li>Passive CAN bus interface via MCP2515 + TJA1050</li>
-              <li>42 real-time signals: RPM, MAP, MAF, fuel trims, O2 sensors, coolant, intake air, and more</li>
+              <li>Dual-core Xtensa LX7 @ 240MHz (ESP32-S3) with WiFi, Bluetooth Classic, and BLE 5.0</li>
+              <li>Passive CAN bus interface via MCP2515 + TJA1050 — zero discovery time</li>
+              <li>42 real-time signals: RPM, MAP, MAF, fuel trims (short and long term), O2 sensors, coolant temp, intake air temp, timing advance, and more</li>
               <li>45-second scan produces a complete structured condition report</li>
-              <li>Deterministic processing — same inputs always produce the same output</li>
-              <li>Cryptographically signed results anchored to CAL</li>
+              <li>Deterministic processing — same inputs always produce the same output on any device</li>
+              <li>Cryptographically signed results anchored to CAL at the moment of diagnosis</li>
+            </ul>
+            <h4>Hardware Strategy</h4>
+            <p>
+              The platform is designed with a two-phase hardware strategy:
+            </p>
+            <ul>
+              <li><strong>Phase 1 — Deploy today</strong>: Any facility with WiFi or BLE-capable OBD-II dongles already has the hardware. The software is the differentiator, not the hardware. Zero capital investment to start.</li>
+              <li><strong>Phase 2 — The Lume Dongle</strong>: A branded $13 BOM ESP32-S3 smart endpoint with passive CAN bus sniffing, Ghost Mode (bypasses secure gateways), fleet management via unique ID, and OTA firmware updates. This is the branded hardware product for the broader automotive market.</li>
             </ul>
             <h4>Operational Impact</h4>
             <p>
-              A single LUME-Auto scan replaces a manual inspection that currently costs $150-400 at a dealership. At Manheim's scale of 8 million vehicles annually, even partial deployment eliminates significant diagnostic overhead while producing higher-quality, verifiable data.
+              A single LUME-Auto scan replaces a manual inspection that currently costs $150-400 at a dealership. At Manheim's scale of 8 million vehicles annually, even partial deployment eliminates significant diagnostic overhead while producing higher-quality, verifiable, and immutable data.
+            </p>
+            <p>
+              Critical findings — dead batteries, severe misfires, catalytic converter failures — are flagged before a vehicle reaches a lane. Vehicles route automatically to the correct reconditioning queue. Post-sale disputes are resolved by deterministic replay of the original scan data, not by opinion.
             </p>
           </WpSection>
 
           {/* 8. Trust Layer */}
           <WpSection num={8} title="Trust Layer — Commercial Verification">
             <p>
-              The Trust Layer is the outward-facing verification system that turns internal CAL records into commercially provable certificates. It gives buyers, dealers, and financing partners cryptographic confidence in a vehicle's condition and history.
+              The Trust Layer is the outward-facing verification system that turns internal CAL records into commercially provable certificates. It gives buyers, dealers, and financing partners cryptographic confidence in a vehicle's condition and history — without requiring access to the internal ledger.
             </p>
+            <h4>Capabilities</h4>
             <ul>
-              <li><strong>Verifiable certificates</strong> — Any party can confirm a vehicle's condition report authenticity via hash lookup</li>
-              <li><strong>Provenance without exposure</strong> — Proves when, where, and how a vehicle was scanned without revealing internal operational data</li>
-              <li><strong>Cross-platform portability</strong> — Certificates travel with the vehicle across Autotrader listings, DMS systems, and financing platforms</li>
+              <li><strong>Verifiable certificates</strong> — Any party can confirm a vehicle's condition report authenticity via hash lookup. No login, no account, no API integration required.</li>
+              <li><strong>Provenance without exposure</strong> — Proves when, where, and how a vehicle was scanned without revealing internal operational data, facility workflows, or proprietary diagnostics.</li>
+              <li><strong>Cross-platform portability</strong> — Certificates travel with the vehicle across Autotrader listings, dealer management systems, and financing platforms. The verification is attached to the vehicle, not the system.</li>
             </ul>
+            <h4>Chain of Trust</h4>
             <p>
-              The Trust Layer is architecturally distinct from CAL. CAL is the private internal ledger that Cox controls. The Trust Layer is the commercial-facing verification layer that issues publicly confirmable certificates derived from CAL records — without exposing the internal ledger.
+              Every certificate follows a provable chain: OBD-II Scan → Organism Processing → CAL Anchor → Trust Layer Certificate → Public Verification. Each step is cryptographically linked to the previous one. There are no gaps in provenance, no manual steps, and no opportunity for data to be altered between capture and certificate issuance.
+            </p>
+            <h4>Architectural Distinction</h4>
+            <p>
+              The Trust Layer is architecturally distinct from CAL. CAL is the private, internal operational ledger that Cox controls — it records everything but exposes nothing. The Trust Layer is the commercial-facing verification layer that issues publicly confirmable certificates derived from CAL records. This separation ensures that Cox maintains full control over its operational data while still providing commercially useful verification to external parties.
             </p>
           </WpSection>
 
