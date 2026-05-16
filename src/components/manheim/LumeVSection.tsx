@@ -22,7 +22,7 @@ export default function LumeVSection() {
               LUME-V: <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(to right, #38bdf8, #a78bfa)' }}>Deterministic Governance Wrapper</span>
             </h2>
             <p className="text-muted" style={{ maxWidth: '780px', margin: '0 auto', fontSize: '1.15rem', lineHeight: 1.7 }}>
-              The modernization solution Manheim has been unable to achieve for 25 years. LUME-V wraps your entire legacy stack in deterministic governance—unifying logic and orchestrating workflows without requiring a multi-million dollar rip-and-replace migration.
+              LUME-V wraps your entire legacy stack in deterministic governance—unifying logic and orchestrating workflows without requiring a multi-million dollar rip-and-replace migration.
             </p>
           </motion.div>
         </div>
@@ -31,7 +31,7 @@ export default function LumeVSection() {
         <motion.div {...fadeIn} transition={{ delay: 0.1 }} style={{ marginBottom: '3rem' }}>
           <div className="panel" style={{ padding: '2.5rem', background: 'rgba(239, 68, 68, 0.02)', borderColor: 'rgba(239, 68, 68, 0.15)' }}>
             <h3 style={{ fontSize: '1.3rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '12px', color: '#f87171' }}>
-              <ServerOff size={22} color="#ef4444" /> The 25-Year Modernization Deadlock
+              <ServerOff size={22} color="#ef4444" /> The Legacy Modernization Challenge
             </h3>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
               {[
