@@ -76,6 +76,7 @@ export default function Whitepaper() {
                   'LUME-Auto — Diagnostic Organism',
                   'Trust Layer — Commercial Verification',
                   'Technical Foundation — Lume Core & Self-Healing Runtime',
+                  'Meridian — Wireless Energy Infrastructure',
                   'Implementation Path',
                   'Academic Foundation & References',
                   'About DarkWave Studios LLC',
@@ -353,8 +354,46 @@ export default function Whitepaper() {
             </p>
           </WpSection>
 
-          {/* 10. Implementation */}
-          <WpSection num={10} title="Implementation Path">
+          {/* 10. Meridian */}
+          <WpSection num={10} title="Meridian — Wireless Energy Infrastructure">
+            <p>
+              Meridian is the future energy layer of the platform — a deterministic wireless energy routing system that delivers power to vehicles and lot infrastructure the same way the internet delivers data: routed, metered, and cryptographically verified.
+            </p>
+            <h4>The EV Charging Challenge</h4>
+            <p>
+              As Manheim's vehicle mix shifts toward electric, existing charging infrastructure creates operational friction: ground-level chargers obstruct lot flow, adapter compatibility varies by manufacturer, charging time competes with auction throughput, and energy costs are difficult to attribute to individual vehicles.
+            </p>
+            <h4>How Meridian Works</h4>
+            <p>
+              Overhead anchor nodes deliver wireless energy to vehicles on the lot. There are no ground-level chargers, no cables, and no adapters. Vehicles charge passively while parked, while waiting for auction, or while in transit between lanes. The energy routing is adapter-agnostic by design — any EV receives power regardless of connector standard.
+            </p>
+            <ul>
+              <li><strong>Wireless energy routing</strong> — Overhead anchor nodes deliver power to specific zones or individual vehicles based on demand</li>
+              <li><strong>Adapter-agnostic</strong> — No cables, no connector compatibility issues. Energy is delivered to the vehicle, not to a plug</li>
+              <li><strong>Passive charging</strong> — Vehicles charge while parked or waiting. No dedicated charging time, no queuing</li>
+              <li><strong>Cryptographic metering</strong> — Every watt delivered is timestamped and anchored to CAL. Billing is deterministic and auditable</li>
+            </ul>
+            <h4>Beyond Vehicles — Powered Lot Infrastructure</h4>
+            <p>
+              The same energy routing architecture that charges vehicles can power any infrastructure on the lot:
+            </p>
+            <ul>
+              <li><strong>Mobile lane signage</strong> — Illuminated lane markers and directional signs powered wirelessly. Relocate them when the lot layout changes without running new electrical.</li>
+              <li><strong>Night lighting</strong> — Portable, repositionable lighting for evening auctions, security zones, and staging areas</li>
+              <li><strong>Digital signage</strong> — Wireless-powered displays for auction information, vehicle details, and real-time pricing at the lane</li>
+              <li><strong>IoT sensors</strong> — Environmental monitoring, occupancy detection, and security cameras powered without wiring</li>
+            </ul>
+            <h4>Platform Integration</h4>
+            <p>
+              Meridian is not a separate system. It runs on the same Lume runtime, uses the same 4/42 organism architecture, is governed by the same LUME-V wrapper, and anchors its records to the same CAL ledger. Energy routing is deterministic. Billing is cryptographically verified through the Trust Layer. Lot Ops Pro coordinates charging schedules with vehicle movement.
+            </p>
+            <p>
+              The Meridian architecture is fully documented in published research (DOI: 10.5281/zenodo.20028362) and covered by US Provisional Patent 64/056,378. This is the next deployment phase after the diagnostic and operational layers are proven in production.
+            </p>
+          </WpSection>
+
+          {/* 11. Implementation */}
+          <WpSection num={11} title="Implementation Path">
             <p>
               Deployment follows a phased approach designed for zero disruption to existing operations. Each phase is independently valuable.
             </p>
@@ -377,8 +416,8 @@ export default function Whitepaper() {
             </p>
           </WpSection>
 
-          {/* 11. Academic */}
-          <WpSection num={11} title="Academic Foundation & References">
+          {/* 12. Academic */}
+          <WpSection num={12} title="Academic Foundation & References">
             <p>
               The platform is built on published research available through Zenodo. The following papers document the core technologies:
             </p>
@@ -403,8 +442,8 @@ export default function Whitepaper() {
             </p>
           </WpSection>
 
-          {/* 12. About */}
-          <WpSection num={12} title="About DarkWave Studios LLC">
+          {/* 13. About */}
+          <WpSection num={13} title="About DarkWave Studios LLC">
             <p>
               DarkWave Studios LLC is the research and engineering organization behind the Lume ecosystem. Founded on the principle that enterprise infrastructure should be deterministic, auditable, and mathematically provable, DarkWave develops the languages, runtimes, governance systems, and hardware that make this vision operational.
             </p>

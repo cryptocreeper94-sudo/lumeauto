@@ -140,6 +140,7 @@ export default function ImplementationPath() {
               { title: 'Lot Ops Pro', desc: 'Operational workforce platform — custody tracking, routing, messaging.', color: '#a78bfa', full: false },
               { title: 'LUME-V', desc: 'Deterministic governance wrapper — operates across any legacy enterprise stack.', color: 'var(--accent-emerald)', full: false },
               { title: 'CAL + Trust Layer', desc: 'Private ledger and commercial verification — the cryptographic audit fabric.', color: '#38bdf8', full: false },
+              { title: 'Meridian', desc: 'Wireless energy routing — EV charging, powered signage, and lot infrastructure.', color: '#818cf8', full: false },
               { title: 'Unified Platform', desc: 'When deployed together, every component amplifies the others — the whole exceeds the sum of its parts.', color: '#fb923c', full: true },
             ].map((mod, i) => (
               <motion.div key={i} {...fadeIn} transition={{ delay: 0.55 + i * 0.06 }}

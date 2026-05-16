@@ -8,6 +8,7 @@ import LumeLanguageSection from '../components/manheim/LumeLanguageSection';
 import TrustLayerSection from '../components/manheim/TrustLayerSection';
 import AppShowcase from '../components/manheim/AppShowcase';
 import HardwareSection from '../components/manheim/HardwareSection';
+import MeridianTeaser from '../components/manheim/MeridianTeaser';
 import EcosystemCTA from '../components/manheim/EcosystemCTA';
 import ImplementationPath from '../components/manheim/ImplementationPath';
 
@@ -33,9 +34,11 @@ export default function ManheimPitch() {
       <AppShowcase />
       {/* 9. Hardware */}
       <HardwareSection />
-      {/* 10. Academic / Patent / DOI Section */}
+      {/* 10. Meridian — Future Wireless Energy Layer */}
+      <MeridianTeaser />
+      {/* 11. Academic / Patent / DOI Section */}
       <EcosystemCTA />
-      {/* 11. Manheim-Specific Implementation Path */}
+      {/* 12. Manheim-Specific Implementation Path */}
       <ImplementationPath />
     </div>
   );
