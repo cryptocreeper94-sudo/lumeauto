@@ -177,6 +177,59 @@ export default function CoxLedgerSection() {
           </div>
         </motion.div>
 
+        {/* Data Privacy Architecture */}
+        <motion.div {...fadeIn} transition={{ delay: 0.38 }} style={{ marginBottom: '3rem' }}>
+          <h3 style={{ fontSize: '1.2rem', color: accent, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <Lock size={20} /> Verified but Private
+          </h3>
+          <div className="panel" style={{ padding: '2.25rem', borderColor: accentBorder, background: `linear-gradient(180deg, ${accentDim} 0%, transparent 100%)` }}>
+            <p className="text-muted" style={{ lineHeight: 1.7, marginBottom: '1.5rem', fontSize: '0.92rem' }}>
+              CAL stores <strong style={{ color: accent }}>cryptographic hashes</strong>, not raw data. No employee PII, compensation details, internal pricing, or competitive intelligence is written to the ledger in cleartext. The underlying records remain in Cox-controlled databases behind existing access control policies. The ledger proves integrity — the source systems store content.
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+              {[
+                { label: 'Hashes Only', desc: 'SHA-256 fingerprints + metadata pointers — never raw data', color: accent },
+                { label: 'Permissioned Access', desc: 'Facility managers see their facility. Corporate sees aggregate. Employees see their own records only.', color: 'var(--accent-emerald)' },
+                { label: 'Zero External Exposure', desc: 'Nothing on CAL is accessible outside the Cox network. Trust Layer certificates expose only what Cox approves.', color: '#f87171' },
+                { label: 'Tamper-Proof Proof', desc: 'If a source record is modified after anchoring, the hash mismatch is instantly detectable.', color: '#a78bfa' },
+              ].map((item, i) => (
+                <div key={i} style={{ padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '10px', border: `1px solid ${accentDim}` }}>
+                  <p style={{ fontSize: '0.8rem', fontWeight: 700, color: item.color, marginBottom: '0.4rem' }}>{item.label}</p>
+                  <p className="text-dim" style={{ fontSize: '0.75rem', lineHeight: 1.5 }}>{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Employee Hash Receipts */}
+        <motion.div {...fadeIn} transition={{ delay: 0.42 }} style={{ marginBottom: '3rem' }}>
+          <h3 style={{ fontSize: '1.2rem', color: 'var(--accent-emerald)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <Fingerprint size={20} /> Employee Hash Receipts
+          </h3>
+          <div className="panel" style={{ padding: '2.25rem', borderColor: 'rgba(16,185,129,0.2)', background: 'linear-gradient(180deg, rgba(16,185,129,0.03) 0%, transparent 100%)' }}>
+            <p className="text-muted" style={{ lineHeight: 1.7, marginBottom: '1.25rem', fontSize: '0.92rem' }}>
+              Every record on CAL that affects an individual employee generates a <strong style={{ color: 'var(--accent-emerald)' }}>cryptographic receipt</strong> delivered to that employee's portal. When a timecard is edited, a pay adjustment is processed, a performance review is filed, or a safety incident is logged — the employee receives the SHA-256 hash of the record as it was anchored.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '1.5rem' }}>
+              {[
+                'Timecard edit → employee receives hash of original + modified entry',
+                'Pay adjustment → employee receives hash of payroll record at processing time',
+                'Performance review → employee receives hash of review as filed',
+                'Safety incident → employee receives hash of incident report at recording',
+                'Bonus calculation → employee receives hash of quota data + payout',
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.82rem', color: 'var(--text-main)' }}>
+                  <CheckCircle size={14} style={{ color: 'var(--accent-emerald)', flexShrink: 0 }} /> {item}
+                </div>
+              ))}
+            </div>
+            <p className="text-dim" style={{ fontSize: '0.8rem', lineHeight: 1.6 }}>
+              This is a trust feature, not a transparency feature. Employees see only the cryptographic proof that <em>their</em> records are intact. If a record is modified after anchoring, the receipt hash will not match — making unauthorized changes provably detectable. This protects both the organization and its workforce.
+            </p>
+          </div>
+        </motion.div>
+
         {/* Bottom CTA */}
         <motion.div {...fadeIn} transition={{ delay: 0.4 }} className="panel" style={{ padding: '3rem', textAlign: 'center', borderColor: accentBorder, background: `linear-gradient(180deg, ${accentDim} 0%, rgba(56,189,248,0.02) 100%)`, boxShadow: `0 10px 40px ${accentDim}` }}>
           <Server size={28} style={{ color: accent, marginBottom: '1rem' }} />

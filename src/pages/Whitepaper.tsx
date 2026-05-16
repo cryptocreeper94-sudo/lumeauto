@@ -203,7 +203,28 @@ export default function Whitepaper() {
               <li><strong>Condition certificates</strong> — OBD-II scan results sealed at the moment of diagnosis</li>
               <li><strong>Governance decisions</strong> — LUME-V workflow verifications anchored immutably</li>
               <li><strong>Arbitration evidence</strong> — deterministic replay data for dispute resolution</li>
+              <li><strong>Workforce events</strong> — time entries, performance records, and payroll-affecting changes</li>
             </ul>
+            <h4>Data Privacy Architecture</h4>
+            <p>
+              CAL follows a strict separation between <strong>what is hashed</strong> and <strong>what is stored</strong>. No sensitive corporate data — employee PII, compensation details, internal pricing, or competitive intelligence — is written to the ledger in cleartext. The ledger stores cryptographic hashes (SHA-256 fingerprints) and structured metadata pointers. The underlying records remain in Cox-controlled databases behind existing access control policies.
+            </p>
+            <p>
+              This means CAL provides tamper-proof verification without data exposure:
+            </p>
+            <ul>
+              <li><strong>Verified but private</strong> — any authorized party can confirm a record hasn't been altered, but cannot read the record itself without proper access</li>
+              <li><strong>Separation of proof and data</strong> — the hash proves integrity; the source database stores content. If the source is modified after anchoring, the hash mismatch is detectable.</li>
+              <li><strong>Permissioned read access</strong> — facility managers see their facility. Corporate sees the aggregate. Employees see only records that affect them. The ledger enforces the same access hierarchy that already exists — it does not create new visibility into data that was previously restricted.</li>
+              <li><strong>Zero external exposure</strong> — nothing on CAL is accessible outside the Cox network. The Trust Layer, if enabled, issues verification certificates from CAL data — but the certificates contain only what Cox chooses to make verifiable. The underlying data never leaves the private network.</li>
+            </ul>
+            <h4>Employee Hash Receipts</h4>
+            <p>
+              Every record on CAL that affects an individual employee generates a cryptographic receipt delivered to that employee. When a timecard is edited, a pay adjustment is processed, a performance review is filed, or a safety incident is logged — the employee receives the SHA-256 hash of the record as it was anchored. This gives every worker in the organization a personal, independently verifiable proof that their records have not been altered after the fact.
+            </p>
+            <p>
+              This is not a transparency feature — it is a trust feature. Employees do not see anyone else's data. They see only the cryptographic proof that <em>their</em> records are intact. If a timecard entry is modified after anchoring, the employee's receipt hash will not match the current record — making unauthorized changes provably detectable. This creates a zero-trust audit trail that protects both the organization and its workforce.
+            </p>
             <h4>Enterprise Scalability</h4>
             <p>
               CAL is not limited to Manheim. The same infrastructure can extend across the entire Cox Automotive portfolio — Autotrader, Kelley Blue Book, Dealer.com, NextGear Capital — providing a unified, cryptographically verified data layer wherever vehicles are bought, sold, serviced, or financed.
