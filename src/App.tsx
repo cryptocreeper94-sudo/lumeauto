@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Activity, Menu, X, Shield } from 'lucide-react';
+import { Activity, Menu, X, Shield, LogOut } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -19,6 +19,8 @@ import ManheimPitch from './pages/ManheimPitch';
 import MeridianPitch from './pages/MeridianPitch';
 import EngineeringBrief from './pages/EngineeringBrief';
 import Footer from './components/Footer';
+import AuthGate from './components/AuthGate';
+import { firebaseSignOut } from './lib/firebase';
 
 function LoadingScreen() {
   return (
@@ -180,8 +182,17 @@ function Navigation() {
   );
 }
 
+/** Detect which subdomain we're on */
+function getSubdomain(): 'manheim' | 'cal' | null {
+  const host = window.location.hostname;
+  if (host.includes('manheim')) return 'manheim';
+  if (host.includes('cal')) return 'cal';
+  return null;
+}
+
 function App() {
   const [loading, setLoading] = useState(true);
+  const subdomain = getSubdomain();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -205,53 +216,82 @@ function App() {
               #mobile-toggle { display: none !important; }
             }
           `}</style>
-          {window.location.hostname.includes('manheim') ? (
-            /* Minimal branded header for subdomain */
-            <nav style={{
-              position: 'fixed', top: 0, width: '100%', zIndex: 50,
-              background: 'rgba(10, 10, 12, 0.85)', backdropFilter: 'blur(16px)',
-              borderBottom: '1px solid var(--border-light)',
-            }}>
-              <div className="container flex justify-between items-center" style={{ height: '70px' }}>
-                <div className="flex items-center gap-3">
-                  <div style={{ width: 36, height: 36, background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Shield size={20} color="#0a0a0c" />
+
+          {subdomain ? (
+            /* ── Gated subdomain (manheim / cal) ── */
+            <AuthGate brand={subdomain}>
+              <nav style={{
+                position: 'fixed', top: 0, width: '100%', zIndex: 50,
+                background: 'rgba(10, 10, 12, 0.85)', backdropFilter: 'blur(16px)',
+                borderBottom: '1px solid var(--border-light)',
+              }}>
+                <div className="container flex justify-between items-center" style={{ height: '70px' }}>
+                  <div className="flex items-center gap-3">
+                    <div style={{ width: 36, height: 36, background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Shield size={20} color="#0a0a0c" />
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 700, fontSize: '1.05rem', letterSpacing: '-0.02em', lineHeight: 1.2 }}>Manheim Vehicle Intelligence</div>
+                      <div style={{ fontSize: '0.6rem', color: 'var(--text-dim)', letterSpacing: '0.06em' }}>Powered by DarkWave Studios LLC</div>
+                    </div>
                   </div>
-                  <div>
-                    <div style={{ fontWeight: 700, fontSize: '1.05rem', letterSpacing: '-0.02em', lineHeight: 1.2 }}>Manheim Vehicle Intelligence</div>
-                    <div style={{ fontSize: '0.6rem', color: 'var(--text-dim)', letterSpacing: '0.06em' }}>Powered by DarkWave Studios LLC</div>
+                  <div className="flex items-center gap-4" style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
+                    <span style={{ color: 'var(--accent-emerald)' }}>● Authenticated</span>
+                    <button
+                      onClick={() => firebaseSignOut()}
+                      style={{
+                        background: 'none', border: '1px solid var(--border-light)', borderRadius: '6px',
+                        padding: '4px 10px', cursor: 'pointer', color: 'var(--text-muted)',
+                        display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.7rem',
+                        transition: 'border-color 0.2s',
+                      }}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(239,68,68,0.4)'}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-light)'}
+                      title="Sign Out"
+                    >
+                      <LogOut size={12} /> Sign Out
+                    </button>
                   </div>
                 </div>
-                <div className="flex items-center gap-4" style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
-                  <span style={{ color: 'var(--accent-emerald)' }}>● System Active</span>
-                </div>
-              </div>
-            </nav>
+              </nav>
+              <main style={{ paddingTop: '70px', minHeight: 'calc(100vh - 200px)' }}>
+                <Routes>
+                  <Route path="/" element={<ManheimPitch />} />
+                  <Route path="/meridian" element={<MeridianPitch />} />
+                  <Route path="/engineering" element={<EngineeringBrief />} />
+                  <Route path="/manheim" element={<ManheimPitch />} />
+                  <Route path="/manheim-meridian" element={<MeridianPitch />} />
+                  <Route path="/manheim-engineering" element={<EngineeringBrief />} />
+                </Routes>
+              </main>
+            </AuthGate>
           ) : (
-            <Navigation />
+            /* ── Public site (lumeauto.tech) ── */
+            <>
+              <Navigation />
+              <main style={{ paddingTop: '70px', minHeight: 'calc(100vh - 200px)' }}>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/technology" element={<Technology />} />
+                  <Route path="/mpg-gains" element={<MpgGains />} />
+                  <Route path="/maintenance" element={<Maintenance />} />
+                  <Route path="/fleet" element={<Fleet />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/waitlist" element={<Waitlist />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/enterprise" element={<Enterprise />} />
+                  <Route path="/get-started" element={<GetStarted />} />
+                  <Route path="/manheim" element={<ManheimPitch />} />
+                  <Route path="/manheim-meridian" element={<MeridianPitch />} />
+                  <Route path="/manheim-engineering" element={<EngineeringBrief />} />
+                  <Route path="/meridian" element={<MeridianPitch />} />
+                  <Route path="/engineering" element={<EngineeringBrief />} />
+                </Routes>
+              </main>
+              <Footer />
+            </>
           )}
-          <main style={{ paddingTop: '70px', minHeight: 'calc(100vh - 200px)' }}>
-            <Routes>
-              <Route path="/" element={window.location.hostname.includes('manheim') ? <ManheimPitch /> : <Home />} />
-              <Route path="/technology" element={<Technology />} />
-              <Route path="/mpg-gains" element={<MpgGains />} />
-              <Route path="/maintenance" element={<Maintenance />} />
-              <Route path="/fleet" element={<Fleet />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/waitlist" element={<Waitlist />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/enterprise" element={<Enterprise />} />
-              <Route path="/get-started" element={<GetStarted />} />
-              <Route path="/manheim" element={<ManheimPitch />} />
-              <Route path="/manheim-meridian" element={<MeridianPitch />} />
-              <Route path="/manheim-engineering" element={<EngineeringBrief />} />
-              {/* Clean subdomain routes */}
-              <Route path="/meridian" element={<MeridianPitch />} />
-              <Route path="/engineering" element={<EngineeringBrief />} />
-            </Routes>
-          </main>
-          {!window.location.hostname.includes('manheim') && <Footer />}
         </motion.div>
       )}
     </Router>
@@ -259,3 +299,4 @@ function App() {
 }
 
 export default App;
+
