@@ -25,7 +25,7 @@ export default function HeroSection() {
               { icon: <Eye size={14}/>, val: 'Lume-V', label: 'Vision System', color: '#22d3ee' },
               { icon: <Cpu size={14}/>, val: '42', label: 'Governance Nodes', color: 'var(--accent-emerald)' },
               { icon: <FileText size={14}/>, val: '6', label: 'Patents Pending', color: 'var(--accent-emerald)' },
-              { icon: <BookOpen size={14}/>, val: '96', label: 'Published Papers', color: 'var(--accent-emerald)' },
+              { icon: <BookOpen size={14}/>, val: '10+', label: 'Relevant Papers', color: 'var(--accent-emerald)' },
               { icon: <Activity size={14}/>, val: '100Hz', label: 'Polling Rate', color: 'var(--accent-emerald)' },
             ].map((s, i) => (
               <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 + i * 0.1 }}

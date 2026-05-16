@@ -11,17 +11,17 @@ export default function EcosystemCTA() {
         <div className="container" style={{ maxWidth: '1000px' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <p style={{ color: '#a78bfa', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>Academic Foundation</p>
-            <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>Published. Patented. Peer-Reviewed.</h2>
+            <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>Published. Patented. Research-Backed.</h2>
             <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto', lineHeight: 1.7 }}>
-              This is not a startup pitch deck. The Lume ecosystem is backed by 96 published academic papers across three canon series, 6 pending patent applications, and a collected edition published on Zenodo.
+              This is not a startup pitch deck. The core technology is documented in published research papers on Zenodo with verifiable DOIs, backed by 6 pending patent applications covering deterministic governance, energy routing, and trust layer cryptography.
             </p>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '2.5rem' }}>
             {[
-              { title: 'Canon 1', sub: 'Lume Language & Trust Layer', papers: '42 papers', desc: 'Deterministic compilation, governance organisms, the 4/42 fractal law, trust layer cryptography.', color: 'var(--accent-emerald)', doi: '10.5281/zenodo.19382282' },
-              { title: 'Canon 2', sub: 'DAIGS & Synthetic Organisms', papers: '31 papers', desc: 'Deterministic AI governance systems, organism architecture, self-healing runtime, planetary-scale systems.', color: 'var(--accent-cyan)', doi: '10.5281/zenodo.19491784' },
-              { title: 'Canon 3', sub: 'Meridian Energy Architecture', papers: '10 papers + collected edition', desc: 'Wireless energy routing, anchor nodes, beam geometry, the Energy Internet protocol stack.', color: '#a78bfa', doi: '10.5281/zenodo.20028362' },
+              { title: 'Canon 1', sub: 'Lume Language & Trust Layer', papers: '42 papers', desc: 'Deterministic compilation, governance organisms, the 4/42 fractal law, trust layer cryptography. ~10 papers directly relevant to this platform.', color: 'var(--accent-emerald)', doi: '10.5281/zenodo.19382282' },
+              { title: 'Canon 2', sub: 'DAIGS & Synthetic Organisms', papers: '31 papers', desc: 'Deterministic AI governance systems, organism architecture, self-healing runtime. Foundational theory for the governance layer.', color: 'var(--accent-cyan)', doi: '10.5281/zenodo.19491784' },
+              { title: 'Canon 3', sub: 'Meridian Energy Architecture', papers: '10 papers', desc: 'Wireless energy routing, anchor nodes, beam geometry. Directly relevant to the Meridian charging system.', color: '#a78bfa', doi: '10.5281/zenodo.20028362' },
             ].map((canon, i) => (
               <motion.div key={i} {...f} transition={{ delay: i * 0.1 }} className="panel" style={{ padding: '1.75rem', borderColor: `${canon.color}22` }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
@@ -88,7 +88,7 @@ export default function EcosystemCTA() {
               The system is built. The research is published. The patents are filed. Everything documented above is production-ready and verifiable.
             </p>
             <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '2rem' }}>
-              © 2026 DarkWave Studios LLC / Lume42 Labs · 6 U.S. Provisional Patents Pending · 96 Published Papers
+              © 2026 DarkWave Studios LLC / Lume42 Labs · 6 U.S. Provisional Patents Pending · Published Research on Zenodo
             </p>
           </motion.div>
         </div>
