@@ -430,6 +430,9 @@ export default function Whitepaper() {
             <p>
               The platform includes an optional AI voice assistant for hands-free driver commands within Lot Ops Pro. This feature uses a large language model for natural language processing. It is explicitly non-critical — the entire platform operates fully without it. The voice layer is LLM-agnostic: it can connect to any provider (OpenAI, Anthropic, a self-hosted model, or Cox's own infrastructure), and it can be disabled entirely at the facility level. No core platform function — diagnostics, governance, ledger operations, custody tracking, or condition certification — depends on any external AI service. The deterministic stack is the platform. The LLM is a convenience layer.
             </p>
+            <p>
+              When the voice assistant is active, all LLM output passes through the same LUME-V deterministic governance wrapper that covers every other system component. The AI agent does not operate outside the safety envelope — its responses are validated, bounded, and auditable through the same 10-layer verification architecture documented in Section 2. This means the non-deterministic nature of the language model is contained by the deterministic runtime. The LLM can suggest; LUME-V decides what reaches the driver.
+            </p>
           </WpSection>
 
           {/* 12. Academic */}
