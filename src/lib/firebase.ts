@@ -30,6 +30,17 @@ const firebaseConfig = {
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
+// ── Domain Whitelist ──
+const ALLOWED_DOMAINS = ['coxautoinc.com', 'darkwavestudios.com'];
+
+function validateEmailDomain(email: string | null): void {
+  if (!email) throw new Error('No email address found on this account.');
+  const domain = email.split('@')[1]?.toLowerCase();
+  if (!domain || !ALLOWED_DOMAINS.includes(domain)) {
+    throw new Error('Access restricted to authorized Cox Automotive email addresses.');
+  }
+}
+
 // ── Providers ──
 const googleProvider = new GoogleAuthProvider();
 googleProvider.addScope("email");
@@ -39,15 +50,18 @@ googleProvider.addScope("profile");
 
 export async function signInWithGoogle(): Promise<User> {
   const result = await signInWithPopup(auth, googleProvider);
+  validateEmailDomain(result.user.email);
   return result.user;
 }
 
 export async function signInWithEmail(email: string, password: string): Promise<User> {
+  validateEmailDomain(email);
   const result = await signInWithEmailAndPassword(auth, email, password);
   return result.user;
 }
 
 export async function registerWithEmail(email: string, password: string): Promise<User> {
+  validateEmailDomain(email);
   const result = await createUserWithEmailAndPassword(auth, email, password);
   return result.user;
 }

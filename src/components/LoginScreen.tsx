@@ -11,7 +11,7 @@ const brands = {
   manheim: {
     icon: <Shield size={28} color="#0a0a0c" />,
     title: 'Manheim Vehicle Intelligence',
-    subtitle: 'Enterprise infrastructure documentation — authorized access only.',
+    subtitle: 'Sign in with your Manheim email address to access platform documentation.',
     gradient: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))',
     accent: 'var(--accent-cyan)',
   },
@@ -144,7 +144,7 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
               <Mail size={16} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
               <input
                 type="email"
-                placeholder="Email address"
+                placeholder={brand === 'manheim' ? 'your.name@coxautoinc.com' : 'Email address'}
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
@@ -201,7 +201,7 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
               onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setError(''); }}
               style={{ background: 'none', border: 'none', color: b.accent, fontSize: '0.8rem', cursor: 'pointer', fontWeight: 500 }}
             >
-              {mode === 'login' ? "Don't have an account? Register" : 'Already have an account? Sign in'}
+              {mode === 'login' ? "Don't have an account? Register with your Cox email" : 'Already have an account? Sign in'}
             </button>
           </div>
         </div>
@@ -210,7 +210,7 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>
           <p style={{ fontSize: '0.65rem', color: 'var(--text-dim)', lineHeight: 1.6 }}>
             Powered by DarkWave Studios LLC<br />
-            Authentication secured by Firebase · All sessions encrypted
+            Authentication secured by Firebase · Access restricted to @coxautoinc.com
           </p>
         </div>
       </motion.div>
