@@ -10,7 +10,7 @@ export default function LotOpsProSection() {
           <p style={{ color: 'var(--accent-emerald)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>The Operating System</p>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Lot Ops Pro</h2>
           <p className="text-muted" style={{ maxWidth: '680px', margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7 }}>
-            The platform that started it all. A production-ready, mobile-first autonomous lot management system — independently designed for wholesale automotive operations, currently deployed at multiple facilities. Multi-tenant by design. Every facility gets its own isolated environment, branding, and configuration from a single deployment. Drivers use their own phones or a low-cost provided device — no specialized hardware required. Supervisors manage from anywhere. The entire lot runs on one system — from ticket scanning to vehicle routing to performance tracking to real-time messaging.
+            The platform that started it all. A production-ready, mobile-first autonomous lot management system — independently designed for wholesale automotive operations and engineered for pilot-scale deployment. Multi-tenant by design. Every facility gets its own isolated environment, branding, and configuration from a single deployment. Drivers use their own phones or a low-cost provided device — no specialized hardware required. Supervisors manage from anywhere. The entire lot runs on one system — from ticket scanning to vehicle routing to performance tracking to real-time messaging.
           </p>
         </div>
 
@@ -64,8 +64,8 @@ export default function LotOpsProSection() {
         {/* Stats bar */}
         <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', marginTop: '2.5rem' }}>
           {[
-            { val: '2', unit: '', label: 'Active Facilities' },
-            { val: '20K', unit: '+', label: 'Vehicles Managed' },
+            { val: '0', unit: '', label: 'Legacy Tech Debt' },
+            { val: '100', unit: '%', label: 'Offline Capable' },
             { val: '$0', unit: '', label: 'Hardware Investment' },
             { val: '300', unit: '+', label: 'Potential Facilities' },
             { val: '20+', unit: '', label: 'Production Features' },
