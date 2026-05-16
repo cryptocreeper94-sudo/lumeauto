@@ -18,6 +18,7 @@ import GetStarted from './pages/GetStarted';
 import ManheimPitch from './pages/ManheimPitch';
 import MeridianPitch from './pages/MeridianPitch';
 import EngineeringBrief from './pages/EngineeringBrief';
+import Whitepaper from './pages/Whitepaper';
 import Footer from './components/Footer';
 import AuthGate from './components/AuthGate';
 import { firebaseSignOut } from './lib/firebase';
@@ -259,6 +260,7 @@ function App() {
                   <Route path="/" element={<ManheimPitch />} />
                   <Route path="/meridian" element={<MeridianPitch />} />
                   <Route path="/engineering" element={<EngineeringBrief />} />
+                  <Route path="/whitepaper" element={<Whitepaper />} />
                   <Route path="/manheim" element={<ManheimPitch />} />
                   <Route path="/manheim-meridian" element={<MeridianPitch />} />
                   <Route path="/manheim-engineering" element={<EngineeringBrief />} />
