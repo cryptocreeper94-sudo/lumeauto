@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useCallback } from 'react';
-import { Code2, Cpu, Shield, Layers, Zap, GitBranch, Wrench, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Code2, Cpu, Shield, Layers, Zap, GitBranch, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const features = [
   { icon: <Code2 size={24}/>, title: 'Deterministic Compilation', desc: 'Lume source compiles to governance organisms — not executables. Same inputs always produce same outputs. No randomness, no inference, no hallucination surface.', color: '#a78bfa' },
