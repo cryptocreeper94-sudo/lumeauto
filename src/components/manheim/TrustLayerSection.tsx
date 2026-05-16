@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Shield, Layers, FileCheck, Globe, ArrowRight } from 'lucide-react';
+import { Shield, Layers, FileCheck, Globe } from 'lucide-react';
 
 const fadeIn = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
@@ -71,26 +71,37 @@ export default function TrustLayerSection() {
         </div>
 
         {/* The chain of trust */}
-        <motion.div {...fadeIn} transition={{ delay: 0.3 }} className="panel" style={{ padding: '2.5rem', textAlign: 'center', borderColor: accentBorder, background: `linear-gradient(180deg, ${accentDim} 0%, rgba(167,139,250,0.02) 100%)` }}>
-          <h3 style={{ fontSize: '1.3rem', marginBottom: '1.5rem', color: accent }}>Chain of Trust</h3>
-          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
+        <motion.div {...fadeIn} transition={{ delay: 0.3 }} className="panel" style={{ padding: '2.5rem', borderColor: accentBorder, background: `linear-gradient(180deg, ${accentDim} 0%, rgba(167,139,250,0.02) 100%)` }}>
+          <h3 style={{ fontSize: '1.3rem', marginBottom: '2rem', color: accent, textAlign: 'center' }}>Chain of Trust</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0, maxWidth: '400px', margin: '0 auto' }}>
             {[
-              { label: 'OBD-II Scan', color: 'var(--accent-cyan)' },
-              { label: 'Organism Processing', color: 'var(--accent-emerald)' },
-              { label: 'CAL Anchor', color: '#38bdf8' },
-              { label: 'Trust Layer Certificate', color: accent },
-              { label: 'Public Verification', color: '#fb923c' },
+              { label: 'OBD-II Scan', sub: 'Raw sensor data captured', color: 'var(--accent-cyan)' },
+              { label: 'Organism Processing', sub: '42-node deterministic analysis', color: 'var(--accent-emerald)' },
+              { label: 'CAL Anchor', sub: 'Tamper-proof record created', color: '#38bdf8' },
+              { label: 'Trust Layer Certificate', sub: 'Cryptographic verification issued', color: accent },
+              { label: 'Public Verification', sub: 'Independently verifiable by any party', color: '#fb923c' },
             ].map((step, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ padding: '8px 16px', background: `${step.color}15`, border: `1px solid ${step.color}30`, borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600, color: step.color, whiteSpace: 'nowrap' }}>
-                  {step.label}
+              <div key={i} style={{ display: 'flex', alignItems: 'stretch', gap: '1rem' }}>
+                {/* Numbered circle + connecting line */}
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 32, flexShrink: 0 }}>
+                  <div style={{
+                    width: 28, height: 28, borderRadius: '50%',
+                    background: `${step.color}18`, border: `2px solid ${step.color}`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: '0.7rem', fontWeight: 800, color: step.color, flexShrink: 0,
+                  }}>{i + 1}</div>
+                  {i < 4 && <div style={{ width: 2, flex: 1, background: `linear-gradient(180deg, ${step.color}40, rgba(255,255,255,0.06))`, minHeight: 20 }} />}
                 </div>
-                {i < 4 && <ArrowRight size={16} style={{ color: 'var(--text-dim)', flexShrink: 0 }} />}
+                {/* Content */}
+                <div style={{ paddingBottom: i < 4 ? '1.25rem' : 0 }}>
+                  <div style={{ fontSize: '0.9rem', fontWeight: 700, color: step.color }}>{step.label}</div>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--text-dim)', marginTop: '2px' }}>{step.sub}</div>
+                </div>
               </div>
             ))}
           </div>
-          <p className="text-muted" style={{ maxWidth: '650px', margin: '1.5rem auto 0', fontSize: '0.9rem', lineHeight: 1.6 }}>
-            Every certificate is traceable from the original sensor data through deterministic processing to its final anchored record — end to end, with no gaps in provenance.
+          <p className="text-muted" style={{ maxWidth: '650px', margin: '2rem auto 0', fontSize: '0.9rem', lineHeight: 1.6, textAlign: 'center' }}>
+            Every certificate is traceable from raw sensor data to its final anchored record — end to end, with no gaps in provenance.
           </p>
         </motion.div>
 
