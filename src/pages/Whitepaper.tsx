@@ -103,7 +103,7 @@ export default function Whitepaper() {
               <li><strong>LUME-V</strong> — A deterministic governance wrapper that modernizes legacy behavior without altering source code</li>
               <li><strong>Cox Automotive Ledger (CAL)</strong> — A private, permissioned cryptographic ledger for enterprise-grade auditability</li>
               <li><strong>Lot Ops Pro</strong> — A real-time operational platform for vehicle custody, driver management, and workflow orchestration</li>
-              <li><strong>LUME-Auto</strong> — An OBD-II diagnostic organism that produces cryptographically verifiable condition reports in 45 seconds</li>
+              <li><strong>LUME-Auto</strong> — A full OBD-II diagnostic scanner and governance organism. Reads and clears trouble codes, captures freeze frame data, auto-reads VINs from the ECU, and produces cryptographically verifiable condition reports in 45 seconds. Supports both Bluetooth and WiFi adapters.</li>
               <li><strong>Trust Layer</strong> — A commercial verification system that issues publicly verifiable certificates from internal CAL records</li>
             </ul>
             <p>
@@ -250,6 +250,23 @@ export default function Whitepaper() {
               <li>Cryptographically signed results anchored to CAL at the moment of diagnosis</li>
               <li>Zero AI dependencies — 42 deterministic test cases passed with zero inference calls</li>
             </ul>
+            <h4>Full OBD-II Scanner Capabilities</h4>
+            <p>
+              Beyond telemetry monitoring, LUME-Auto is a complete OBD-II scanner that matches or exceeds the capabilities of dedicated scan tools:
+            </p>
+            <ul>
+              <li><strong>Read Stored DTCs (Mode 03)</strong> — Read all diagnostic trouble codes with severity classification and system categorization (Powertrain, Body, Chassis, Network)</li>
+              <li><strong>Clear Codes + MIL Reset (Mode 04)</strong> — Clear all stored trouble codes, freeze frame data, and reset the Malfunction Indicator Lamp (Check Engine Light). Also resets readiness monitors.</li>
+              <li><strong>Pending DTCs (Mode 07)</strong> — Detect intermittent faults that haven't yet triggered the MIL. Critical for pre-lane screening — catches faults before they become buyer issues.</li>
+              <li><strong>Freeze Frame Data (Mode 02)</strong> — Capture the exact engine state (RPM, speed, coolant, load, fuel trims) at the moment a DTC was stored. Enables root-cause analysis without live reproduction.</li>
+              <li><strong>VIN Auto-Read (Mode 09)</strong> — Read the Vehicle Identification Number directly from the ECU. Eliminates manual entry errors and provides cryptographic proof that the scan matches the physical vehicle.</li>
+              <li><strong>8 Readiness Monitors (Mode 01)</strong> — Full emissions readiness status for all eight OBD-II monitors. Pass/fail status for state inspections and auction lane qualification.</li>
+              <li><strong>CSV Telemetry Export</strong> — Download full telemetry session data as CSV for fleet-level analytics, audit trails, and third-party integrations.</li>
+            </ul>
+            <h4>Dual-Connectivity Architecture</h4>
+            <p>
+              The platform supports both Bluetooth Low Energy (BLE) and WiFi OBD-II adapters. The web application (PWA) supports BLE via the Web Bluetooth API. The native Android application (APK) supports both BLE and direct WiFi TCP connections, enabling deployment on field tablets and fleet devices that use WiFi-based adapters. Both interfaces share the same 42-node governance engine — the transport layer is abstracted; the diagnostic output is identical.
+            </p>
             <h4>Hardware Strategy</h4>
             <p>
               The platform uses commodity ELM327-compatible OBD-II adapters — the same adapters mechanics already own. Zero proprietary hardware required. Zero capital investment to start. A branded Lume dongle ($13 BOM, ESP32-S3 based) is available for fleet-scale deployment with OTA firmware updates and Ghost Mode secure gateway bypass.
