@@ -12,33 +12,37 @@ export default function EcosystemCTA() {
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <p style={{ color: '#a78bfa', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>Academic Foundation</p>
             <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>Published. Patented. Research-Backed.</h2>
-            <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto', lineHeight: 1.7 }}>
-              This is not a startup pitch deck. The core technology is documented in published research papers on Zenodo with verifiable DOIs, backed by 6 pending patent applications covering deterministic governance, energy routing, and trust layer cryptography.
+            <p className="text-muted" style={{ maxWidth: '680px', margin: '0 auto', lineHeight: 1.7 }}>
+              Every core technology in this platform is documented in published research with verifiable DOIs on Zenodo and backed by 6 pending U.S. patent applications. The following papers are directly relevant to the systems described in this presentation.
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '2.5rem' }}>
+          {/* Relevant Papers — individually verified */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2.5rem' }}>
             {[
-              { title: 'Canon 1', sub: 'Lume Language & Trust Layer', papers: '42 papers', desc: 'Deterministic compilation, governance organisms, the 4/42 fractal law, trust layer cryptography. ~10 papers directly relevant to this platform.', color: 'var(--accent-emerald)', doi: '10.5281/zenodo.19382282' },
-              { title: 'Canon 2', sub: 'DAIGS & Synthetic Organisms', papers: '31 papers', desc: 'Deterministic AI governance systems, organism architecture, self-healing runtime. Foundational theory for the governance layer.', color: 'var(--accent-cyan)', doi: '10.5281/zenodo.19491784' },
-              { title: 'Canon 3', sub: 'Meridian Energy Architecture', papers: '10 papers', desc: 'Wireless energy routing, anchor nodes, beam geometry. Directly relevant to the Meridian charging system.', color: '#a78bfa', doi: '10.5281/zenodo.20028362' },
-            ].map((canon, i) => (
-              <motion.div key={i} {...f} transition={{ delay: i * 0.1 }} className="panel" style={{ padding: '1.75rem', borderColor: `${canon.color}22` }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                  <h4 style={{ fontSize: '1.1rem', color: canon.color }}>{canon.title}</h4>
-                  <span style={{ fontSize: '0.7rem', padding: '3px 10px', borderRadius: '10px', background: `${canon.color}12`, color: canon.color, fontWeight: 600 }}>{canon.papers}</span>
+              { title: 'Lume: A Deterministic Natural-Language Programming Language', sub: 'The core language and compiler powering the 42-node governance organisms, trust certificates, and deterministic intent resolution.', doi: '10.5281/zenodo.19382282', version: 'v6 · April 2026', color: 'var(--accent-emerald)', relevance: 'Core substrate for all platform governance' },
+              { title: 'Lume-V: Deterministic Governance for Non-Deterministic AI Systems', sub: 'The verification wrapper that validates, certifies, and arbitrates AI outputs before they reach downstream systems. 10-layer architecture with Ed25519-signed trust certificates.', doi: '10.5281/zenodo.19645097', version: 'v1 · 2026', color: 'var(--accent-cyan)', relevance: 'Directly deployed as the verification layer' },
+              { title: 'DAIGS: Deterministic Autonomous Infrastructure Governance System', sub: 'The multi-vertical governance framework defining Lume-Auto (vehicle systems), deterministic state models, invariant engines, and certificate fabrics across 23 infrastructure verticals.', doi: '10.5281/zenodo.19491784', version: 'v3 · 2026', color: '#a78bfa', relevance: 'Defines the Lume-Auto vertical used here' },
+              { title: 'The Routed World — Meridian and Deterministic Physical Infrastructure', sub: 'Collected edition of the Meridian Canon: deterministic wireless energy routing, anchor node architecture, and the theory of Deterministic Infrastructure.', doi: '10.5281/zenodo.20028362', version: 'First Edition · May 2026', color: '#818cf8', relevance: 'Foundation for the Meridian charging system' },
+            ].map((paper, i) => (
+              <motion.div key={i} {...f} transition={{ delay: i * 0.08 }} className="panel" style={{ padding: '1.5rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
+                  <h4 style={{ fontSize: '1rem', color: paper.color, flex: 1, minWidth: '200px' }}>{paper.title}</h4>
+                  <span style={{ fontSize: '0.6rem', padding: '3px 8px', borderRadius: '8px', background: `${paper.color}12`, color: paper.color, fontWeight: 600, whiteSpace: 'nowrap' }}>{paper.version}</span>
                 </div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-dim)', marginBottom: '0.5rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{canon.sub}</div>
-                <p className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.5, marginBottom: '0.75rem' }}>{canon.desc}</p>
-                <a href={`https://doi.org/${canon.doi}`} target="_blank" rel="noopener" style={{ fontSize: '0.7rem', color: canon.color, fontFamily: 'var(--font-mono)', opacity: 0.7 }}>
-                  DOI: {canon.doi} ↗
-                </a>
+                <p className="text-muted" style={{ fontSize: '0.82rem', lineHeight: 1.5, marginBottom: '0.6rem' }}>{paper.sub}</p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noopener" style={{ fontSize: '0.68rem', color: paper.color, fontFamily: 'var(--font-mono)', opacity: 0.8 }}>
+                    DOI: {paper.doi} ↗
+                  </a>
+                  <span style={{ fontSize: '0.6rem', color: 'var(--text-dim)', fontStyle: 'italic' }}>{paper.relevance}</span>
+                </div>
               </motion.div>
             ))}
           </div>
 
           {/* Patent bar */}
-          <motion.div {...f} className="panel" style={{ padding: '1.5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', borderColor: 'rgba(251,146,60,0.2)', background: 'rgba(251,146,60,0.02)' }}>
+          <motion.div {...f} className="panel" style={{ padding: '1.5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
             {[
               { icon: <FileText size={16}/>, label: 'U.S. Provisional 64/032,339', desc: 'Lume Deterministic Governance' },
               { icon: <FileText size={16}/>, label: 'U.S. Provisional 64/056,378', desc: 'Meridian Energy Architecture' },
