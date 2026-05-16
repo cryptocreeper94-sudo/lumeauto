@@ -93,7 +93,7 @@ export default function Whitepaper() {
           {/* 1. Executive Summary */}
           <WpSection num={1} title="Executive Summary">
             <p>
-              Manheim processes over 8 million vehicles annually across 76 locations. The infrastructure supporting these operations — built over 25 years — is a patchwork of legacy systems, vendor-locked databases, and manual processes that resist modernization.
+              Manheim processes over 8 million vehicles annually across 76 locations. The infrastructure supporting these operations — built and refined over 25 years — represents one of the most complex operational systems in automotive wholesale. Modernizing systems at this scale without disrupting daily operations is a challenge that has historically eluded the industry.
             </p>
             <p>
               DarkWave Studios has built a complete infrastructure modernization platform that addresses this challenge without requiring Manheim to replace, migrate, or shut down any existing system. The platform operates as a governance and intelligence layer that wraps around existing infrastructure, adding deterministic auditability, cryptographic provenance, and real-time diagnostics.
@@ -114,9 +114,9 @@ export default function Whitepaper() {
           {/* 2. The Modernization Challenge */}
           <WpSection num={2} title="The Modernization Challenge">
             <p>
-              Enterprise legacy modernization is one of the most consistently failed initiatives in corporate IT. The pattern is well-documented: multi-year timelines, hundreds of millions in budget, massive organizational disruption — and a high probability of failure or partial delivery.
+              Enterprise legacy modernization is one of the most challenging initiatives in corporate IT. The pattern is well-documented across every industry: multi-year timelines, significant budget requirements, organizational complexity — and outcomes that frequently fall short of expectations.
             </p>
-            <p>Manheim's operational infrastructure faces five specific constraints that make traditional modernization approaches impractical:</p>
+            <p>Manheim's operational infrastructure faces five specific constraints that make traditional modernization approaches impractical — not because of any shortcoming in the existing systems, but because of the inherent challenges of operating at this scale:</p>
             <ul>
               <li><strong>Too expensive to rebuild</strong> — The cost of replacing 25 years of accumulated business logic exceeds any reasonable capital allocation</li>
               <li><strong>Too risky to replace</strong> — Production systems processing $100B+ annually cannot tolerate downtime or migration failures</li>
@@ -315,7 +315,7 @@ export default function Whitepaper() {
             </ul>
             <h4>Arbitration Reduction</h4>
             <p>
-              Deterministic health scoring eliminates subjective inspector variance. Buyers receive transparent, sensor-verified condition data with cryptographic proof of when and how the scan was conducted. Post-sale disputes are resolved by deterministic replay of the original scan data — not by opinion, not by competing inspections, but by mathematical verification.
+              Deterministic health scoring complements inspector expertise by adding a sensor-verified, reproducible data layer to every assessment. Buyers receive transparent condition data with cryptographic proof of when and how the scan was conducted. Post-sale disputes gain a new resolution path: deterministic replay of the original scan data provides objective evidence alongside the inspector's professional judgment.
             </p>
           </WpSection>
 

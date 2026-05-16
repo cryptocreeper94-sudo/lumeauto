@@ -82,7 +82,7 @@ export default function ArchitectureSection() {
             </tbody>
           </table>
           <p className="text-dim" style={{ textAlign: 'center', marginTop: '1rem', fontSize: '0.8rem' }}>
-            When a $2,500 arbitration dispute hinges on a condition report, "the AI thought" is not an acceptable answer. On-chain anchoring makes the report immutable and verifiable by any party.
+            When a $2,500 arbitration dispute hinges on a condition report, deterministic reproducibility changes the conversation. On-chain anchoring makes the report immutable and verifiable by any party.
           </p>
         </motion.div>
       </div>

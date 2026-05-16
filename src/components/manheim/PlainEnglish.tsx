@@ -110,9 +110,9 @@ export default function PlainEnglish() {
               </div>
               <p style={{ fontSize: '0.88rem', lineHeight: 1.75, color: 'var(--text-muted)', margin: 0 }}>
                 It's an infrastructure layer that sits on top of what Manheim already runs. It doesn't replace anything. 
-                It adds three things your current systems don't have: vehicle condition reports that can't be argued with, 
-                a custody record that can't be tampered with, and an operational platform that replaces clipboards and radios 
-                with phones your drivers already own or an inexpensive browser-based device provided by Manheim. Every piece works on its own. You don't have to buy the whole thing to get value from one part.
+                It adds three capabilities that complement existing operations: sensor-verified condition reports with cryptographic proof, 
+                a tamper-evident custody record for every vehicle transition, and a mobile operational platform that works on 
+                phones your drivers already own or an inexpensive browser-based device. Every piece works on its own. You don't have to adopt the whole thing to get value from one part.
               </p>
             </div>
 

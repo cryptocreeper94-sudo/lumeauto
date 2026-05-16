@@ -90,7 +90,7 @@ export default function CoxLedgerSection() {
               <Workflow size={20} /> What CAL Enables
             </h3>
             <p className="text-muted" style={{ lineHeight: 1.6, marginBottom: '1.25rem', fontSize: '0.9rem' }}>
-              CAL gives Manheim capabilities that don't exist anywhere in automotive wholesale today:
+              CAL gives Manheim capabilities that extend current operational infrastructure:
             </p>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {[
