@@ -226,25 +226,25 @@ function App() {
                 background: 'rgba(10, 10, 12, 0.85)', backdropFilter: 'blur(16px)',
                 borderBottom: '1px solid var(--border-light)',
               }}>
-                <div className="container flex justify-between items-center" style={{ height: '70px' }}>
-                  <div className="flex items-center gap-3">
-                    <div style={{ width: 36, height: 36, background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Shield size={20} color="#0a0a0c" />
+                <div className="container flex justify-between items-center" style={{ height: '56px', padding: '0 12px' }}>
+                  <div className="flex items-center gap-2" style={{ minWidth: 0 }}>
+                    <div style={{ width: 32, height: 32, background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <Shield size={16} color="#0a0a0c" />
                     </div>
-                    <div>
-                      <div style={{ fontWeight: 700, fontSize: '1.05rem', letterSpacing: '-0.02em', lineHeight: 1.2 }}>Manheim Vehicle Intelligence</div>
-                      <div style={{ fontSize: '0.6rem', color: 'var(--text-dim)', letterSpacing: '0.06em' }}>Powered by DarkWave Studios LLC</div>
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ fontWeight: 700, fontSize: '0.9rem', letterSpacing: '-0.02em', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Manheim Vehicle Intelligence</div>
+                      <div className="nav-subtitle-desktop" style={{ fontSize: '0.55rem', color: 'var(--text-dim)', letterSpacing: '0.06em' }}>Powered by DarkWave Studios</div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4" style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
-                    <span style={{ color: 'var(--accent-emerald)' }}>● Authenticated</span>
+                  <div className="flex items-center gap-3" style={{ fontSize: '0.7rem', color: 'var(--text-dim)', flexShrink: 0 }}>
+                    <span className="nav-auth-desktop" style={{ color: 'var(--accent-emerald)', whiteSpace: 'nowrap' }}>● Authenticated</span>
                     <button
                       onClick={() => firebaseSignOut()}
                       style={{
                         background: 'none', border: '1px solid var(--border-light)', borderRadius: '6px',
                         padding: '4px 10px', cursor: 'pointer', color: 'var(--text-muted)',
-                        display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.7rem',
-                        transition: 'border-color 0.2s',
+                        display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.65rem',
+                        transition: 'border-color 0.2s', whiteSpace: 'nowrap',
                       }}
                       onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(239,68,68,0.4)'}
                       onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-light)'}
@@ -255,7 +255,7 @@ function App() {
                   </div>
                 </div>
               </nav>
-              <main style={{ paddingTop: '70px', minHeight: 'calc(100vh - 200px)' }}>
+              <main style={{ paddingTop: '56px', minHeight: 'calc(100vh - 200px)' }}>
                 <Routes>
                   <Route path="/" element={<ManheimPitch />} />
                   <Route path="/meridian" element={<MeridianPitch />} />
