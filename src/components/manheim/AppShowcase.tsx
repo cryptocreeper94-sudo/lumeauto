@@ -24,7 +24,7 @@ export default function AppShowcase() {
       <div className="container" style={{ maxWidth: '1100px' }}>
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <p style={{ color: 'var(--accent-cyan)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>The Application</p>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>What the Native Build Looks Like</h2>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>LUME-Auto in Action</h2>
           <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto', lineHeight: 1.7 }}>
             Four primary interfaces. Every screen is a window into the deterministic organism — not a static dashboard, but a live view of a self-governing runtime.
           </p>
