@@ -209,7 +209,7 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
         {/* Footer */}
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>
           <p style={{ fontSize: '0.65rem', color: 'var(--text-dim)', lineHeight: 1.6 }}>
-            Powered by DarkWave Studios LLC<br />
+            Manheim Vehicle Intelligence Platform<br />
             Authentication secured by Firebase · Access restricted to @coxautoinc.com
           </p>
         </div>

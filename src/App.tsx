@@ -233,7 +233,7 @@ function App() {
                     </div>
                     <div style={{ minWidth: 0 }}>
                       <div style={{ fontWeight: 700, fontSize: '0.9rem', letterSpacing: '-0.02em', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Manheim Vehicle Intelligence</div>
-                      <div className="nav-subtitle-desktop" style={{ fontSize: '0.55rem', color: 'var(--text-dim)', letterSpacing: '0.06em' }}>Powered by DarkWave Studios</div>
+                      <div className="nav-subtitle-desktop" style={{ fontSize: '0.55rem', color: 'var(--text-dim)', letterSpacing: '0.06em' }}>Vehicle Intelligence Platform</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-3" style={{ fontSize: '0.7rem', color: 'var(--text-dim)', flexShrink: 0 }}>

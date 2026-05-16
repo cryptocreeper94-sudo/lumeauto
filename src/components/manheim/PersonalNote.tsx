@@ -62,14 +62,14 @@ export default function PersonalNote() {
           }}>
             <div>
               <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-main)' }}>— Jason</div>
-              <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', marginTop: '2px' }}>DarkWave Studios LLC</div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', marginTop: '2px' }}>Lume Ecosystem</div>
             </div>
             <div style={{
               fontSize: '0.65rem', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)',
               padding: '4px 10px', background: 'rgba(56,189,248,0.05)', borderRadius: '6px',
               border: '1px solid rgba(56,189,248,0.08)',
             }}>
-              jason@darkwavestudios.com
+              team@dwsc.io
             </div>
           </div>
 
