@@ -34,7 +34,7 @@ export default function StackComparison() {
             { label: 'Replay', react: 'Log-based reconstruction', lume: 'Deterministic replay — bit-identical' },
             { label: 'Deployment', react: 'Render / Vercel / any PaaS', lume: 'Edge-native — runs on-device' },
             { label: 'Trust Chain', react: 'PostgreSQL audit logs', lume: 'PoA enterprise ledger — immutable' },
-            { label: 'AI Usage', react: 'GPT-5 for voice + summaries', lume: 'GPT-5 for voice + summaries (unchanged)' },
+            { label: 'AI Usage', react: 'LLM for voice + summaries (optional)', lume: 'LLM for voice + summaries (optional, swappable)' },
           ].map((row, i) => (
             <motion.div key={i} {...f} transition={{ delay: i * 0.03 }} style={{ display: 'contents' }}>
               <div style={{ padding: '0.9rem 1.5rem', borderBottom: '1px solid var(--border-light)', background: i % 2 === 0 ? 'rgba(255,255,255,0.01)' : 'transparent' }}>

@@ -37,7 +37,7 @@ export default function PersonalNote() {
               This is the full picture now — every layer, every component, and how they all fit together.
             </p>
             <p style={{ marginBottom: '1rem' }}>
-              I know this is a lot. There are twelve sections below covering everything from the governance wrapper and the private ledger 
+              I know this is a lot. There are a dozen sections below covering everything from the governance wrapper and the private ledger 
               to the diagnostic hardware, the operational platform, and a future wireless energy layer. Each one is its own thing — 
               you don't need to absorb it all at once.
             </p>

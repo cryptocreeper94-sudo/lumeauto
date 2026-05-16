@@ -418,6 +418,18 @@ export default function Whitepaper() {
             <p>
               The platform's authentication layer is designed to integrate with any corporate identity provider. The current deployment uses a centralized SSO service, but the architecture supports direct integration with Azure Active Directory, Okta, SAML 2.0, OpenID Connect, or any enterprise identity system Cox Automotive already operates. Drivers, supervisors, and administrators sign in with the credentials they already use — no separate accounts, no additional password management, no IT provisioning overhead. This integration is a day-one deployment concern, not a future roadmap item.
             </p>
+            <h4>Data Residency & Compliance</h4>
+            <p>
+              All platform data resides on infrastructure that Cox Automotive controls. The Cox Automotive Ledger is a private network — no data traverses public chains or third-party infrastructure. The platform architecture is designed for SOC 2 Type II, GDPR, and PCI DSS compliance readiness. Audit trails are cryptographically anchored and immutable. Data sovereignty is not a configuration option — it is a structural guarantee of the ledger architecture.
+            </p>
+            <h4>Uptime & Disaster Recovery</h4>
+            <p>
+              The platform supports multi-region failover with automated backups and deterministic state recovery. Because the Lume runtime is deterministic, disaster recovery is not probabilistic — given the same inputs and organism version, any node can reconstruct the identical state. Uptime commitments and SLA terms are defined during deployment planning based on Cox Automotive's operational requirements.
+            </p>
+            <h4>AI & LLM Usage</h4>
+            <p>
+              The platform includes an optional AI voice assistant for hands-free driver commands within Lot Ops Pro. This feature uses a large language model for natural language processing. It is explicitly non-critical — the entire platform operates fully without it. The voice layer is LLM-agnostic: it can connect to any provider (OpenAI, Anthropic, a self-hosted model, or Cox's own infrastructure), and it can be disabled entirely at the facility level. No core platform function — diagnostics, governance, ledger operations, custody tracking, or condition certification — depends on any external AI service. The deterministic stack is the platform. The LLM is a convenience layer.
+            </p>
           </WpSection>
 
           {/* 12. Academic */}
