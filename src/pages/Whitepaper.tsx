@@ -269,7 +269,16 @@ export default function Whitepaper() {
             </p>
             <h4>Hardware Strategy</h4>
             <p>
-              The platform uses commodity ELM327-compatible OBD-II adapters — the same adapters mechanics already own. Zero proprietary hardware required. Zero capital investment to start. A branded Lume dongle ($13 BOM, ESP32-S3 based) is available for fleet-scale deployment with OTA firmware updates and Ghost Mode secure gateway bypass.
+              The platform uses commodity ELM327-compatible OBD-II adapters — the same adapters mechanics already own. Zero proprietary hardware required. Zero capital investment to begin evaluation.
+            </p>
+            <p>
+              At fleet scale, commodity adapters present three architectural constraints: no device identity (any adapter looks the same to the network), no firmware governance (no way to version, update, or control behavior across devices), and no secure gateway compliance (2018+ vehicles with gateway modules block commodity ELM327 communication entirely).
+            </p>
+            <p>
+              The Lume Dongle ($13 BOM, ESP32-S3 based) is designed as the production-grade endpoint that addresses each constraint. It supports WiFi + BT Classic + BLE simultaneously, performs passive CAN bus sniffing (zero discovery latency), includes a Ghost Mode secure gateway bypass for 2018+ vehicles, and accepts OTA firmware updates. Each device carries a unique fleet identity, enabling per-device telemetry attribution, firmware channel management, and deployment-specific configuration.
+            </p>
+            <p>
+              The hardware abstraction layer is architecturally modular — the branding layer, firmware channel, and fleet management interface are configurable per deployment. The same physical hardware supports independent identity configurations without hardware modification. This architectural decision was made to ensure the platform is deployable across multiple operational contexts without per-deployment hardware redesign.
             </p>
             <h4>Lot Flow Intelligence</h4>
             <p>

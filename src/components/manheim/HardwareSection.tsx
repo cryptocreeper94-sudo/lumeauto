@@ -27,16 +27,17 @@ export default function HardwareSection() {
           {/* Phase 2 */}
           <motion.div {...f} transition={{ delay: 0.15 }} style={{ display: 'flex', flexDirection: 'column' }}>
             <img src="/assets/images/phase2.png" style={{ width: '100%', height: '220px', objectFit: 'cover', borderRadius: '16px', marginBottom: '1.5rem', border: '1px solid rgba(251,146,60,0.3)' }} alt="Lume Dongle PCB" />
-            <div style={{ color: '#fb923c', fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>The Branded Product</div>
+            <div style={{ color: '#fb923c', fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>Enterprise Hardware · Modular Architecture</div>
             <h3 style={{ fontSize: '1.6rem', marginBottom: '1rem' }}>The Lume Dongle.</h3>
             <p className="text-muted" style={{ marginBottom: '1.5rem', lineHeight: 1.6, flex: 1, fontSize: '0.95rem' }}>
-              Every scanner on the market uses a 2005-era chip with a single radio. The Lume Dongle is a <strong>$13 BOM ESP32-S3</strong> smart endpoint — WiFi + BT Classic + BLE, passive CAN bus sniffing, on-device governance, and OTA firmware updates. This is the branded hardware product for the broader automotive market.
+              Every scanner on the market uses a 2005-era chip with a single radio. The Lume Dongle is a <strong>$13 BOM ESP32-S3</strong> smart endpoint — WiFi + BT Classic + BLE, passive CAN bus sniffing, on-device governance, and OTA firmware updates. At scale, commodity adapters present operational gaps: no fleet identity, no firmware versioning, no secure gateway compliance. The dongle architecture addresses each of these constraints.
             </p>
             <div className="panel" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', borderColor: 'rgba(251,146,60,0.2)', background: 'rgba(251,146,60,0.02)' }}>
               {[
                 { icon: <Zap size={15}/>, t: 'Zero discovery time — passive CAN sniffing' },
-                { icon: <Shield size={15}/>, t: 'Ghost Mode — bypasses Secure Gateways' },
+                { icon: <Shield size={15}/>, t: 'Ghost Mode — bypasses Secure Gateways (2018+)' },
                 { icon: <Server size={15}/>, t: 'Fleet management — unique ID + OTA updates' },
+                { icon: <CheckCircle size={15}/>, t: 'Brandable firmware — configurable identity layer' },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3" style={{ color: '#fb923c' }}>{item.icon}<span style={{ fontSize: '0.85rem', color: 'var(--text-main)' }}>{item.t}</span></div>
               ))}
@@ -62,9 +63,14 @@ export default function HardwareSection() {
           </InfoBubble>
         </motion.div>
 
-        <motion.p {...f} className="text-dim" style={{ textAlign: 'center', marginTop: '2rem', fontSize: '0.85rem', maxWidth: '650px', margin: '2rem auto 0' }}>
-          The software runs on commodity hardware today. The Lume Dongle is the branded product built for the wider market — dealerships, independent shops, fleet operators. When you own the firmware, the runtime, and the governance engine, you own the full stack from silicon to organism.
-        </motion.p>
+        <motion.div {...f} style={{ maxWidth: '700px', margin: '2rem auto 0', padding: '1.5rem', borderRadius: '12px', background: 'rgba(251,146,60,0.03)', border: '1px solid rgba(251,146,60,0.12)' }}>
+          <p className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.7, textAlign: 'center', marginBottom: '0.75rem' }}>
+            The software runs on commodity hardware today — zero capital investment to begin evaluation. The dongle is the <strong style={{ color: '#fb923c' }}>production-grade endpoint</strong> designed for environments where firmware governance, secure gateway compliance, and fleet-level device management are operational requirements.
+          </p>
+          <p className="text-dim" style={{ fontSize: '0.75rem', lineHeight: 1.6, textAlign: 'center' }}>
+            The hardware abstraction layer supports configurable branding, independent firmware channels, and per-deployment identity management. The entire stack — silicon, runtime, governance engine — is architecturally modular.
+          </p>
+        </motion.div>
       </div>
     </section>
   );
