@@ -57,7 +57,7 @@ export default function ArchitectureSection() {
             { icon: <Shield size={22}/>, title: 'Arbitration Defense', desc: 'Post-sale dispute? Pull the intake scan log. Replay the inputs through the deterministic runtime — you get the exact same result. Resolved by data, not opinion.', color: '#a78bfa' },
             { icon: <Zap size={22}/>, title: 'Population Health', desc: 'Every vehicle scanned feeds the population-level dashboard. See fleet-wide trends: battery degradation patterns, regional fault clusters, seasonal failure spikes.', color: '#fb923c' },
           ].map((item, i) => (
-            <motion.div key={i} {...f} transition={{ delay: i * 0.08 }} className="panel flex gap-4" style={{ padding: '1.5rem', alignItems: 'flex-start', borderColor: `${item.color}22` }}>
+            <motion.div key={i} {...f} transition={{ delay: i * 0.08 }} className="panel flex gap-4" style={{ padding: '1.5rem', alignItems: 'flex-start' }}>
               <div style={{ padding: '10px', background: `${item.color}12`, borderRadius: '10px', color: item.color, flexShrink: 0 }}>{item.icon}</div>
               <div>
                 <h4 style={{ fontSize: '1.1rem', marginBottom: '0.35rem' }}>{item.title}</h4>
