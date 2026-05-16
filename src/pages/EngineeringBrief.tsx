@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Cpu, FileText, BookOpen, Layers } from 'lucide-react';
+import { Cpu, FileText, BookOpen, Layers, Activity, Download } from 'lucide-react';
 import ManheimTabs from '../components/ManheimTabs';
 import StackComparison from '../components/engineering/StackComparison';
 import TechDeepDive from '../components/engineering/TechDeepDive';
@@ -52,6 +52,14 @@ export default function EngineeringBrief() {
           <p className="text-muted" style={{ fontSize: '0.95rem', lineHeight: 1.7 }}>
             The architecture documented above is production-ready and verifiable. The React build is live and available for deployment. The native Lume build is architecturally complete and migration-ready. Both share the same 4/42 organism topology — the upgrade path requires no rearchitecture, only a deeper level of runtime enforcement. Every technical claim in this document is backed by published research with verifiable DOIs.
           </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', margin: '1.5rem 0' }}>
+            <a href="/app" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 22px', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)', color: 'var(--accent-cyan)', borderRadius: '30px', fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none' }}>
+              <Activity size={15} /> Try It Live
+            </a>
+            <a href="/download" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 22px', background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)', color: 'var(--accent-emerald)', borderRadius: '30px', fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none' }}>
+              <Download size={15} /> Download App
+            </a>
+          </div>
           <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '1.5rem' }}>
             © 2026 DarkWave Studios LLC / Lume42 Labs · 6 U.S. Provisional Patents Pending · Published Research on Zenodo
           </p>

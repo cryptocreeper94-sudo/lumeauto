@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FileDown, Activity, ExternalLink } from 'lucide-react';
+import { FileDown, Activity, ExternalLink, Download } from 'lucide-react';
 
 const f = { initial: { opacity: 0, y: 10 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
@@ -490,7 +490,15 @@ export default function Whitepaper() {
           </WpSection>
 
           {/* Footer spacer */}
-          <div style={{ height: '4rem' }} />
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', padding: '2rem 0' }}>
+            <a href="/app" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)', color: 'var(--accent-cyan)', borderRadius: '30px', fontSize: '0.85rem', fontWeight: 700, textDecoration: 'none' }}>
+              <Activity size={16} /> Try It Live
+            </a>
+            <a href="/download" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)', color: 'var(--accent-emerald)', borderRadius: '30px', fontSize: '0.85rem', fontWeight: 700, textDecoration: 'none' }}>
+              <Download size={16} /> Download App
+            </a>
+          </div>
+          <div style={{ height: '2rem' }} />
         </div>
       </section>
     </>

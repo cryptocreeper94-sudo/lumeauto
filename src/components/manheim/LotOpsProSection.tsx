@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { MapPin, Radio, Camera, Shield, Gauge, MessageSquare, Cloud, Smartphone, Users } from 'lucide-react';
+import { MapPin, Radio, Camera, Shield, Gauge, MessageSquare, Cloud, Smartphone, Users, Activity, Download } from 'lucide-react';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 export default function LotOpsProSection() {
@@ -93,6 +93,16 @@ export default function LotOpsProSection() {
             </motion.div>
           ))}
         </div>
+
+        {/* CTA Buttons */}
+        <motion.div {...f} style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', marginTop: '2rem' }}>
+          <a href="/app" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 22px', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)', color: 'var(--accent-cyan)', borderRadius: '30px', fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none', transition: 'border-color 0.2s' }}>
+            <Activity size={15} /> Try It Live
+          </a>
+          <a href="/download" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 22px', background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)', color: 'var(--accent-emerald)', borderRadius: '30px', fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none', transition: 'border-color 0.2s' }}>
+            <Download size={15} /> Download App
+          </a>
+        </motion.div>
       </div>
     </section>
   );
