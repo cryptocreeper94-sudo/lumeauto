@@ -376,6 +376,73 @@ export function getBLEStatus(): BLEConnection {
   return { ...connectionState };
 }
 
+/**
+ * Clear Diagnostic Trouble Codes (DTCs) and reset MIL.
+ * OBD-II Mode 04 — standard code-clearing command.
+ * Clears: stored DTCs, freeze frame data, MIL (check engine light),
+ * and resets readiness monitors.
+ */
+export async function clearDTCs(): Promise<{ success: boolean; message: string }> {
+  if (connectionState.isSimulated) {
+    // Demo mode — simulate clearing
+    rawValues.mil = 0;
+    rawValues.dtcCount = 0;
+    return { success: true, message: 'Demo: DTCs cleared, MIL reset' };
+  }
+
+  if (!txCharacteristic || connectionState.status !== 'connected') {
+    return { success: false, message: 'Not connected to adapter' };
+  }
+
+  try {
+    const response = await sendBLECommand('04', 5000);
+    if (response.includes('44') || response.includes('OK') || !response.includes('ERROR')) {
+      // Success — update local state
+      rawValues.mil = 0;
+      rawValues.dtcCount = 0;
+      return { success: true, message: 'DTCs cleared. MIL off. Readiness monitors reset.' };
+    } else {
+      return { success: false, message: `Clear failed: ${response}` };
+    }
+  } catch {
+    return { success: false, message: 'Communication error during clear' };
+  }
+}
+
+/**
+ * Read stored DTCs via Mode 03
+ */
+export async function readStoredDTCs(): Promise<string[]> {
+  if (connectionState.isSimulated) {
+    return []; // Demo mode — no real DTCs
+  }
+
+  if (!txCharacteristic) return [];
+
+  const response = await sendBLECommand('03', 5000);
+  if (!response || response.includes('NO DATA')) return [];
+
+  // Parse DTC responses — format: 43 XX XX YY YY ...
+  const dtcs: string[] = [];
+  const clean = response.replace(/[\s\r\n]/g, '');
+  // Skip header "43", then parse 2-byte DTC pairs
+  const dtcTypes: Record<string, string> = { '0': 'P0', '1': 'P1', '2': 'P2', '3': 'P3', '4': 'C0', '5': 'C1', '6': 'C2', '7': 'C3', '8': 'B0', '9': 'B1', 'A': 'B2', 'B': 'B3', 'C': 'U0', 'D': 'U1', 'E': 'U2', 'F': 'U3' };
+  
+  let i = 2; // Skip "43" header
+  while (i + 4 <= clean.length) {
+    const byte1 = clean.substring(i, i + 2);
+    const byte2 = clean.substring(i + 2, i + 4);
+    if (byte1 === '00' && byte2 === '00') { i += 4; continue; }
+    const firstNibble = byte1[0].toUpperCase();
+    const prefix = dtcTypes[firstNibble] || 'P0';
+    const code = prefix + byte1[1] + byte2;
+    dtcs.push(code);
+    i += 4;
+  }
+
+  return dtcs;
+}
+
 export function enterBLEDemoMode(onStatusChange: (status: BLEConnection) => void): void {
   connectionState = { status: 'connected', deviceName: 'SIMULATED', error: null, isSimulated: true, adapterInfo: 'Demo Mode — 2019 F-150 5.0L V8' };
   onStatusChange({ ...connectionState });

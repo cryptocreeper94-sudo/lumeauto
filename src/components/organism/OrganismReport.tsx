@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, AlertTriangle, XCircle, ArrowLeft, Activity } from 'lucide-react';
+import { CheckCircle, AlertTriangle, XCircle, ArrowLeft, Activity, Trash2, List } from 'lucide-react';
 import { generateConditionReport } from '../../telemetry/SimulatedEngine';
+import { clearDTCs, readStoredDTCs } from '../../telemetry/BLEConnector';
 
 const STATUS_ICONS: Record<string, React.ReactNode> = {
   ok: <CheckCircle size={14} style={{ color: 'var(--accent-emerald)', flexShrink: 0 }} />,
@@ -19,6 +20,10 @@ const STATUS_COLORS: Record<string, string> = {
 
 export default function OrganismReport({ onBack }: { onBack: () => void }) {
   const [report, setReport] = useState<ReturnType<typeof generateConditionReport> | null>(null);
+  const [clearing, setClearing] = useState(false);
+  const [clearResult, setClearResult] = useState<string | null>(null);
+  const [dtcList, setDtcList] = useState<string[]>([]);
+  const [loadingDTCs, setLoadingDTCs] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setReport(generateConditionReport()), 2000);
@@ -137,6 +142,76 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
             ))}
           </motion.div>
         ))}
+
+        {/* DTC Actions */}
+        <div style={{ display: 'flex', gap: '10px', marginTop: '12px', marginBottom: '12px' }}>
+          {/* Read DTCs */}
+          <button onClick={async () => {
+            setLoadingDTCs(true);
+            const codes = await readStoredDTCs();
+            setDtcList(codes);
+            setLoadingDTCs(false);
+          }} style={{
+            flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+            padding: '12px', borderRadius: '12px',
+            background: 'rgba(6,182,212,0.08)', border: '1px solid rgba(6,182,212,0.2)',
+            color: 'var(--accent-cyan)', fontSize: '0.75rem', fontWeight: 700,
+            cursor: 'pointer', letterSpacing: '0.08em',
+          }}>
+            <List size={16} /> {loadingDTCs ? 'READING...' : 'READ DTCs'}
+          </button>
+
+          {/* Clear DTCs */}
+          <button onClick={async () => {
+            if (!confirm('Clear all DTCs and reset Check Engine Light?\n\nThis will also reset readiness monitors.')) return;
+            setClearing(true);
+            setClearResult(null);
+            const result = await clearDTCs();
+            setClearResult(result.message);
+            setDtcList([]);
+            setClearing(false);
+          }} style={{
+            flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+            padding: '12px', borderRadius: '12px',
+            background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)',
+            color: '#ef4444', fontSize: '0.75rem', fontWeight: 700,
+            cursor: clearing ? 'not-allowed' : 'pointer', letterSpacing: '0.08em',
+            opacity: clearing ? 0.5 : 1,
+          }}>
+            <Trash2 size={16} /> {clearing ? 'CLEARING...' : 'CLEAR CODES'}
+          </button>
+        </div>
+
+        {/* DTC List */}
+        {dtcList.length > 0 && (
+          <div style={{
+            background: 'rgba(239,68,68,0.05)', borderRadius: '12px', padding: '16px',
+            border: '1px solid rgba(239,68,68,0.2)', marginBottom: '12px',
+          }}>
+            <p style={{ color: '#ef4444', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '10px' }}>
+              {dtcList.length} STORED DTC{dtcList.length !== 1 ? 'S' : ''}
+            </p>
+            {dtcList.map((code, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                <XCircle size={14} style={{ color: '#ef4444', flexShrink: 0 }} />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', fontWeight: 700, color: '#ef4444' }}>{code}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Clear Result */}
+        {clearResult && (
+          <div style={{
+            background: 'rgba(16,185,129,0.08)', borderRadius: '12px', padding: '12px 16px',
+            border: '1px solid rgba(16,185,129,0.2)', marginBottom: '12px',
+            textAlign: 'center',
+          }}>
+            <p style={{ color: 'var(--accent-emerald)', fontSize: '0.75rem', fontWeight: 700 }}>
+              ✓ {clearResult}
+            </p>
+          </div>
+        )}
 
         {/* Summary */}
         <div style={{
