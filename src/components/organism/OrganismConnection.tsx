@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Bluetooth, Wifi, Zap, ChevronRight, AlertTriangle } from 'lucide-react';
+import { Bluetooth, Wifi, Zap, ChevronRight, AlertTriangle, Download, Info } from 'lucide-react';
 import { connectBLE, type BLEConnection, enterBLEDemoMode, isBLESupported } from '../../telemetry/BLEConnector';
 import { probeForAdapter, type WiFiConnection } from '../../telemetry/WiFiConnector';
+import InfoBubble from '../InfoBubble';
 
 type ConnectionMode = 'idle' | 'ble' | 'wifi';
 
@@ -211,6 +212,24 @@ export default function OrganismConnection({ onConnect }: { onConnect: () => voi
             </div>
             <span style={{ fontSize: '0.6rem', color: 'var(--text-dim)' }}>Simulated 2019 F-150 5.0L V8 · No hardware needed</span>
           </button>
+        </div>
+
+        {/* Info Bubbles */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', justifyContent: 'center', marginBottom: '1rem' }}>
+          <InfoBubble title="Need WiFi?" icon={<Download size={13} />} color="var(--accent-emerald)">
+            <p style={{ fontWeight: 700, color: 'var(--accent-emerald)', marginBottom: '6px' }}>WiFi adapters need the native app</p>
+            <p>Web browsers can’t open raw TCP connections to WiFi OBD-II adapters. If your adapter uses WiFi instead of Bluetooth, <a href="/download" style={{ color: 'var(--accent-cyan)', textDecoration: 'underline' }}>download the native Android app</a> for full WiFi support.</p>
+            <p style={{ marginTop: '8px', color: 'var(--text-dim)', fontSize: '0.7rem' }}>Bluetooth adapters work perfectly in this web app.</p>
+          </InfoBubble>
+          <InfoBubble title="What can it do?" icon={<Info size={13} />}>
+            <p style={{ fontWeight: 700, color: 'var(--accent-cyan)', marginBottom: '6px' }}>Full OBD-II Scanner</p>
+            <p>• Live telemetry (RPM, speed, MPG, 42 signals)<br/>
+               • Read stored diagnostic trouble codes<br/>
+               • Clear codes + reset Check Engine Light<br/>
+               • 8 readiness monitors for inspections<br/>
+               • Deterministic condition reports<br/>
+               • Freeze frame data at fault time</p>
+          </InfoBubble>
         </div>
 
         {/* Quick Setup */}

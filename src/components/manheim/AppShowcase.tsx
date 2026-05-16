@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Activity } from 'lucide-react';
+import { Activity, Download, Smartphone, Globe } from 'lucide-react';
+import InfoBubble from '../InfoBubble';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 const screens = [
@@ -12,9 +13,9 @@ const screens = [
 
 const features: Record<number, string[]> = {
   0: ['Live RPM, MPH, MPG telemetry', 'Driver performance scoring', 'Organism throughput monitoring', 'Dead-battery and cold-start detection', '60% of condition report auto-generated', 'One-tap full report generation'],
-  1: ['8 readiness monitors — pass/fail', 'DTC codes with severity classification', 'Catalyst efficiency + O2 sensor health', 'Fuel trims, battery voltage, engine hours', 'Pending fault detection before lane', 'Auto-generated reconditioning flags'],
+  1: ['Read stored DTCs with severity codes', 'Clear codes + reset Check Engine Light', 'Freeze frame data at fault time', '8 readiness monitors — pass/fail', 'Catalyst efficiency + O2 sensor health', 'Fuel trims, battery, engine hours', 'Pending fault detection before lane'],
   2: ['42-node visualization in real-time', '4-layer concentric topology', 'Drift detection + auto-correction', 'Self-healing runtime monitoring', 'Consensus percentage tracking'],
-  3: ['SHA-256 cryptographic hash', 'Per-system health percentages', 'Deterministic replay for arbitration', 'Tamper-proof custody chain record', 'Publicly verifiable without login'],
+  3: ['SHA-256 cryptographic hash', 'Per-system health percentages', 'VIN read directly from ECU', 'Deterministic replay for arbitration', 'Tamper-proof custody chain record', 'Publicly verifiable without login'],
 };
 
 export default function AppShowcase() {
@@ -29,16 +30,43 @@ export default function AppShowcase() {
           <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto', lineHeight: 1.7 }}>
             Four primary interfaces. Every screen is a window into the deterministic organism — not a static dashboard, but a live view of a self-governing runtime.
           </p>
-          <a href="/app" style={{
-            display: 'inline-flex', alignItems: 'center', gap: '8px',
-            marginTop: '1.25rem', padding: '12px 28px',
-            background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)',
-            color: 'var(--accent-cyan)', borderRadius: '30px',
-            fontSize: '0.85rem', fontWeight: 700, textDecoration: 'none',
-            letterSpacing: '0.05em', transition: 'all 0.2s',
-          }}>
-            <Activity size={16} /> Try It Live — Demo Mode Available
-          </a>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', marginTop: '1.25rem' }}>
+            <a href="/app" style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              padding: '12px 28px',
+              background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)',
+              color: 'var(--accent-cyan)', borderRadius: '30px',
+              fontSize: '0.85rem', fontWeight: 700, textDecoration: 'none',
+              letterSpacing: '0.05em', transition: 'all 0.2s',
+            }}>
+              <Activity size={16} /> Try It Live — Demo Mode Available
+            </a>
+            <a href="/download" style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              padding: '12px 28px',
+              background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)',
+              color: 'var(--accent-emerald)', borderRadius: '30px',
+              fontSize: '0.85rem', fontWeight: 700, textDecoration: 'none',
+              letterSpacing: '0.05em', transition: 'all 0.2s',
+            }}>
+              <Download size={16} /> Download Native App
+            </a>
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center', marginTop: '1rem' }}>
+            <InfoBubble title="Web vs Native" icon={<Globe size={13} />}>
+              <p style={{ fontWeight: 700, color: 'var(--accent-cyan)', marginBottom: '6px' }}>Which should I use?</p>
+              <p><strong style={{ color: '#fff' }}>Web App</strong> — instant access from any browser. Supports Bluetooth adapters and Demo Mode. Best for quick demos, stakeholder walkthroughs, and evaluation.</p>
+              <p style={{ marginTop: '8px' }}><strong style={{ color: '#fff' }}>Native App (APK)</strong> — full WiFi + Bluetooth support. Install directly on field devices, tablets, or fleet phones. Use this for actual on-lot scanning with WiFi adapters.</p>
+              <p style={{ marginTop: '8px', color: 'var(--text-dim)', fontSize: '0.7rem' }}>Both share the same 42-node governance engine. No data difference — only the transport layer changes.</p>
+            </InfoBubble>
+            <InfoBubble title="Adapter Compatibility" icon={<Smartphone size={13} />} color="var(--accent-emerald)">
+              <p style={{ fontWeight: 700, color: 'var(--accent-emerald)', marginBottom: '6px' }}>What hardware works?</p>
+              <p><strong style={{ color: '#fff' }}>Any ELM327-based OBD-II adapter</strong> — the same $15-30 adapters used with Torque, BlueDriver, or any other scan tool.</p>
+              <p style={{ marginTop: '8px' }}><strong style={{ color: '#fff' }}>Bluetooth</strong>: Veepeak BLE, OBDLink MX+, BAFX BLE</p>
+              <p><strong style={{ color: '#fff' }}>WiFi</strong>: Any ELM327 WiFi adapter (native app only)</p>
+              <p style={{ marginTop: '8px', color: 'var(--text-dim)', fontSize: '0.7rem' }}>No proprietary hardware required. Your existing inventory works out of the box.</p>
+            </InfoBubble>
+          </div>
         </div>
 
         {/* Tab selector — short labels on mobile */}

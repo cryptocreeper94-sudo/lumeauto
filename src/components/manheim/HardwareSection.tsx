@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { CheckCircle, Zap, Shield, Server, Download } from 'lucide-react';
+import { CheckCircle, Zap, Shield, Server, Download, Wifi, Bluetooth } from 'lucide-react';
+import InfoBubble from '../InfoBubble';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 export default function HardwareSection() {
@@ -43,7 +44,7 @@ export default function HardwareSection() {
           </motion.div>
         </div>
 
-        <motion.div {...f} style={{ textAlign: 'center', marginTop: '2rem' }}>
+        <motion.div {...f} style={{ textAlign: 'center', marginTop: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
           <a href="/download" style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
             padding: '12px 28px', borderRadius: '30px',
@@ -53,6 +54,12 @@ export default function HardwareSection() {
           }}>
             <Download size={16} /> Download Native App for WiFi Testing
           </a>
+          <InfoBubble title="WiFi vs Bluetooth" icon={<Wifi size={13} />}>
+            <p style={{ fontWeight: 700, color: 'var(--accent-cyan)', marginBottom: '6px' }}>When do I need the native app?</p>
+            <p><strong style={{ color: '#fff' }}>WiFi adapters</strong> require the native Android app because browsers cannot open raw TCP sockets. If your facility uses WiFi OBD-II adapters, download the APK.</p>
+            <p style={{ marginTop: '8px' }}><strong style={{ color: '#fff' }}>Bluetooth (BLE) adapters</strong> work in both the web app and native app. Use whichever is more convenient.</p>
+            <p style={{ marginTop: '8px', color: 'var(--text-dim)', fontSize: '0.7rem' }}>The native app installs directly — no Play Store required. Just download, install, and connect.</p>
+          </InfoBubble>
         </motion.div>
 
         <motion.p {...f} className="text-dim" style={{ textAlign: 'center', marginTop: '2rem', fontSize: '0.85rem', maxWidth: '650px', margin: '2rem auto 0' }}>
