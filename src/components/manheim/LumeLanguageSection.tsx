@@ -9,7 +9,6 @@ const features = [
   { icon: <Layers size={24}/>, title: 'The 4/42 Fractal Law', desc: '4 layers, 42 nodes per organism. This structural ratio emerges naturally across all deterministic cognitive architectures — from vehicle diagnostics to energy routing to planetary infrastructure.', color: '#fb923c' },
   { icon: <GitBranch size={24}/>, title: 'Self-Healing Runtime', desc: 'When a node drifts or fails, the organism detects the deviation and corrects it autonomously. No retraining. No manual intervention. The system heals itself.', color: 'var(--accent-emerald)' },
   { icon: <Zap size={24}/>, title: 'Edge-Native Execution', desc: 'Organisms run on the device. No cloud dependency. No latency. A vehicle diagnosis completes in 45 seconds on a phone connected to a commodity dongle.', color: '#a78bfa' },
-  { icon: <Wrench size={24}/>, title: 'Lume-V: Deterministic Wrapper', desc: 'Already deployed across multiple sites. Wraps existing systems — legacy software, third-party tools, current inspection platforms — and makes their outputs deterministically verifiable. No rip-and-replace.', color: 'var(--accent-cyan)' },
 ];
 
 const glassCard = {
@@ -179,24 +178,6 @@ export default function LumeLanguageSection() {
           </p>
         </motion.div>
 
-        {/* Lume-V callout */}
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          style={{ ...glassCard, padding: '2rem', marginTop: '1.25rem', borderColor: 'rgba(56,189,248,0.2)', background: 'rgba(56,189,248,0.03)', backdropFilter: 'blur(20px)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', alignItems: 'center' }}>
-          <div>
-            <h4 style={{ fontSize: '1.2rem', marginBottom: '0.75rem', color: 'var(--accent-cyan)' }}>Lume-V: Already Deployed. Zero Migration Risk.</h4>
-            <p className="text-muted" style={{ lineHeight: 1.7, fontSize: '0.95rem' }}>
-              Lume-V is live and wrapping existing systems across multiple deployments today. Auction platforms, inspection tools, inventory management — their outputs become deterministically verifiable without modifying a single line of their source code.
-            </p>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-            {['Wraps any existing API or data pipeline', 'No source code access required', 'Cryptographic output verification', 'Audit trail injected at the wrapper level', 'Incremental adoption — system by system'].map((item, i) => (
-              <div key={i} style={{ fontSize: '0.8rem', color: 'var(--text-muted)', paddingLeft: '0.75rem', borderLeft: '2px solid rgba(56,189,248,0.3)' }}>{item}</div>
-            ))}
-            <a href="https://doi.org/10.5281/zenodo.19645097" target="_blank" rel="noopener" style={{ fontSize: '0.7rem', color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)', opacity: 0.7, marginTop: '0.25rem' }}>
-              DOI: 10.5281/zenodo.19645097 ↗
-            </a>
-          </div>
-        </motion.div>
       </div>
 
       <style>{`
