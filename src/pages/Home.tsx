@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronRight, Activity, Zap, ShieldCheck, Droplets, Volume2, Wrench, Users, Cpu, Gauge } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import ParticleField from '../components/effects/ParticleField';
+import MiniOrganism from '../components/effects/MiniOrganism';
+import AnimatedCounter from '../components/effects/AnimatedCounter';
 
 const HERO_IMAGES = [
   '/hero_dashboard.png',
@@ -42,6 +45,7 @@ export default function Home() {
           </AnimatePresence>
         </div>
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to bottom, rgba(10,10,12,0.3), var(--bg-dark))', zIndex: 1 }} />
+        <ParticleField />
         <div className="hero-glow" style={{ zIndex: 1 }} />
 
         <div className="container flex flex-col gap-8" style={{ position: 'relative', zIndex: 2 }}>
@@ -67,6 +71,18 @@ export default function Home() {
               </Link>
             </div>
           </motion.div>
+
+          {/* Mini Organism — floating ambient visual */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.5, delay: 0.5 }}
+            className="organism-float organism-glow"
+            style={{ position: 'absolute', right: 'clamp(1rem, 8vw, 8rem)', top: '50%', transform: 'translateY(-50%)', display: 'none' }}
+          >
+            <MiniOrganism size={280} />
+          </motion.div>
+          <style>{`@media (min-width: 900px) { .organism-float { display: block !important; } }`}</style>
         </div>
 
         {/* Slide indicators */}
@@ -160,7 +176,7 @@ export default function Home() {
             <div style={{ display: 'inline-flex', padding: '12px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '12px', alignSelf: 'flex-start' }}>
               <Wrench size={24} color="var(--accent-emerald)" />
             </div>
-            <h3 style={{ fontSize: '1.5rem' }}>The Mechanic Killer</h3>
+            <h3 style={{ fontSize: '1.5rem' }}>Diagnostic Intelligence</h3>
             <p className="text-muted">Stop paying $150 for a diagnostic read. The organism runs continuous 42-node health scans, translates fault codes to plain English, predicts component failures 1–3% MPG before they trigger a check engine light, and links you to the exact part on Amazon.</p>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }} className="panel flex flex-col gap-4">
@@ -220,8 +236,8 @@ export default function Home() {
               { val: '6.85M', label: 'Barrels/day eliminated (full deployment)' },
             ].map((stat, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="panel" style={{ textAlign: 'center', padding: '2rem 1.5rem' }}>
-                <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--accent-emerald)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>{stat.val}</div>
-                <div className="text-muted" style={{ fontSize: '0.85rem' }}>{stat.label}</div>
+                <AnimatedCounter value={parseFloat(stat.val.replace(/[^0-9.]/g, ''))} suffix={stat.val.replace(/[0-9.]/g, '')} color="var(--accent-emerald)" />
+                <div className="text-muted" style={{ fontSize: '0.85rem', marginTop: '0.5rem' }}>{stat.label}</div>
               </motion.div>
             ))}
           </div>
