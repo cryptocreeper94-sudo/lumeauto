@@ -75,7 +75,7 @@ export default function Whitepaper() {
                   'Lot Ops Pro — Operational Platform',
                   'LUME-Auto — Diagnostic Organism',
                   'Trust Layer — Commercial Verification',
-                  'Technical Foundation',
+                  'Technical Foundation — Lume Core & Self-Healing Runtime',
                   'Implementation Path',
                   'Academic Foundation & References',
                   'About DarkWave Studios LLC',
@@ -261,20 +261,68 @@ export default function Whitepaper() {
           </WpSection>
 
           {/* 9. Technical Foundation */}
-          <WpSection num={9} title="Technical Foundation">
+          <WpSection num={9} title="Technical Foundation — Lume Core & Self-Healing Runtime">
+            <p>
+              Every capability described in this document — the governance layer, the ledger, the diagnostics, the verification chain — is built on a single foundational technology: the Lume programming language and its self-healing deterministic runtime. This section documents the core intellectual property that makes the platform possible and, critically, difficult to replicate.
+            </p>
+
             <h4>The Lume Programming Language</h4>
             <p>
-              The entire platform is built on Lume, a deterministic programming language designed for governance-critical systems. Lume guarantees that given the same inputs, the same program will always produce the same output — regardless of when, where, or how many times it runs.
+              Lume is a purpose-built deterministic programming language designed for governance-critical systems. Unlike general-purpose languages (Python, Java, C++) that allow non-deterministic behavior by default, Lume enforces determinism at the compiler level. This means:
             </p>
+            <ul>
+              <li>Given the same inputs, a Lume program will <strong>always</strong> produce the same output — regardless of when, where, or on what hardware it runs</li>
+              <li>There is no randomness, no floating-point ambiguity, no race conditions, no undefined behavior</li>
+              <li>Every execution path is formally bounded and provably terminates</li>
+              <li>The language compiles to governance organisms, not traditional executables</li>
+            </ul>
             <p>
-              This determinism is what makes the platform's audit and replay capabilities possible. It is not a property added after the fact — it is a mathematical guarantee enforced at the language level.
+              This is not a feature added after the fact. Determinism is a mathematical property of the language itself — enforced by the compiler, guaranteed by the type system, and verified at runtime.
             </p>
+
             <h4>Synthetic Organisms</h4>
             <p>
-              The platform's processing units are not traditional software modules. They are synthetic organisms — self-governing, self-healing networks of nodes that process data through cross-validation consensus. The LUME-Auto diagnostic organism, for example, consists of 42 nodes that must reach consensus before producing a condition report.
+              The platform's processing units are not traditional software modules, services, or functions. They are synthetic organisms — autonomous, self-governing networks of nodes that process data through cross-validation consensus.
             </p>
             <p>
-              Organisms automatically detect and correct drift, enforce safety envelopes, and maintain deterministic behavior without human intervention. This architecture eliminates entire categories of software failure modes that plague traditional enterprise systems.
+              The LUME-Auto diagnostic organism, for example, consists of 42 nodes. Each node monitors a specific domain of vehicle telemetry (fuel system, ignition, emissions, electrical) and cross-validates its readings against adjacent nodes. A condition report is only produced when the organism reaches internal consensus — not when a single algorithm produces a score.
+            </p>
+            <p>
+              This architecture eliminates entire categories of failure modes: a single corrupted sensor reading cannot propagate through the system because adjacent nodes detect the inconsistency and flag it before it reaches output.
+            </p>
+
+            <h4>Self-Healing Runtime</h4>
+            <p>
+              The most distinctive property of the Lume runtime is self-healing. Traditional software degrades over time: configurations drift, edge cases accumulate, dependencies break. The Lume runtime detects and corrects these deviations autonomously.
+            </p>
+            <ul>
+              <li><strong>Drift detection</strong> — When a node's output begins to deviate from its expected behavioral envelope, the organism detects it in real time</li>
+              <li><strong>Autonomous correction</strong> — The organism corrects the drifting node by re-anchoring it to the consensus state of its neighbors — no manual intervention, no retraining, no redeployment</li>
+              <li><strong>Safety envelopes</strong> — Every organism runs inside formal safety bounds. If sensor data violates the envelope, the organism flags the anomaly rather than guessing. It never extrapolates beyond proven territory</li>
+              <li><strong>No retraining cycle</strong> — Unlike ML models that require periodic retraining as data distributions shift, organisms maintain correct behavior through structural self-correction</li>
+            </ul>
+
+            <h4>The 4/42 Fractal Architecture</h4>
+            <p>
+              All Lume organisms share a structural signature: 4 layers of 42 nodes. This ratio is not arbitrary — it emerges from the mathematics of deterministic consensus in bounded systems. The same architecture that governs a vehicle diagnostic organism governs LUME-V's enterprise wrapper, CAL's validator consensus, and Meridian's future energy routing.
+            </p>
+            <p>
+              This fractal consistency means the platform scales by replicating a proven architecture rather than building new systems from scratch. A Lot Ops Pro deployment uses the same organism structure as a LUME-Auto scan — just configured for a different domain.
+            </p>
+
+            <h4>Edge-Native Execution</h4>
+            <p>
+              Lume organisms run on the device. There is no cloud dependency in the critical path. A complete vehicle diagnosis executes in 45 seconds on a phone connected to a commodity OBD-II dongle — no internet connection required, no API latency, no server costs. The cloud is used for anchoring results to CAL and issuing Trust Layer certificates, but the intelligence itself is fully edge-native.
+            </p>
+
+            <h4>Deterministic Replay</h4>
+            <p>
+              Because Lume programs are deterministic, any historical result can be independently verified. Feed the original sensor data through the same organism version, and you get the identical output — bit for bit, years later, on different hardware. This is the foundation of the platform's arbitration defense: disputes are resolved by mathematical replay, not by opinion.
+            </p>
+
+            <h4>Why This Matters Strategically</h4>
+            <p>
+              The Lume runtime is not a configuration layer on top of existing technology. It is a new computational substrate — a fundamentally different approach to enterprise software that prioritizes provability over flexibility and correctness over speed-to-market. It cannot be replicated by configuring existing tools differently. It is the intellectual property that makes everything else in this platform defensible.
             </p>
           </WpSection>
 

@@ -15,7 +15,7 @@ export default function HeroSection() {
             <span className="text-gradient">Every Proof. One Ledger.</span>
           </h1>
           <p className="text-muted" style={{ fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '760px', marginBottom: '2rem' }}>
-            A private cryptographic ledger that seals every custody transfer, condition report, and arbitration event into an immutable record. Deterministic vehicle diagnostics that produce cryptographic proof in 45 seconds. An operations layer built for the scale and security Cox Automotive demands — not a concept, a deployed system.
+            A private cryptographic ledger that seals every custody transfer, condition report, and arbitration event into an immutable record. Deterministic vehicle diagnostics — powered by self-healing synthetic organisms running on a purpose-built runtime — that produce cryptographic proof in 45 seconds. An operations layer built for the scale and security Cox Automotive demands — not a concept, a deployed system.
           </p>
 
           {/* Credential bar */}
@@ -24,7 +24,7 @@ export default function HeroSection() {
               { icon: <Link2 size={14}/>, val: 'CAL', label: 'Private Ledger', color: '#38bdf8' },
               { icon: <Eye size={14}/>, val: 'Lume-V', label: 'Vision System', color: '#22d3ee' },
               { icon: <Cpu size={14}/>, val: '42', label: 'Governance Nodes', color: 'var(--accent-emerald)' },
-              { icon: <FileText size={14}/>, val: '6', label: 'Patents Pending', color: 'var(--accent-emerald)' },
+              { icon: <FileText size={14}/>, val: 'Lume', label: 'Native Runtime', color: '#a78bfa' },
               { icon: <BookOpen size={14}/>, val: '10+', label: 'Relevant Papers', color: 'var(--accent-emerald)' },
               { icon: <Activity size={14}/>, val: '100Hz', label: 'Polling Rate', color: 'var(--accent-emerald)' },
             ].map((s, i) => (
