@@ -19,19 +19,19 @@ export default function HeroSection() {
           </p>
 
           {/* Credential bar */}
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', marginBottom: '3rem', maxWidth: '540px' }}>
             {[
               { icon: <Link2 size={14}/>, val: 'CAL', label: 'Private Ledger', color: '#38bdf8' },
-              { icon: <Eye size={14}/>, val: 'Lume-V', label: 'Vision System', color: '#22d3ee' },
+              { icon: <Eye size={14}/>, val: 'Lume-V', label: 'Governance Layer', color: '#22d3ee' },
               { icon: <Cpu size={14}/>, val: '42', label: 'Governance Nodes', color: 'var(--accent-emerald)' },
               { icon: <FileText size={14}/>, val: 'Lume', label: 'Native Runtime', color: '#a78bfa' },
-              { icon: <BookOpen size={14}/>, val: '10+', label: 'Relevant Papers', color: 'var(--accent-emerald)' },
+              { icon: <BookOpen size={14}/>, val: '10+', label: 'Published Papers', color: 'var(--accent-emerald)' },
               { icon: <Activity size={14}/>, val: '100Hz', label: 'Polling Rate', color: 'var(--accent-emerald)' },
             ].map((s, i) => (
               <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 + i * 0.1 }}
-                style={{ padding: '10px 18px', background: `${s.color}0f`, border: `1px solid ${s.color}26`, borderRadius: '10px', textAlign: 'center', minWidth: '100px' }}>
-                <div style={{ fontSize: '1.3rem', fontWeight: 700, color: s.color, fontFamily: 'var(--font-mono)' }}>{s.val}</div>
-                <div style={{ fontSize: '0.65rem', color: 'var(--text-dim)', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: 4, justifyContent: 'center' }}>{s.icon}{s.label}</div>
+                style={{ padding: '10px 12px', background: `${s.color}0a`, border: `1px solid ${s.color}20`, borderRadius: '10px', textAlign: 'center' }}>
+                <div style={{ fontSize: '1.2rem', fontWeight: 700, color: s.color, fontFamily: 'var(--font-mono)', lineHeight: 1.3 }}>{s.val}</div>
+                <div style={{ fontSize: '0.6rem', color: 'var(--text-dim)', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: 3, justifyContent: 'center', marginTop: 2 }}>{s.icon}{s.label}</div>
               </motion.div>
             ))}
           </div>
