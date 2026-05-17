@@ -3,6 +3,7 @@ import { Zap, MapPin, ShieldCheck, BatteryCharging, AlertTriangle, Activity, Cpu
 import { Suspense } from 'react';
 import ManheimTabs from '../components/ManheimTabs';
 import MeridianScene3D from '../components/MeridianVisualizer';
+import MeridianBreakdown from '../components/MeridianBreakdown';
 
 const fadeUp = { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
@@ -159,6 +160,9 @@ export default function MeridianPitch() {
           </div>
         </div>
       </section>
+
+      {/* ═══ COMPONENT BREAKDOWN ═══ */}
+      <MeridianBreakdown />
 
       {/* ═══ BILLING FLOW ═══ */}
       <section style={{ padding: '6rem 0', background: `linear-gradient(180deg, var(--bg-dark) 0%, rgba(30,58,95,0.06) 100%)`, borderBottom: '1px solid var(--border-light)' }}>
