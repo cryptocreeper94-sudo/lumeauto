@@ -71,7 +71,7 @@ function EnergyColumn({ position, color }: { position: [number, number, number];
   useFrame((state) => {
     if (ref.current) {
       const t = state.clock.elapsedTime;
-      (ref.current.material as THREE.MeshBasicMaterial).opacity = 0.06 + Math.sin(t * 2 + position[0]) * 0.04;
+      (ref.current.material as THREE.MeshBasicMaterial).opacity = 0.12 + Math.sin(t * 2 + position[0]) * 0.06;
     }
   });
   return (
@@ -84,7 +84,7 @@ function EnergyColumn({ position, color }: { position: [number, number, number];
 
 function FloatingParticles() {
   const ref = useRef<THREE.Points>(null);
-  const count = 300;
+  const count = 500;
   const positions = useMemo(() => {
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
@@ -124,7 +124,7 @@ function FloatingParticles() {
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
         <bufferAttribute attach="attributes-color" args={[colors, 3]} />
       </bufferGeometry>
-      <pointsMaterial size={0.05} vertexColors transparent opacity={0.5} blending={THREE.AdditiveBlending} />
+      <pointsMaterial size={0.06} vertexColors transparent opacity={0.65} blending={THREE.AdditiveBlending} />
     </points>
   );
 }
@@ -143,27 +143,27 @@ export default function MeridianScene3D() {
     <div style={{ position: 'relative' }}>
       <div style={{
         width: '100%', height: '520px', borderRadius: '16px', overflow: 'hidden',
-        border: '1px solid rgba(167, 139, 250, 0.3)',
+        border: '1px solid rgba(220, 38, 38, 0.25)',
         background: 'linear-gradient(180deg, #06081a 0%, #04060c 100%)',
-        boxShadow: '0 20px 80px rgba(124, 58, 237, 0.12), 0 0 120px rgba(167, 139, 250, 0.06)',
+        boxShadow: '0 20px 80px rgba(220, 38, 38, 0.08), 0 0 120px rgba(30, 58, 95, 0.06)',
       }}>
         <Canvas
           camera={{ position: [16, 9, 14], fov: 42 }}
-          gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 2.2 }}
+          gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 2.8 }}
           shadows
         >
           <color attach="background" args={['#06081a']} />
           <fog attach="fog" args={['#06081a', 25, 65]} />
 
           {/* Rich multi-source lighting */}
-          <ambientLight intensity={0.3} />
-          <hemisphereLight args={['#6366f1', '#111118', 0.6]} />
-          <directionalLight position={[8, 15, 5]} intensity={2.5} color="#ffffff" castShadow />
-          <directionalLight position={[-5, 8, -3]} intensity={1.0} color="#c4b5fd" />
+          <ambientLight intensity={0.5} />
+          <hemisphereLight args={['#38bdf8', '#111118', 0.8]} />
+          <directionalLight position={[8, 15, 5]} intensity={3.0} color="#ffffff" castShadow />
+          <directionalLight position={[-5, 8, -3]} intensity={1.0} color="#38bdf8" />
           {/* Purple accent lighting from above */}
-          <pointLight position={[0, 8, 0]} intensity={2.0} color="#a78bfa" distance={25} />
-          <pointLight position={[-2, 5, 0]} intensity={1.2} color="#818cf8" distance={15} />
-          <pointLight position={[3, 5, 0]} intensity={1.2} color="#818cf8" distance={15} />
+          <pointLight position={[0, 8, 0]} intensity={2.0} color="#dc2626" distance={25} />
+          <pointLight position={[-2, 5, 0]} intensity={1.2} color="#dc2626" distance={15} />
+          <pointLight position={[3, 5, 0]} intensity={1.2} color="#dc2626" distance={15} />
           {/* Ground-bounce cyan accent */}
           <pointLight position={[0, 0.5, 4]} intensity={0.6} color="#06b6d4" distance={12} />
 
@@ -174,10 +174,10 @@ export default function MeridianScene3D() {
           <EnergyBeam position={[-2, 0, 0]} active={true} />
           <EnergyBeam position={[3, 0, 0]} active={true} />
           {/* Energy visualization effects */}
-          <EnergyColumn position={[-2, 0, 0]} color="#a78bfa" />
-          <EnergyColumn position={[3, 0, 0]} color="#818cf8" />
-          <EnergyPulse position={[-2, 0, 0]} color="#a78bfa" />
-          <EnergyPulse position={[3, 0, 0]} color="#818cf8" />
+          <EnergyColumn position={[-2, 0, 0]} color="#38bdf8" />
+          <EnergyColumn position={[3, 0, 0]} color="#dc2626" />
+          <EnergyPulse position={[-2, 0, 0]} color="#38bdf8" />
+          <EnergyPulse position={[3, 0, 0]} color="#dc2626" />
           <LotSurface />
           <GridFloor />
           <FloatingParticles />
@@ -199,14 +199,14 @@ export default function MeridianScene3D() {
         marginTop: '1rem',
       }}>
         {[
-          { label: 'Overhead Anchor Nodes', desc: 'Energy transmitters mounted in existing canopy structure', color: '#a78bfa' },
-          { label: 'Wireless Energy Routing', desc: 'Deterministic protocol — no cables, no adapters', color: '#818cf8' },
-          { label: 'Cryptographic Billing', desc: 'Every kWh metered and sealed on-chain automatically', color: '#c4b5fd' },
+          { label: 'Overhead Anchor Nodes', desc: 'Energy transmitters mounted in existing canopy structure', color: 'var(--accent-cyan)' },
+          { label: 'Wireless Energy Routing', desc: 'Deterministic protocol — no cables, no adapters', color: '#38bdf8' },
+          { label: 'Cryptographic Billing', desc: 'Every kWh metered and sealed on-chain automatically', color: 'var(--accent-emerald)' },
         ].map((c, i) => (
           <div key={i} style={{
-            padding: '0.75rem', background: 'rgba(167,139,250,0.04)',
-            border: '1px solid rgba(167,139,250,0.12)', borderRadius: '10px',
-            textAlign: 'center',
+            padding: '0.75rem', background: 'rgba(56,189,248,0.04)',
+            border: '1px solid rgba(56,189,248,0.12)', borderRadius: '10px',
+            textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center',
           }}>
             <div style={{ fontSize: '0.7rem', fontWeight: 600, color: c.color, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '3px' }}>{c.label}</div>
             <div style={{ fontSize: '0.65rem', color: 'var(--text-dim)', lineHeight: 1.4 }}>{c.desc}</div>

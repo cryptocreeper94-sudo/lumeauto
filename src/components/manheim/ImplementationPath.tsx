@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FileText, CheckCircle, Clock, ArrowRight, Building2, Cpu, Shield, Layers, Zap, Globe, Activity } from 'lucide-react';
+import CardCarousel from '../CardCarousel';
 
 const fadeIn = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
@@ -62,7 +63,7 @@ export default function ImplementationPath() {
               timeline: 'Weeks 8–12',
               title: 'CAL Integration & Trust Certificates',
               icon: <Layers size={20} />,
-              color: '#a78bfa',
+              color: '#38bdf8',
               items: [
                 'Activate Cox Automotive Ledger validators at pilot facility',
                 'Anchor all condition certificates on-ledger with cryptographic proof',
@@ -111,24 +112,25 @@ export default function ImplementationPath() {
           ))}
         </div>
 
-        {/* Key principles */}
-        <motion.div {...fadeIn} transition={{ delay: 0.4 }} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.25rem', marginBottom: '3rem' }}>
-          {[
-            { icon: <Zap size={20} />, title: 'Zero Downtime', desc: 'Every phase runs alongside existing operations. Nothing shuts down, nothing migrates, nothing breaks.' },
-            { icon: <Building2 size={20} />, title: 'Facility by Facility', desc: 'Start with one pilot location. Prove value. Expand when ready. Each facility is independently operational.' },
-            { icon: <Shield size={20} />, title: 'Independently Valuable', desc: 'Each phase delivers measurable ROI on its own. Phase 1 alone reduces diagnostic overhead and strengthens arbitration defense.' },
-            { icon: <Shield size={20} />, title: 'Enterprise Identity Ready', desc: 'The platform integrates with your existing SSO — Azure AD, Okta, SAML 2.0, or any corporate identity provider. Your people sign in with the credentials they already use.' },
-            { icon: <Globe size={20} />, title: 'Data Residency & Compliance', desc: 'All data stays on infrastructure Cox controls. The platform is designed for SOC 2, GDPR, and PCI compliance readiness. No data leaves your network without explicit authorization.' },
-            { icon: <Layers size={20} />, title: 'Uptime & Disaster Recovery', desc: 'The platform supports multi-region failover, automated backups, and deterministic state recovery. Uptime commitments and SLAs are defined during deployment planning.' },
-          ].map((item, i) => (
-            <motion.div key={i} {...fadeIn} transition={{ delay: 0.45 + i * 0.08 }}
-              className="panel" style={{ padding: '1.5rem', borderColor: 'rgba(16,185,129,0.15)', background: 'rgba(16,185,129,0.02)' }}>
-              <div style={{ color: accent, marginBottom: '0.75rem' }}>{item.icon}</div>
-              <h4 style={{ fontSize: '1rem', marginBottom: '0.4rem' }}>{item.title}</h4>
-              <p className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.5 }}>{item.desc}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* Key principles → carousel on mobile */}
+        <div style={{ marginBottom: '3rem' }}>
+          <CardCarousel desktopColumns="repeat(auto-fit, minmax(250px, 1fr))" gap="1.25rem" accentColor="var(--accent-emerald)">
+            {[
+              { icon: <Zap size={20} />, title: 'Zero Downtime', desc: 'Every phase runs alongside existing operations. Nothing shuts down, nothing migrates, nothing breaks.' },
+              { icon: <Building2 size={20} />, title: 'Facility by Facility', desc: 'Start with one pilot location. Prove value. Expand when ready. Each facility is independently operational.' },
+              { icon: <Shield size={20} />, title: 'Independently Valuable', desc: 'Each phase delivers measurable ROI on its own. Phase 1 alone reduces diagnostic overhead and strengthens arbitration defense.' },
+              { icon: <Shield size={20} />, title: 'Enterprise Identity Ready', desc: 'The platform integrates with your existing SSO — Azure AD, Okta, SAML 2.0, or any corporate identity provider. Your people sign in with the credentials they already use.' },
+              { icon: <Globe size={20} />, title: 'Data Residency & Compliance', desc: 'All data stays on infrastructure Cox controls. The platform is designed for SOC 2, GDPR, and PCI compliance readiness. No data leaves your network without explicit authorization.' },
+              { icon: <Layers size={20} />, title: 'Uptime & Disaster Recovery', desc: 'The platform supports multi-region failover, automated backups, and deterministic state recovery. Uptime commitments and SLAs are defined during deployment planning.' },
+            ].map((item, i) => (
+              <div key={i} className="panel" style={{ padding: '1.5rem', borderColor: 'rgba(16,185,129,0.15)', background: 'rgba(16,185,129,0.02)', height: '100%' }}>
+                <div style={{ color: accent, marginBottom: '0.75rem' }}>{item.icon}</div>
+                <h4 style={{ fontSize: '1rem', marginBottom: '0.4rem' }}>{item.title}</h4>
+                <p className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.5 }}>{item.desc}</p>
+              </div>
+            ))}
+          </CardCarousel>
+        </div>
 
         {/* Modular Adoption */}
         <motion.div {...fadeIn} transition={{ delay: 0.5 }} style={{ marginBottom: '3rem' }}>
@@ -138,34 +140,33 @@ export default function ImplementationPath() {
               The platform is designed so that each layer operates independently. Manheim can begin with the components that address immediate operational needs and integrate additional layers over time — without rearchitecting what's already running.
             </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+          <CardCarousel desktopColumns="repeat(auto-fit, minmax(220px, 1fr))" gap="1rem" accentColor="var(--accent-cyan)">
             {[
               { title: 'LUME-Auto', desc: 'OBD-II diagnostics and condition reporting — standalone hardware and software.', color: 'var(--accent-cyan)', full: false },
-              { title: 'Lot Ops Pro', desc: 'Operational workforce platform — custody tracking, routing, messaging.', color: '#a78bfa', full: false },
+              { title: 'Lot Ops Pro', desc: 'Operational workforce platform — custody tracking, routing, messaging.', color: '#38bdf8', full: false },
               { title: 'LUME-V', desc: 'Deterministic governance wrapper — operates across any legacy enterprise stack.', color: 'var(--accent-emerald)', full: false },
               { title: 'CAL + Trust Layer', desc: 'Private ledger and commercial verification — the cryptographic audit fabric.', color: '#38bdf8', full: false },
-              { title: 'Meridian', desc: 'Wireless energy routing — EV charging, powered signage, and lot infrastructure.', color: '#818cf8', full: false },
+              { title: 'Meridian', desc: 'Wireless energy routing — EV charging, powered signage, and lot infrastructure.', color: '#dc2626', full: false },
               { title: 'Unified Platform', desc: 'When deployed together, every component amplifies the others — the whole exceeds the sum of its parts.', color: '#fb923c', full: true },
             ].map((mod, i) => (
-              <motion.div key={i} {...fadeIn} transition={{ delay: 0.55 + i * 0.06 }}
-                style={{
-                  padding: '1.25rem', borderRadius: '12px',
-                  background: mod.full ? `linear-gradient(135deg, rgba(251,146,60,0.08) 0%, rgba(251,146,60,0.02) 100%)` : 'rgba(255,255,255,0.02)',
-                  border: `1px solid ${mod.full ? 'rgba(251,146,60,0.25)' : 'var(--border-light)'}`,
-                }}>
+              <div key={i} style={{
+                padding: '1.25rem', borderRadius: '12px', height: '100%',
+                background: mod.full ? `linear-gradient(135deg, rgba(251,146,60,0.08) 0%, rgba(251,146,60,0.02) 100%)` : 'rgba(255,255,255,0.02)',
+                border: `1px solid ${mod.full ? 'rgba(251,146,60,0.25)' : 'var(--border-light)'}`,
+              }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.5rem' }}>
                   <div style={{ width: 8, height: 8, borderRadius: '50%', background: mod.color }} />
                   <h4 style={{ fontSize: '0.95rem', color: mod.color }}>{mod.title}</h4>
                 </div>
                 <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5 }}>{mod.desc}</p>
-              </motion.div>
+              </div>
             ))}
-          </div>
+          </CardCarousel>
         </motion.div>
 
         {/* CTA */}
         <motion.div {...fadeIn} transition={{ delay: 0.5 }} className="panel" style={{ padding: '3rem', textAlign: 'center', borderColor: 'rgba(16,185,129,0.25)', background: 'linear-gradient(180deg, rgba(16,185,129,0.05) 0%, rgba(16,185,129,0.01) 100%)', boxShadow: '0 10px 40px rgba(16,185,129,0.05)' }}>
-          <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: accent }}>Ready When Manheim Is</h3>
+          <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: accent }}>Built. Tested. Ready to Deploy.</h3>
           <p className="text-muted" style={{ maxWidth: '700px', margin: '0 auto', fontSize: '1rem', lineHeight: 1.7, marginBottom: '1.5rem' }}>
             The infrastructure is built. The ledger is live. The governance wrapper is deployed. The organisms are running. The diagnostic software is complete. This is not a proposal for future development — it is a deployment schedule for a pilot that validates the operational layer at a live facility.
           </p>

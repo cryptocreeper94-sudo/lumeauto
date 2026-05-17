@@ -3,10 +3,10 @@ import { Shield, Layers, FileCheck, Globe } from 'lucide-react';
 
 const fadeIn = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
-const accent = '#a78bfa';
-const accentDim = 'rgba(167,139,250,0.10)';
-const accentBorder = 'rgba(167,139,250,0.20)';
-const accentBorderHover = 'rgba(167,139,250,0.45)';
+const accent = 'var(--accent-cyan)';
+const accentDim = 'rgba(6,182,212,0.10)';
+const accentBorder = 'rgba(6,182,212,0.20)';
+const accentBorderHover = 'rgba(6,182,212,0.45)';
 
 export default function TrustLayerSection() {
   return (

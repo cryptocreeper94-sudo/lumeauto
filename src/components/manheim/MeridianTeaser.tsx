@@ -3,10 +3,10 @@ import { Zap, Radio, Lightbulb, BatteryCharging, ArrowRight, Layers } from 'luci
 
 const fadeIn = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
-const accent = '#818cf8';
-const accentDim = 'rgba(129,140,248,0.10)';
-const accentBorder = 'rgba(129,140,248,0.20)';
-const accentBorderHover = 'rgba(129,140,248,0.45)';
+const accent = '#dc2626';
+const accentDim = 'rgba(220,38,38,0.10)';
+const accentBorder = 'rgba(220,38,38,0.20)';
+const accentBorderHover = 'rgba(220,38,38,0.45)';
 
 export default function MeridianTeaser() {
   return (

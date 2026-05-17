@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Link2, Eye, Cpu, FileText, BookOpen, Activity } from 'lucide-react';
+import { Shield, Link2, Eye, Cpu, FileText, BookOpen, Activity, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const HERO_IMAGES = [
   '/assets/images/photos/hero_auction.png',
@@ -9,13 +9,33 @@ const HERO_IMAGES = [
   '/assets/images/photos/hero_infrastructure.png',
 ];
 
+const STATS = [
+  { icon: <Link2 size={18}/>, val: 'CAL', label: 'Private Ledger', color: '#38bdf8' },
+  { icon: <Eye size={18}/>, val: 'Lume-V', label: 'Governance Layer', color: '#22d3ee' },
+  { icon: <Cpu size={18}/>, val: '42', label: 'Governance Nodes', color: '#10b981' },
+  { icon: <FileText size={18}/>, val: 'Lume', label: 'Native Runtime', color: '#38bdf8' },
+  { icon: <BookOpen size={18}/>, val: '10+', label: 'Published Papers', color: '#f59e0b' },
+  { icon: <Activity size={18}/>, val: '100Hz', label: 'Polling Rate', color: '#f472b6' },
+];
+
 export default function HeroSection() {
   const [imgIndex, setImgIndex] = useState(0);
+  const [statIndex, setStatIndex] = useState(0);
 
+  // Background slideshow
   useEffect(() => {
     const t = setInterval(() => setImgIndex(i => (i + 1) % HERO_IMAGES.length), 9000);
     return () => clearInterval(t);
   }, []);
+
+  // Stat carousel auto-advance
+  useEffect(() => {
+    const t = setInterval(() => setStatIndex(i => (i + 1) % STATS.length), 3500);
+    return () => clearInterval(t);
+  }, []);
+
+  const prevStat = useCallback(() => setStatIndex(i => (i - 1 + STATS.length) % STATS.length), []);
+  const nextStat = useCallback(() => setStatIndex(i => (i + 1) % STATS.length), []);
 
   return (
     <section style={{ padding: '5rem 0 3rem', position: 'relative', overflow: 'hidden', minHeight: '85vh', display: 'flex', alignItems: 'center' }}>
@@ -36,13 +56,13 @@ export default function HeroSection() {
         />
       </AnimatePresence>
 
-      {/* Dark overlay for text readability */}
+      {/* Lightened overlay — lets the photo show through more */}
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'linear-gradient(180deg, rgba(10,10,12,0.75) 0%, rgba(10,10,12,0.85) 50%, rgba(10,10,12,0.95) 100%)',
+        background: 'linear-gradient(180deg, rgba(10,10,12,0.55) 0%, rgba(10,10,12,0.70) 50%, rgba(10,10,12,0.88) 100%)',
       }} />
 
-      {/* Subtle grid overlay */}
+      {/* Grid overlay */}
       <div style={{ position: 'absolute', inset: 0, opacity: 0.03, backgroundImage: 'linear-gradient(rgba(56,189,248,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.4) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
       <div className="container" style={{ maxWidth: '1100px', position: 'relative', zIndex: 2 }}>
@@ -58,25 +78,88 @@ export default function HeroSection() {
             A private cryptographic ledger that seals every custody transfer, condition report, and arbitration event into an immutable record. Deterministic vehicle diagnostics — powered by self-healing synthetic organisms running on a purpose-built runtime — that produce cryptographic proof in 45 seconds. An operations layer built for the scale and security Cox Automotive demands — not a concept, a deployed system.
           </p>
 
-          {/* Credential bar */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', marginBottom: '3rem', maxWidth: '540px' }}>
-            {[
-              { icon: <Link2 size={14}/>, val: 'CAL', label: 'Private Ledger', color: '#38bdf8' },
-              { icon: <Eye size={14}/>, val: 'Lume-V', label: 'Governance Layer', color: '#22d3ee' },
-              { icon: <Cpu size={14}/>, val: '42', label: 'Governance Nodes', color: '#10b981' },
-              { icon: <FileText size={14}/>, val: 'Lume', label: 'Native Runtime', color: '#a78bfa' },
-              { icon: <BookOpen size={14}/>, val: '10+', label: 'Published Papers', color: '#f59e0b' },
-              { icon: <Activity size={14}/>, val: '100Hz', label: 'Polling Rate', color: '#f472b6' },
-            ].map((s, i) => (
-              <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 + i * 0.1 }}
-                style={{ padding: '10px 12px', background: `${s.color}0a`, border: `1px solid ${s.color}20`, borderRadius: '10px', textAlign: 'center', backdropFilter: 'blur(8px)' }}>
-                <div style={{ fontSize: '1.2rem', fontWeight: 700, color: s.color, fontFamily: 'var(--font-mono)', lineHeight: 1.3 }}>{s.val}</div>
-                <div style={{ fontSize: '0.6rem', color: 'var(--text-dim)', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: 3, justifyContent: 'center', marginTop: 2 }}>{s.icon}{s.label}</div>
-              </motion.div>
-            ))}
+          {/* ═══ STAT CAROUSEL ═══ */}
+          <div style={{ maxWidth: '320px', marginBottom: '2.5rem' }}>
+            {/* Card */}
+            <div style={{
+              position: 'relative', height: '110px',
+              background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(16px)',
+              border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px',
+              overflow: 'hidden',
+            }}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={statIndex}
+                  initial={{ opacity: 0, x: 40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -40 }}
+                  transition={{ duration: 0.3 }}
+                  style={{
+                    position: 'absolute', inset: 0,
+                    display: 'flex', flexDirection: 'column',
+                    alignItems: 'center', justifyContent: 'center',
+                    textAlign: 'center', padding: '1rem',
+                  }}
+                >
+                  <div style={{
+                    fontSize: '2rem', fontWeight: 800,
+                    color: STATS[statIndex].color,
+                    fontFamily: 'var(--font-mono)', lineHeight: 1.2,
+                  }}>
+                    {STATS[statIndex].val}
+                  </div>
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: '5px',
+                    fontSize: '0.7rem', color: 'var(--text-dim)',
+                    letterSpacing: '0.06em', textTransform: 'uppercase',
+                    marginTop: '6px',
+                  }}>
+                    {STATS[statIndex].icon}
+                    {STATS[statIndex].label}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Navigation */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '10px' }}>
+              <button onClick={prevStat} aria-label="Previous stat" style={{
+                width: '30px', height: '30px', borderRadius: '50%',
+                background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
+                color: 'var(--text-muted)', cursor: 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                transition: 'all 0.2s',
+              }}>
+                <ChevronLeft size={14} />
+              </button>
+
+              {/* Dots */}
+              <div style={{ display: 'flex', gap: '5px' }}>
+                {STATS.map((_, i) => (
+                  <button key={i} onClick={() => setStatIndex(i)} aria-label={`Stat ${i + 1}`}
+                    style={{
+                      width: statIndex === i ? '16px' : '6px', height: '6px',
+                      borderRadius: '3px', border: 'none', cursor: 'pointer',
+                      background: statIndex === i ? STATS[statIndex].color : 'rgba(255,255,255,0.15)',
+                      transition: 'all 0.3s ease',
+                    }}
+                  />
+                ))}
+              </div>
+
+              <button onClick={nextStat} aria-label="Next stat" style={{
+                width: '30px', height: '30px', borderRadius: '50%',
+                background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
+                color: 'var(--text-muted)', cursor: 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                transition: 'all 0.2s',
+              }}>
+                <ChevronRight size={14} />
+              </button>
+            </div>
           </div>
 
-          {/* Slide indicators */}
+          {/* Background image slide indicators */}
           <div style={{ display: 'flex', gap: '6px' }}>
             {HERO_IMAGES.map((_, i) => (
               <button key={i} onClick={() => setImgIndex(i)} aria-label={`Slide ${i + 1}`}

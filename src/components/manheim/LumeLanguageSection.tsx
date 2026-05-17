@@ -8,7 +8,7 @@ const features = [
     title: 'Deterministic Compilation',
     desc: 'Lume source compiles to governance organisms — not executables. Same inputs always produce same outputs.',
     detail: 'No randomness, no inference, no hallucination surface. Every compilation is bit-for-bit reproducible. Two developers compiling the same Lume source on different machines will produce identical organisms. This is not an aspirational property — it is enforced by the compiler specification.',
-    color: '#a78bfa',
+    color: '#38bdf8',
   },
   {
     icon: <Cpu size={24}/>,
@@ -43,7 +43,7 @@ const features = [
     title: 'Edge-Native Execution',
     desc: 'Organisms run on the device. No cloud dependency. No latency.',
     detail: 'A vehicle diagnosis completes in 45 seconds on a phone connected to a commodity dongle. The entire organism — all 42 nodes — executes locally. No data leaves the device unless explicitly anchored to the ledger. This means the system works in parking structures, rural lots, and anywhere cellular coverage is unreliable.',
-    color: '#a78bfa',
+    color: '#38bdf8',
   },
   {
     icon: <Mic size={24}/>,
@@ -173,7 +173,7 @@ export default function LumeLanguageSection() {
 
       <div className="container" style={{ maxWidth: '1100px', position: 'relative', zIndex: 2 }}>
         <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-          <p style={{ color: '#a78bfa', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>The Foundation</p>
+          <p style={{ color: '#38bdf8', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>The Foundation</p>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Lume Is a Language.</h2>
           <p className="text-muted" style={{ maxWidth: '680px', margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7 }}>
             Not a library. Not a framework. Not an API wrapper. Lume is a deterministic programming language and runtime that compiles governance logic into synthetic organisms — self-healing systems that monitor, diagnose, and act without probabilistic inference.
@@ -226,7 +226,7 @@ export default function LumeLanguageSection() {
                 style={{
                   width: current === i ? '20px' : '8px', height: '8px',
                   borderRadius: '4px', border: 'none', cursor: 'pointer',
-                  background: current === i ? '#a78bfa' : 'rgba(255,255,255,0.15)',
+                  background: current === i ? '#38bdf8' : 'rgba(255,255,255,0.15)',
                   transition: 'all 0.3s ease',
                 }}
               />
@@ -253,10 +253,10 @@ export default function LumeLanguageSection() {
             aria-label={paused ? 'Resume autoplay' : 'Pause autoplay'}
             style={{
               width: '36px', height: '36px', borderRadius: '50%',
-              background: paused ? 'rgba(167,139,250,0.15)' : 'rgba(255,255,255,0.05)',
+              background: paused ? 'rgba(56,189,248,0.15)' : 'rgba(255,255,255,0.05)',
               backdropFilter: 'blur(10px)',
-              border: `1px solid ${paused ? 'rgba(167,139,250,0.3)' : 'rgba(255,255,255,0.1)'}`,
-              color: paused ? '#a78bfa' : 'var(--text-muted)',
+              border: `1px solid ${paused ? 'rgba(56,189,248,0.3)' : 'rgba(255,255,255,0.1)'}`,
+              color: paused ? '#38bdf8' : 'var(--text-muted)',
               cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
               transition: 'all 0.3s',
             }}

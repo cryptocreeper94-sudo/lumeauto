@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Zap, Shield, Activity, MapPin } from 'lucide-react';
+import CardCarousel from '../CardCarousel';
 import OrganismVisualizer from '../OrganismVisualizer';
 import LiveScanSimulator from '../LiveScanSimulator';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
@@ -51,22 +52,22 @@ export default function ArchitectureSection() {
           <h3 style={{ fontSize: '1.8rem', marginBottom: '0.75rem' }}>What This Means on the Ground</h3>
           <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto' }}>Every step is deterministic. Every output is reproducible. Every decision has a traceable input chain.</p>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <CardCarousel desktopColumns="repeat(auto-fit, minmax(280px, 1fr))" gap="1rem" accentColor="var(--accent-cyan)">
           {[
             { icon: <Activity size={22}/>, title: 'Intake Automation', desc: '45-second deterministic scan generates a structured condition report. Dead batteries, severe misfires, and catalytic failures are flagged before the vehicle reaches a lane.', color: 'var(--accent-emerald)' },
             { icon: <MapPin size={22}/>, title: 'Intelligent Routing', desc: 'Health data feeds directly into Ops Recon. Vehicles route automatically to the correct lane or reconditioning queue. Drivers receive GPS move assignments instantly.', color: 'var(--accent-cyan)' },
-            { icon: <Shield size={22}/>, title: 'Arbitration Defense', desc: 'Post-sale dispute? Pull the intake scan log. Replay the inputs through the deterministic runtime — you get the exact same result. Resolved by data, not opinion.', color: '#a78bfa' },
+            { icon: <Shield size={22}/>, title: 'Arbitration Defense', desc: 'Post-sale dispute? Pull the intake scan log. Replay the inputs through the deterministic runtime — you get the exact same result. Resolved by data, not opinion.', color: '#38bdf8' },
             { icon: <Zap size={22}/>, title: 'Population Health', desc: 'Every vehicle scanned feeds the population-level dashboard. See fleet-wide trends: battery degradation patterns, regional fault clusters, seasonal failure spikes.', color: '#fb923c' },
           ].map((item, i) => (
-            <motion.div key={i} {...f} transition={{ delay: i * 0.08 }} className="panel flex gap-4" style={{ padding: '1.5rem', alignItems: 'flex-start' }}>
+            <div key={i} className="panel" style={{ padding: '1.5rem', display: 'flex', alignItems: 'flex-start', gap: '1rem', height: '100%' }}>
               <div style={{ padding: '10px', background: `${item.color}12`, borderRadius: '10px', color: item.color, flexShrink: 0 }}>{item.icon}</div>
               <div>
                 <h4 style={{ fontSize: '1.1rem', marginBottom: '0.35rem' }}>{item.title}</h4>
                 <p className="text-muted" style={{ fontSize: '0.9rem', lineHeight: 1.6 }}>{item.desc}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </CardCarousel>
 
         {/* Deterministic vs AI table */}
         <motion.div {...f} className="panel" style={{ padding: '2rem', marginTop: '3rem' }}>

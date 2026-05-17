@@ -271,6 +271,8 @@ function App() {
                   <Route path="/download" element={<DownloadPage />} />
                 </Routes>
               </main>
+              <Footer />
+              <RollerCoaster />
             </AuthGate>
           ) : (
             /* ── Public site (lumeauto.tech) ── */

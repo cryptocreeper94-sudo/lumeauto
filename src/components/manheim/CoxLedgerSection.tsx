@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
 import { Link2, ShieldCheck, Lock, Server, FileCheck, Globe, Fingerprint, Layers, Workflow, Database, CheckCircle } from 'lucide-react';
+import CardCarousel from '../CardCarousel';
 
 const fadeIn = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 const accent = '#38bdf8';
 const accentDim = 'rgba(56,189,248,0.12)';
 const accentBorder = 'rgba(56,189,248,0.25)';
-const accentBorderHover = 'rgba(56,189,248,0.5)';
 
 export default function CoxLedgerSection() {
   return (
@@ -41,22 +41,19 @@ export default function CoxLedgerSection() {
           <h3 style={{ fontSize: '1.2rem', color: accent, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Database size={20} /> What CAL Does
           </h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.25rem' }}>
+          <CardCarousel desktopColumns="repeat(auto-fit, minmax(300px, 1fr))" gap="1.25rem" accentColor={accent}>
             {[
               { icon: <Fingerprint size={22} />, title: 'Records Operational Events', desc: 'Every vehicle scan, custody transfer, condition report, and workflow transition is sealed as a signed, timestamped, immutable record.' },
               { icon: <ShieldCheck size={22} />, title: 'Verifies Deterministic Workflows', desc: 'LUME-V governance decisions are anchored to the ledger — providing cryptographic proof that every output was produced deterministically.' },
               { icon: <Layers size={22} />, title: 'Unifies the Audit Fabric', desc: 'A single source of operational truth across Lot Ops Pro, LUME-Auto telemetry, condition certificates, and future Meridian integration.' },
             ].map((item, i) => (
-              <motion.div key={i} {...fadeIn} transition={{ delay: 0.1 + i * 0.08 }}
-                style={{ padding: '1.75rem', background: 'rgba(255,255,255,0.02)', border: `1px solid ${accentDim}`, borderRadius: '16px', transition: 'border-color 0.3s' }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = accentBorderHover}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = accentDim}>
+              <div key={i} className="panel" style={{ padding: '1.75rem', borderColor: accentDim, height: '100%' }}>
                 <div style={{ color: accent, marginBottom: '0.75rem' }}>{item.icon}</div>
                 <h4 style={{ fontSize: '1.05rem', marginBottom: '0.5rem' }}>{item.title}</h4>
                 <p className="text-muted" style={{ fontSize: '0.88rem', lineHeight: 1.6 }}>{item.desc}</p>
-              </motion.div>
+              </div>
             ))}
-          </div>
+          </CardCarousel>
         </motion.div>
 
         {/* Why CAL Exists + What It Enables — two-column */}
@@ -160,22 +157,19 @@ export default function CoxLedgerSection() {
           <h3 style={{ fontSize: '1.2rem', color: accent, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <FileCheck size={20} /> What Gets Recorded
           </h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.25rem' }}>
+          <CardCarousel desktopColumns="repeat(auto-fit, minmax(300px, 1fr))" gap="1.25rem" accentColor={accent}>
             {[
               { icon: <Fingerprint size={22} />, title: 'Vehicle Custody Chain', desc: 'Every handoff — intake to lot, lot to lane, lane to transport — is recorded as a signed, timestamped transition. The full chain of custody is provable and immutable.' },
               { icon: <FileCheck size={22} />, title: 'Condition Certificates', desc: 'OBD-II scan results from LUME-Auto are sealed on-ledger at the moment of diagnosis. The same data that generated the report is cryptographically bound to it — permanently.' },
               { icon: <ShieldCheck size={22} />, title: 'Arbitration Defense', desc: 'When a dispute arises, the ledger provides deterministic replay. Same inputs, same organism, same result — backed by cryptographic proof that the data was never altered.' },
             ].map((item, i) => (
-              <motion.div key={i} {...fadeIn} transition={{ delay: 0.35 + i * 0.08 }}
-                style={{ padding: '1.75rem', background: 'rgba(255,255,255,0.02)', border: `1px solid ${accentDim}`, borderRadius: '16px', transition: 'border-color 0.3s' }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = accentBorderHover}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = accentDim}>
+              <div key={i} className="panel" style={{ padding: '1.75rem', borderColor: accentDim, height: '100%' }}>
                 <div style={{ color: accent, marginBottom: '0.75rem' }}>{item.icon}</div>
                 <h4 style={{ fontSize: '1.05rem', marginBottom: '0.5rem' }}>{item.title}</h4>
                 <p className="text-muted" style={{ fontSize: '0.88rem', lineHeight: 1.6 }}>{item.desc}</p>
-              </motion.div>
+              </div>
             ))}
-          </div>
+          </CardCarousel>
         </motion.div>
 
         {/* Data Privacy Architecture */}
@@ -187,19 +181,19 @@ export default function CoxLedgerSection() {
             <p className="text-muted" style={{ lineHeight: 1.7, marginBottom: '1.5rem', fontSize: '0.92rem' }}>
               CAL stores <strong style={{ color: accent }}>cryptographic hashes</strong>, not raw data. No employee PII, compensation details, internal pricing, or competitive intelligence is written to the ledger in cleartext. The underlying records remain in Cox-controlled databases behind existing access control policies. The ledger proves integrity — the source systems store content.
             </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+            <CardCarousel desktopColumns="repeat(auto-fit, minmax(220px, 1fr))" gap="1rem" accentColor={accent}>
               {[
                 { label: 'Hashes Only', desc: 'SHA-256 fingerprints + metadata pointers — never raw data', color: accent },
                 { label: 'Permissioned Access', desc: 'Facility managers see their facility. Corporate sees aggregate. Employees see their own records only.', color: 'var(--accent-emerald)' },
                 { label: 'Zero External Exposure', desc: 'Nothing on CAL is accessible outside the Cox network. Trust Layer certificates expose only what Cox approves.', color: '#f87171' },
-                { label: 'Tamper-Proof Proof', desc: 'If a source record is modified after anchoring, the hash mismatch is instantly detectable.', color: '#a78bfa' },
+                { label: 'Tamper-Proof Proof', desc: 'If a source record is modified after anchoring, the hash mismatch is instantly detectable.', color: '#38bdf8' },
               ].map((item, i) => (
-                <div key={i} style={{ padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '10px', border: `1px solid ${accentDim}` }}>
+                <div key={i} style={{ padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '10px', border: `1px solid ${accentDim}`, height: '100%' }}>
                   <p style={{ fontSize: '0.8rem', fontWeight: 700, color: item.color, marginBottom: '0.4rem' }}>{item.label}</p>
                   <p className="text-dim" style={{ fontSize: '0.75rem', lineHeight: 1.5 }}>{item.desc}</p>
                 </div>
               ))}
-            </div>
+            </CardCarousel>
           </div>
         </motion.div>
 
