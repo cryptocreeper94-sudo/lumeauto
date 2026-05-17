@@ -25,7 +25,7 @@ export default function EngineeringBrief() {
               This document details the complete system architecture — from OBD-II protocol parsing to governance organism topology to the native Lume build migration path. Every subsystem, protocol, and integration point is specified for engineering-grade review. The intent is simple: any qualified engineer should be able to read this document, review the published research, and independently verify every claim.
             </p>
 
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', maxWidth: '360px', margin: '0 auto' }}>
               {[
                 { icon: <Layers size={14}/>, val: '9', label: 'Subsystems' },
                 { icon: <FileText size={14}/>, val: '42', label: 'OBD-II PIDs' },
@@ -33,7 +33,7 @@ export default function EngineeringBrief() {
                 { icon: <Cpu size={14}/>, val: '2', label: 'Build Targets' },
               ].map((s, i) => (
                 <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 + i * 0.1 }}
-                  style={{ padding: '10px 18px', background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.15)', borderRadius: '10px', textAlign: 'center', minWidth: '100px' }}>
+                  style={{ padding: '14px 12px', background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.15)', borderRadius: '10px', textAlign: 'center' }}>
                   <div style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)' }}>{s.val}</div>
                   <div style={{ fontSize: '0.65rem', color: 'var(--text-dim)', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: 4, justifyContent: 'center' }}>{s.icon}{s.label}</div>
                 </motion.div>

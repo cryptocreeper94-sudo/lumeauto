@@ -30,10 +30,10 @@ export default function AppShowcase() {
           <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto', lineHeight: 1.7 }}>
             Four primary interfaces. Every screen is a window into the deterministic organism — not a static dashboard, but a live view of a self-governing runtime.
           </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', marginTop: '1.25rem' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', marginTop: '1.25rem', maxWidth: '560px', marginLeft: 'auto', marginRight: 'auto' }}>
             <a href="/app" style={{
-              display: 'inline-flex', alignItems: 'center', gap: '8px',
-              padding: '12px 28px',
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+              padding: '12px 28px', flex: '1 1 0',
               background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)',
               color: 'var(--accent-cyan)', borderRadius: '30px',
               fontSize: '0.85rem', fontWeight: 700, textDecoration: 'none',
@@ -42,8 +42,8 @@ export default function AppShowcase() {
               <Activity size={16} /> Try It Live — Demo Mode Available
             </a>
             <a href="/download" style={{
-              display: 'inline-flex', alignItems: 'center', gap: '8px',
-              padding: '12px 28px',
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+              padding: '12px 28px', flex: '1 1 0',
               background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)',
               color: 'var(--accent-emerald)', borderRadius: '30px',
               fontSize: '0.85rem', fontWeight: 700, textDecoration: 'none',

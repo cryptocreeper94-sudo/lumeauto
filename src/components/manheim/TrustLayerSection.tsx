@@ -15,7 +15,7 @@ export default function TrustLayerSection() {
       <div style={{ position: 'absolute', top: '50%', left: '50%', width: '800px', height: '800px', background: `radial-gradient(circle, ${accentDim} 0%, transparent 65%)`, transform: 'translate(-50%, -50%)' }} />
 
       <div className="container" style={{ position: 'relative', zIndex: 2, maxWidth: '1100px' }}>
-        <img src="/assets/images/photos/trustlayer.png" alt="Enterprise data center infrastructure" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '20px', marginBottom: '2.5rem', border: `1px solid ${accentDim}`, opacity: 0.8 }} />
+        <img src="/assets/images/photos/trustlayer.png" alt="Enterprise data center infrastructure" style={{ width: '100%', height: '320px', objectFit: 'cover', objectPosition: 'center 20%', borderRadius: '20px', marginBottom: '2.5rem', border: `1px solid ${accentDim}`, opacity: 0.8 }} />
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>

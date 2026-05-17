@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { Zap, Shield, Activity, MapPin } from 'lucide-react';
-import CardCarousel from '../CardCarousel';
 import OrganismVisualizer from '../OrganismVisualizer';
 import LiveScanSimulator from '../LiveScanSimulator';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
@@ -9,7 +8,7 @@ export default function ArchitectureSection() {
   return (
     <section style={{ padding: '5rem 0', background: 'linear-gradient(180deg, var(--bg-dark) 0%, rgba(16,185,129,0.02) 100%)', borderBottom: '1px solid var(--border-light)' }}>
       <div className="container" style={{ maxWidth: '1100px' }}>
-        <img src="/assets/images/photos/architecture.png" alt="Automotive diagnostic scanning" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '20px', marginBottom: '2.5rem', border: '1px solid var(--border-light)', opacity: 0.85 }} />
+        <img src="/assets/images/photos/architecture.png" alt="Automotive diagnostic scanning" style={{ width: '100%', height: '320px', objectFit: 'cover', objectPosition: 'center 20%', borderRadius: '20px', marginBottom: '2.5rem', border: '1px solid var(--border-light)', opacity: 0.85 }} />
         <div className="responsive-grid" style={{ marginBottom: '4rem' }}>
           <motion.div {...f}>
             <p style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Architecture</p>
@@ -52,14 +51,14 @@ export default function ArchitectureSection() {
           <h3 style={{ fontSize: '1.8rem', marginBottom: '0.75rem' }}>What This Means on the Ground</h3>
           <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto' }}>Every step is deterministic. Every output is reproducible. Every decision has a traceable input chain.</p>
         </div>
-        <CardCarousel desktopColumns="repeat(auto-fit, minmax(280px, 1fr))" gap="1rem" accentColor="var(--accent-cyan)">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
           {[
             { icon: <Activity size={22}/>, title: 'Intake Automation', desc: '45-second deterministic scan generates a structured condition report. Dead batteries, severe misfires, and catalytic failures are flagged before the vehicle reaches a lane.', color: 'var(--accent-emerald)' },
             { icon: <MapPin size={22}/>, title: 'Intelligent Routing', desc: 'Health data feeds directly into Ops Recon. Vehicles route automatically to the correct lane or reconditioning queue. Drivers receive GPS move assignments instantly.', color: 'var(--accent-cyan)' },
             { icon: <Shield size={22}/>, title: 'Arbitration Defense', desc: 'Post-sale dispute? Pull the intake scan log. Replay the inputs through the deterministic runtime — you get the exact same result. Resolved by data, not opinion.', color: '#38bdf8' },
             { icon: <Zap size={22}/>, title: 'Population Health', desc: 'Every vehicle scanned feeds the population-level dashboard. See fleet-wide trends: battery degradation patterns, regional fault clusters, seasonal failure spikes.', color: '#fb923c' },
           ].map((item, i) => (
-            <div key={i} className="panel" style={{ padding: '1.5rem', display: 'flex', alignItems: 'flex-start', gap: '1rem', height: '100%' }}>
+            <div key={i} className="panel" style={{ padding: '1.5rem', display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
               <div style={{ padding: '10px', background: `${item.color}12`, borderRadius: '10px', color: item.color, flexShrink: 0 }}>{item.icon}</div>
               <div>
                 <h4 style={{ fontSize: '1.1rem', marginBottom: '0.35rem' }}>{item.title}</h4>
@@ -67,7 +66,7 @@ export default function ArchitectureSection() {
               </div>
             </div>
           ))}
-        </CardCarousel>
+        </div>
 
         {/* Deterministic vs AI table */}
         <motion.div {...f} className="panel" style={{ padding: '2rem', marginTop: '3rem' }}>

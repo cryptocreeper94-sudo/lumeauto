@@ -78,99 +78,90 @@ export default function HeroSection() {
             A private cryptographic ledger that seals every custody transfer, condition report, and arbitration event into an immutable record. Deterministic vehicle diagnostics — powered by self-healing synthetic organisms running on a purpose-built runtime — that produce cryptographic proof in 45 seconds. An operations layer built for the scale and security Cox Automotive demands — not a concept, a deployed system.
           </p>
 
-          {/* ═══ STAT CAROUSEL ═══ */}
-          <div style={{ maxWidth: '320px', marginBottom: '2.5rem' }}>
-            {/* Card */}
+          {/* ═══ STAT CAROUSEL — self-contained ═══ */}
+          <div style={{ maxWidth: '280px', marginBottom: '2.5rem' }}>
             <div style={{
-              position: 'relative', height: '110px',
+              position: 'relative',
               background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(16px)',
               border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px',
               overflow: 'hidden',
             }}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={statIndex}
-                  initial={{ opacity: 0, x: 40 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -40 }}
-                  transition={{ duration: 0.3 }}
-                  style={{
-                    position: 'absolute', inset: 0,
-                    display: 'flex', flexDirection: 'column',
-                    alignItems: 'center', justifyContent: 'center',
-                    textAlign: 'center', padding: '1rem',
-                  }}
-                >
-                  <div style={{
-                    fontSize: '2rem', fontWeight: 800,
-                    color: STATS[statIndex].color,
-                    fontFamily: 'var(--font-mono)', lineHeight: 1.2,
-                  }}>
-                    {STATS[statIndex].val}
-                  </div>
-                  <div style={{
-                    display: 'flex', alignItems: 'center', gap: '5px',
-                    fontSize: '0.7rem', color: 'var(--text-dim)',
-                    letterSpacing: '0.06em', textTransform: 'uppercase',
-                    marginTop: '6px',
-                  }}>
-                    {STATS[statIndex].icon}
-                    {STATS[statIndex].label}
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Navigation */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '10px' }}>
-              <button onClick={prevStat} aria-label="Previous stat" style={{
-                width: '30px', height: '30px', borderRadius: '50%',
-                background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-                color: 'var(--text-muted)', cursor: 'pointer',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                transition: 'all 0.2s',
-              }}>
-                <ChevronLeft size={14} />
-              </button>
-
-              {/* Dots */}
-              <div style={{ display: 'flex', gap: '5px' }}>
-                {STATS.map((_, i) => (
-                  <button key={i} onClick={() => setStatIndex(i)} aria-label={`Stat ${i + 1}`}
+              {/* Stat display */}
+              <div style={{ position: 'relative', height: '90px' }}>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={statIndex}
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -40 }}
+                    transition={{ duration: 0.3 }}
                     style={{
-                      width: statIndex === i ? '16px' : '6px', height: '6px',
-                      borderRadius: '3px', border: 'none', cursor: 'pointer',
-                      background: statIndex === i ? STATS[statIndex].color : 'rgba(255,255,255,0.15)',
-                      transition: 'all 0.3s ease',
+                      position: 'absolute', inset: 0,
+                      display: 'flex', flexDirection: 'column',
+                      alignItems: 'center', justifyContent: 'center',
+                      textAlign: 'center', padding: '0.75rem 1rem',
                     }}
-                  />
-                ))}
+                  >
+                    <div style={{
+                      fontSize: '1.8rem', fontWeight: 800,
+                      color: STATS[statIndex].color,
+                      fontFamily: 'var(--font-mono)', lineHeight: 1.2,
+                    }}>
+                      {STATS[statIndex].val}
+                    </div>
+                    <div style={{
+                      display: 'flex', alignItems: 'center', gap: '5px',
+                      fontSize: '0.65rem', color: 'var(--text-dim)',
+                      letterSpacing: '0.06em', textTransform: 'uppercase',
+                      marginTop: '4px',
+                    }}>
+                      {STATS[statIndex].icon}
+                      {STATS[statIndex].label}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
-              <button onClick={nextStat} aria-label="Next stat" style={{
-                width: '30px', height: '30px', borderRadius: '50%',
-                background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-                color: 'var(--text-muted)', cursor: 'pointer',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                transition: 'all 0.2s',
+              {/* Internal nav — inside the card */}
+              <div style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                padding: '6px 12px 10px',
+                borderTop: '1px solid rgba(255,255,255,0.05)',
               }}>
-                <ChevronRight size={14} />
-              </button>
-            </div>
-          </div>
+                <button onClick={prevStat} aria-label="Previous stat" style={{
+                  width: '24px', height: '24px', borderRadius: '50%',
+                  background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)',
+                  color: 'var(--text-muted)', cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  transition: 'all 0.2s',
+                }}>
+                  <ChevronLeft size={12} />
+                </button>
 
-          {/* Background image slide indicators */}
-          <div style={{ display: 'flex', gap: '6px' }}>
-            {HERO_IMAGES.map((_, i) => (
-              <button key={i} onClick={() => setImgIndex(i)} aria-label={`Slide ${i + 1}`}
-                style={{
-                  width: imgIndex === i ? '20px' : '8px', height: '4px',
-                  borderRadius: '2px', border: 'none', cursor: 'pointer',
-                  background: imgIndex === i ? '#38bdf8' : 'rgba(255,255,255,0.2)',
-                  transition: 'all 0.4s ease',
-                }}
-              />
-            ))}
+                <div style={{ display: 'flex', gap: '4px' }}>
+                  {STATS.map((_, i) => (
+                    <button key={i} onClick={() => setStatIndex(i)} aria-label={`Stat ${i + 1}`}
+                      style={{
+                        width: statIndex === i ? '14px' : '5px', height: '5px',
+                        borderRadius: '3px', border: 'none', cursor: 'pointer',
+                        background: statIndex === i ? STATS[statIndex].color : 'rgba(255,255,255,0.15)',
+                        transition: 'all 0.3s ease',
+                      }}
+                    />
+                  ))}
+                </div>
+
+                <button onClick={nextStat} aria-label="Next stat" style={{
+                  width: '24px', height: '24px', borderRadius: '50%',
+                  background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)',
+                  color: 'var(--text-muted)', cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  transition: 'all 0.2s',
+                }}>
+                  <ChevronRight size={12} />
+                </button>
+              </div>
+            </div>
           </div>
 
         </motion.div>

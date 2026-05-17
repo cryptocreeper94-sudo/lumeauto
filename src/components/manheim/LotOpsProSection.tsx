@@ -1,13 +1,12 @@
 import { motion } from 'framer-motion';
 import { MapPin, Radio, Camera, Shield, Gauge, MessageSquare, Cloud, Smartphone, Users, Activity, Download } from 'lucide-react';
-import CardCarousel from '../CardCarousel';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 export default function LotOpsProSection() {
   return (
-    <section style={{ padding: '5rem 0', borderTop: '1px solid var(--border-light)', borderBottom: '1px solid var(--border-light)', background: 'linear-gradient(180deg, rgba(16,185,129,0.03) 0%, var(--bg-dark) 100%)' }}>
+    <section style={{ padding: '5rem 0', borderTop: '1px solid var(--border-light)', borderBottom: '1px solid var(--border-light)', background: 'linear-gradient(180deg, rgba(16,185,129,0.03) 0%, var(--bg-dark) 100%)', position: 'relative', zIndex: 1 }}>
       <div className="container" style={{ maxWidth: '1100px' }}>
-        <img src="/assets/images/photos/lotops.png" alt="Lot operations workers with tablets" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '20px', marginBottom: '2.5rem', border: '1px solid rgba(16,185,129,0.2)', opacity: 0.85 }} />
+        <img src="/assets/images/photos/lotops.png" alt="Lot operations workers with tablets" style={{ width: '100%', height: '320px', objectFit: 'cover', objectPosition: 'center 20%', borderRadius: '20px', marginBottom: '2.5rem', border: '1px solid rgba(16,185,129,0.2)', opacity: 0.85 }} />
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <p style={{ color: 'var(--accent-emerald)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>The Operating System</p>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Lot Ops Pro</h2>
@@ -16,53 +15,51 @@ export default function LotOpsProSection() {
           </p>
         </div>
 
-        {/* Feature grid → carousel on mobile */}
-        <div style={{ marginBottom: '2.5rem' }}>
-          <CardCarousel desktopColumns="repeat(auto-fit, minmax(250px, 1fr))" gap="1rem" accentColor="var(--accent-emerald)">
-            {[
-              { icon: <Camera size={18}/>, title: 'Autonomous OCR Scanning', desc: 'Camera-based ticket scanning — no external database needed. Three input methods. Works offline.', color: 'var(--accent-emerald)' },
-              { icon: <MapPin size={18}/>, title: 'GPS Routing & Navigation', desc: 'Real-time compass guidance with distance countdown. Smart group code routing to correct lanes.', color: 'var(--accent-cyan)' },
-              { icon: <Gauge size={18}/>, title: 'Live Performance Tracking', desc: 'Moves-per-hour against 4.5 MPH quota. Real-time alerts. Daily, weekly, monthly aggregation. Automated bonus estimation.', color: 'var(--accent-emerald)' },
-              { icon: <Shield size={18}/>, title: 'Safety & Speed Monitoring', desc: '15/17/22 MPH tiered alerts. Incident reporting with photo capture. Weather radar with tornado alerts.', color: '#ef4444' },
-              { icon: <Users size={18}/>, title: 'Role-Based Dashboards', desc: 'Ops Manager, Supervisor, Van Driver, Inventory Driver — each sees exactly what they need.', color: 'var(--accent-cyan)' },
-              { icon: <MessageSquare size={18}/>, title: 'Real-Time Messaging', desc: 'Supervisor ↔ driver communication. Broadcast or individual. 2-second polling. Toast notifications.', color: '#38bdf8' },
-              { icon: <Radio size={18}/>, title: 'AI Voice Assistant (Optional)', desc: 'Hands-free bidirectional voice for drivers. 15+ commands. LLM-agnostic — works with any provider or can be disabled entirely. When active, all AI output is governed by the LUME-V deterministic wrapper. Not required for platform operation.', color: '#fb923c' },
-              { icon: <Smartphone size={18}/>, title: 'Zero Hardware Cost', desc: 'BYOD or provide a commodity Android device. Runs as a PWA — installable, offline-capable. No scanners, no specialized equipment, no IT deployment.', color: 'var(--accent-emerald)' },
-              { icon: <Cloud size={18}/>, title: 'Multi-Tenant Architecture', desc: 'Nashville. Atlanta. Any facility. Isolated data, custom branding, facility-specific configs — one codebase, unlimited sites.', color: 'var(--accent-cyan)' },
-            ].map((feat, i) => (
-              <div key={i} className="panel" style={{ padding: '1.25rem', height: '100%' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
-                  <div style={{ color: feat.color }}>{feat.icon}</div>
-                  <h4 style={{ fontSize: '0.9rem' }}>{feat.title}</h4>
-                </div>
-                <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5 }}>{feat.desc}</p>
+        {/* Feature grid — strict 3×3 */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginBottom: '2.5rem' }}>
+          {[
+            { icon: <Camera size={18}/>, title: 'Autonomous OCR Scanning', desc: 'Camera-based ticket scanning — no external database needed. Three input methods. Works offline.', color: 'var(--accent-emerald)' },
+            { icon: <MapPin size={18}/>, title: 'GPS Routing & Navigation', desc: 'Real-time compass guidance with distance countdown. Smart group code routing to correct lanes.', color: 'var(--accent-cyan)' },
+            { icon: <Gauge size={18}/>, title: 'Live Performance Tracking', desc: 'Moves-per-hour against 4.5 MPH quota. Real-time alerts. Daily, weekly, monthly aggregation. Automated bonus estimation.', color: 'var(--accent-emerald)' },
+            { icon: <Shield size={18}/>, title: 'Safety & Speed Monitoring', desc: '15/17/22 MPH tiered alerts. Incident reporting with photo capture. Weather radar with tornado alerts.', color: '#ef4444' },
+            { icon: <Users size={18}/>, title: 'Role-Based Dashboards', desc: 'Ops Manager, Supervisor, Van Driver, Inventory Driver — each sees exactly what they need.', color: 'var(--accent-cyan)' },
+            { icon: <MessageSquare size={18}/>, title: 'Real-Time Messaging', desc: 'Supervisor ↔ driver communication. Broadcast or individual. 2-second polling. Toast notifications.', color: '#38bdf8' },
+            { icon: <Radio size={18}/>, title: 'AI Voice Assistant (Optional)', desc: 'Hands-free bidirectional voice for drivers. 15+ commands. LLM-agnostic. All AI output governed by LUME-V deterministic wrapper.', color: '#fb923c' },
+            { icon: <Smartphone size={18}/>, title: 'Zero Hardware Cost', desc: 'BYOD or provide a commodity Android device. Runs as a PWA — installable, offline-capable. No specialized equipment.', color: 'var(--accent-emerald)' },
+            { icon: <Cloud size={18}/>, title: 'Multi-Tenant Architecture', desc: 'Nashville. Atlanta. Any facility. Isolated data, custom branding, facility-specific configs — one codebase, unlimited sites.', color: 'var(--accent-cyan)' },
+          ].map((feat, i) => (
+            <div key={i} className="panel" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', minHeight: '140px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
+                <div style={{ color: feat.color }}>{feat.icon}</div>
+                <h4 style={{ fontSize: '0.9rem', margin: 0 }}>{feat.title}</h4>
               </div>
-            ))}
-          </CardCarousel>
+              <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5, margin: 0 }}>{feat.desc}</p>
+            </div>
+          ))}
         </div>
 
-        {/* Three Systems → carousel on mobile */}
+        {/* Three Systems — strict 3-column */}
         <motion.div {...f} className="panel" style={{ padding: '2rem', borderColor: 'rgba(16,185,129,0.2)', background: 'linear-gradient(135deg, rgba(16,185,129,0.03) 0%, transparent 100%)', marginBottom: '2rem' }}>
           <h3 style={{ fontSize: '1.2rem', marginBottom: '1.25rem', textAlign: 'center' }}>Three Systems. One Platform.</h3>
-          <CardCarousel desktopColumns="repeat(auto-fit, minmax(200px, 1fr))" gap="1.5rem" accentColor="var(--accent-emerald)">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
             {[
               { label: 'Lot Ops Pro', role: 'The Operating System', desc: 'Driver management, GPS routing, performance analytics, real-time messaging, OCR ticket scanning, role-based dashboards — the complete platform running daily lot operations from a single mobile app.', color: 'var(--accent-emerald)' },
-              { label: 'Lume-Auto', role: 'The Intelligence Layer', desc: 'Full OBD-II scanner at intake — read and clear DTCs, freeze frame analysis, VIN auto-read from ECU, pending fault detection. Pilot target: 60% of the condition report auto-generated before a human touches the vehicle. CSV export for fleet analytics. Cryptographic condition certificates in 45 seconds.', color: 'var(--accent-cyan)' },
-              { label: 'Cox Automotive Ledger', role: 'The Enterprise Ledger', desc: 'Every condition report, custody transfer, and diagnostic result sealed into a tamper-proof private ledger. Arbitration disputes resolved by mathematical replay, not opinion. The Trust Layer provides public verification without login or API — buyers and dealers verify independently.', color: '#38bdf8' },
+              { label: 'Lume-Auto', role: 'The Intelligence Layer', desc: 'Full OBD-II scanner at intake — read and clear DTCs, freeze frame analysis, VIN auto-read from ECU, pending fault detection. Pilot target: 60% of the condition report auto-generated before a human touches the vehicle.', color: 'var(--accent-cyan)' },
+              { label: 'Cox Automotive Ledger', role: 'The Enterprise Ledger', desc: 'Every condition report, custody transfer, and diagnostic result sealed into a tamper-proof private ledger. Arbitration disputes resolved by mathematical replay, not opinion.', color: '#38bdf8' },
             ].map((item, i) => (
-              <div key={i} style={{ textAlign: 'center', height: '100%', padding: '0.5rem' }}>
+              <div key={i} style={{ textAlign: 'center', padding: '0.5rem' }}>
                 <div style={{ fontSize: '1.1rem', fontWeight: 700, color: item.color, marginBottom: '0.25rem' }}>{item.label}</div>
                 <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.5rem' }}>{item.role}</div>
                 <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5 }}>{item.desc}</p>
               </div>
             ))}
-          </CardCarousel>
+          </div>
         </motion.div>
 
-        {/* Who Sees What → carousel on mobile */}
+        {/* Who Sees What — strict 3×2 */}
         <motion.div {...f}>
           <h3 style={{ fontSize: '1.2rem', marginBottom: '1.25rem', textAlign: 'center' }}>Who Sees What</h3>
-          <CardCarousel desktopColumns="repeat(auto-fit, minmax(200px, 1fr))" gap="1rem" accentColor="var(--accent-cyan)">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
             {[
               { role: 'Lane Managers', feeds: 'Real-time lane readiness. Vehicles flagged for dead batteries, pending faults, or open-loop cold starts before they reach the lane.', color: 'var(--accent-cyan)' },
               { role: 'Supervisors', feeds: 'Driver performance, GPS tracking, custody chain, facility-wide throughput. Full operational dashboard from any device.', color: 'var(--accent-emerald)' },
@@ -71,16 +68,16 @@ export default function LotOpsProSection() {
               { role: 'Arbitration Teams', feeds: 'Cryptographically sealed condition reports. Deterministic replay of original scan data. Dispute resolution by math, not opinion.', color: '#38bdf8' },
               { role: 'Facility Management', feeds: 'Population health analytics across all vehicles. Predictive throughput modeling. Cross-facility benchmarking and trend analysis.', color: 'var(--accent-emerald)' },
             ].map((item, i) => (
-              <div key={i} className="panel" style={{ padding: '1rem', height: '100%' }}>
+              <div key={i} className="panel" style={{ padding: '1rem', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ fontSize: '0.85rem', fontWeight: 700, color: item.color, marginBottom: '0.35rem' }}>{item.role}</div>
                 <p className="text-muted" style={{ fontSize: '0.78rem', lineHeight: 1.5, margin: 0 }}>{item.feeds}</p>
               </div>
             ))}
-          </CardCarousel>
+          </div>
         </motion.div>
 
         {/* Stats bar */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', marginTop: '2.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '1rem', marginTop: '2.5rem' }}>
           {[
             { val: '100', unit: '%', label: 'Automated Report' },
             { val: '45', unit: 's', label: 'Per Vehicle Scan' },
@@ -96,11 +93,11 @@ export default function LotOpsProSection() {
         </div>
 
         {/* CTA Buttons */}
-        <motion.div {...f} style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', marginTop: '2rem' }}>
-          <a href="/app" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px 22px', minWidth: '170px', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)', color: 'var(--accent-cyan)', borderRadius: '30px', fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none', transition: 'border-color 0.2s' }}>
+        <motion.div {...f} style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', marginTop: '2rem', maxWidth: '400px', marginLeft: 'auto', marginRight: 'auto' }}>
+          <a href="/app" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px 22px', flex: '1 1 0', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)', color: 'var(--accent-cyan)', borderRadius: '30px', fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none', transition: 'border-color 0.2s' }}>
             <Activity size={15} /> Try It Live
           </a>
-          <a href="/download" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px 22px', minWidth: '170px', background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)', color: 'var(--accent-emerald)', borderRadius: '30px', fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none', transition: 'border-color 0.2s' }}>
+          <a href="/download" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px 22px', flex: '1 1 0', background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)', color: 'var(--accent-emerald)', borderRadius: '30px', fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none', transition: 'border-color 0.2s' }}>
             <Download size={15} /> Download App
           </a>
         </motion.div>

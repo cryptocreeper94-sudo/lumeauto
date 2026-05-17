@@ -41,7 +41,7 @@ export default function MeridianPitch() {
             <p className="text-muted" style={{ fontSize: '1.15rem', lineHeight: 1.7, maxWidth: '700px', marginBottom: '2rem' }}>
               No ground stations. No broken adapters. No physical bottlenecks. Route energy to EVs deterministically from overhead while maintaining a perfect cryptographic billing ledger.
             </p>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', marginBottom: '3rem' }}>
               {[
                 { label: 'Zero Ground Friction', val: '0', color: red },
                 { label: 'Adapter Types', val: 'ALL', color: cyan },
@@ -49,9 +49,9 @@ export default function MeridianPitch() {
                 { label: 'Labor Hours Saved', val: '80%', color: red },
               ].map((s, i) => (
                 <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 + i * 0.1 }}
-                  style={{ padding: '12px 20px', background: `${s.color}0F`, border: `1px solid ${s.color}25`, borderRadius: '10px', textAlign: 'center', minWidth: '120px' }}>
+                  style={{ padding: '12px 16px', background: `${s.color}0F`, border: `1px solid ${s.color}25`, borderRadius: '30px', textAlign: 'center' }}>
                   <div style={{ fontSize: '1.4rem', fontWeight: 700, color: s.color, fontFamily: 'var(--font-mono)' }}>{s.val}</div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{s.label}</div>
+                  <div style={{ fontSize: '0.65rem', color: 'var(--text-dim)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{s.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -139,7 +139,7 @@ export default function MeridianPitch() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem' }}>
             {[
               { icon: <MapPin size={22} />, title: 'Zero Ground Friction', desc: 'No bollards taking up lot space. Vehicles flow freely through the charging zone without navigating around concrete stations or tangled cords.', color: red },
               { icon: <BatteryCharging size={22} />, title: 'Adapter-Agnostic Routing', desc: 'Tesla, Ford, or Rivian — Meridian routes energy directly to the vehicle receiver. No hunting for the right J1772 or NACS adapter.', color: cyan },
@@ -147,7 +147,7 @@ export default function MeridianPitch() {
               { icon: <ShieldCheck size={22} />, title: 'Cryptographic Ledger', desc: 'Every charge session is cryptographically signed. Immutable receipts for perfect internal accounting and dispute resolution.', color: cyan },
             ].map((feat, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                className="panel" style={{ padding: '2rem', borderColor: `${feat.color}22`, transition: 'border-color 0.3s, transform 0.3s' }}
+                className="panel" style={{ padding: '2rem', borderColor: `${feat.color}22`, transition: 'border-color 0.3s, transform 0.3s', display: 'flex', flexDirection: 'column' }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${feat.color}44`; (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = `${feat.color}22`; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}
               >

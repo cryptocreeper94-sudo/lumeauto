@@ -206,9 +206,9 @@ export default function MeridianScene3D() {
           <div key={i} style={{
             padding: '0.75rem', background: 'rgba(56,189,248,0.04)',
             border: '1px solid rgba(56,189,248,0.12)', borderRadius: '10px',
-            textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center',
+            textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', minHeight: '100px',
           }}>
-            <div style={{ fontSize: '0.7rem', fontWeight: 600, color: c.color, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '3px' }}>{c.label}</div>
+            <div style={{ fontSize: '0.7rem', fontWeight: 600, color: c.color, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px', minHeight: '2.4em', display: 'flex', alignItems: 'center' }}>{c.label}</div>
             <div style={{ fontSize: '0.65rem', color: 'var(--text-dim)', lineHeight: 1.4 }}>{c.desc}</div>
           </div>
         ))}

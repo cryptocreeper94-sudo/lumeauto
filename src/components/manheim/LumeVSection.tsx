@@ -11,7 +11,7 @@ export default function LumeVSection() {
       <div style={{ position: 'absolute', bottom: 0, left: 0, width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(167,139,250,0.04) 0%, transparent 70%)', transform: 'translate(-30%, 30%)' }} />
 
       <div className="container" style={{ position: 'relative', zIndex: 2, maxWidth: '1100px' }}>
-        <img src="/assets/images/photos/lumev_governance.png" alt="LUME-V Deterministic Governance Architecture" style={{ width: '100%', height: '280px', objectFit: 'cover', borderRadius: '20px', marginBottom: '2.5rem', border: '1px solid rgba(56,189,248,0.15)' }} />
+        <img src="/assets/images/photos/lumev_governance.png" alt="LUME-V Deterministic Governance Architecture" style={{ width: '100%', height: '320px', objectFit: 'cover', objectPosition: 'center 20%', borderRadius: '20px', marginBottom: '2.5rem', border: '1px solid rgba(56,189,248,0.15)' }} />
         
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
@@ -34,16 +34,17 @@ export default function LumeVSection() {
             <h3 style={{ fontSize: '1.3rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '12px', color: '#f87171' }}>
               <ServerOff size={22} color="#ef4444" /> The Legacy Modernization Challenge
             </h3>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem 1.5rem' }}>
               {[
                 'Too expensive to rebuild',
                 'Too risky to replace',
                 'Too slow to migrate',
                 'Too disruptive to retrain',
-                'Too fragmented to unify'
+                'Too fragmented to unify',
+                'Too siloed to integrate'
               ].map((item, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-main)', fontSize: '0.95rem', fontWeight: 500 }}>
-                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#ef4444' }} /> {item}
+                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#ef4444', flexShrink: 0 }} /> {item}
                 </div>
               ))}
             </div>

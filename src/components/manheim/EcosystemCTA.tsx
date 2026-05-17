@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ExternalLink, BookOpen, FileText, Globe, Shield } from 'lucide-react';
 import ROICalculator from '../ROICalculator';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
@@ -11,7 +11,7 @@ export default function EcosystemCTA() {
         <div className="container" style={{ maxWidth: '1000px' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <p style={{ color: 'var(--accent-cyan)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>Academic Foundation</p>
-            <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>Published. Patented. Research-Backed.</h2>
+            <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>Published. Patent Pending. Research-Backed.</h2>
             <p className="text-muted" style={{ maxWidth: '680px', margin: '0 auto', lineHeight: 1.7 }}>
               Every core technology in this platform is documented in published research with verifiable DOIs on Zenodo and backed by 6 pending U.S. patent applications. The following papers are directly relevant to the systems described in this presentation.
             </p>
