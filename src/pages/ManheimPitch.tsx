@@ -11,6 +11,7 @@ import TrustLayerSection from '../components/manheim/TrustLayerSection';
 import AppShowcase from '../components/manheim/AppShowcase';
 import HardwareSection from '../components/manheim/HardwareSection';
 import MeridianTeaser from '../components/manheim/MeridianTeaser';
+import EnterpriseMeshTeaser from '../components/manheim/EnterpriseMeshTeaser';
 import EcosystemCTA from '../components/manheim/EcosystemCTA';
 import ImplementationPath from '../components/manheim/ImplementationPath';
 
@@ -42,6 +43,8 @@ export default function ManheimPitch() {
       <HardwareSection />
       {/* 10. Meridian — Future Wireless Energy Layer */}
       <MeridianTeaser />
+      {/* 10.5. Enterprise Mesh — Future Sovereign Chain Network */}
+      <EnterpriseMeshTeaser />
       {/* 11. Academic / Patent / DOI Section */}
       <EcosystemCTA />
       {/* 12. Manheim-Specific Implementation Path */}

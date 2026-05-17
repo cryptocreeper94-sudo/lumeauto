@@ -107,7 +107,7 @@ export default function Whitepaper() {
               <li><strong>Trust Layer</strong> — A commercial verification system that issues publicly verifiable certificates from internal CAL records</li>
             </ul>
             <p>
-              Each component is designed to operate independently and deliver measurable value on its own. When deployed together, they form a unified intelligence layer that gives Manheim capabilities that do not exist anywhere else in automotive wholesale.
+              Each component is designed to operate independently and deliver measurable value on its own. When deployed together, they form a unified intelligence layer that extends Manheim's current infrastructure with capabilities no single vendor has previously offered in automotive wholesale.
             </p>
           </WpSection>
 
@@ -266,10 +266,10 @@ export default function Whitepaper() {
             <ul>
               <li>42 real-time signals ingested at 100ms intervals: RPM, MAP, MAF, fuel trims (short and long term), O2 sensors, coolant temp, intake air temp, timing advance, catalyst efficiency, battery voltage, engine hours, and more</li>
               <li>45-second scan produces a complete structured condition report</li>
-              <li>60% of the condition report is auto-generated from sensor data before a human inspector touches the vehicle</li>
+              <li>Pilot target: 60% of the condition report auto-generated from sensor data before a human inspector touches the vehicle</li>
               <li>Deterministic processing — same inputs always produce the same output on any device</li>
               <li>Cryptographically signed results anchored to CAL at the moment of diagnosis</li>
-              <li>Zero AI dependencies — 42 deterministic test cases passed with zero inference calls</li>
+              <li>Zero AI dependencies — 2,358 deterministic test cases passed with zero inference calls</li>
             </ul>
             <h4>Full OBD-II Scanner Capabilities</h4>
             <p>

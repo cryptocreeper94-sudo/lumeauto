@@ -102,7 +102,7 @@ export default function Home() {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
           {[
-            { step: '1', title: 'Connect.', desc: 'Plug a standard OBD-II adapter running proprietary Lume firmware into the port under your dashboard. No installation. No wiring. No ECU modification.', img: '/card_step1.png' },
+            { step: '1', title: 'Connect.', desc: 'Plug a standard OBD-II adapter running proprietary Lume firmware into the port under your dashboard. No installation. No wiring. No ECU reprogramming.', img: '/card_step1.png' },
             { step: '2', title: 'Observe.', desc: 'The organism ingests 42 telemetry signals at 100ms intervals — airflow, fuel flow, combustion timing, engine load, component health, and driver behavioral patterns.', img: '/card_step2.png' },
             { step: '3', title: 'Govern.', desc: 'Deterministic coaching, predictive maintenance alerts, and quantified MPG scoring — calibrated to your specific vehicle\'s torque curve and degradation profile.', img: '/card_step3.png' }
           ].map((item, i) => (
