@@ -22,6 +22,7 @@ import Whitepaper from './pages/Whitepaper';
 import OrganismApp from './pages/OrganismApp';
 import DownloadPage from './pages/DownloadPage';
 import Footer from './components/Footer';
+import RollerCoaster from './components/RollerCoaster';
 import AuthGate from './components/AuthGate';
 import { firebaseSignOut } from './lib/firebase';
 
@@ -298,6 +299,7 @@ function App() {
                 </Routes>
               </main>
               <Footer />
+              <RollerCoaster />
             </>
           )}
         </motion.div>
