@@ -93,7 +93,7 @@ export default function Whitepaper() {
           {/* 1. Executive Summary */}
           <WpSection num={1} title="Executive Summary">
             <p>
-              Manheim processes over 8 million vehicles annually across 76 locations. The infrastructure supporting these operations — built and refined over 25 years — represents one of the most complex operational systems in automotive wholesale. Modernizing systems at this scale without disrupting daily operations is a challenge that has historically eluded the industry.
+              Manheim processes over 8 million vehicles annually across 80+ auction facilities. The infrastructure supporting these operations — built and refined over 25 years — represents one of the most complex operational systems in automotive wholesale. Modernizing systems at this scale without disrupting daily operations is a challenge that has historically eluded the industry.
             </p>
             <p>
               DarkWave Studios has built a complete infrastructure modernization platform that addresses this challenge without requiring Manheim to replace, migrate, or shut down any existing system. The platform operates as a governance and intelligence layer that wraps around existing infrastructure, adding deterministic auditability, cryptographic provenance, and real-time diagnostics.
@@ -121,7 +121,7 @@ export default function Whitepaper() {
               <li><strong>Too expensive to rebuild</strong> — The cost of replacing 25 years of accumulated business logic exceeds any reasonable capital allocation</li>
               <li><strong>Too risky to replace</strong> — Production systems processing $100B+ annually cannot tolerate downtime or migration failures</li>
               <li><strong>Too slow to migrate</strong> — Traditional rip-and-replace projects take 3-7 years, during which the competitive landscape continues to evolve</li>
-              <li><strong>Too disruptive to retrain</strong> — Thousands of employees across 76 locations would need simultaneous retraining on new systems</li>
+              <li><strong>Too disruptive to retrain</strong> — Thousands of employees across 80+ facilities would need simultaneous retraining on new systems</li>
               <li><strong>Too fragmented to unify</strong> — Decades of vendor-specific integrations have created data silos that resist centralization</li>
             </ul>
             <p>
@@ -250,7 +250,7 @@ export default function Whitepaper() {
             <ul>
               <li><strong>Zero hardware investment</strong> — BYOD or provide a commodity Android device. Runs as a PWA — installable, offline-capable. No scanners, no specialized equipment.</li>
               <li><strong>Multi-tenant by design</strong> — Every facility gets its own isolated environment, branding, and configuration from a single deployment.</li>
-              <li><strong>300+ facility scalability</strong> — Nashville first. Atlanta next. The architecture supports every Manheim location from a single codebase.</li>
+              <li><strong>Enterprise-wide scalability</strong> — Nashville first. Atlanta next. The architecture supports every Manheim facility from a single codebase.</li>
             </ul>
             <p>
               Lot Ops Pro integrates with LUME-Auto for diagnostic data, CAL for custody verification, and LUME-V for governance enforcement — but operates independently as a standalone workforce platform with zero dependency on any other component.

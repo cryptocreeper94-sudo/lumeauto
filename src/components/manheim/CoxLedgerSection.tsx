@@ -94,7 +94,7 @@ export default function CoxLedgerSection() {
             </p>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {[
-                'Unified operational truth across 300+ locations',
+                'Unified operational truth across every facility',
                 'Deterministic audit trails for every workflow',
                 'Cross-system verification without replacing legacy',
                 'A modernization path aligned with LUME-V',
