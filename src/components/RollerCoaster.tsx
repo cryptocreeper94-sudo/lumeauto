@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 export default function RollerCoaster() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [active, setActive] = useState(false);
-  const [buffer, setBuffer] = useState('');
+  const bufferRef = useRef('');
   const animRef = useRef<number>(0);
   const timeRef = useRef(0);
 
@@ -26,11 +26,8 @@ export default function RollerCoaster() {
 
       // "coaster" typed
       if (e.key.length === 1) {
-        setBuffer(prev => {
-          const next = (prev + e.key.toLowerCase()).slice(-7);
-          if (next === 'coaster') setActive(true);
-          return next;
-        });
+        bufferRef.current = (bufferRef.current + e.key.toLowerCase()).slice(-7);
+        if (bufferRef.current === 'coaster') setActive(true);
       }
 
       // Escape to close
@@ -116,7 +113,8 @@ export default function RollerCoaster() {
         const dx = nextCam.x - cam.x;
         const dy = nextCam.y - cam.y;
         const dz = nextCam.z - cam.z;
-        const len = Math.sqrt(dx * dx + dy * dy + dz * dz) || 1;
+        // direction vector length (used for normalization if needed)
+        void(Math.sqrt(dx * dx + dy * dy + dz * dz) || 1);
 
         // Relative position
         let rx = p.x - cam.x;
