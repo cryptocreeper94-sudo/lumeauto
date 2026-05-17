@@ -122,7 +122,7 @@ export default function ImplementationPath() {
             { icon: <Layers size={20} />, title: 'Uptime & Disaster Recovery', desc: 'The platform supports multi-region failover, automated backups, and deterministic state recovery. Uptime commitments and SLAs are defined during deployment planning.' },
           ].map((item, i) => (
             <motion.div key={i} {...fadeIn} transition={{ delay: 0.45 + i * 0.08 }}
-              style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-light)', borderRadius: '12px' }}>
+              className="panel" style={{ padding: '1.5rem', borderColor: 'rgba(16,185,129,0.15)', background: 'rgba(16,185,129,0.02)' }}>
               <div style={{ color: accent, marginBottom: '0.75rem' }}>{item.icon}</div>
               <h4 style={{ fontSize: '1rem', marginBottom: '0.4rem' }}>{item.title}</h4>
               <p className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.5 }}>{item.desc}</p>
