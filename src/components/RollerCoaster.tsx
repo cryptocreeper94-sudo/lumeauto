@@ -2,40 +2,79 @@ import { useEffect, useRef, useState } from 'react';
 
 /**
  * RollerCoaster Easter Egg
- * Trigger: Type "coaster" anywhere on the site, or press ↑↑↓↓←→←→
- * A full-screen canvas roller coaster ride with a first-person POV.
+ * Desktop: Type "coaster" or Konami code (↑↑↓↓←→←→)
+ * Mobile: Triple-tap the footer copyright text
+ * Displays rotating sarcastic motivational phrases during the ride.
  */
+
+const PHRASES = [
+  "Recalibrating your governance nodes...",
+  "Deterministic stress relief in progress.",
+  "Your organism is self-healing. Are you?",
+  "Zero AI was harmed in the making of this ride.",
+  "Same inputs. Same outputs. Same screams.",
+  "This ride is cryptographically signed.",
+  "Consensus achieved: you needed a break.",
+  "Warning: Non-deterministic fun detected.",
+  "Deploying dopamine to 42 governance nodes...",
+  "Your condition report: mildly entertained.",
+  "This is what happens when engineers get bored.",
+  "Arbitration-grade amusement. Tamper-proof fun.",
+  "Probabilistic drop incoming. Just kidding — deterministic.",
+  "Auditable. Reproducible. Ridiculous.",
+  "Please keep hands inside the organism at all times.",
+  "If you can read this, you're not working hard enough.",
+  "Merkle root of happiness: verified.",
+  "Edge-computed thrills. No cloud required.",
+  "42 nodes agree: you deserve this.",
+  "Firmware update complete. Serotonin levels nominal.",
+];
+
 export default function RollerCoaster() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [active, setActive] = useState(false);
   const bufferRef = useRef('');
   const animRef = useRef<number>(0);
   const timeRef = useRef(0);
+  const phraseIdxRef = useRef(0);
+  const phraseTimerRef = useRef(0);
 
-  // Listen for "coaster" typed or konami code
+  // Desktop: listen for "coaster" typed or konami code
   useEffect(() => {
     const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight'];
     let konamiIdx = 0;
 
     const handler = (e: KeyboardEvent) => {
-      // Konami code
       if (e.key === konami[konamiIdx]) {
         konamiIdx++;
         if (konamiIdx === konami.length) { setActive(true); konamiIdx = 0; }
       } else { konamiIdx = 0; }
 
-      // "coaster" typed
       if (e.key.length === 1) {
         bufferRef.current = (bufferRef.current + e.key.toLowerCase()).slice(-7);
         if (bufferRef.current === 'coaster') setActive(true);
       }
 
-      // Escape to close
       if (e.key === 'Escape') setActive(false);
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, []);
+
+  // Mobile: expose a global function for the footer triple-tap
+  useEffect(() => {
+    (window as any).__launchCoaster = () => setActive(true);
+    return () => { delete (window as any).__launchCoaster; };
+  }, []);
+
+  // Randomize starting phrase
+  useEffect(() => {
+    if (active) {
+      phraseIdxRef.current = Math.floor(Math.random() * PHRASES.length);
+      phraseTimerRef.current = 0;
+      timeRef.current = 0;
+    }
+  }, [active]);
 
   // The ride
   useEffect(() => {
@@ -47,12 +86,13 @@ export default function RollerCoaster() {
     const resize = () => {
       canvas.width = window.innerWidth * (window.devicePixelRatio || 1);
       canvas.height = window.innerHeight * (window.devicePixelRatio || 1);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
     };
     resize();
     window.addEventListener('resize', resize);
 
-    // Track generation — a parametric roller coaster
+    // Track generation
     const trackPoints: { x: number; y: number; z: number }[] = [];
     const numPoints = 800;
     for (let i = 0; i < numPoints; i++) {
@@ -74,11 +114,20 @@ export default function RollerCoaster() {
       });
     }
 
+    const PHRASE_DURATION = 180; // frames per phrase (~3 seconds)
+
     const draw = () => {
       if (!running) return;
       const w = window.innerWidth;
       const h = window.innerHeight;
       timeRef.current += 0.4;
+      phraseTimerRef.current++;
+
+      // Rotate phrases
+      if (phraseTimerRef.current >= PHRASE_DURATION) {
+        phraseTimerRef.current = 0;
+        phraseIdxRef.current = (phraseIdxRef.current + 1) % PHRASES.length;
+      }
 
       // Sky gradient
       const sky = ctx.createLinearGradient(0, 0, 0, h);
@@ -102,30 +151,23 @@ export default function RollerCoaster() {
       const camIdx = Math.floor(camPos);
       const fov = 400;
 
-      // Project track points relative to camera
+      // Project track points
       const projected: { sx: number; sy: number; z: number; behind: boolean }[] = [];
       for (let i = 0; i < numPoints; i++) {
         const p = trackPoints[i];
         const cam = trackPoints[camIdx % numPoints];
         const nextCam = trackPoints[(camIdx + 1) % numPoints];
 
-        // Camera direction
         const dx = nextCam.x - cam.x;
-        const dy = nextCam.y - cam.y;
         const dz = nextCam.z - cam.z;
-        // direction vector length (used for normalization if needed)
-        void(Math.sqrt(dx * dx + dy * dy + dz * dz) || 1);
 
-        // Relative position
         let rx = p.x - cam.x;
-        let ry = p.y - cam.y;
+        const ry = p.y - cam.y;
         let rz = p.z - cam.z;
 
-        // Handle wrapping
         if (rz < -numPoints * 4) rz += numPoints * 8;
         if (rz > numPoints * 4) rz -= numPoints * 8;
 
-        // Simple rotation to face forward
         const angle = Math.atan2(dx, dz);
         const cosA = Math.cos(-angle);
         const sinA = Math.sin(-angle);
@@ -153,16 +195,14 @@ export default function RollerCoaster() {
           const railOffset = offset * Math.max(2, 40 * (fov / (p.z + fov)));
           const px = p.sx + railOffset;
           const py = p.sy;
-
           if (!started) { ctx.moveTo(px, py); started = true; }
           else ctx.lineTo(px, py);
         }
-        const alpha = 0.8;
-        ctx.strokeStyle = `rgba(56,189,248,${alpha})`;
+        ctx.strokeStyle = 'rgba(56,189,248,0.8)';
         ctx.stroke();
       }
 
-      // Draw crossties
+      // Crossties
       for (let i = 0; i < numPoints; i += 4) {
         const p = projected[i];
         if (p.behind || p.z > 1500) continue;
@@ -175,7 +215,7 @@ export default function RollerCoaster() {
         ctx.stroke();
       }
 
-      // Support pillars every 30 points
+      // Support pillars
       for (let i = 0; i < numPoints; i += 30) {
         const p = projected[i];
         if (p.behind || p.z > 1000) continue;
@@ -187,22 +227,42 @@ export default function RollerCoaster() {
         ctx.stroke();
       }
 
-      // HUD
+      // ═══ ROTATING SARCASTIC PHRASE ═══
+      const phraseProgress = phraseTimerRef.current / PHRASE_DURATION;
+      // Fade in for first 15%, hold, fade out for last 15%
+      let phraseAlpha = 1;
+      if (phraseProgress < 0.15) phraseAlpha = phraseProgress / 0.15;
+      else if (phraseProgress > 0.85) phraseAlpha = (1 - phraseProgress) / 0.15;
+
+      const currentPhrase = PHRASES[phraseIdxRef.current];
+      const fontSize = Math.min(w * 0.035, 22);
+      ctx.fillStyle = `rgba(56,189,248,${phraseAlpha * 0.6})`;
+      ctx.font = `600 ${fontSize}px "Inter", sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(currentPhrase, w / 2, h * 0.38);
+
+      // Subtle emoji above phrase
+      ctx.font = `${fontSize * 1.5}px serif`;
+      ctx.fillStyle = `rgba(255,255,255,${phraseAlpha * 0.15})`;
+      ctx.fillText('🎢', w / 2, h * 0.38 - fontSize * 2);
+
+      // ═══ HUD ═══
       const speed = 87 + Math.sin(timeRef.current * 0.02) * 15;
       ctx.fillStyle = 'rgba(0,0,0,0.5)';
       ctx.fillRect(20, h - 80, 200, 60);
       ctx.strokeStyle = 'rgba(56,189,248,0.3)';
       ctx.strokeRect(20, h - 80, 200, 60);
-
       ctx.fillStyle = '#38bdf8';
       ctx.font = '600 24px "JetBrains Mono", monospace';
       ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
       ctx.fillText(`${speed.toFixed(0)} MPH`, 35, h - 45);
       ctx.fillStyle = 'rgba(255,255,255,0.4)';
       ctx.font = '400 11px "Inter", sans-serif';
       ctx.fillText('LUME COASTER™', 35, h - 30);
 
-      // G-force indicator
+      // G-force
       const gForce = 1 + Math.sin(timeRef.current * 0.03) * 1.5;
       ctx.fillStyle = 'rgba(0,0,0,0.5)';
       ctx.fillRect(w - 150, h - 80, 130, 60);
@@ -216,16 +276,11 @@ export default function RollerCoaster() {
       ctx.font = '400 11px "Inter", sans-serif';
       ctx.fillText('G-FORCE', w - 35, h - 30);
 
-      // Close hint
-      ctx.fillStyle = 'rgba(255,255,255,0.25)';
+      // Exit hint
+      ctx.fillStyle = 'rgba(255,255,255,0.2)';
       ctx.font = '400 12px "Inter", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('Press ESC to exit the ride', w / 2, 30);
-
-      // Lume branding
-      ctx.fillStyle = 'rgba(56,189,248,0.15)';
-      ctx.font = '700 14px "Inter", sans-serif';
-      ctx.fillText('🎢 DETERMINISTIC THRILLS — NO PROBABILISTIC DROPS', w / 2, 55);
+      ctx.fillText('Tap anywhere or press ESC to exit', w / 2, h - 20);
 
       animRef.current = requestAnimationFrame(draw);
     };
@@ -244,7 +299,7 @@ export default function RollerCoaster() {
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 99999,
-      background: '#0a0a1a',
+      background: '#0a0a1a', cursor: 'pointer',
     }} onClick={() => setActive(false)}>
       <canvas ref={canvasRef} style={{ width: '100%', height: '100%' }} />
     </div>

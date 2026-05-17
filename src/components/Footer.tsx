@@ -1,7 +1,20 @@
 import { Link } from 'react-router-dom';
 import { Activity } from 'lucide-react';
+import { useRef } from 'react';
 
 export default function Footer() {
+  const tapRef = useRef<number[]>([]);
+
+  const handleCopyrightTap = () => {
+    const now = Date.now();
+    tapRef.current.push(now);
+    tapRef.current = tapRef.current.filter(t => now - t < 800);
+    if (tapRef.current.length >= 3) {
+      tapRef.current = [];
+      if ((window as any).__launchCoaster) (window as any).__launchCoaster();
+    }
+  };
+
   return (
     <footer style={{ background: 'rgba(255,255,255,0.01)', borderTop: '1px solid var(--border-strong)', padding: '4rem 2rem 2rem', marginTop: '4rem' }}>
       <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '3rem', marginBottom: '4rem' }}>
@@ -53,7 +66,7 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="container" style={{ borderTop: '1px solid var(--border-light)', paddingTop: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-        <p className="text-dim" style={{ fontSize: '0.8rem' }}>© 2026 DarkWave Studios LLC / Lume42 Labs. All rights reserved.</p>
+        <p className="text-dim" style={{ fontSize: '0.8rem', cursor: 'default', userSelect: 'none' }} onClick={handleCopyrightTap}>© 2026 DarkWave Studios LLC / Lume42 Labs. All rights reserved.</p>
         <p className="text-dim" style={{ fontSize: '0.8rem' }}>System Status: <span style={{ color: 'var(--accent-emerald)' }}>● Operational</span></p>
       </div>
     </footer>
