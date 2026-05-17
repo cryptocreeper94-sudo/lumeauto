@@ -84,7 +84,7 @@ export default function LotOpsProSection() {
             { val: '60', unit: '%', label: 'Auto-Generated Report' },
             { val: '45', unit: 's', label: 'Per Vehicle Scan' },
             { val: '$0', unit: '', label: 'Hardware Investment' },
-            { val: '300', unit: '+', label: 'Potential Facilities' },
+            { val: '80', unit: '+', label: 'Auction Facilities' },
             { val: '42', unit: '', label: 'Diagnostic Signals' },
           ].map((s, i) => (
             <motion.div key={i} {...f} transition={{ delay: 0.2 + i * 0.08 }} style={{ textAlign: 'center' }}>

@@ -23,10 +23,10 @@ export default function HeroSection() {
             {[
               { icon: <Link2 size={14}/>, val: 'CAL', label: 'Private Ledger', color: '#38bdf8' },
               { icon: <Eye size={14}/>, val: 'Lume-V', label: 'Governance Layer', color: '#22d3ee' },
-              { icon: <Cpu size={14}/>, val: '42', label: 'Governance Nodes', color: 'var(--accent-emerald)' },
+              { icon: <Cpu size={14}/>, val: '42', label: 'Governance Nodes', color: '#10b981' },
               { icon: <FileText size={14}/>, val: 'Lume', label: 'Native Runtime', color: '#a78bfa' },
-              { icon: <BookOpen size={14}/>, val: '10+', label: 'Published Papers', color: 'var(--accent-emerald)' },
-              { icon: <Activity size={14}/>, val: '100Hz', label: 'Polling Rate', color: 'var(--accent-emerald)' },
+              { icon: <BookOpen size={14}/>, val: '10+', label: 'Published Papers', color: '#f59e0b' },
+              { icon: <Activity size={14}/>, val: '100Hz', label: 'Polling Rate', color: '#f472b6' },
             ].map((s, i) => (
               <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 + i * 0.1 }}
                 style={{ padding: '10px 12px', background: `${s.color}0a`, border: `1px solid ${s.color}20`, borderRadius: '10px', textAlign: 'center' }}>
