@@ -11,6 +11,7 @@ export default function LumeVSection() {
       <div style={{ position: 'absolute', bottom: 0, left: 0, width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(167,139,250,0.04) 0%, transparent 70%)', transform: 'translate(-30%, 30%)' }} />
 
       <div className="container" style={{ position: 'relative', zIndex: 2, maxWidth: '1100px' }}>
+        <img src="/assets/images/photos/governance.png" alt="Vehicle quality inspection" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '20px', marginBottom: '2.5rem', border: '1px solid rgba(56,189,248,0.12)', opacity: 0.8 }} />
         
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>

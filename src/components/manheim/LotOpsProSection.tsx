@@ -6,6 +6,7 @@ export default function LotOpsProSection() {
   return (
     <section style={{ padding: '5rem 0', borderTop: '1px solid var(--border-light)', borderBottom: '1px solid var(--border-light)', background: 'linear-gradient(180deg, rgba(16,185,129,0.03) 0%, var(--bg-dark) 100%)' }}>
       <div className="container" style={{ maxWidth: '1100px' }}>
+        <img src="/assets/images/photos/lotops.png" alt="Lot operations workers with tablets" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '20px', marginBottom: '2.5rem', border: '1px solid rgba(16,185,129,0.2)', opacity: 0.85 }} />
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <p style={{ color: 'var(--accent-emerald)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>The Operating System</p>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Lot Ops Pro</h2>

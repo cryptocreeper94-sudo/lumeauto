@@ -11,6 +11,7 @@ export default function ImplementationPath() {
       <div style={{ position: 'absolute', bottom: 0, right: 0, width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(16,185,129,0.04) 0%, transparent 65%)', transform: 'translate(30%, 30%)' }} />
 
       <div className="container" style={{ position: 'relative', zIndex: 2, maxWidth: '1100px' }}>
+        <img src="/assets/images/photos/implementation.png" alt="Enterprise deployment planning session" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '20px', marginBottom: '2.5rem', border: '1px solid rgba(16,185,129,0.15)', opacity: 0.8 }} />
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
