@@ -63,8 +63,8 @@ export default function Home() {
               2,358 deterministic test cases passed · Zero AI calls
             </p>
             <div className="flex gap-4 items-center" style={{ flexWrap: 'wrap' }}>
-              <Link to="/waitlist" className="btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.05rem' }}>
-                Get Early Access <ArrowRight size={20} />
+              <Link to="/order" className="btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.05rem' }}>
+                Order Now — $49.99 <ArrowRight size={20} />
               </Link>
               <Link to="/enterprise" className="flex items-center gap-2 text-cyan" style={{ fontWeight: 600, fontSize: '0.95rem' }}>
                 Enterprise Solutions <ChevronRight size={18} />
@@ -255,7 +255,7 @@ export default function Home() {
           {[
             { name: 'Lume-Auto', desc: 'Petroleum vehicle governance', status: 'Live', statusColor: 'var(--accent-emerald)', icon: <Gauge size={20} /> },
             { name: 'HydroCore', desc: 'Industrial water-flow governance', status: 'In specification', statusColor: 'var(--accent-cyan)', icon: <Droplets size={20} /> },
-            { name: 'Meridian', desc: 'Wireless energy internet', status: 'In specification', statusColor: 'var(--accent-cyan)', icon: <Zap size={20} /> },
+            { name: 'Meridian', desc: 'Wireless energy infrastructure', status: 'Active · Canopy Charging', statusColor: 'var(--accent-emerald)', icon: <Zap size={20} /> },
             { name: 'AXIOM', desc: 'Deterministic cognitive architecture', status: 'Integration layer', statusColor: 'var(--text-muted)', icon: <Cpu size={20} /> },
           ].map((org, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="panel flex flex-col gap-3">

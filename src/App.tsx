@@ -21,6 +21,7 @@ import EngineeringBrief from './pages/EngineeringBrief';
 import Whitepaper from './pages/Whitepaper';
 import OrganismApp from './pages/OrganismApp';
 import DownloadPage from './pages/DownloadPage';
+import Order from './pages/Order';
 import Footer from './components/Footer';
 import RollerCoaster from './components/RollerCoaster';
 import AuthGate from './components/AuthGate';
@@ -85,7 +86,7 @@ function Navigation() {
 
   const links = [
     { path: '/', label: 'Home' },
-    { path: '/get-started', label: 'Get Started' },
+    { path: '/order', label: 'Order' },
     { path: '/fleet', label: 'Pricing' },
     { path: '/enterprise', label: 'Enterprise' },
     { path: '/blog', label: 'Journal' },
@@ -291,6 +292,7 @@ function App() {
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/enterprise" element={<Enterprise />} />
                   <Route path="/get-started" element={<GetStarted />} />
+                  <Route path="/order" element={<Order />} />
                   <Route path="/manheim" element={<ManheimPitch />} />
                   <Route path="/manheim-meridian" element={<MeridianPitch />} />
                   <Route path="/manheim-engineering" element={<EngineeringBrief />} />

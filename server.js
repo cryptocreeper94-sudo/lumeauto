@@ -86,6 +86,45 @@ app.post('/api/checkout', async (req, res) => {
   }
 });
 
+// ─── API: Kit Order (One-Time Purchase) ─────────────────────────────────────
+app.post('/api/checkout-kit', async (req, res) => {
+  try {
+    const stripe = (await import('stripe')).default;
+    const stripeClient = new stripe(process.env.STRIPE_SECRET_KEY);
+
+    const session = await stripeClient.checkout.sessions.create({
+      mode: 'payment',
+      payment_method_types: ['card'],
+      shipping_address_collection: {
+        allowed_countries: ['US'],
+      },
+      line_items: [{
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: 'Lume-Auto Diagnostic Kit',
+            description: 'Professional OBD-II WiFi adapter + Lume-Auto software license. App download code emailed instantly.',
+            images: [`${process.env.SITE_URL || 'https://lumeauto.tech'}/dongle_product.png`],
+          },
+          unit_amount: 4999, // $49.99
+        },
+        quantity: 1,
+      }],
+      success_url: `${process.env.SITE_URL || 'https://lumeauto.tech'}/order?success=true`,
+      cancel_url: `${process.env.SITE_URL || 'https://lumeauto.tech'}/order?cancelled=true`,
+      metadata: {
+        product: 'lume-auto-kit',
+        includes_software_license: 'true',
+      },
+    });
+
+    res.status(200).json({ url: session.url });
+  } catch (err) {
+    console.error('[Lume-Auto] ❌ Kit checkout error:', err);
+    res.status(500).json({ error: 'Payment initialization failed.' });
+  }
+});
+
 // ─── API: Health Check ──────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
   res.json({ status: 'operational', organism: 'lume-auto', version: '1.0.0' });
