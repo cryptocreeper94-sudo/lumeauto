@@ -49,7 +49,7 @@ function LoadingScreen({ subdomain }: { subdomain: 'manheim' | 'cal' | null }) {
       </motion.div>
       <div style={{ fontSize: '1.2rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', textAlign: 'center', padding: '0 20px' }} className="text-muted">
         {isManheim ? (
-          <>Manheim <span className="text-cyan">Vehicle Intelligence</span></>
+          <>Cox <span className="text-cyan">Enterprise Platform</span></>
         ) : (
           <>Lume<span className="text-cyan">Auto</span></>
         )}
@@ -195,7 +195,7 @@ function Navigation() {
 /** Detect which subdomain we're on */
 function getSubdomain(): 'manheim' | 'cal' | null {
   const host = window.location.hostname;
-  if (host.includes('manheim')) return 'manheim';
+  if (host.includes('cox') || host.includes('manheim')) return 'manheim';
   if (host.includes('cal')) return 'cal';
   return null;
 }
@@ -241,7 +241,7 @@ function App() {
                       <Shield size={16} color="#0a0a0c" />
                     </div>
                     <div style={{ minWidth: 0 }}>
-                      <div style={{ fontWeight: 700, fontSize: '0.9rem', letterSpacing: '-0.02em', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Manheim Vehicle Intelligence</div>
+                      <div style={{ fontWeight: 700, fontSize: '0.9rem', letterSpacing: '-0.02em', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Cox Enterprise Platform</div>
                       <div className="nav-subtitle-desktop" style={{ fontSize: '0.55rem', color: 'var(--text-dim)', letterSpacing: '0.06em' }}>Enterprise Trust Infrastructure · Cox Automotive</div>
                     </div>
                   </div>

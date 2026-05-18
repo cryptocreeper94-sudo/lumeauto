@@ -10,8 +10,8 @@ interface LoginScreenProps {
 const brands = {
   manheim: {
     icon: <Shield size={28} color="#0a0a0c" />,
-    title: 'Manheim Vehicle Intelligence',
-    subtitle: 'Sign in with your Manheim email address to access platform documentation.',
+    title: 'Cox Enterprise Platform',
+    subtitle: 'Sign in with your authorized Cox Automotive email address.',
     gradient: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))',
     accent: 'var(--accent-cyan)',
   },
@@ -207,9 +207,9 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
         </div>
 
         {/* Footer */}
-        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+        <div style={{ textAlign: 'center', margin: '2rem 0' }}>
           <p style={{ fontSize: '0.65rem', color: 'var(--text-dim)', lineHeight: 1.6 }}>
-            Manheim Vehicle Intelligence Platform<br />
+            Cox Enterprise Platform<br />
             Authentication secured by Firebase · Access restricted to authorized addresses
           </p>
         </div>
