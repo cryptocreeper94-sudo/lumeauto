@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Layers, Database, Shield, Hexagon } from 'lucide-react';
+import { Layers, Database, Shield, Hexagon, Download, Lock } from 'lucide-react';
 
 /**
  * COPSection — Introduces the Cox Operational Platform (COP)
@@ -65,7 +65,7 @@ export default function COPSection() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-50px" }}
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '1.5rem' }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}
         >
           {/* Module 1: Lot Ops Recon */}
           <motion.div variants={itemVariants} style={{
@@ -119,6 +119,67 @@ export default function COPSection() {
             </p>
           </motion.div>
 
+        </motion.div>
+
+        {/* Download Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          style={{ textAlign: 'center', marginTop: '4rem' }}
+        >
+          <a
+            href="/downloads/Cox_Operational_Platform.exe"
+            download
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '16px 32px',
+              background: 'linear-gradient(135deg, rgba(6,182,212,0.2) 0%, rgba(6,182,212,0.05) 100%)',
+              border: '1px solid rgba(6,182,212,0.4)',
+              borderRadius: '12px',
+              color: '#fff',
+              fontSize: '1.1rem',
+              fontWeight: 700,
+              textDecoration: 'none',
+              boxShadow: '0 0 30px rgba(6,182,212,0.2)',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 0 40px rgba(6,182,212,0.4)';
+              e.currentTarget.style.background = 'linear-gradient(135deg, rgba(6,182,212,0.3) 0%, rgba(6,182,212,0.1) 100%)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 0 30px rgba(6,182,212,0.2)';
+              e.currentTarget.style.background = 'linear-gradient(135deg, rgba(6,182,212,0.2) 0%, rgba(6,182,212,0.05) 100%)';
+            }}
+          >
+            <Download size={20} />
+            Download Enterprise OS (.exe)
+          </a>
+          <br />
+          <div style={{
+            marginTop: '1.5rem',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '8px 16px',
+            background: 'rgba(239,68,68,0.1)',
+            border: '1px solid rgba(239,68,68,0.2)',
+            borderRadius: '20px',
+            color: '#f87171',
+            fontSize: '0.75rem',
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em'
+          }}>
+            <Lock size={14} />
+            Restricted Access: Manheim / Cox Automotive Use Only
+          </div>
         </motion.div>
       </div>
     </section>
