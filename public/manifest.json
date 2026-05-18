@@ -1,7 +1,7 @@
 {
-  "name": "LUME-Auto",
-  "short_name": "LumeAuto",
-  "description": "Deterministic Vehicle Intelligence Platform",
+  "name": "Cox Enterprise Platform",
+  "short_name": "CEP",
+  "description": "Enterprise Trust Infrastructure",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0c",
