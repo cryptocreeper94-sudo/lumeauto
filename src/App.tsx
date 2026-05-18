@@ -47,14 +47,14 @@ function LoadingScreen({ subdomain }: { subdomain: 'manheim' | 'cal' | null }) {
       >
         <Shield size={48} className="text-cyan" />
       </motion.div>
-      <div style={{ fontSize: '1.2rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase' }} className="text-muted">
+      <div style={{ fontSize: '1.2rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', textAlign: 'center', padding: '0 20px' }} className="text-muted">
         {isManheim ? (
           <>Manheim <span className="text-cyan">Vehicle Intelligence</span></>
         ) : (
           <>Lume<span className="text-cyan">Auto</span></>
         )}
       </div>
-      <div style={{ fontSize: '0.8rem', letterSpacing: '0.1em' }} className="text-dim">
+      <div style={{ fontSize: '0.8rem', letterSpacing: '0.1em', textAlign: 'center', padding: '0 20px' }} className="text-dim">
         {isManheim ? 'INITIALIZING ENTERPRISE PLATFORM' : 'INITIALIZING DETERMINISTIC GOVERNANCE'}
       </div>
       <motion.div
