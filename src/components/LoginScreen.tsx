@@ -81,11 +81,11 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
   return (
     <div style={{
       position: 'fixed', inset: 0, background: 'var(--bg-dark)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      display: 'flex', overflowY: 'auto',
       padding: '1.5rem', zIndex: 100,
     }}>
       {/* Background glow */}
-      <div style={{ position: 'absolute', top: '20%', left: '50%', transform: 'translateX(-50%)', width: '600px', height: '600px', background: `radial-gradient(circle, ${brand === 'manheim' ? 'rgba(56,189,248,0.06)' : 'rgba(129,140,248,0.06)'} 0%, transparent 70%)` }} />
+      <div style={{ position: 'fixed', top: '20%', left: '50%', transform: 'translateX(-50%)', width: '600px', height: '600px', background: `radial-gradient(circle, ${brand === 'manheim' ? 'rgba(56,189,248,0.06)' : 'rgba(129,140,248,0.06)'} 0%, transparent 70%)`, pointerEvents: 'none' }} />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -93,6 +93,7 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
         transition={{ duration: 0.5 }}
         style={{
           width: '100%', maxWidth: '420px', position: 'relative', zIndex: 2,
+          margin: 'auto',
         }}
       >
         {/* Brand header */}
