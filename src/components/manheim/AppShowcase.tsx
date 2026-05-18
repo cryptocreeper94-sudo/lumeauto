@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Activity, Download, Smartphone, Globe, Lock } from 'lucide-react';
+import { Activity, Download, Smartphone, Globe } from 'lucide-react';
 import InfoBubble from '../InfoBubble';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 

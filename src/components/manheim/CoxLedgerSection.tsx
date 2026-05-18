@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Link2, ShieldCheck, Lock, Server, FileCheck, Globe, Fingerprint, Layers, Workflow, Database, CheckCircle, Download } from 'lucide-react';
+import { Link2, ShieldCheck, Lock, Server, FileCheck, Globe, Fingerprint, Layers, Workflow, Database, CheckCircle } from 'lucide-react';
 import CardCarousel from '../CardCarousel';
 
 const fadeIn = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
