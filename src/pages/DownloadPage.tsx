@@ -3,9 +3,10 @@ import { Smartphone, Download, Bluetooth, Wifi, Shield, Activity, ArrowLeft, QrC
 import { useEffect, useRef } from 'react';
 import QRCodeLib from 'qrcode';
 
-// The actual download URL
+// Direct download URLs — .exe hosted on private GitHub release (Manheim access only)
 const APK_URL = 'https://expo.dev/accounts/cryptocreeper/projects/lume-auto/builds/7cea4b43-4eeb-4442-bcad-06cf9ff1019c';
-const DOWNLOAD_URL = 'https://lumeauto.tech/download';
+const EXE_URL = 'https://github.com/cryptocreeper94-sudo/lume-ops-recon/releases/download/v1.0.0/Lot.Ops.Pro.Setup.1.0.0.exe';
+const DOWNLOAD_URL = 'https://cox.tlid.io/download';
 
 export default function DownloadPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -129,21 +130,24 @@ export default function DownloadPage() {
           </div>
 
           <div style={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column', gap: '1rem', minWidth: '200px' }}>
-            <button style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-              padding: '14px 24px', borderRadius: '30px',
-              background: 'transparent', border: '2px solid #38bdf8',
-              color: '#38bdf8', fontSize: '0.85rem', fontWeight: 800,
-              letterSpacing: '0.1em', cursor: 'pointer', transition: 'all 0.2s',
-            }}
-            onClick={() => alert('Download will begin shortly.')}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(56,189,248,0.1)'; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
+            <a
+              href={EXE_URL}
+              download
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+                padding: '14px 24px', borderRadius: '30px',
+                background: 'transparent', border: '2px solid #38bdf8',
+                color: '#38bdf8', fontSize: '0.85rem', fontWeight: 800,
+                letterSpacing: '0.1em', cursor: 'pointer', transition: 'all 0.2s',
+                textDecoration: 'none',
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(56,189,248,0.1)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
             >
-              <Download size={18} /> WINDOWS .EXE
-            </button>
+              <Download size={18} /> DOWNLOAD .EXE
+            </a>
             <p style={{ color: 'var(--text-dim)', fontSize: '0.65rem', textAlign: 'center' }}>
-              Requires Windows 10/11 (64-bit)
+              Requires Windows 10/11 (64-bit) · ~1 GB
             </p>
           </div>
         </motion.div>

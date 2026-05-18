@@ -260,7 +260,7 @@ export default function COPSection() {
           style={{ textAlign: 'center', marginTop: '2rem' }}
         >
           <a
-            href="/downloads/Cox_Operational_Platform.exe"
+            href="https://github.com/cryptocreeper94-sudo/lume-ops-recon/releases/download/v1.0.0/Lot.Ops.Pro.Setup.1.0.0.exe"
             download
             style={{
               display: 'inline-flex',

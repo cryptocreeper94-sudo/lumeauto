@@ -95,7 +95,8 @@ export default function LotOpsProSection() {
         {/* CTA Button */}
         <motion.div {...f} style={{ textAlign: 'center', marginTop: '3.5rem' }}>
           <a
-            href="/download"
+            href="https://github.com/cryptocreeper94-sudo/lume-ops-recon/releases/download/v1.0.0/Lot.Ops.Pro.Setup.1.0.0.exe"
+            download
             style={{
               display: 'inline-flex',
               alignItems: 'center',
