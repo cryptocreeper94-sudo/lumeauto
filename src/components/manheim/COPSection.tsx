@@ -1,12 +1,108 @@
 import { motion } from 'framer-motion';
-import { Layers, Database, Shield, Hexagon, Download, Lock, Monitor, Cpu, HardDrive, Globe, ServerCog, Fingerprint } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Layers, Database, Shield, Hexagon, Download, Lock, Monitor, Cpu, HardDrive, Globe, ServerCog, Fingerprint, ChevronLeft, ChevronRight } from 'lucide-react';
 
 /**
  * COPSection — Introduces the Cox Operational Platform (COP)
  * Comprehensive enterprise OS section matching the depth of LotOpsPro and LumeV.
+ * Mobile: horizontal swipeable carousel. Desktop: 3×2 grid.
  */
 
 const fadeIn = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
+
+const modules = [
+  { icon: <Layers size={28} />, title: 'Lot Ops Pro', desc: 'Real-time lot operations management. Vehicle routing, driver assignments, OCR scanning, GPS navigation, and reconditioning workflows — all from a single interface.', color: 'var(--accent-cyan)', border: 'rgba(6,182,212,0.15)', glow: 'rgba(6,182,212,0.1)' },
+  { icon: <Database size={28} />, title: 'Enterprise Ledger (CAL)', desc: 'Private Proof-of-Authority blockchain layer providing cryptographic provenance for every vehicle asset passport. Total auditability, tamper-proof by design.', color: '#10b981', border: 'rgba(16,185,129,0.15)', glow: 'rgba(16,185,129,0.1)' },
+  { icon: <Hexagon size={28} />, title: 'Meridian Visualization', desc: 'Spatial physics and 3D rendering engine. Real-time interactive canon of the 42-node facility mesh and structural operations monitoring.', color: '#8b5cf6', border: 'rgba(139,92,246,0.15)', glow: 'rgba(139,92,246,0.1)' },
+  { icon: <Shield size={28} />, title: 'TrustShield Layer', desc: 'Guardian Security framework enforcing strict zero-trust boundaries at the hardware level. Enterprise data never leaks to public vectors.', color: '#94a3b8', border: 'rgba(255,255,255,0.08)', glow: 'rgba(255,255,255,0.05)' },
+  { icon: <ServerCog size={28} />, title: 'LUME-V Governance', desc: 'Deterministic governance wrapper that unifies legacy systems into a single source of truth. Zero database migration, zero downtime.', color: '#38bdf8', border: 'rgba(56,189,248,0.15)', glow: 'rgba(56,189,248,0.1)' },
+  { icon: <Fingerprint size={28} />, title: 'Enterprise SSO', desc: 'Native integration with existing Okta and Azure Active Directory. Employees log in exactly as they do today — zero new credentials required.', color: '#f59e0b', border: 'rgba(245,158,11,0.15)', glow: 'rgba(245,158,11,0.1)' },
+];
+
+function ModuleCard({ mod, style }: { mod: typeof modules[0]; style?: React.CSSProperties }) {
+  return (
+    <div style={{
+      background: 'rgba(255,255,255,0.02)', border: `1px solid ${mod.border}`,
+      borderRadius: '16px', padding: '2rem', position: 'relative', overflow: 'hidden',
+      ...style
+    }}>
+      <div style={{ position: 'absolute', top: 0, right: 0, width: '100px', height: '100px', background: `radial-gradient(circle, ${mod.glow} 0%, transparent 70%)` }} />
+      <div style={{ color: mod.color, marginBottom: '1rem' }}>{mod.icon}</div>
+      <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem' }}>{mod.title}</h3>
+      <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>{mod.desc}</p>
+    </div>
+  );
+}
+
+function ModuleCarousel() {
+  const [active, setActive] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollTo = (idx: number) => {
+    const clamped = Math.max(0, Math.min(idx, modules.length - 1));
+    setActive(clamped);
+    if (scrollRef.current) {
+      const card = scrollRef.current.children[clamped] as HTMLElement;
+      if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const handleScroll = () => {
+      const scrollLeft = el.scrollLeft;
+      const cardWidth = el.children[0]?.clientWidth || 280;
+      const gap = 16;
+      const idx = Math.round(scrollLeft / (cardWidth + gap));
+      setActive(Math.max(0, Math.min(idx, modules.length - 1)));
+    };
+    el.addEventListener('scroll', handleScroll, { passive: true });
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <div style={{ marginBottom: '3rem' }}>
+      {/* Scroll container */}
+      <div ref={scrollRef} style={{
+        display: 'flex', gap: '16px', overflowX: 'auto', scrollSnapType: 'x mandatory',
+        WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', padding: '4px 0',
+      }}>
+        <style>{`.cop-scroll::-webkit-scrollbar { display: none; }`}</style>
+        {modules.map((mod, i) => (
+          <div key={i} className="cop-scroll" style={{ scrollSnapAlign: 'center', flex: '0 0 85%', maxWidth: '320px' }}>
+            <ModuleCard mod={mod} style={{ height: '100%' }} />
+          </div>
+        ))}
+      </div>
+
+      {/* Navigation dots + arrows */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginTop: '1.25rem' }}>
+        <button
+          onClick={() => scrollTo(active - 1)}
+          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: active === 0 ? 'rgba(255,255,255,0.2)' : '#fff', transition: 'all 0.2s' }}
+          disabled={active === 0}
+        ><ChevronLeft size={16} /></button>
+
+        <div style={{ display: 'flex', gap: '8px' }}>
+          {modules.map((_, i) => (
+            <button key={i} onClick={() => scrollTo(i)} style={{
+              width: active === i ? 24 : 8, height: 8, borderRadius: 4,
+              background: active === i ? 'var(--accent-cyan)' : 'rgba(255,255,255,0.15)',
+              border: 'none', cursor: 'pointer', transition: 'all 0.3s ease', padding: 0,
+            }} />
+          ))}
+        </div>
+
+        <button
+          onClick={() => scrollTo(active + 1)}
+          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: active === modules.length - 1 ? 'rgba(255,255,255,0.2)' : '#fff', transition: 'all 0.2s' }}
+          disabled={active === modules.length - 1}
+        ><ChevronRight size={16} /></button>
+      </div>
+    </div>
+  );
+}
 
 export default function COPSection() {
   const containerVariants = {
@@ -24,6 +120,16 @@ export default function COPSection() {
 
   return (
     <section style={{ padding: '6rem 0', position: 'relative', overflow: 'hidden' }}>
+      {/* Responsive styles */}
+      <style>{`
+        .cop-grid-desktop { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+        .cop-carousel-mobile { display: none; }
+        @media (max-width: 768px) {
+          .cop-grid-desktop { display: none !important; }
+          .cop-carousel-mobile { display: block !important; }
+        }
+      `}</style>
+
       {/* Background glow specific to COP */}
       <div style={{
         position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
@@ -100,95 +206,30 @@ export default function COPSection() {
           </div>
         </motion.div>
 
-        {/* 2×3 Module Grid */}
+        {/* Integrated Modules Header */}
         <motion.div {...fadeIn} transition={{ delay: 0.15 }}>
           <h3 style={{ fontSize: '1.2rem', marginBottom: '1.25rem', textAlign: 'center' }}>Integrated Modules</h3>
         </motion.div>
+
+        {/* Desktop: 3×2 Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-50px" }}
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}
+          className="cop-grid-desktop"
         >
-          {/* Module 1: Lot Ops Recon */}
-          <motion.div variants={itemVariants} style={{
-            background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(6,182,212,0.15)',
-            borderRadius: '16px', padding: '2rem', position: 'relative', overflow: 'hidden'
-          }}>
-            <div style={{ position: 'absolute', top: 0, right: 0, width: '100px', height: '100px', background: 'radial-gradient(circle, rgba(6,182,212,0.1) 0%, transparent 70%)' }} />
-            <Layers size={28} color="var(--accent-cyan)" style={{ marginBottom: '1rem' }} />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem' }}>Lot Ops Pro</h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-              Real-time lot operations management. Vehicle routing, driver assignments, OCR scanning, GPS navigation, and reconditioning workflows — all from a single interface.
-            </p>
-          </motion.div>
-
-          {/* Module 2: CAL */}
-          <motion.div variants={itemVariants} style={{
-            background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(16,185,129,0.15)',
-            borderRadius: '16px', padding: '2rem', position: 'relative', overflow: 'hidden'
-          }}>
-            <div style={{ position: 'absolute', top: 0, right: 0, width: '100px', height: '100px', background: 'radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%)' }} />
-            <Database size={28} color="#10b981" style={{ marginBottom: '1rem' }} />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem' }}>Enterprise Ledger (CAL)</h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-              Private Proof-of-Authority blockchain layer providing cryptographic provenance for every vehicle asset passport. Total auditability, tamper-proof by design.
-            </p>
-          </motion.div>
-
-          {/* Module 3: Meridian 3D */}
-          <motion.div variants={itemVariants} style={{
-            background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(139,92,246,0.15)',
-            borderRadius: '16px', padding: '2rem', position: 'relative', overflow: 'hidden'
-          }}>
-            <div style={{ position: 'absolute', top: 0, right: 0, width: '100px', height: '100px', background: 'radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%)' }} />
-            <Hexagon size={28} color="#8b5cf6" style={{ marginBottom: '1rem' }} />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem' }}>Meridian Visualization</h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-              Spatial physics and 3D rendering engine. Real-time interactive canon of the 42-node facility mesh and structural operations monitoring.
-            </p>
-          </motion.div>
-
-          {/* Module 4: TrustShield */}
-          <motion.div variants={itemVariants} style={{
-            background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)',
-            borderRadius: '16px', padding: '2rem', position: 'relative', overflow: 'hidden'
-          }}>
-            <div style={{ position: 'absolute', top: 0, right: 0, width: '100px', height: '100px', background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)' }} />
-            <Shield size={28} color="#94a3b8" style={{ marginBottom: '1rem' }} />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem' }}>TrustShield Layer</h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-              Guardian Security framework enforcing strict zero-trust boundaries at the hardware level. Enterprise data never leaks to public vectors.
-            </p>
-          </motion.div>
-
-          {/* Module 5: LUME-V Wrapper */}
-          <motion.div variants={itemVariants} style={{
-            background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(56,189,248,0.15)',
-            borderRadius: '16px', padding: '2rem', position: 'relative', overflow: 'hidden'
-          }}>
-            <div style={{ position: 'absolute', top: 0, right: 0, width: '100px', height: '100px', background: 'radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%)' }} />
-            <ServerCog size={28} color="#38bdf8" style={{ marginBottom: '1rem' }} />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem' }}>LUME-V Governance</h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-              Deterministic governance wrapper that unifies legacy systems into a single source of truth. Zero database migration, zero downtime.
-            </p>
-          </motion.div>
-
-          {/* Module 6: SSO & Identity */}
-          <motion.div variants={itemVariants} style={{
-            background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(245,158,11,0.15)',
-            borderRadius: '16px', padding: '2rem', position: 'relative', overflow: 'hidden'
-          }}>
-            <div style={{ position: 'absolute', top: 0, right: 0, width: '100px', height: '100px', background: 'radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%)' }} />
-            <Fingerprint size={28} color="#f59e0b" style={{ marginBottom: '1rem' }} />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem' }}>Enterprise SSO</h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-              Native integration with existing Okta and Azure Active Directory. Employees log in exactly as they do today — zero new credentials required.
-            </p>
-          </motion.div>
+          {modules.map((mod, i) => (
+            <motion.div key={i} variants={itemVariants}>
+              <ModuleCard mod={mod} style={{ height: '100%' }} />
+            </motion.div>
+          ))}
         </motion.div>
+
+        {/* Mobile: Swipeable Carousel */}
+        <div className="cop-carousel-mobile">
+          <ModuleCarousel />
+        </div>
 
         {/* Architecture Breakdown — Two-Column */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
