@@ -101,6 +101,32 @@ export default function LumeVSection() {
 
         </div>
 
+        {/* SSO & Legacy Integration */}
+        <motion.div {...fadeIn} transition={{ delay: 0.35 }} style={{ marginBottom: '3rem' }}>
+          <div className="panel" style={{ padding: '2.5rem', background: 'rgba(245, 158, 11, 0.02)', borderColor: 'rgba(245, 158, 11, 0.15)' }}>
+            <h3 style={{ fontSize: '1.3rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '12px', color: '#fbbf24' }}>
+              <ShieldCheck size={22} color="#f59e0b" /> Seamless SSO & Legacy Integration
+            </h3>
+            <p className="text-muted" style={{ marginBottom: '1.5rem', lineHeight: 1.7, fontSize: '1.05rem' }}>
+              Transitioning to the Cox Operational Platform requires <strong>zero new credentials</strong> and <strong>zero database migration</strong>. LUME-V acts as a universal translator for your existing enterprise infrastructure.
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+              <div style={{ padding: '1.25rem', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', border: '1px solid rgba(245, 158, 11, 0.1)' }}>
+                <h4 style={{ color: '#fbbf24', fontSize: '1rem', marginBottom: '0.5rem' }}>Identity Management</h4>
+                <p className="text-dim" style={{ fontSize: '0.9rem', lineHeight: 1.5 }}>
+                  Full native integration with Cox Automotive's existing Okta and Azure Active Directory. Employees log into the COP wrapper exactly as they do today.
+                </p>
+              </div>
+              <div style={{ padding: '1.25rem', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', border: '1px solid rgba(245, 158, 11, 0.1)' }}>
+                <h4 style={{ color: '#fbbf24', fontSize: '1rem', marginBottom: '0.5rem' }}>Data Persistence</h4>
+                <p className="text-dim" style={{ fontSize: '0.9rem', lineHeight: 1.5 }}>
+                  LUME-V securely connects to your current Oracle, SQL, and mainframe systems. The OS controls the workflows without requiring a multi-year ETL database migration.
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
         <motion.div {...fadeIn} transition={{ delay: 0.4 }} className="panel" style={{ padding: '3.5rem', textAlign: 'center', borderColor: 'rgba(16,185,129,0.3)', background: 'linear-gradient(180deg, rgba(16,185,129,0.05) 0%, rgba(16,185,129,0.01) 100%)', boxShadow: '0 10px 40px rgba(16,185,129,0.05)' }}>
           <h3 style={{ fontSize: '1.75rem', marginBottom: '1.25rem', color: 'var(--accent-emerald)' }}>Why This Layer Matters</h3>
           <p className="text-muted" style={{ maxWidth: '850px', margin: '0 auto', fontSize: '1.1rem', lineHeight: 1.8 }}>
