@@ -27,7 +27,8 @@ import RollerCoaster from './components/RollerCoaster';
 import AuthGate from './components/AuthGate';
 import { firebaseSignOut } from './lib/firebase';
 
-function LoadingScreen() {
+function LoadingScreen({ subdomain }: { subdomain: 'manheim' | 'cal' | null }) {
+  const isManheim = subdomain === 'manheim' || subdomain === 'cal';
   return (
     <motion.div
       initial={{ opacity: 1 }}
@@ -44,13 +45,17 @@ function LoadingScreen() {
         animate={{ scale: [1, 1.1, 1], opacity: [0.5, 1, 0.5] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Activity size={48} className="text-cyan" />
+        <Shield size={48} className="text-cyan" />
       </motion.div>
       <div style={{ fontSize: '1.2rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase' }} className="text-muted">
-        Lume<span className="text-cyan">Auto</span>
+        {isManheim ? (
+          <>Manheim <span className="text-cyan">Vehicle Intelligence</span></>
+        ) : (
+          <>Lume<span className="text-cyan">Auto</span></>
+        )}
       </div>
       <div style={{ fontSize: '0.8rem', letterSpacing: '0.1em' }} className="text-dim">
-        INITIALIZING DETERMINISTIC GOVERNANCE
+        {isManheim ? 'INITIALIZING ENTERPRISE PLATFORM' : 'INITIALIZING DETERMINISTIC GOVERNANCE'}
       </div>
       <motion.div
         style={{ width: '200px', height: '2px', background: 'var(--border-light)', borderRadius: '1px', marginTop: '1rem', overflow: 'hidden' }}
@@ -209,7 +214,7 @@ function App() {
   return (
     <Router>
       <AnimatePresence>
-        {loading && <LoadingScreen key="loading" />}
+        {loading && <LoadingScreen key="loading" subdomain={subdomain} />}
       </AnimatePresence>
 
       {!loading && (

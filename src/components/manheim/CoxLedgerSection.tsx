@@ -228,9 +228,9 @@ export default function CoxLedgerSection() {
         {/* Bottom CTA */}
         <motion.div {...fadeIn} transition={{ delay: 0.4 }} className="panel" style={{ padding: '3rem', textAlign: 'center', borderColor: accentBorder, background: `linear-gradient(180deg, ${accentDim} 0%, rgba(56,189,248,0.02) 100%)`, boxShadow: `0 10px 40px ${accentDim}` }}>
           <Server size={28} style={{ color: accent, marginBottom: '1rem' }} />
-          <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: accent }}>Your Data. Your Network. Your Ledger.</h3>
+          <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: accent }}>Cox Controls the Record. Always.</h3>
           <p className="text-muted" style={{ maxWidth: '750px', margin: '0 auto', fontSize: '1rem', lineHeight: 1.7, marginBottom: '1.5rem' }}>
-            The Cox Automotive Ledger runs on infrastructure that Cox controls. Every facility becomes a validator node. Every vehicle event becomes an immutable record. Every dispute becomes a data problem with a provable answer — not a negotiation.
+            The Cox Automotive Ledger runs on infrastructure Cox owns and governs. Every facility operates as a validator node. Every vehicle event becomes an immutable, enterprise-controlled record. Every dispute resolves against cryptographic proof — not negotiation, not memory, not he-said-she-said.
           </p>
           <a href="https://cal.tlid.io" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 28px', background: accent, color: '#0a0c10', borderRadius: '10px', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', transition: 'transform 0.2s, box-shadow 0.2s', boxShadow: `0 4px 20px ${accentDim}` }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}>
             <Link2 size={16} /> Launch Ledger Explorer
