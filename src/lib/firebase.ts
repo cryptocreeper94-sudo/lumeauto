@@ -36,7 +36,7 @@ const ALLOWED_EMAILS = ['kathytidwell74@gmail.com', 'rtaron@bellsouth.net', 'cry
 
 function validateEmailDomain(email: string | null): void {
   if (!email) throw new Error('No email address found on this account.');
-  const lower = email.toLowerCase();
+  const lower = email.trim().toLowerCase();
   const domain = lower.split('@')[1];
   if (ALLOWED_EMAILS.includes(lower)) return;
   if (!domain || !ALLOWED_DOMAINS.includes(domain)) {
@@ -58,14 +58,16 @@ export async function signInWithGoogle(): Promise<User> {
 }
 
 export async function signInWithEmail(email: string, password: string): Promise<User> {
-  validateEmailDomain(email);
-  const result = await signInWithEmailAndPassword(auth, email, password);
+  const cleanEmail = email.trim();
+  validateEmailDomain(cleanEmail);
+  const result = await signInWithEmailAndPassword(auth, cleanEmail, password);
   return result.user;
 }
 
 export async function registerWithEmail(email: string, password: string): Promise<User> {
-  validateEmailDomain(email);
-  const result = await createUserWithEmailAndPassword(auth, email, password);
+  const cleanEmail = email.trim();
+  validateEmailDomain(cleanEmail);
+  const result = await createUserWithEmailAndPassword(auth, cleanEmail, password);
   return result.user;
 }
 
