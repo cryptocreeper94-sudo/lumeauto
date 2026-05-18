@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FileDown, Activity, ExternalLink, Download } from 'lucide-react';
 
 const f = { initial: { opacity: 0, y: 10 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
@@ -39,7 +39,7 @@ export default function Whitepaper() {
                 DarkWave Studios LLC â€” Confidential
               </div>
               <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', lineHeight: 1.1, marginBottom: '1.5rem', letterSpacing: '-0.03em' }}>
-                Manheim Vehicle Intelligence<br />
+                Cox Vehicle Intelligence<br />
                 <span style={{ fontSize: '0.6em', color: 'var(--text-muted)', fontWeight: 400 }}>Infrastructure Modernization Platform</span>
               </h1>
               <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto 2rem', fontSize: '1.1rem', lineHeight: 1.7 }}>
