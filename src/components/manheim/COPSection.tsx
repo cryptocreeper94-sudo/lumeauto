@@ -279,17 +279,32 @@ export default function COPSection() {
         </div>
 
         {/* Stats Bar */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '1rem', marginBottom: '3rem' }}>
+        <style>{`
+          .cop-stats-grid {
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; margin-bottom: 3rem;
+            padding: 2rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+          }
+          @media (max-width: 768px) {
+            .cop-stats-grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; padding: 1.5rem; }
+          }
+          @media (max-width: 400px) {
+            .cop-stats-grid { grid-template-columns: repeat(2, 1fr); }
+          }
+        `}</style>
+        <div className="cop-stats-grid">
           {[
-            { val: '6', unit: '', label: 'Integrated Modules' },
-            { val: '<10', unit: 'ms', label: 'Response Time' },
-            { val: '0', unit: '', label: 'Cloud Dependencies' },
-            { val: '256', unit: '-bit', label: 'AES Encryption' },
-            { val: '∞', unit: '', label: 'Offline Capability' },
+            { val: '6', unit: '', label: 'Modules' },
+            { val: '<10', unit: 'ms', label: 'Latency' },
+            { val: '0', unit: '', label: 'Cloud Deps' },
+            { val: '256', unit: 'bit', label: 'Encryption' },
+            { val: '100', unit: '%', label: 'Offline' },
           ].map((s, i) => (
             <motion.div key={i} {...fadeIn} transition={{ delay: 0.2 + i * 0.08 }} style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)' }}>{s.val}<span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>{s.unit}</span></div>
-              <div style={{ fontSize: '0.65rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.label}</div>
+              <div style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)', lineHeight: 1 }}>
+                {s.val}<span style={{ fontSize: '0.7rem', color: 'var(--text-dim)', marginLeft: '2px' }}>{s.unit}</span>
+              </div>
+              <div style={{ fontSize: '0.6rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: '6px' }}>{s.label}</div>
             </motion.div>
           ))}
         </div>
