@@ -92,13 +92,38 @@ export default function LotOpsProSection() {
           ))}
         </div>
 
-        {/* CTA Buttons */}
-        <motion.div {...f} style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', marginTop: '2rem', maxWidth: '400px', marginLeft: 'auto', marginRight: 'auto' }}>
-          <a href="/app" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px 22px', flex: '1 1 0', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)', color: 'var(--accent-cyan)', borderRadius: '30px', fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none', transition: 'border-color 0.2s' }}>
-            <Activity size={15} /> Try It Live
-          </a>
-          <a href="/download" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px 22px', flex: '1 1 0', background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)', color: 'var(--accent-emerald)', borderRadius: '30px', fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none', transition: 'border-color 0.2s' }}>
-            <Download size={15} /> Download App
+        {/* CTA Button */}
+        <motion.div {...f} style={{ textAlign: 'center', marginTop: '3.5rem' }}>
+          <a
+            href="/download"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '16px 32px',
+              background: 'linear-gradient(135deg, rgba(16,185,129,0.2) 0%, rgba(16,185,129,0.05) 100%)',
+              border: '1px solid rgba(16,185,129,0.4)',
+              borderRadius: '12px',
+              color: '#fff',
+              fontSize: '1.1rem',
+              fontWeight: 700,
+              textDecoration: 'none',
+              boxShadow: '0 0 30px rgba(16,185,129,0.2)',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 0 40px rgba(16,185,129,0.4)';
+              e.currentTarget.style.background = 'linear-gradient(135deg, rgba(16,185,129,0.3) 0%, rgba(16,185,129,0.1) 100%)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 0 30px rgba(16,185,129,0.2)';
+              e.currentTarget.style.background = 'linear-gradient(135deg, rgba(16,185,129,0.2) 0%, rgba(16,185,129,0.05) 100%)';
+            }}
+          >
+            <Download size={20} />
+            Download Lot Ops Pro (Desktop)
           </a>
         </motion.div>
       </div>
