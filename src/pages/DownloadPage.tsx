@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Smartphone, Download, Bluetooth, Wifi, Shield, Activity, ArrowLeft, QrCode } from 'lucide-react';
+import { Smartphone, Download, Bluetooth, Wifi, Shield, Activity, ArrowLeft, QrCode, Monitor } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import QRCodeLib from 'qrcode';
 
@@ -108,6 +108,45 @@ export default function DownloadPage() {
             </div>
           </motion.div>
         </div>
+
+        {/* Enterprise Desktop Section */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} style={{
+          background: 'rgba(255,255,255,0.03)', borderRadius: '16px', padding: '2rem',
+          border: '1px solid var(--border-light)', marginBottom: '3rem',
+          display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems: 'center', justifyContent: 'space-between'
+        }}>
+          <div style={{ flex: '1 1 300px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
+              <Monitor size={28} style={{ color: '#38bdf8' }} />
+              <h2 style={{ fontSize: '1.4rem', margin: 0 }}>Lot Ops Pro Desktop</h2>
+            </div>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '1rem' }}>
+              The complete operational workforce platform built specifically for Windows desktops. Features real-time custody tracking, routing, and messaging.
+            </p>
+            <div style={{ display: 'inline-block', padding: '6px 12px', background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)', borderRadius: '6px', color: '#38bdf8', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.05em' }}>
+              POWERED BY NATIVE LUME BUILD
+            </div>
+          </div>
+
+          <div style={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column', gap: '1rem', minWidth: '200px' }}>
+            <button style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+              padding: '14px 24px', borderRadius: '30px',
+              background: 'transparent', border: '2px solid #38bdf8',
+              color: '#38bdf8', fontSize: '0.85rem', fontWeight: 800,
+              letterSpacing: '0.1em', cursor: 'pointer', transition: 'all 0.2s',
+            }}
+            onClick={() => alert('Download will begin shortly.')}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(56,189,248,0.1)'; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
+            >
+              <Download size={18} /> WINDOWS .EXE
+            </button>
+            <p style={{ color: 'var(--text-dim)', fontSize: '0.65rem', textAlign: 'center' }}>
+              Requires Windows 10/11 (64-bit)
+            </p>
+          </div>
+        </motion.div>
 
         {/* Features */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} style={{
