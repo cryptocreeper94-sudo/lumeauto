@@ -232,15 +232,12 @@ export default function CoxLedgerSection() {
           <p className="text-muted" style={{ maxWidth: '750px', margin: '0 auto', fontSize: '1rem', lineHeight: 1.7, marginBottom: '1.5rem' }}>
             The Cox Automotive Ledger runs on infrastructure Cox owns and governs. Every facility operates as a validator node. Every vehicle event becomes an immutable, enterprise-controlled record. Every dispute resolves against cryptographic proof — not negotiation, not memory, not he-said-she-said.
           </p>
-          <a href="https://cal.tlid.io" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 28px', background: accent, color: '#0a0c10', borderRadius: '10px', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', transition: 'transform 0.2s, box-shadow 0.2s', boxShadow: `0 4px 20px ${accentDim}`, marginBottom: '1.5rem', marginRight: '1rem' }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}>
+          <a href="https://cal.tlid.io" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 28px', background: accent, color: '#0a0c10', borderRadius: '10px', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', transition: 'transform 0.2s, box-shadow 0.2s', boxShadow: `0 4px 20px ${accentDim}` }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}>
             <Link2 size={16} /> Launch Ledger Explorer
           </a>
-          <a href="/downloads/Cox_Automotive_Ledger.exe" download style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 28px', background: 'transparent', border: `1px solid ${accent}`, color: accent, borderRadius: '10px', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', transition: 'all 0.2s' }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = accentDim; }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; }}>
-            <Download size={16} /> Download Enterprise Ledger OS (.exe)
-          </a>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '20px', color: '#f87171', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              <Lock size={14} /> Restricted Access: Manheim / Cox Automotive Use Only
+              <Lock size={14} /> Accessed securely via Cox Operational Platform (COP) or Authorized Web Gateway
             </div>
           </div>
         </motion.div>

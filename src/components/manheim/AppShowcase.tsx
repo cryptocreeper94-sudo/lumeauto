@@ -41,7 +41,7 @@ export default function AppShowcase() {
             }}>
               <Activity size={16} /> Try It Live — Demo Mode Available
             </a>
-            <a href="/download" style={{
+            <a href="/downloads/Lume_Auto_Scanner.apk" download style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
               padding: '12px 28px', flex: '1 1 0',
               background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)',
@@ -49,7 +49,7 @@ export default function AppShowcase() {
               fontSize: '0.85rem', fontWeight: 700, textDecoration: 'none',
               letterSpacing: '0.05em', transition: 'all 0.2s',
             }}>
-              <Download size={16} /> Download Native App
+              <Download size={16} /> Download Native App (.apk)
             </a>
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center', marginTop: '1rem' }}>
@@ -121,67 +121,7 @@ export default function AppShowcase() {
           </motion.div>
         </motion.div>
 
-        {/* Walled Garden Download Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          style={{ textAlign: 'center', marginTop: '4rem' }}
-        >
-          <a
-            href="/downloads/Lume_Auto_Scanner.exe"
-            download
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '12px',
-              padding: '16px 32px',
-              background: 'linear-gradient(135deg, rgba(56,189,248,0.2) 0%, rgba(56,189,248,0.05) 100%)',
-              border: '1px solid rgba(56,189,248,0.4)',
-              borderRadius: '12px',
-              color: '#fff',
-              fontSize: '1.1rem',
-              fontWeight: 700,
-              textDecoration: 'none',
-              boxShadow: '0 0 30px rgba(56,189,248,0.2)',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 0 40px rgba(56,189,248,0.4)';
-              e.currentTarget.style.background = 'linear-gradient(135deg, rgba(56,189,248,0.3) 0%, rgba(56,189,248,0.1) 100%)';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 0 30px rgba(56,189,248,0.2)';
-              e.currentTarget.style.background = 'linear-gradient(135deg, rgba(56,189,248,0.2) 0%, rgba(56,189,248,0.05) 100%)';
-            }}
-          >
-            <Download size={20} />
-            Download Diagnostic Scanner (.exe)
-          </a>
-          <br />
-          <div style={{
-            marginTop: '1.5rem',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '8px 16px',
-            background: 'rgba(239,68,68,0.1)',
-            border: '1px solid rgba(239,68,68,0.2)',
-            borderRadius: '20px',
-            color: '#f87171',
-            fontSize: '0.75rem',
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em'
-          }}>
-            <Lock size={14} />
-            Restricted Access: Manheim / Cox Automotive Use Only
-          </div>
-        </motion.div>
-      </div>
+
 
       <style>{`
         @media (max-width: 768px) {
