@@ -120,8 +120,7 @@ export default function AppShowcase() {
             </div>
           </motion.div>
         </motion.div>
-
-
+      </div>
 
       <style>{`
         @media (max-width: 768px) {
