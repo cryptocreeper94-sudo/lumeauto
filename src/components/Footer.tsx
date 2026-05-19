@@ -25,32 +25,32 @@ export default function Footer() {
             <div style={{ padding: '6px', background: 'rgba(6, 182, 212, 0.1)', borderRadius: '8px' }}>
               <Activity size={20} color="var(--accent-cyan)" />
             </div>
-            Lume-Auto
+            Cox Enterprise Platform
           </Link>
           <p className="text-muted" style={{ fontSize: '0.85rem', maxWidth: '250px', lineHeight: 1.6 }}>
-            Deterministic governance and telemetry mapping for the modern internal combustion ecosystem.
+            Deterministic governance, operational intelligence, and enterprise trust infrastructure for Cox Automotive.
           </p>
           <p className="text-dim" style={{ fontSize: '0.75rem', lineHeight: 1.5 }}>
-            US Provisional Patent 64/032,339
+            6 U.S. Provisional Patents Pending
           </p>
         </div>
 
-        {/* Ecosystem */}
+        {/* Platform */}
         <div className="flex flex-col gap-3">
-          <h4 style={{ color: 'var(--text-main)', marginBottom: '0.5rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Ecosystem</h4>
-          <Link to="/technology" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Technology</Link>
-          <Link to="/fleet" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Fleet & Family</Link>
-          <Link to="/waitlist" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Hardware Waitlist</Link>
-          <Link to="/blog" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Journal</Link>
+          <h4 style={{ color: 'var(--text-main)', marginBottom: '0.5rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Platform</h4>
+          <Link to="/whitepaper" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Whitepaper</Link>
+          <Link to="/engineering" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Engineering Brief</Link>
+          <Link to="/download" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Downloads</Link>
+          <Link to="/app" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Launch LumeScan</Link>
         </div>
 
-        {/* Network */}
+        {/* Research */}
         <div className="flex flex-col gap-3">
-          <h4 style={{ color: 'var(--text-main)', marginBottom: '0.5rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Network</h4>
-          <a href="https://axiomstudio.tech" target="_blank" rel="noreferrer" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Axiom Studio</a>
+          <h4 style={{ color: 'var(--text-main)', marginBottom: '0.5rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Research</h4>
+          <a href="https://zenodo.org/search?q=Jason%20Andrews%20DarkWave" target="_blank" rel="noreferrer" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Published Papers</a>
+          <a href="https://orcid.org/0009-0007-5214-649X" target="_blank" rel="noreferrer" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>ORCID Profile</a>
+          <a href="https://cal.tlid.io" target="_blank" rel="noreferrer" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Live Ledger</a>
           <a href="https://meridiancanon.com" target="_blank" rel="noreferrer" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Meridian Canon</a>
-          <a href="https://hydrocore.dev" target="_blank" rel="noreferrer" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>HydroCore</a>
-          <a href="https://zenodo.org/search?q=Jason%20Andrews%20DarkWave" target="_blank" rel="noreferrer" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Published Research</a>
         </div>
 
         {/* Legal */}
@@ -59,7 +59,7 @@ export default function Footer() {
           <Link to="/terms" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Terms of Service</Link>
           <Link to="/privacy" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Privacy Policy</Link>
           <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '0.5rem', lineHeight: 1.5 }}>
-            SMS: Msg & data rates may apply.<br />Reply STOP to opt-out at any time.
+            Restricted access. Authorized personnel only.
           </p>
         </div>
       </div>
