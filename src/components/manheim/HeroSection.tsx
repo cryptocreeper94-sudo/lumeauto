@@ -72,10 +72,10 @@ export default function HeroSection() {
           </div>
           <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.8rem)', lineHeight: 1.08, marginBottom: '1.5rem' }}>
             Enterprise Infrastructure.<br/>
-            <span className="text-gradient">Proven at Manheim.</span>
+            <span className="text-gradient">Built for Manheim.</span>
           </h1>
           <p className="text-muted" style={{ fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '760px', marginBottom: '2rem' }}>
-            A private operations platform — purpose-built for Cox Enterprises — that delivers verifiable, tamper-proof records of every operational event. The COP operating environment, Cox Automotive Ledger, and Lume-V governance layer are enterprise infrastructure designed to scale across verticals. Manheim is the first deployment: 45-second vehicle scans, deterministic condition reports, and a lot operations system built to replace guesswork with proof.
+            A private operations platform — purpose-built for Cox Enterprises — that delivers verifiable, tamper-proof records of every operational event. The COP operating environment, Cox Automotive Ledger, and Lume-V governance layer are enterprise infrastructure designed to scale across verticals. Manheim is the target: 45-second vehicle scans, deterministic condition reports, and a lot operations system built to replace guesswork with proof — validated, documented, and ready for pilot.
           </p>
 
           {/* ═══ STAT CAROUSEL — self-contained ═══ */}
