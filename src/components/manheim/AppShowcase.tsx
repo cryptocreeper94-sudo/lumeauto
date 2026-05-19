@@ -5,14 +5,14 @@ import InfoBubble from '../InfoBubble';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 const screens = [
-  { src: '/assets/images/app_dashboard.png', title: 'Live Dashboard', shortTitle: 'Dash', desc: 'Real-time MPG recovery, RPM, speed, driver score, and organism throughput at a glance. The control surface for the entire deterministic runtime.' },
-  { src: '/assets/images/app_diagnostic.png', title: 'Diagnostic Scan', shortTitle: 'Scan', desc: 'Full OBD-II readiness monitors, active DTCs with severity classification, and live sensor data — all parsed through the governance organism.' },
-  { src: '/assets/images/app_organism.png', title: 'Organism Governance', shortTitle: 'Org', desc: 'The 42-node organism visualized in real-time. Watch cross-validation consensus, drift correction, and self-healing happen autonomously.' },
+  { src: '/assets/images/app_dashboard.png', title: 'Live Dashboard', shortTitle: 'Dash', desc: 'Real-time MPG recovery, RPM, speed, driver score, and LumeScan throughput at a glance. The control surface for the entire deterministic runtime.' },
+  { src: '/assets/images/app_diagnostic.png', title: 'Diagnostic Scan', shortTitle: 'Scan', desc: 'Full OBD-II readiness monitors, active DTCs with severity classification, and live sensor data — all parsed through the governance mesh.' },
+  { src: '/assets/images/app_organism.png', title: 'Mesh Governance', shortTitle: 'Mesh', desc: 'The 42-node mesh visualized in real-time. Watch cross-validation consensus, drift correction, and self-healing happen autonomously.' },
   { src: '/assets/images/app_certificate.png', title: 'Condition Certificate', shortTitle: 'Cert', desc: 'Cryptographically signed, replay-verifiable vehicle condition reports. Arbitration-grade evidence generated in 45 seconds.' },
 ];
 
 const features: Record<number, string[]> = {
-  0: ['Live RPM, MPH, MPG telemetry', 'Driver performance scoring', 'Organism throughput monitoring', 'CSV telemetry export for analysis', 'Pilot target: 60% of condition report auto-generated', 'One-tap full report generation'],
+  0: ['Live RPM, MPH, MPG telemetry', 'Driver performance scoring', 'LumeScan throughput monitoring', 'CSV telemetry export for analysis', 'Pilot target: 100% of condition report auto-generated', 'One-tap full report generation'],
   1: ['Read stored DTCs with severity codes', 'Clear codes + reset Check Engine Light', 'Freeze frame data at fault time', 'Pending DTCs — catch faults before MIL', 'VIN auto-read directly from ECU', '8 readiness monitors — pass/fail', 'Catalyst efficiency + O2 sensor health'],
   2: ['42-node visualization in real-time', '4-layer concentric topology', 'Drift detection + auto-correction', 'Self-healing runtime monitoring', 'Consensus percentage tracking'],
   3: ['SHA-256 cryptographic hash', 'Per-system health percentages', 'VIN read directly from ECU', 'Deterministic replay for arbitration', 'Tamper-proof custody chain record', 'Publicly verifiable without login'],
@@ -28,7 +28,7 @@ export default function AppShowcase() {
           <p style={{ color: 'var(--accent-cyan)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>The Application</p>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>LUME-Auto in Action</h2>
           <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto', lineHeight: 1.7 }}>
-            Four primary interfaces. Every screen is a window into the deterministic organism — not a static dashboard, but a live view of a self-governing runtime.
+            Four primary interfaces. Every screen is a window into the deterministic mesh — not a static dashboard, but a live view of a self-governing runtime.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', marginTop: '1.25rem', maxWidth: '560px', marginLeft: 'auto', marginRight: 'auto' }}>
             <a href="/app" style={{
