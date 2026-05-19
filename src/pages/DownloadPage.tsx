@@ -3,8 +3,8 @@ import { Smartphone, Download, Bluetooth, Wifi, Shield, Activity, ArrowLeft, QrC
 import { useEffect, useRef } from 'react';
 import QRCodeLib from 'qrcode';
 
-// Direct download URLs — .exe hosted on private GitHub release (Manheim access only)
-const APK_URL = 'https://expo.dev/accounts/cryptocreeper/projects/lume-auto/builds/7cea4b43-4eeb-4442-bcad-06cf9ff1019c';
+// Direct download URLs — hosted on Firebase Storage (DarkWave Auth)
+const APK_URL = 'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2FLume_Auto_Scanner.apk?alt=media&token=82e7bd04-561b-457c-8c5e-261f90f367d3';
 const EXE_URL = 'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2FLot_Ops_Pro_Setup.exe?alt=media&token=36fe7582-07b0-423a-a366-bd1a1e6af6a0';
 const DOWNLOAD_URL = 'https://cox.tlid.io/download';
 

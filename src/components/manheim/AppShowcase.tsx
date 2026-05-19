@@ -41,7 +41,7 @@ export default function AppShowcase() {
             }}>
               <Activity size={16} /> Try It Live — Demo Mode Available
             </a>
-            <a href="/downloads/Lume_Auto_Scanner.apk" download style={{
+            <a href="https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2FLume_Auto_Scanner.apk?alt=media&token=82e7bd04-561b-457c-8c5e-261f90f367d3" download style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
               padding: '12px 28px', flex: '1 1 0',
               background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)',
