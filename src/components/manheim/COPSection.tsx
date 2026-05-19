@@ -328,6 +328,7 @@ export default function COPSection() {
             { val: '0', unit: '', label: 'Cloud Deps' },
             { val: '256', unit: 'bit', label: 'Encryption' },
             { val: '100', unit: '%', label: 'Offline' },
+            { val: '42', unit: '', label: 'Gov Nodes' },
           ].map((s, i) => (
             <motion.div key={i} {...fadeIn} transition={{ delay: 0.2 + i * 0.08 }} style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)', lineHeight: 1 }}>
