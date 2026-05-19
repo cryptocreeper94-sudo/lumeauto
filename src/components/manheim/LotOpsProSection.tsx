@@ -1,6 +1,65 @@
 import { motion } from 'framer-motion';
 import { MapPin, Radio, Camera, Shield, Gauge, MessageSquare, Cloud, Smartphone, Users, Download } from 'lucide-react';
+import CardCarousel from '../CardCarousel';
 const f = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
+
+const features = [
+  { icon: <Camera size={18}/>, title: 'Autonomous OCR Scanning', desc: 'Camera-based ticket scanning — no external database needed. Three input methods. Works offline.', color: 'var(--accent-emerald)' },
+  { icon: <MapPin size={18}/>, title: 'GPS Routing & Navigation', desc: 'Real-time compass guidance with distance countdown. Smart group code routing to correct lanes.', color: 'var(--accent-cyan)' },
+  { icon: <Gauge size={18}/>, title: 'Live Performance Tracking', desc: 'Moves-per-hour against 4.5 MPH quota. Real-time alerts. Daily, weekly, monthly aggregation. Automated bonus estimation.', color: 'var(--accent-emerald)' },
+  { icon: <Shield size={18}/>, title: 'Safety & Speed Monitoring', desc: '15/17/22 MPH tiered alerts. Incident reporting with photo capture. Weather radar with tornado alerts.', color: '#ef4444' },
+  { icon: <Users size={18}/>, title: 'Role-Based Dashboards', desc: 'Ops Manager, Supervisor, Van Driver, Inventory Driver — each sees exactly what they need.', color: 'var(--accent-cyan)' },
+  { icon: <MessageSquare size={18}/>, title: 'Real-Time Messaging', desc: 'Supervisor ↔ driver communication. Broadcast or individual. 2-second polling. Toast notifications.', color: '#38bdf8' },
+  { icon: <Radio size={18}/>, title: 'AI Voice Assistant (Optional)', desc: 'Hands-free bidirectional voice for drivers. 15+ commands. LLM-agnostic. All AI output governed by LUME-V deterministic wrapper.', color: '#fb923c' },
+  { icon: <Smartphone size={18}/>, title: 'Zero Hardware Cost', desc: 'BYOD or provide a commodity Android device. Runs as a PWA — installable, offline-capable. No specialized equipment.', color: 'var(--accent-emerald)' },
+  { icon: <Cloud size={18}/>, title: 'Multi-Tenant Architecture', desc: 'Nashville. Atlanta. Any facility. Isolated data, custom branding, facility-specific configs — one codebase, unlimited sites.', color: 'var(--accent-cyan)' },
+];
+
+const threeSystems = [
+  { label: 'Lot Ops Pro', role: 'The Operating System', desc: 'Driver management, GPS routing, performance analytics, real-time messaging, OCR ticket scanning, role-based dashboards — the complete platform running daily lot operations from a single mobile app.', color: 'var(--accent-emerald)' },
+  { label: 'Lume-Auto', role: 'The Intelligence Layer', desc: 'Full OBD-II scanner at intake — read and clear DTCs, freeze frame analysis, VIN auto-read from ECU, pending fault detection. Pilot target: 60% of the condition report auto-generated before a human touches the vehicle.', color: 'var(--accent-cyan)' },
+  { label: 'Cox Automotive Ledger', role: 'The Enterprise Ledger', desc: 'Every condition report, custody transfer, and diagnostic result sealed into a tamper-proof private ledger. Arbitration disputes resolved by mathematical replay, not opinion.', color: '#38bdf8' },
+];
+
+const whoSeesWhat = [
+  { role: 'Lane Managers', feeds: 'Real-time lane readiness. Vehicles flagged for dead batteries, pending faults, or open-loop cold starts before they reach the lane.', color: 'var(--accent-cyan)' },
+  { role: 'Supervisors', feeds: 'Driver performance, GPS tracking, custody chain, facility-wide throughput. Full operational dashboard from any device.', color: 'var(--accent-emerald)' },
+  { role: 'Transport Teams', feeds: 'Pre-dispatch health reports. Automatic flags for vehicles that won\'t start or will fail lane checks. No surprises on the truck.', color: '#38bdf8' },
+  { role: 'Reconditioning', feeds: 'Auto-generated work orders from diagnostic data. Prioritized queues based on severity. Catalyst failures, battery issues, and fluid anomalies surfaced before the vehicle arrives.', color: '#fb923c' },
+  { role: 'Arbitration Teams', feeds: 'Cryptographically sealed condition reports. Deterministic replay of original scan data. Dispute resolution by math, not opinion.', color: '#38bdf8' },
+  { role: 'Facility Management', feeds: 'Population health analytics across all vehicles. Predictive throughput modeling. Cross-facility benchmarking and trend analysis.', color: 'var(--accent-emerald)' },
+];
+
+function FeatureCard({ feat }: { feat: typeof features[0] }) {
+  return (
+    <div className="panel" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', minHeight: '140px', height: '100%' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
+        <div style={{ color: feat.color }}>{feat.icon}</div>
+        <h4 style={{ fontSize: '0.9rem', margin: 0 }}>{feat.title}</h4>
+      </div>
+      <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5, margin: 0 }}>{feat.desc}</p>
+    </div>
+  );
+}
+
+function RoleCard({ item }: { item: typeof whoSeesWhat[0] }) {
+  return (
+    <div className="panel" style={{ padding: '1rem', display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <div style={{ fontSize: '0.85rem', fontWeight: 700, color: item.color, marginBottom: '0.35rem' }}>{item.role}</div>
+      <p className="text-muted" style={{ fontSize: '0.78rem', lineHeight: 1.5, margin: 0 }}>{item.feeds}</p>
+    </div>
+  );
+}
+
+function SystemCard({ item }: { item: typeof threeSystems[0] }) {
+  return (
+    <div style={{ textAlign: 'center', padding: '0.5rem', height: '100%' }}>
+      <div style={{ fontSize: '1.1rem', fontWeight: 700, color: item.color, marginBottom: '0.25rem' }}>{item.label}</div>
+      <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.5rem' }}>{item.role}</div>
+      <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5 }}>{item.desc}</p>
+    </div>
+  );
+}
 
 export default function LotOpsProSection() {
   return (
@@ -15,69 +74,42 @@ export default function LotOpsProSection() {
           </p>
         </div>
 
-        {/* Feature grid — strict 3×3 */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginBottom: '2.5rem' }}>
-          {[
-            { icon: <Camera size={18}/>, title: 'Autonomous OCR Scanning', desc: 'Camera-based ticket scanning — no external database needed. Three input methods. Works offline.', color: 'var(--accent-emerald)' },
-            { icon: <MapPin size={18}/>, title: 'GPS Routing & Navigation', desc: 'Real-time compass guidance with distance countdown. Smart group code routing to correct lanes.', color: 'var(--accent-cyan)' },
-            { icon: <Gauge size={18}/>, title: 'Live Performance Tracking', desc: 'Moves-per-hour against 4.5 MPH quota. Real-time alerts. Daily, weekly, monthly aggregation. Automated bonus estimation.', color: 'var(--accent-emerald)' },
-            { icon: <Shield size={18}/>, title: 'Safety & Speed Monitoring', desc: '15/17/22 MPH tiered alerts. Incident reporting with photo capture. Weather radar with tornado alerts.', color: '#ef4444' },
-            { icon: <Users size={18}/>, title: 'Role-Based Dashboards', desc: 'Ops Manager, Supervisor, Van Driver, Inventory Driver — each sees exactly what they need.', color: 'var(--accent-cyan)' },
-            { icon: <MessageSquare size={18}/>, title: 'Real-Time Messaging', desc: 'Supervisor ↔ driver communication. Broadcast or individual. 2-second polling. Toast notifications.', color: '#38bdf8' },
-            { icon: <Radio size={18}/>, title: 'AI Voice Assistant (Optional)', desc: 'Hands-free bidirectional voice for drivers. 15+ commands. LLM-agnostic. All AI output governed by LUME-V deterministic wrapper.', color: '#fb923c' },
-            { icon: <Smartphone size={18}/>, title: 'Zero Hardware Cost', desc: 'BYOD or provide a commodity Android device. Runs as a PWA — installable, offline-capable. No specialized equipment.', color: 'var(--accent-emerald)' },
-            { icon: <Cloud size={18}/>, title: 'Multi-Tenant Architecture', desc: 'Nashville. Atlanta. Any facility. Isolated data, custom branding, facility-specific configs — one codebase, unlimited sites.', color: 'var(--accent-cyan)' },
-          ].map((feat, i) => (
-            <div key={i} className="panel" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', minHeight: '140px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
-                <div style={{ color: feat.color }}>{feat.icon}</div>
-                <h4 style={{ fontSize: '0.9rem', margin: 0 }}>{feat.title}</h4>
-              </div>
-              <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5, margin: 0 }}>{feat.desc}</p>
-            </div>
-          ))}
+        {/* Feature grid — carousel on mobile */}
+        <div style={{ marginBottom: '2.5rem' }}>
+          <CardCarousel desktopColumns="repeat(3, 1fr)" gap="1rem" autoPlay={6000} accentColor="var(--accent-emerald)">
+            {features.map((feat, i) => (
+              <FeatureCard key={i} feat={feat} />
+            ))}
+          </CardCarousel>
         </div>
 
-        {/* Three Systems — strict 3-column */}
+        {/* Three Systems — carousel on mobile */}
         <motion.div {...f} className="panel" style={{ padding: '2rem', borderColor: 'rgba(16,185,129,0.2)', background: 'linear-gradient(135deg, rgba(16,185,129,0.03) 0%, transparent 100%)', marginBottom: '2rem' }}>
           <h3 style={{ fontSize: '1.2rem', marginBottom: '1.25rem', textAlign: 'center' }}>Three Systems. One Platform.</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
-            {[
-              { label: 'Lot Ops Pro', role: 'The Operating System', desc: 'Driver management, GPS routing, performance analytics, real-time messaging, OCR ticket scanning, role-based dashboards — the complete platform running daily lot operations from a single mobile app.', color: 'var(--accent-emerald)' },
-              { label: 'Lume-Auto', role: 'The Intelligence Layer', desc: 'Full OBD-II scanner at intake — read and clear DTCs, freeze frame analysis, VIN auto-read from ECU, pending fault detection. Pilot target: 60% of the condition report auto-generated before a human touches the vehicle.', color: 'var(--accent-cyan)' },
-              { label: 'Cox Automotive Ledger', role: 'The Enterprise Ledger', desc: 'Every condition report, custody transfer, and diagnostic result sealed into a tamper-proof private ledger. Arbitration disputes resolved by mathematical replay, not opinion.', color: '#38bdf8' },
-            ].map((item, i) => (
-              <div key={i} style={{ textAlign: 'center', padding: '0.5rem' }}>
-                <div style={{ fontSize: '1.1rem', fontWeight: 700, color: item.color, marginBottom: '0.25rem' }}>{item.label}</div>
-                <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.5rem' }}>{item.role}</div>
-                <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5 }}>{item.desc}</p>
-              </div>
+          <CardCarousel desktopColumns="repeat(3, 1fr)" gap="1.5rem" accentColor="var(--accent-emerald)">
+            {threeSystems.map((item, i) => (
+              <SystemCard key={i} item={item} />
             ))}
-          </div>
+          </CardCarousel>
         </motion.div>
 
-        {/* Who Sees What — strict 3×2 */}
+        {/* Who Sees What — carousel on mobile */}
         <motion.div {...f}>
           <h3 style={{ fontSize: '1.2rem', marginBottom: '1.25rem', textAlign: 'center' }}>Who Sees What</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
-            {[
-              { role: 'Lane Managers', feeds: 'Real-time lane readiness. Vehicles flagged for dead batteries, pending faults, or open-loop cold starts before they reach the lane.', color: 'var(--accent-cyan)' },
-              { role: 'Supervisors', feeds: 'Driver performance, GPS tracking, custody chain, facility-wide throughput. Full operational dashboard from any device.', color: 'var(--accent-emerald)' },
-              { role: 'Transport Teams', feeds: 'Pre-dispatch health reports. Automatic flags for vehicles that won\'t start or will fail lane checks. No surprises on the truck.', color: '#38bdf8' },
-              { role: 'Reconditioning', feeds: 'Auto-generated work orders from diagnostic data. Prioritized queues based on severity. Catalyst failures, battery issues, and fluid anomalies surfaced before the vehicle arrives.', color: '#fb923c' },
-              { role: 'Arbitration Teams', feeds: 'Cryptographically sealed condition reports. Deterministic replay of original scan data. Dispute resolution by math, not opinion.', color: '#38bdf8' },
-              { role: 'Facility Management', feeds: 'Population health analytics across all vehicles. Predictive throughput modeling. Cross-facility benchmarking and trend analysis.', color: 'var(--accent-emerald)' },
-            ].map((item, i) => (
-              <div key={i} className="panel" style={{ padding: '1rem', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontSize: '0.85rem', fontWeight: 700, color: item.color, marginBottom: '0.35rem' }}>{item.role}</div>
-                <p className="text-muted" style={{ fontSize: '0.78rem', lineHeight: 1.5, margin: 0 }}>{item.feeds}</p>
-              </div>
+          <CardCarousel desktopColumns="repeat(3, 1fr)" gap="1rem" autoPlay={5000} accentColor="var(--accent-cyan)">
+            {whoSeesWhat.map((item, i) => (
+              <RoleCard key={i} item={item} />
             ))}
-          </div>
+          </CardCarousel>
         </motion.div>
 
         {/* Stats bar */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '1rem', marginTop: '2.5rem' }}>
+        <style>{`
+          .lotops-stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-top: 2.5rem; }
+          @media (max-width: 768px) { .lotops-stats-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; } }
+          @media (max-width: 400px) { .lotops-stats-grid { grid-template-columns: repeat(2, 1fr); } }
+        `}</style>
+        <div className="lotops-stats-grid">
           {[
             { val: '100', unit: '%', label: 'Automated Report' },
             { val: '45', unit: 's', label: 'Per Vehicle Scan' },

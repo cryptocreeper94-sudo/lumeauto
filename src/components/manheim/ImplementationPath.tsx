@@ -155,8 +155,11 @@ export default function ImplementationPath() {
           </div>
         </motion.div>
 
-        {/* ═══ KEY PRINCIPLES — strict 3×2 grid ═══ */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginBottom: '3rem' }}>
+        <style>{`
+          .impl-principles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 3rem; }
+          @media (max-width: 768px) { .impl-principles-grid { grid-template-columns: 1fr; } }
+        `}</style>
+        <div className="impl-principles-grid">
           {[
             { icon: <Zap size={20} />, title: 'Zero Downtime', desc: 'Every phase runs alongside existing operations. Nothing shuts down, nothing migrates, nothing breaks.' },
             { icon: <Building2 size={20} />, title: 'Facility by Facility', desc: 'Start with one pilot location. Prove value. Expand when ready. Each facility is independently operational.' },
@@ -181,7 +184,11 @@ export default function ImplementationPath() {
               The platform is designed so that each layer operates independently. Manheim can begin with the components that address immediate operational needs and integrate additional layers over time.
             </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+          <style>{`
+            .impl-modular-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+            @media (max-width: 768px) { .impl-modular-grid { grid-template-columns: 1fr; } }
+          `}</style>
+          <div className="impl-modular-grid">
             {[
               { title: 'LUME-Auto', desc: 'OBD-II diagnostics and condition reporting — standalone hardware and software.', color: 'var(--accent-cyan)' },
               { title: 'Lot Ops Pro', desc: 'Operational workforce platform — custody tracking, routing, messaging.', color: '#38bdf8' },

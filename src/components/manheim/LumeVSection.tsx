@@ -34,7 +34,11 @@ export default function LumeVSection() {
             <h3 style={{ fontSize: '1.3rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '12px', color: '#f87171' }}>
               <ServerOff size={22} color="#ef4444" /> The Legacy Modernization Challenge
             </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem 1.5rem' }}>
+            <style>{`
+              .lumev-challenge-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem 1.5rem; }
+              @media (max-width: 768px) { .lumev-challenge-grid { grid-template-columns: 1fr; gap: 0.75rem; } }
+            `}</style>
+            <div className="lumev-challenge-grid">
               {[
                 'Too expensive to rebuild',
                 'Too risky to replace',
