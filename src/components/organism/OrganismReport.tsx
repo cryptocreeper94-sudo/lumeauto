@@ -359,7 +359,7 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
               <p style={{ fontSize: '0.5rem', color: 'var(--text-dim)', marginTop: '8px', textAlign: 'center' }}>
                 {anchor.anchoredTo === 'CAL'
                   ? 'This report is sealed on the Cox Automotive Ledger. Any modification to the scan data will produce a different hash.'
-                  : anchor.anchoredTo === 'TrustLayer'
+                  : anchor.anchoredTo === 'VET'
                   ? 'This report is publicly verifiable via VET (Verified Enterprise Trust). Share the certificate ID for third-party verification.'
                   : 'Hash computed locally. Will be anchored to the ledger when network connectivity is available.'}
               </p>

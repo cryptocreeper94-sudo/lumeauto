@@ -4,7 +4,7 @@
  * Computes SHA-256 hash of condition reports and anchors them
  * to the appropriate ledger:
  *   - Enterprise (Manheim): Cox Automotive Ledger (CAL)
- *   - Consumer: Trust Layer (public verification)
+ *   - Consumer: VET — Verified Enterprise Trust (public verification)
  * 
  * The hash is computed client-side using the Web Crypto API.
  * The anchoring POST is fire-and-forget — the hash is the proof,
@@ -14,7 +14,7 @@
 export interface AnchorResult {
   hash: string;           // SHA-256 hex digest
   timestamp: string;      // ISO 8601
-  anchoredTo: 'CAL' | 'TrustLayer' | 'local';
+  anchoredTo: 'CAL' | 'VET' | 'local';
   certificateId: string;  // UUID
   status: 'anchored' | 'pending' | 'local-only';
 }
@@ -28,7 +28,7 @@ const isEnterprise = (): boolean => {
 
 // CAL API (Render deployment or local)
 const CAL_API_URL = 'https://cox-automotive-ledger.onrender.com/api';
-const TRUST_LAYER_URL = 'https://trust-layer.onrender.com/api';
+const VET_API_URL = 'https://vet-ledger.onrender.com/api';
 
 /**
  * Compute SHA-256 hash of any object.
@@ -60,7 +60,7 @@ function generateCertId(): string {
  * Flow:
  * 1. Serialize the report deterministically
  * 2. Compute SHA-256 hash
- * 3. POST to CAL (enterprise) or Trust Layer (consumer)
+ * 3. POST to CAL (enterprise) or VET (external verification)
  * 4. Return the anchor result with hash + certificate ID
  * 
  * If the ledger is unreachable, returns local-only status
@@ -90,8 +90,8 @@ export async function anchorReport(report: any, context?: {
 
   // Determine target
   const enterprise = isEnterprise();
-  const targetUrl = enterprise ? CAL_API_URL : TRUST_LAYER_URL;
-  const anchoredTo = enterprise ? 'CAL' as const : 'TrustLayer' as const;
+  const targetUrl = enterprise ? CAL_API_URL : VET_API_URL;
+  const anchoredTo = enterprise ? 'CAL' as const : 'VET' as const;
 
   // Attempt to anchor
   try {

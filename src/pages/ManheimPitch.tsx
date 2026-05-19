@@ -8,7 +8,7 @@ import CoxLedgerSection from '../components/manheim/CoxLedgerSection';
 import LotOpsProSection from '../components/manheim/LotOpsProSection';
 import ArchitectureSection from '../components/manheim/ArchitectureSection';
 import LumeLanguageSection from '../components/manheim/LumeLanguageSection';
-import VETSection from '../components/manheim/TrustLayerSection';
+import VETSection from '../components/manheim/VETSection';
 import AppShowcase from '../components/manheim/AppShowcase';
 import HardwareSection from '../components/manheim/HardwareSection';
 import MeridianTeaser from '../components/manheim/MeridianTeaser';
