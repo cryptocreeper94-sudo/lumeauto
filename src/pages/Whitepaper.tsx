@@ -525,7 +525,7 @@ export default function Whitepaper() {
               DarkWave Studios LLC is the research and engineering organization behind the Lume ecosystem. Founded on the principle that enterprise infrastructure should be deterministic, auditable, and mathematically provable, DarkWave develops the languages, runtimes, governance systems, and hardware that make this vision operational.
             </p>
             <p>
-              The technologies described in this document are not concepts or proposals. They are built and tested systems â€” the ledger is live, the governance wrapper is deployed, the organisms are running, and the diagnostic software is complete. Lot Ops Pro and OBD-II dongle field connectivity are ready for pilot validation.
+              The technologies described in this document are not concepts or proposals. They are built and validated systems â€” the ledger is live, the governance wrapper is deployed, the verification layer is running, and the diagnostic software is complete. Lot Ops Pro and OBD-II dongle field connectivity are ready for pilot validation.
             </p>
             <div style={{ marginTop: '2rem', padding: '1.5rem', border: '1px solid var(--border-light)', borderRadius: '8px', textAlign: 'center' }}>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-dim)', margin: 0 }}>

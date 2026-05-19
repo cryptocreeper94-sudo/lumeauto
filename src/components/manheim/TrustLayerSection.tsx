@@ -77,7 +77,7 @@ export default function TrustLayerSection() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0, maxWidth: '400px', margin: '0 auto' }}>
             {[
               { label: 'OBD-II Scan', sub: 'Raw sensor data captured', color: 'var(--accent-cyan)' },
-              { label: 'Organism Processing', sub: '42-node deterministic analysis', color: 'var(--accent-emerald)' },
+              { label: 'LumeScan Processing', sub: '42-node deterministic analysis', color: 'var(--accent-emerald)' },
               { label: 'CAL Anchor', sub: 'Tamper-proof record created', color: '#38bdf8' },
               { label: 'Trust Layer Certificate', sub: 'Cryptographic verification issued', color: accent },
               { label: 'Public Verification', sub: 'Independently verifiable by any party', color: '#fb923c' },

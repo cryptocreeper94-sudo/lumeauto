@@ -214,22 +214,27 @@ export default function ImplementationPath() {
 
         {/* CTA */}
         <motion.div {...fadeIn} transition={{ delay: 0.4 }} className="panel" style={{ padding: '3rem', textAlign: 'center', borderColor: 'rgba(16,185,129,0.25)', background: 'linear-gradient(180deg, rgba(16,185,129,0.05) 0%, rgba(16,185,129,0.01) 100%)', boxShadow: '0 10px 40px rgba(16,185,129,0.05)' }}>
-          <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: accent }}>Built. Tested. Ready to Deploy.</h3>
+          <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: accent }}>Built. Validated. Ready to Deploy.</h3>
           <p className="text-muted" style={{ maxWidth: '700px', margin: '0 auto', fontSize: '1rem', lineHeight: 1.7, marginBottom: '1.5rem' }}>
-            The infrastructure is built. The ledger is live. The governance wrapper is deployed. The organisms are running. This is not a proposal for future development — it is a deployment schedule for a pilot that validates the operational layer at a live facility.
+            The infrastructure is built. The ledger is live. The governance wrapper is deployed. The verification layer is running. This is not a proposal for future development — it is a deployment schedule for a pilot that validates the operational layer at a live facility.
           </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
-            <a href="/whitepaper" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', background: accent, color: '#0a0a0c', borderRadius: '10px', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none', transition: 'transform 0.2s' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'}>
+          <style>{`
+            .impl-cta-buttons { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+            .impl-cta-buttons a { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: transform 0.2s; min-width: 200px; }
+            @media (max-width: 768px) { .impl-cta-buttons { flex-direction: column; } .impl-cta-buttons a { width: 100%; } }
+          `}</style>
+          <div className="impl-cta-buttons">
+            <a href="/whitepaper" style={{ background: accent, color: '#0a0a0c' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'}>
               Read Full Whitepaper <ArrowRight size={14} />
             </a>
-            <a href="https://cal.tlid.io" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', background: 'transparent', border: '1px solid rgba(16,185,129,0.3)', color: accent, borderRadius: '10px', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none' }}>
+            <a href="https://cal.tlid.io" target="_blank" rel="noopener noreferrer" style={{ background: 'transparent', border: '1px solid rgba(16,185,129,0.3)', color: accent }}>
               View Live Ledger <ArrowRight size={14} />
             </a>
-            <a href="/engineering" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', background: 'transparent', border: '1px solid rgba(16,185,129,0.3)', color: accent, borderRadius: '10px', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none' }}>
+            <a href="/engineering" style={{ background: 'transparent', border: '1px solid rgba(16,185,129,0.3)', color: accent }}>
               Engineering Brief <ArrowRight size={14} />
             </a>
-            <a href="/app" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)', color: '#06b6d4', borderRadius: '10px', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none' }}>
-              <Activity size={14} /> Launch Organism
+            <a href="/app" style={{ background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)', color: '#06b6d4' }}>
+              <Activity size={14} /> Launch LumeScan
             </a>
           </div>
         </motion.div>

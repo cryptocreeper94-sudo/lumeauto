@@ -56,7 +56,7 @@ export default function OrganismApp() {
         }}>
           {[
             { id: 'dashboard' as Screen, icon: BarChart3, label: 'Dashboard' },
-            { id: 'organism' as Screen, icon: Cpu, label: 'Organism' },
+            { id: 'organism' as Screen, icon: Cpu, label: 'LumeScan' },
             { id: 'report' as Screen, icon: FileText, label: 'Report' },
           ].map(tab => {
             const active = screen === tab.id;
