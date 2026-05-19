@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, Children } from 'react';
+import { useState, useEffect, useCallback, Children, useRef } from 'react';
 import type { ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -33,6 +33,7 @@ export default function CardCarousel({
   const [isMobile, setIsMobile] = useState(false);
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [paused, setPaused] = useState(false);
   const items = Children.toArray(children);
   const count = items.length;
 
@@ -47,13 +48,13 @@ export default function CardCarousel({
 
   // Auto-advance
   useEffect(() => {
-    if (!isMobile || !autoPlay || autoPlay <= 0) return;
+    if (!isMobile || !autoPlay || autoPlay <= 0 || paused) return;
     const t = setInterval(() => {
       setDirection(1);
       setCurrent(i => (i + 1) % count);
     }, autoPlay);
     return () => clearInterval(t);
-  }, [isMobile, autoPlay, count]);
+  }, [isMobile, autoPlay, count, paused]);
 
   const prev = useCallback(() => {
     setDirection(-1);
@@ -152,14 +153,17 @@ export default function CardCarousel({
           ))}
         </div>
 
-        {/* Counter */}
-        <span style={{
-          fontSize: '0.65rem', color: 'var(--text-dim)',
-          fontFamily: 'var(--font-mono)',
-          minWidth: '32px', textAlign: 'center',
-        }}>
-          {current + 1}/{count}
-        </span>
+        {/* Pause / Play */}
+        {autoPlay > 0 && (
+          <button onClick={() => setPaused(p => !p)} aria-label={paused ? 'Play' : 'Pause'} style={{
+            width: '32px', height: '32px', borderRadius: '50%',
+            background: 'rgba(255,255,255,0.06)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            color: paused ? accentColor : 'var(--text-muted)', cursor: 'pointer',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            transition: 'all 0.2s', fontSize: '0.7rem', fontWeight: 700,
+          }}>{paused ? '▶' : '⏸'}</button>
+        )}
 
         <button onClick={next} aria-label="Next" style={{
           width: '32px', height: '32px', borderRadius: '50%',

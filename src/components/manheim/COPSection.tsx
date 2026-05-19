@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { Layers, Database, Shield, Hexagon, Download, Lock, Monitor, Cpu, HardDrive, Globe, ServerCog, Fingerprint, ChevronLeft, ChevronRight } from 'lucide-react';
 
 /**
@@ -36,74 +36,94 @@ function ModuleCard({ mod, style }: { mod: typeof modules[0]; style?: React.CSSP
 
 function ModuleCarousel() {
   const [active, setActive] = useState(0);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const isScrolling = useRef(false);
+  const [direction, setDirection] = useState(1);
+  const [paused, setPaused] = useState(false);
 
-  const scrollTo = (idx: number) => {
-    const clamped = Math.max(0, Math.min(idx, modules.length - 1));
-    setActive(clamped);
-    isScrolling.current = true;
-    if (scrollRef.current) {
-      const card = scrollRef.current.children[clamped] as HTMLElement;
-      if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    }
-    // Re-enable scroll listener after animation settles
-    setTimeout(() => { isScrolling.current = false; }, 400);
-  };
-
+  // Auto-advance every 5 seconds
   useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const handleScroll = () => {
-      if (isScrolling.current) return;
-      const scrollLeft = el.scrollLeft;
-      const cardWidth = el.children[0]?.clientWidth || 280;
-      const gap = 16;
-      const idx = Math.round(scrollLeft / (cardWidth + gap));
-      setActive(Math.max(0, Math.min(idx, modules.length - 1)));
-    };
-    el.addEventListener('scroll', handleScroll, { passive: true });
-    return () => el.removeEventListener('scroll', handleScroll);
-  }, []);
+    if (paused) return;
+    const t = setInterval(() => {
+      setDirection(1);
+      setActive(i => (i + 1) % modules.length);
+    }, 5000);
+    return () => clearInterval(t);
+  }, [paused]);
+
+  const goTo = (idx: number) => {
+    setDirection(idx > active ? 1 : -1);
+    setActive(idx);
+  };
+  const prev = () => { setDirection(-1); setActive(i => (i - 1 + modules.length) % modules.length); };
+  const next = () => { setDirection(1); setActive(i => (i + 1) % modules.length); };
+
+  // Touch swipe
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const handleTouchStart = (e: React.TouchEvent) => setTouchStart(e.touches[0].clientX);
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStart === null) return;
+    const diff = touchStart - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
+    setTouchStart(null);
+  };
 
   return (
     <div style={{ marginBottom: '3rem' }}>
-      {/* Scroll container */}
-      <div ref={scrollRef} style={{
-        display: 'flex', gap: '16px', overflowX: 'auto', scrollSnapType: 'x mandatory',
-        WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', padding: '4px 0',
-      }}>
-        <style>{`.cop-scroll::-webkit-scrollbar { display: none; }`}</style>
-        {modules.map((mod, i) => (
-          <div key={i} className="cop-scroll" style={{ scrollSnapAlign: 'center', flex: '0 0 85%', maxWidth: '320px' }}>
-            <ModuleCard mod={mod} style={{ height: '100%' }} />
-          </div>
-        ))}
+      {/* Card viewport */}
+      <div
+        style={{ position: 'relative', overflow: 'hidden', minHeight: '200px' }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, x: direction * 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -direction * 60 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+          >
+            <ModuleCard mod={modules[active]} />
+          </motion.div>
+        </AnimatePresence>
       </div>
 
-      {/* Navigation dots + arrows */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginTop: '1.25rem' }}>
-        <button
-          onClick={() => scrollTo(active - 1)}
-          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: active === 0 ? 'rgba(255,255,255,0.2)' : '#fff', transition: 'all 0.2s' }}
-          disabled={active === 0}
-        ><ChevronLeft size={16} /></button>
+      {/* Navigation: arrows + dots + pause */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '12px' }}>
+        <button onClick={prev} aria-label="Previous" style={{
+          width: 32, height: 32, borderRadius: '50%',
+          background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
+          color: 'var(--text-muted)', cursor: 'pointer',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s',
+        }}><ChevronLeft size={14} /></button>
 
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
           {modules.map((_, i) => (
-            <button key={i} onClick={() => scrollTo(i)} style={{
-              width: active === i ? 24 : 8, height: 8, borderRadius: 4,
-              background: active === i ? 'var(--accent-cyan)' : 'rgba(255,255,255,0.15)',
-              border: 'none', cursor: 'pointer', transition: 'all 0.3s ease', padding: 0,
-            }} />
+            <button key={i} onClick={() => goTo(i)} aria-label={`Module ${i + 1}`}
+              style={{
+                width: active === i ? '14px' : '6px', height: '6px',
+                borderRadius: '3px', border: 'none', cursor: 'pointer',
+                background: active === i ? 'var(--accent-cyan)' : 'rgba(255,255,255,0.15)',
+                transition: 'all 0.3s ease',
+              }}
+            />
           ))}
         </div>
 
-        <button
-          onClick={() => scrollTo(active + 1)}
-          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: active === modules.length - 1 ? 'rgba(255,255,255,0.2)' : '#fff', transition: 'all 0.2s' }}
-          disabled={active === modules.length - 1}
-        ><ChevronRight size={16} /></button>
+        {/* Pause / Play */}
+        <button onClick={() => setPaused(p => !p)} aria-label={paused ? 'Play' : 'Pause'} style={{
+          width: 32, height: 32, borderRadius: '50%',
+          background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
+          color: paused ? 'var(--accent-cyan)' : 'var(--text-muted)', cursor: 'pointer',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s',
+          fontSize: '0.7rem', fontWeight: 700,
+        }}>{paused ? '▶' : '⏸'}</button>
+
+        <button onClick={next} aria-label="Next" style={{
+          width: 32, height: 32, borderRadius: '50%',
+          background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
+          color: 'var(--text-muted)', cursor: 'pointer',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s',
+        }}><ChevronRight size={14} /></button>
       </div>
     </div>
   );

@@ -41,7 +41,7 @@ export default function CoxLedgerSection() {
           <h3 style={{ fontSize: '1.2rem', color: accent, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Database size={20} /> What CAL Does
           </h3>
-          <CardCarousel desktopColumns="repeat(auto-fit, minmax(300px, 1fr))" gap="1.25rem" accentColor={accent}>
+          <CardCarousel desktopColumns="repeat(auto-fit, minmax(300px, 1fr))" gap="1.25rem" autoPlay={5000} accentColor={accent}>
             {[
               { icon: <Fingerprint size={22} />, title: 'Records Operational Events', desc: 'Every vehicle scan, custody transfer, condition report, and workflow transition is sealed as a signed, timestamped, immutable record.' },
               { icon: <ShieldCheck size={22} />, title: 'Verifies Deterministic Workflows', desc: 'LUME-V governance decisions are anchored to the ledger — providing cryptographic proof that every output was produced deterministically.' },
@@ -157,7 +157,7 @@ export default function CoxLedgerSection() {
           <h3 style={{ fontSize: '1.2rem', color: accent, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <FileCheck size={20} /> What Gets Recorded
           </h3>
-          <CardCarousel desktopColumns="repeat(auto-fit, minmax(300px, 1fr))" gap="1.25rem" accentColor={accent}>
+          <CardCarousel desktopColumns="repeat(auto-fit, minmax(300px, 1fr))" gap="1.25rem" autoPlay={5000} accentColor={accent}>
             {[
               { icon: <Fingerprint size={22} />, title: 'Vehicle Custody Chain', desc: 'Every handoff — intake to lot, lot to lane, lane to transport — is recorded as a signed, timestamped transition. The full chain of custody is provable and immutable.' },
               { icon: <FileCheck size={22} />, title: 'Condition Certificates', desc: 'OBD-II scan results from LUME-Auto are sealed on-ledger at the moment of diagnosis. The same data that generated the report is cryptographically bound to it — permanently.' },
@@ -181,7 +181,7 @@ export default function CoxLedgerSection() {
             <p className="text-muted" style={{ lineHeight: 1.7, marginBottom: '1.5rem', fontSize: '0.92rem' }}>
               CAL stores <strong style={{ color: accent }}>cryptographic hashes</strong>, not raw data. No employee PII, compensation details, internal pricing, or competitive intelligence is written to the ledger in cleartext. The underlying records remain in Cox-controlled databases behind existing access control policies. The ledger proves integrity — the source systems store content.
             </p>
-            <CardCarousel desktopColumns="repeat(auto-fit, minmax(220px, 1fr))" gap="1rem" accentColor={accent}>
+            <CardCarousel desktopColumns="repeat(auto-fit, minmax(220px, 1fr))" gap="1rem" autoPlay={5000} accentColor={accent}>
               {[
                 { label: 'Hashes Only', desc: 'SHA-256 fingerprints + metadata pointers — never raw data', color: accent },
                 { label: 'Permissioned Access', desc: 'Facility managers see their facility. Corporate sees aggregate. Employees see their own records only.', color: 'var(--accent-emerald)' },

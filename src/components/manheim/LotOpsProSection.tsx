@@ -86,7 +86,7 @@ export default function LotOpsProSection() {
         {/* Three Systems — carousel on mobile */}
         <motion.div {...f} className="panel" style={{ padding: '2rem', borderColor: 'rgba(16,185,129,0.2)', background: 'linear-gradient(135deg, rgba(16,185,129,0.03) 0%, transparent 100%)', marginBottom: '2rem' }}>
           <h3 style={{ fontSize: '1.2rem', marginBottom: '1.25rem', textAlign: 'center' }}>Three Systems. One Platform.</h3>
-          <CardCarousel desktopColumns="repeat(3, 1fr)" gap="1.5rem" accentColor="var(--accent-emerald)">
+          <CardCarousel desktopColumns="repeat(3, 1fr)" gap="1.5rem" autoPlay={5000} accentColor="var(--accent-emerald)">
             {threeSystems.map((item, i) => (
               <SystemCard key={i} item={item} />
             ))}
