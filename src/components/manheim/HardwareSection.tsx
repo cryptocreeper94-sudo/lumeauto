@@ -11,7 +11,7 @@ export default function HardwareSection() {
 
           {/* Phase 1 */}
           <motion.div {...f} style={{ display: 'flex', flexDirection: 'column' }}>
-            <img src="/assets/images/photos/obd2_hardware.png" style={{ width: '100%', height: '220px', objectFit: 'cover', borderRadius: '16px', marginBottom: '1.5rem', border: '1px solid var(--border-light)' }} alt="OBD-II Diagnostic Adapter" />
+            <img src="/assets/images/photos/obd2_hardware.png" style={{ width: '100%', height: 'auto', objectFit: 'cover', borderRadius: '16px', marginBottom: '1.5rem', border: '1px solid var(--border-light)' }} alt="OBD-II Diagnostic Adapter" />
             <div style={{ color: 'var(--accent-cyan)', fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>Deploy Today · Zero Investment</div>
             <h3 style={{ fontSize: '1.6rem', marginBottom: '1rem' }}>Your Existing Hardware Works.</h3>
             <p className="text-muted" style={{ marginBottom: '1.5rem', lineHeight: 1.6, flex: 1, fontSize: '0.95rem' }}>
@@ -26,7 +26,7 @@ export default function HardwareSection() {
 
           {/* Phase 2 */}
           <motion.div {...f} transition={{ delay: 0.15 }} style={{ display: 'flex', flexDirection: 'column' }}>
-            <img src="/assets/images/phase2.png" style={{ width: '100%', height: '220px', objectFit: 'cover', borderRadius: '16px', marginBottom: '1.5rem', border: '1px solid rgba(251,146,60,0.3)' }} alt="Lume Dongle PCB" />
+            <img src="/assets/images/phase2.png" style={{ width: '100%', height: 'auto', objectFit: 'cover', borderRadius: '16px', marginBottom: '1.5rem', border: '1px solid rgba(251,146,60,0.3)' }} alt="Lume Dongle PCB" />
             <div style={{ color: '#fb923c', fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>Enterprise Hardware · Modular Architecture</div>
             <h3 style={{ fontSize: '1.6rem', marginBottom: '1rem' }}>The Lume Dongle.</h3>
             <p className="text-muted" style={{ marginBottom: '1.5rem', lineHeight: 1.6, flex: 1, fontSize: '0.95rem' }}>
