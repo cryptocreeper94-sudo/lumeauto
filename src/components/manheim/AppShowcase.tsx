@@ -25,8 +25,8 @@ export default function AppShowcase() {
     <section style={{ padding: '5rem 0', borderTop: '1px solid var(--border-light)', borderBottom: '1px solid var(--border-light)', background: 'linear-gradient(180deg, rgba(56,189,248,0.03) 0%, var(--bg-dark) 100%)' }}>
       <div className="container" style={{ maxWidth: '1100px' }}>
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <p style={{ color: 'var(--accent-cyan)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>The Application</p>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>LUME-Auto in Action</h2>
+          <p style={{ color: 'var(--accent-cyan)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>LUME-Auto Application</p>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>LumeScan in Action</h2>
           <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto', lineHeight: 1.7 }}>
             Four primary interfaces. Every screen is a window into the deterministic mesh — not a static dashboard, but a live view of a self-governing runtime.
           </p>

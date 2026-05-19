@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { Layers, Database, Shield, Hexagon, Download, Lock, Monitor, Cpu, HardDrive, Globe, ServerCog, Fingerprint, ChevronLeft, ChevronRight, ShieldCheck } from 'lucide-react';
+import { Layers, Database, Shield, Hexagon, Download, Lock, Monitor, Cpu, HardDrive, Globe, ServerCog, Fingerprint, ChevronLeft, ChevronRight, ShieldCheck, Pause, Play } from 'lucide-react';
 
 /**
  * COPSection — Introduces the Cox Operational Platform (COP)
@@ -39,12 +39,12 @@ function ModuleCarousel() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
-  // Auto-advance every 5 seconds
+  // Auto-advance every 8 seconds
   useEffect(() => {
     if (paused) return;
     const t = setInterval(() => {
       setActive(i => (i + 1) % modules.length);
-    }, 5000);
+    }, 8000);
     return () => clearInterval(t);
   }, [paused]);
 
@@ -135,6 +135,16 @@ function ModuleCarousel() {
           color: 'var(--text-muted)', cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s',
         }}><ChevronRight size={14} /></button>
+
+        <button onClick={() => setPaused(!paused)} aria-label={paused ? 'Play' : 'Pause'} style={{
+          width: 32, height: 32, borderRadius: '50%',
+          background: paused ? 'rgba(6,182,212,0.1)' : 'rgba(255,255,255,0.06)', 
+          border: paused ? '1px solid rgba(6,182,212,0.3)' : '1px solid rgba(255,255,255,0.1)',
+          color: paused ? 'var(--accent-cyan)' : 'var(--text-muted)', cursor: 'pointer',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s',
+        }}>
+          {paused ? <Play size={12} /> : <Pause size={12} />}
+        </button>
       </div>
     </div>
   );

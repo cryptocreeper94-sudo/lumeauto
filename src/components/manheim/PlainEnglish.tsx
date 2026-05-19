@@ -24,7 +24,7 @@ export default function PlainEnglish() {
             display: 'flex', alignItems: 'center', gap: '8px',
           }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent-emerald)', display: 'inline-block' }} />
-            Before We Go Further
+            Before I Go Further
           </div>
 
           <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem', lineHeight: 1.3 }}>
@@ -81,13 +81,11 @@ export default function PlainEnglish() {
                 }}>
                   <Link2 size={16} color="#38bdf8" />
                 </div>
-                <span style={{ fontWeight: 700, fontSize: '0.95rem' }}>The ledger is not a blockchain.</span>
+                <span style={{ fontWeight: 700, fontSize: '0.95rem' }}>The ledgers are not public blockchains.</span>
               </div>
               <p style={{ fontSize: '0.88rem', lineHeight: 1.75, color: 'var(--text-muted)', margin: 0 }}>
-                When I say "ledger," I mean a private, tamper-proof record book — not cryptocurrency, not tokens, not Bitcoin, not anything public. 
-                Think of it like a notarized logbook that lives on your own servers. Every time a vehicle changes hands, gets scanned, or moves through a lane, 
-                that event gets a timestamped, tamper-evident record. No one outside your network can see it. No one can alter it after the fact. 
-                It's just a better way to keep records that can't be disputed.
+                When I say "ledger," I mean a private, tamper-proof record book — not cryptocurrency, not tokens, not Bitcoin. 
+                I built a <strong>dual-ledger architecture</strong> to completely isolate your data. The <strong>Cox Automotive Ledger (CAL)</strong> is strictly internal: a notarized logbook on your own servers tracking every lane move and scan. The <strong>Verified Enterprise Trust (VET)</strong> ledger is external: a secure way to cryptographically prove vehicle condition to buyers and financing partners without ever exposing your internal operations. No one can alter the records after the fact. It's simply a better way to keep data that can't be disputed.
               </p>
             </div>
 
@@ -109,10 +107,10 @@ export default function PlainEnglish() {
                 <span style={{ fontWeight: 700, fontSize: '0.95rem' }}>So what is it?</span>
               </div>
               <p style={{ fontSize: '0.88rem', lineHeight: 1.75, color: 'var(--text-muted)', margin: 0 }}>
-                It's an infrastructure layer that sits on top of what Manheim already runs. It doesn't replace anything. 
-                It adds three capabilities that complement existing operations: sensor-verified condition reports with cryptographic proof, 
-                a tamper-evident custody record for every vehicle transition, and a mobile operational platform that works on 
-                phones your drivers already own or an inexpensive browser-based device. Every piece works on its own. You don't have to adopt the whole thing to get value from one part.
+                It's an infrastructure layer that sits on top of what Manheim already runs. It doesn't replace your systems. 
+                It adds modular capabilities that complement existing operations: deterministic condition reports via <strong>LumeScan</strong>, 
+                the tamper-evident dual-ledger (<strong>CAL/VET</strong>) for internal operations and external buyer trust, and a mobile-first 
+                platform that works on the phones your drivers already carry. Every piece works on its own. You don't have to adopt the whole thing to get value from one part.
               </p>
             </div>
 

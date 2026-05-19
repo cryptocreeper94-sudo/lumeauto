@@ -27,34 +27,30 @@ export default function ManheimPitch() {
       <PersonalNote />
       {/* Plain-English explainer — kills AI/blockchain fears before they start */}
       <PlainEnglish />
-      {/* 3. COP — The Unified OS Wrapper */}
+
+      {/* 2. THE PLATFORM (The Daily Operations) */}
       <COPSection />
-      {/* 4. LUME-V — Modernization Wrapper */}
       <LumeVSection />
-      {/* 3. Cox Automotive Ledger — Enterprise Trust Fabric */}
-      <CoxLedgerSection />
-      {/* 4. Lot Ops Pro — Operational OS */}
       <LotOpsProSection />
-      {/* 5. LUME-Native Runtime / Deterministic Substrate */}
-      <ArchitectureSection />
-      {/* 6. Synthetic Organisms / Deterministic Mathematics */}
+
+      {/* 3. THE ENGINE (Lume Core & LumeScan) */}
       <LumeLanguageSection />
-      {/* 7. VET — Verified Enterprise Trust */}
-      <VETSection />
-      {/* 8. LUME-Auto — OBD-II Organism */}
+      <ArchitectureSection />
       <AppShowcase />
-      {/* 9. Hardware */}
+
+      {/* 4. THE LEDGERS (Data & Trust) */}
+      <CoxLedgerSection />
+      <VETSection />
+
+      {/* 5. DEPLOYMENT & ROADMAP */}
       <HardwareSection />
-      {/* 10. Meridian — Future Wireless Energy Layer */}
-      <MeridianTeaser />
-      {/* 10.5. Enterprise Mesh — Future Sovereign Chain Network */}
-      <EnterpriseMeshTeaser />
-      {/* 11. Academic / Patent / DOI Section */}
-      <EcosystemCTA />
-      {/* 12. Platform Roadmap — Future Native COP Apps */}
-      <PlatformRoadmap />
-      {/* 13. Manheim-Specific Implementation Path */}
       <ImplementationPath />
+      <PlatformRoadmap />
+
+      {/* 6. THE FINALE (Future Ecosystem) */}
+      <EcosystemCTA />
+      <MeridianTeaser />
+      <EnterpriseMeshTeaser />
     </div>
   );
 }
