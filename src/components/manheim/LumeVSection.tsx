@@ -89,7 +89,7 @@ export default function LumeVSection() {
               {[
                 { text: 'Modern APIs and unified workflows' },
                 { text: 'Deterministic logic & cross-system automation' },
-                { text: 'Trust Layer & LUME-Auto Integration' },
+                { text: 'VET & LUME-Auto Integration' },
                 { text: 'Future Meridian Integration' },
                 { text: 'Modernization without disruption' }
               ].map((item, i) => (

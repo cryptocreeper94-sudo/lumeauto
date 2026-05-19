@@ -185,7 +185,7 @@ export default function CoxLedgerSection() {
               {[
                 { label: 'Hashes Only', desc: 'SHA-256 fingerprints + metadata pointers — never raw data', color: accent },
                 { label: 'Permissioned Access', desc: 'Facility managers see their facility. Corporate sees aggregate. Employees see their own records only.', color: 'var(--accent-emerald)' },
-                { label: 'Zero External Exposure', desc: 'Nothing on CAL is accessible outside the Cox network. Trust Layer certificates expose only what Cox approves.', color: '#f87171' },
+                { label: 'Zero External Exposure', desc: 'Nothing on CAL is accessible outside the Cox network. VET certificates expose only what Cox approves.', color: '#f87171' },
                 { label: 'Tamper-Proof Proof', desc: 'If a source record is modified after anchoring, the hash mismatch is instantly detectable.', color: '#38bdf8' },
               ].map((item, i) => (
                 <div key={i} style={{ padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '10px', border: `1px solid ${accentDim}`, height: '100%' }}>

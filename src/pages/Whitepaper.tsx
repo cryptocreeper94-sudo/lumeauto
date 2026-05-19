@@ -74,7 +74,7 @@ export default function Whitepaper() {
                   'Cox Automotive Ledger (CAL)',
                   'Lot Ops Pro â€” Operational Platform',
                   'LUME-Auto â€” Diagnostic Organism',
-                  'Trust Layer â€” Commercial Verification',
+                  'VET — Verified Enterprise Trust',
                   'Technical Foundation â€” Lume Core & Self-Healing Runtime',
                   'Meridian â€” Wireless Energy Infrastructure',
                   'Implementation Path',
@@ -104,7 +104,7 @@ export default function Whitepaper() {
               <li><strong>Cox Automotive Ledger (CAL)</strong> â€” A private, permissioned cryptographic ledger for enterprise-grade auditability</li>
               <li><strong>Lot Ops Pro</strong> â€” A real-time operational platform for vehicle custody, driver management, and workflow orchestration</li>
               <li><strong>LUME-Auto</strong> â€” A full OBD-II diagnostic scanner and governance organism. Reads and clears trouble codes, captures freeze frame data, auto-reads VINs from the ECU, and produces cryptographically verifiable condition reports in 45 seconds. Supports both Bluetooth and WiFi adapters.</li>
-              <li><strong>Trust Layer</strong> â€” A commercial verification system that issues publicly verifiable certificates from internal CAL records</li>
+              <li><strong>VET (Verified Enterprise Trust)</strong> â€” A commercial verification system that issues publicly verifiable certificates from internal CAL records</li>
             </ul>
             <p>
               Each component is designed to operate independently and deliver measurable value on its own. When deployed together, they form a unified intelligence layer that extends Manheim's current infrastructure with capabilities no single vendor has previously offered in automotive wholesale.
@@ -149,7 +149,7 @@ export default function Whitepaper() {
                     ['Trust', 'CAL', 'Private cryptographic ledger for operational records'],
                     ['Operations', 'Lot Ops Pro', 'Workforce, custody, and workflow management'],
                     ['Diagnostics', 'LUME-Auto', 'OBD-II vehicle intelligence and condition reporting'],
-                    ['Verification', 'Trust Layer', 'Commercial-facing certificate issuance'],
+                    ['Verification', 'VET', 'Commercial-facing certificate issuance'],
                     ['Runtime', 'Lume Language', 'Deterministic programming substrate'],
                   ].map(([layer, component, fn], i) => (
                     <tr key={i} style={{ borderBottom: '1px solid var(--border-light)' }}>
@@ -162,7 +162,7 @@ export default function Whitepaper() {
               </table>
             </div>
             <p>
-              The architecture is modular by design. Each layer can be deployed independently, and each produces value on its own. However, the full power of the system emerges when layers interact â€” LUME-Auto feeds diagnostic data through LUME-V governance, which anchors results on CAL, which issues Trust Layer certificates, all while Lot Ops Pro orchestrates the physical operations that produce these events.
+              The architecture is modular by design. Each layer can be deployed independently, and each produces value on its own. However, the full power of the system emerges when layers interact â€” LUME-Auto feeds diagnostic data through LUME-V governance, which anchors results on CAL, which issues VET certificates, all while Lot Ops Pro orchestrates the physical operations that produce these events.
             </p>
           </WpSection>
 
@@ -216,7 +216,7 @@ export default function Whitepaper() {
               <li><strong>Verified but private</strong> â€” any authorized party can confirm a record hasn't been altered, but cannot read the record itself without proper access</li>
               <li><strong>Separation of proof and data</strong> â€” the hash proves integrity; the source database stores content. If the source is modified after anchoring, the hash mismatch is detectable.</li>
               <li><strong>Permissioned read access</strong> â€” facility managers see their facility. Corporate sees the aggregate. Employees see only records that affect them. The ledger enforces the same access hierarchy that already exists â€” it does not create new visibility into data that was previously restricted.</li>
-              <li><strong>Zero external exposure</strong> â€” nothing on CAL is accessible outside the Cox network. The Trust Layer, if enabled, issues verification certificates from CAL data â€” but the certificates contain only what Cox chooses to make verifiable. The underlying data never leaves the private network.</li>
+              <li><strong>Zero external exposure</strong> â€” nothing on CAL is accessible outside the Cox network. VET, if enabled, issues verification certificates from CAL data â€” but the certificates contain only what Cox chooses to make verifiable. The underlying data never leaves the private network.</li>
             </ul>
             <h4>Employee Hash Receipts</h4>
             <p>
@@ -319,10 +319,10 @@ export default function Whitepaper() {
             </p>
           </WpSection>
 
-          {/* 8. Trust Layer */}
-          <WpSection num={8} title="Trust Layer â€” Commercial Verification">
+          {/* 8. VET */}
+          <WpSection num={8} title="VET â€” Verified Enterprise Trust">
             <p>
-              The Trust Layer is the outward-facing verification system that turns internal CAL records into commercially provable certificates. It gives buyers, dealers, and financing partners cryptographic confidence in a vehicle's condition and history â€” without requiring access to the internal ledger.
+              VET is the outward-facing verification ledger that turns internal CAL records into commercially provable certificates. It gives buyers, dealers, and financing partners cryptographic confidence in a vehicle's condition and history â€” without requiring access to the internal ledger.
             </p>
             <h4>Capabilities</h4>
             <ul>
@@ -332,11 +332,11 @@ export default function Whitepaper() {
             </ul>
             <h4>Chain of Trust</h4>
             <p>
-              Every certificate follows a provable chain: OBD-II Scan â†’ Organism Processing â†’ CAL Anchor â†’ Trust Layer Certificate â†’ Public Verification. Each step is cryptographically linked to the previous one. There are no gaps in provenance, no manual steps, and no opportunity for data to be altered between capture and certificate issuance.
+              Every certificate follows a provable chain: OBD-II Scan â†’ Organism Processing â†’ CAL Anchor â†’ VET Certificate â†’ Public Verification. Each step is cryptographically linked to the previous one. There are no gaps in provenance, no manual steps, and no opportunity for data to be altered between capture and certificate issuance.
             </p>
             <h4>Architectural Distinction</h4>
             <p>
-              The Trust Layer is architecturally distinct from CAL. CAL is the private, internal operational ledger that Cox controls â€” it records everything but exposes nothing. The Trust Layer is the commercial-facing verification layer that issues publicly confirmable certificates derived from CAL records. This separation ensures that Cox maintains full control over its operational data while still providing commercially useful verification to external parties.
+              VET is architecturally distinct from CAL. CAL is the private, internal operational ledger that Cox controls â€” it records everything but exposes nothing. VET is the commercial-facing verification ledger that issues publicly confirmable certificates derived from CAL records. This separation ensures that Cox maintains full control over its operational data while still providing commercially useful verification to external parties.
             </p>
           </WpSection>
 
@@ -392,7 +392,7 @@ export default function Whitepaper() {
 
             <h4>Edge-Native Execution</h4>
             <p>
-              Lume organisms run on the device. There is no cloud dependency in the critical path. A complete vehicle diagnosis executes in 45 seconds on a phone connected to a commodity OBD-II dongle â€” no internet connection required, no API latency, no server costs. The cloud is used for anchoring results to CAL and issuing Trust Layer certificates, but the intelligence itself is fully edge-native.
+              Lume organisms run on the device. There is no cloud dependency in the critical path. A complete vehicle diagnosis executes in 45 seconds on a phone connected to a commodity OBD-II dongle â€” no internet connection required, no API latency, no server costs. The cloud is used for anchoring results to CAL and issuing VET certificates, but the intelligence itself is fully edge-native.
             </p>
 
             <h4>Deterministic Replay</h4>
@@ -442,10 +442,10 @@ export default function Whitepaper() {
             </ul>
             <h4>Platform Integration</h4>
             <p>
-              Meridian is not a separate system. It runs on the same Lume runtime, uses the same 4/42 organism architecture, is governed by the same LUME-V wrapper, and anchors its records to the same CAL ledger. Energy routing is deterministic. Billing is cryptographically verified through the Trust Layer. Lot Ops Pro coordinates charging schedules with vehicle movement.
+              Meridian is not a separate system. It runs on the same Lume runtime, uses the same 4/42 organism architecture, is governed by the same LUME-V wrapper, and anchors its records to the same CAL ledger. Energy routing is deterministic. Billing is cryptographically verified through VET. Lot Ops Pro coordinates charging schedules with vehicle movement.
             </p>
             <p>
-              The Meridian architecture is fully documented in published research (DOI: 10.5281/zenodo.20028362) and covered by US Provisional Patent 64/056,378. Meridian is the next deployment phase â€” the governance layer, the ledger, the trust layer, the runtime, and the diagnostic software are built and operational today.
+              The Meridian architecture is fully documented in published research (DOI: 10.5281/zenodo.20028362) and covered by US Provisional Patent 64/056,378. Meridian is the next deployment phase â€” the governance layer, the ledger, the VET, the runtime, and the diagnostic software are built and operational today.
             </p>
           </WpSection>
 
@@ -458,7 +458,7 @@ export default function Whitepaper() {
               {[
                 { phase: 'Phase 1 â€” Weeks 1-4', title: 'Telemetry Capture & Baseline', desc: 'Deploy commodity ELM327 OBD-II adapters at pilot facility. Capture 42-signal telemetry from 500â€“1,000 vehicles. Generate automated condition reports. Validate scan accuracy against existing inspection reports.' },
                 { phase: 'Phase 2 â€” Weeks 4-8', title: 'Lot Intelligence & Workflow Integration', desc: 'Enable real-time lane readiness dashboards. Activate dead-battery, cold-start, and pending-fault detection. Integrate transport pre-dispatch health reports and reconditioning work orders. Begin arbitration reduction tracking.' },
-                { phase: 'Phase 3 â€” Weeks 8-12', title: 'CAL Integration & Trust Certificates', desc: 'Activate Cox Automotive Ledger validators. Anchor all condition certificates on-ledger with cryptographic proof. Deploy LUME-V governance wrapper. Issue Trust Layer certificates for buyer-facing verification.' },
+                { phase: 'Phase 3 â€” Weeks 8-12', title: 'CAL Integration & Trust Certificates', desc: 'Activate Cox Automotive Ledger validators. Anchor all condition certificates on-ledger with cryptographic proof. Deploy LUME-V governance wrapper. Issue VET certificates for buyer-facing verification.' },
                 { phase: 'Phase 4 â€” Weeks 12-16', title: 'Network Intelligence & Multi-Facility', desc: 'Full-lot predictive throughput modeling and population health analytics. Cross-facility health scoring and benchmarking. Expand to additional Manheim locations with proven playbook.' },
               ].map((p, i) => (
                 <div key={i} style={{ padding: '1rem 1.25rem', border: '1px solid var(--border-light)', borderRadius: '8px' }}>

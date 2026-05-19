@@ -8,7 +8,7 @@ import CoxLedgerSection from '../components/manheim/CoxLedgerSection';
 import LotOpsProSection from '../components/manheim/LotOpsProSection';
 import ArchitectureSection from '../components/manheim/ArchitectureSection';
 import LumeLanguageSection from '../components/manheim/LumeLanguageSection';
-import TrustLayerSection from '../components/manheim/TrustLayerSection';
+import VETSection from '../components/manheim/TrustLayerSection';
 import AppShowcase from '../components/manheim/AppShowcase';
 import HardwareSection from '../components/manheim/HardwareSection';
 import MeridianTeaser from '../components/manheim/MeridianTeaser';
@@ -39,8 +39,8 @@ export default function ManheimPitch() {
       <ArchitectureSection />
       {/* 6. Synthetic Organisms / Deterministic Mathematics */}
       <LumeLanguageSection />
-      {/* 7. Trust Layer — Commercial Verification Chain */}
-      <TrustLayerSection />
+      {/* 7. VET — Verified Enterprise Trust */}
+      <VETSection />
       {/* 8. LUME-Auto — OBD-II Organism */}
       <AppShowcase />
       {/* 9. Hardware */}

@@ -33,7 +33,7 @@ const PHASES = [
       'Activate Cox Automotive Ledger validators at pilot facility',
       'Anchor all condition certificates on-ledger with cryptographic proof',
       'Deploy LUME-V governance wrapper over existing operational workflows',
-      'Issue Trust Layer certificates for buyer-facing vehicle verification',
+      'Issue VET certificates for buyer-facing vehicle verification',
     ],
   },
   {
@@ -193,7 +193,7 @@ export default function ImplementationPath() {
               { title: 'LUME-Auto', desc: 'OBD-II diagnostics and condition reporting — standalone hardware and software.', color: 'var(--accent-cyan)' },
               { title: 'Lot Ops Pro', desc: 'Operational workforce platform — custody tracking, routing, messaging.', color: '#38bdf8' },
               { title: 'LUME-V', desc: 'Deterministic governance wrapper — operates across any legacy enterprise stack.', color: 'var(--accent-emerald)' },
-              { title: 'CAL + Trust Layer', desc: 'Private ledger and commercial verification — the cryptographic audit fabric.', color: '#38bdf8' },
+              { title: 'CAL + VET', desc: 'Private ledger and commercial verification — the cryptographic audit fabric.', color: '#38bdf8' },
               { title: 'Meridian', desc: 'Wireless energy routing — EV charging, powered signage, and lot infrastructure.', color: '#dc2626' },
               { title: 'Unified Platform', desc: 'When deployed together, every component amplifies the others — the whole exceeds the sum of its parts.', color: '#fb923c' },
             ].map((mod, i) => (

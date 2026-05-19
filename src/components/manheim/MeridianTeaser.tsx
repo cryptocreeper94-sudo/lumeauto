@@ -62,7 +62,7 @@ export default function MeridianTeaser() {
                 'Same 4/42 fractal organism architecture',
                 'Energy routing governed by LUME-V',
                 'Every transaction anchored to CAL',
-                'Trust Layer certificates for energy billing',
+                'VET certificates for energy billing',
                 'Lot Ops Pro coordinates charging schedules',
               ].map((item, i) => (
                 <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem', color: 'var(--text-main)' }}>

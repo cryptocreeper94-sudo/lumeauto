@@ -8,7 +8,7 @@ const accentDim = 'rgba(6,182,212,0.10)';
 const accentBorder = 'rgba(6,182,212,0.20)';
 const accentBorderHover = 'rgba(6,182,212,0.45)';
 
-export default function TrustLayerSection() {
+export default function VETSection() {
   return (
     <section style={{ padding: '6rem 0', position: 'relative', overflow: 'hidden', background: 'var(--bg-dark)', borderBottom: '1px solid var(--border-light)' }}>
       {/* Background glow */}
@@ -21,18 +21,18 @@ export default function TrustLayerSection() {
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
           <motion.div {...fadeIn}>
             <div style={{ display: 'inline-flex', alignItems: 'center', padding: '6px 14px', background: accentDim, border: `1px solid ${accentBorder}`, borderRadius: '20px', fontSize: '0.75rem', color: accent, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' as const, marginBottom: '1.5rem' }}>
-              <Shield size={14} style={{ marginRight: 6 }} /> Commercial Verification Layer
+              <Shield size={14} style={{ marginRight: 6 }} /> External Verification Ledger
             </div>
             <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '1.25rem', lineHeight: 1.1 }}>
-              Trust Layer
+              VET <span style={{ fontSize: '0.5em', fontWeight: 400, color: 'var(--text-dim)', verticalAlign: 'middle' }}>Verified Enterprise Trust</span>
             </h2>
             <p className="text-muted" style={{ maxWidth: '800px', margin: '0 auto', fontSize: '1.1rem', lineHeight: 1.7 }}>
-              The outward-facing verification system that turns internal CAL records into commercially provable certificates — giving buyers, dealers, and financing partners cryptographic confidence in every vehicle's history.
+              The outward-facing verification ledger that turns internal CAL records into commercially provable certificates — giving buyers, dealers, and financing partners cryptographic confidence in every vehicle's history.
             </p>
           </motion.div>
         </div>
 
-        {/* CAL vs Trust Layer distinction */}
+        {/* CAL vs VET distinction */}
         <motion.div {...fadeIn} transition={{ delay: 0.1 }} className="panel" style={{ padding: '2.5rem', marginBottom: '3rem', borderColor: accentBorder, background: `linear-gradient(180deg, ${accentDim} 0%, transparent 100%)` }}>
           <h3 style={{ fontSize: '1.2rem', marginBottom: '1.25rem', color: accent, display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Layers size={20} /> How It Relates to CAL
@@ -45,7 +45,7 @@ export default function TrustLayerSection() {
               </p>
             </div>
             <div>
-              <h4 style={{ fontSize: '1rem', marginBottom: '0.5rem', color: accent }}>Trust Layer — External</h4>
+              <h4 style={{ fontSize: '1rem', marginBottom: '0.5rem', color: accent }}>VET — External</h4>
               <p className="text-muted" style={{ fontSize: '0.9rem', lineHeight: 1.6 }}>
                 The commercial verification layer that issues publicly verifiable certificates derived from CAL records. Dealers, buyers, and partners can confirm a vehicle's condition and custody history — without accessing the internal ledger.
               </p>
@@ -53,12 +53,12 @@ export default function TrustLayerSection() {
           </div>
         </motion.div>
 
-        {/* What Trust Layer provides */}
+        {/* What VET provides */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.25rem', marginBottom: '3rem' }}>
           {[
-            { icon: <FileCheck size={22} />, title: 'Verifiable Condition Certificates', desc: 'Every LUME-Auto scan produces a cryptographically signed certificate. Dealers and buyers can verify authenticity with a hash lookup — no login, no account, no API integration required.' },
-            { icon: <Shield size={22} />, title: 'Provenance Without Exposure', desc: 'The Trust Layer proves a vehicle was scanned, by whom, and when — without revealing internal operational data, facility workflows, or proprietary diagnostics.' },
-            { icon: <Globe size={22} />, title: 'Cross-Platform Portability', desc: 'Trust Layer certificates are portable across Autotrader listings, dealer management systems, and financing platforms. The verification travels with the vehicle, not the system.' },
+            { icon: <FileCheck size={22} />, title: 'Verifiable Condition Certificates', desc: 'Every LumeScan diagnostic produces a cryptographically signed certificate. Dealers and buyers can verify authenticity with a hash lookup — no login, no account, no API integration required.' },
+            { icon: <Shield size={22} />, title: 'Provenance Without Exposure', desc: 'VET proves a vehicle was scanned, by whom, and when — without revealing internal operational data, facility workflows, or proprietary diagnostics.' },
+            { icon: <Globe size={22} />, title: 'Cross-Platform Portability', desc: 'VET certificates are portable across Autotrader listings, dealer management systems, and financing platforms. The verification travels with the vehicle, not the system.' },
           ].map((item, i) => (
             <motion.div key={i} {...fadeIn} transition={{ delay: 0.15 + i * 0.08 }}
               style={{ padding: '1.75rem', background: 'rgba(255,255,255,0.02)', border: `1px solid ${accentDim}`, borderRadius: '16px', transition: 'border-color 0.3s' }}
@@ -79,7 +79,7 @@ export default function TrustLayerSection() {
               { label: 'OBD-II Scan', sub: 'Raw sensor data captured', color: 'var(--accent-cyan)' },
               { label: 'LumeScan Processing', sub: '42-node deterministic analysis', color: 'var(--accent-emerald)' },
               { label: 'CAL Anchor', sub: 'Tamper-proof record created', color: '#38bdf8' },
-              { label: 'Trust Layer Certificate', sub: 'Cryptographic verification issued', color: accent },
+              { label: 'VET Certificate', sub: 'Cryptographic verification issued', color: accent },
               { label: 'Public Verification', sub: 'Independently verifiable by any party', color: '#fb923c' },
             ].map((step, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'stretch', gap: '1rem' }}>

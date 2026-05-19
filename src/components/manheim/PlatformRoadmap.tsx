@@ -29,7 +29,7 @@ const PHASES = [
     glow: 'rgba(167,139,250,0.06)',
     apps: [
       { icon: <Truck size={20} />, name: 'Fleet OS', desc: 'Internal fleet and asset management — maintenance scheduling, service history tracking, asset utilization analytics, and fleet health monitoring. The same deterministic diagnostic pipeline that powers LumeScan applied to Cox\'s own operational vehicles and equipment.' },
-      { icon: <Fingerprint size={20} />, name: 'Identity OS', desc: 'Enterprise identity, permissions, and role governance. Bridges internal authentication (Okta, Azure AD) with the Trust Layer\'s external verification system, providing a single identity framework across all COP applications with ledger-anchored access control.' },
+      { icon: <Fingerprint size={20} />, name: 'Identity OS', desc: 'Enterprise identity, permissions, and role governance. Bridges internal authentication (Okta, Azure AD) with VET\'s external verification system, providing a single identity framework across all COP applications with ledger-anchored access control.' },
       { icon: <Search size={20} />, name: 'CAL Explorer', desc: 'A full-featured ledger analytics application — block inspection, validator health, operational audit trails, and cross-system event tracing. Gives compliance teams and operations leadership direct visibility into every recorded event across the enterprise.' },
       { icon: <Zap size={20} />, name: 'Meridian Energy', desc: 'Wireless energy routing and management for lot infrastructure. Overhead anchor nodes deliver metered power to EV charging stations, lighting, and operational equipment. Every watt is tracked, timestamped, and ledger-verified — the same deterministic trust applied to energy that the CAL applies to vehicle records.' },
     ],
