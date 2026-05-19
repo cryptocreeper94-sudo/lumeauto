@@ -37,20 +37,25 @@ function ModuleCard({ mod, style }: { mod: typeof modules[0]; style?: React.CSSP
 function ModuleCarousel() {
   const [active, setActive] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const isScrolling = useRef(false);
 
   const scrollTo = (idx: number) => {
     const clamped = Math.max(0, Math.min(idx, modules.length - 1));
     setActive(clamped);
+    isScrolling.current = true;
     if (scrollRef.current) {
       const card = scrollRef.current.children[clamped] as HTMLElement;
       if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
+    // Re-enable scroll listener after animation settles
+    setTimeout(() => { isScrolling.current = false; }, 400);
   };
 
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
     const handleScroll = () => {
+      if (isScrolling.current) return;
       const scrollLeft = el.scrollLeft;
       const cardWidth = el.children[0]?.clientWidth || 280;
       const gap = 16;
@@ -189,7 +194,11 @@ export default function COPSection() {
               Every process — from vehicle scanning to driver routing to ledger verification — executes locally with zero cloud latency. It is a self-contained command center
               that can operate independently of internet connectivity while syncing to the enterprise mesh when available.
             </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem 1.5rem' }}>
+            <style>{`
+              .cop-features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem 1.5rem; }
+              @media (max-width: 768px) { .cop-features-grid { grid-template-columns: 1fr; gap: 0.75rem; } }
+            `}</style>
+            <div className="cop-features-grid">
               {[
                 'Runs natively on Windows desktops',
                 'Zero cloud dependency for core ops',
