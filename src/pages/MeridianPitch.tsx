@@ -237,6 +237,7 @@ export default function MeridianPitch() {
             }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'}>
               View Zenodo Archive <ArrowRight size={16} />
             </a>
+          </motion.div>
         </div>
       </section>
     </div>
