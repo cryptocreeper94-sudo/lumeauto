@@ -33,15 +33,15 @@ export default function ManheimPitch() {
       <LumeVSection />
       <LotOpsProSection />
 
-      {/* 3. THE ENGINE & DIAGNOSTICS (Lume Core, LumeScan, & Hardware) */}
+      {/* 3. THE LEDGERS (Data & Trust) */}
+      <CoxLedgerSection />
+      <VETSection />
+
+      {/* 4. THE ENGINE & DIAGNOSTICS (Lume Core, LumeScan, & Hardware) */}
       <LumeLanguageSection />
       <ArchitectureSection />
       <AppShowcase />
       <HardwareSection />
-
-      {/* 4. THE LEDGERS (Data & Trust) */}
-      <CoxLedgerSection />
-      <VETSection />
 
       {/* 5. DEPLOYMENT & ROADMAP */}
       <ImplementationPath />
