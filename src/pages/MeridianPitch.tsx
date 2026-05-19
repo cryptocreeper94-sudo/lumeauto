@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Zap, MapPin, ShieldCheck, BatteryCharging, AlertTriangle, Activity, Cpu, Radio } from 'lucide-react';
+import { Zap, MapPin, ShieldCheck, BatteryCharging, AlertTriangle, Activity, Cpu, Radio, ArrowRight } from 'lucide-react';
 import { Suspense } from 'react';
 import ManheimTabs from '../components/ManheimTabs';
 import MeridianScene3D from '../components/MeridianVisualizer';
