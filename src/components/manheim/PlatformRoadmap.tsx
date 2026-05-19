@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Wrench, ShieldCheck, Truck, Zap, Fingerprint, Search } from 'lucide-react';
+import { Wrench, ShieldCheck, Truck, Zap, Fingerprint, Search, Users, ClipboardList } from 'lucide-react';
 
 const PHASES = [
   {
@@ -9,7 +9,7 @@ const PHASES = [
     glow: 'rgba(16,185,129,0.06)',
     apps: [
       { icon: <Search size={20} />, name: 'LumeScan', desc: 'Connects directly to a vehicle\'s OBD-II port and runs a full diagnostic scan in 45 seconds — reading and clearing trouble codes, capturing freeze-frame data, and producing a deterministic condition certificate anchored to the ledger. Replaces subjective visual inspections with verifiable, reproducible results.' },
-      { icon: <Wrench size={20} />, name: 'Lot Ops Pro', desc: 'The operational command center for lot-level activity. Manages vehicle intake, driver assignments, lane routing, and custody transfers in real time. Every state change is recorded on the CAL, creating a complete chain-of-custody record from gate entry to sale.' },
+      { icon: <ClipboardList size={20} />, name: 'Lot Ops Pro', desc: 'The comprehensive operational platform for lot-level activity. Role-based modules cover the full spectrum of daily operations — vehicle intake, driver assignments, lane routing, and custody transfers. Includes built-in Safety & Compliance (incident reporting, hazard logging, OSHA workflows, speed violation tracking), Employee Portal (digital bulletin board, first responder contacts, recognition, pre-shift safety topics), and Fleet Management (van inspection, equipment checkout, EV charging). Every event is ledger-anchored on the CAL.' },
     ],
   },
   {
@@ -19,7 +19,6 @@ const PHASES = [
     glow: 'rgba(56,189,248,0.06)',
     apps: [
       { icon: <Wrench size={20} />, name: 'Recon OS', desc: 'Manages the full reconditioning lifecycle — from initial work-order generation (auto-populated by LumeScan diagnostics) through vendor assignment, parts procurement, task completion, and final sign-off. Every recon step is verified and ledger-anchored, eliminating the "he said, she said" between facilities and vendors.' },
-      { icon: <ShieldCheck size={20} />, name: 'Safety OS', desc: 'Enterprise safety compliance and incident management. Handles hazard reporting, near-miss logging, OSHA-aligned compliance workflows, and employee training certification tracking. Safety events are sealed on the CAL, providing auditable proof of compliance that holds up to regulatory scrutiny.' },
     ],
   },
   {
@@ -28,8 +27,9 @@ const PHASES = [
     border: 'rgba(167,139,250,0.2)',
     glow: 'rgba(167,139,250,0.06)',
     apps: [
-      { icon: <Truck size={20} />, name: 'Fleet OS', desc: 'Internal fleet and asset management — maintenance scheduling, service history tracking, asset utilization analytics, and fleet health monitoring. The same deterministic diagnostic pipeline that powers LumeScan applied to Cox\'s own operational vehicles and equipment.' },
+      { icon: <Truck size={20} />, name: 'Fleet OS', desc: 'Enterprise-wide fleet and asset management — maintenance scheduling, service history tracking, asset utilization analytics, and fleet health monitoring across all Cox subsidiaries. Extends the LumeScan diagnostic pipeline beyond auction inventory to operational vehicles, transport equipment, and facility assets.' },
       { icon: <Fingerprint size={20} />, name: 'Identity OS', desc: 'Enterprise identity, permissions, and role governance. Bridges internal authentication (Okta, Azure AD) with VET\'s external verification system, providing a single identity framework across all COP applications with ledger-anchored access control.' },
+      { icon: <ShieldCheck size={20} />, name: 'EHS Enterprise', desc: 'Cross-subsidiary Environmental Health & Safety compliance. Extends the safety module built into Lot Ops Pro to all Cox Automotive divisions — Autotrader, Kelley Blue Book, Dealertrack, and beyond. Centralized training certification tracking, OSHA reporting, and regulatory audit management with enterprise-wide dashboards.' },
       { icon: <Search size={20} />, name: 'CAL Explorer', desc: 'A full-featured ledger analytics application — block inspection, validator health, operational audit trails, and cross-system event tracing. Gives compliance teams and operations leadership direct visibility into every recorded event across the enterprise.' },
       { icon: <Zap size={20} />, name: 'Meridian Energy', desc: 'Wireless energy routing and management for lot infrastructure. Overhead anchor nodes deliver metered power to EV charging stations, lighting, and operational equipment. Every watt is tracked, timestamped, and ledger-verified — the same deterministic trust applied to energy that the CAL applies to vehicle records.' },
     ],
