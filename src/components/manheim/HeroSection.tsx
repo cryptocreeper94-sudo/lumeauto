@@ -68,14 +68,14 @@ export default function HeroSection() {
       <div className="container" style={{ maxWidth: '1100px', position: 'relative', zIndex: 2 }}>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', padding: '6px 14px', background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)', borderRadius: '20px', fontSize: '0.75rem', color: '#38bdf8', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
-            <Shield size={14} style={{ marginRight: 6 }} /> Enterprise Operations Platform
+            <Shield size={14} style={{ marginRight: 6 }} /> Cox Enterprise Platform
           </div>
           <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.8rem)', lineHeight: 1.08, marginBottom: '1.5rem' }}>
-            Verified Vehicle Intelligence.<br/>
-            <span className="text-gradient">From Auction to Delivery.</span>
+            Enterprise Infrastructure.<br/>
+            <span className="text-gradient">Proven at Manheim.</span>
           </h1>
           <p className="text-muted" style={{ fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '760px', marginBottom: '2rem' }}>
-            A complete operations layer that gives Cox Automotive verifiable proof of every vehicle scan, custody transfer, and condition report — resolved in 45 seconds, not days. LumeScan diagnostics connect directly to OBD-II ports for deterministic vehicle intelligence, while a private enterprise ledger ensures every record is tamper-proof and audit-ready. Built for the scale Cox demands — validated, deployed, and ready for pilot.
+            A private operations platform — purpose-built for Cox Enterprises — that delivers verifiable, tamper-proof records of every operational event. The COP operating environment, Cox Automotive Ledger, and Lume-V governance layer are enterprise infrastructure designed to scale across verticals. Manheim is the first deployment: 45-second vehicle scans, deterministic condition reports, and a lot operations system built to replace guesswork with proof.
           </p>
 
           {/* ═══ STAT CAROUSEL — self-contained ═══ */}
