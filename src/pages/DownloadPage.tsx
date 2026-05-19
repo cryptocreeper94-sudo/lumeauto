@@ -5,7 +5,7 @@ import QRCodeLib from 'qrcode';
 
 // Direct download URLs — .exe hosted on private GitHub release (Manheim access only)
 const APK_URL = 'https://expo.dev/accounts/cryptocreeper/projects/lume-auto/builds/7cea4b43-4eeb-4442-bcad-06cf9ff1019c';
-const EXE_URL = 'https://github.com/cryptocreeper94-sudo/lume-ops-recon/releases/download/v1.0.0/Lot.Ops.Pro.Setup.1.0.0.exe';
+const EXE_URL = 'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2FLot_Ops_Pro_Setup.exe?alt=media&token=36fe7582-07b0-423a-a366-bd1a1e6af6a0';
 const DOWNLOAD_URL = 'https://cox.tlid.io/download';
 
 export default function DownloadPage() {

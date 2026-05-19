@@ -127,7 +127,7 @@ export default function LotOpsProSection() {
         {/* CTA Button */}
         <motion.div {...f} style={{ textAlign: 'center', marginTop: '3.5rem' }}>
           <a
-            href="https://github.com/cryptocreeper94-sudo/lume-ops-recon/releases/download/v1.0.0/Lot.Ops.Pro.Setup.1.0.0.exe"
+            href="https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2FLot_Ops_Pro_Setup.exe?alt=media&token=36fe7582-07b0-423a-a366-bd1a1e6af6a0"
             download
             style={{
               display: 'inline-flex',

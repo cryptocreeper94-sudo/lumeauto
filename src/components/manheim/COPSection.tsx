@@ -325,7 +325,7 @@ export default function COPSection() {
           style={{ textAlign: 'center', marginTop: '2rem' }}
         >
           <a
-            href="https://github.com/cryptocreeper94-sudo/lume-ops-recon/releases/download/v1.0.0/Lot.Ops.Pro.Setup.1.0.0.exe"
+            href="https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2FCox_Operational_Platform_Setup.exe?alt=media&token=0d3a6456-04a7-4eb4-8160-7436efccb2fb"
             download
             style={{
               display: 'inline-flex',
