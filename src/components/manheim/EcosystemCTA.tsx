@@ -17,14 +17,15 @@ export default function EcosystemCTA() {
             </p>
           </div>
 
-          {/* Relevant Papers â€” individually verified */}
+          {/* Relevant Papers — individually verified */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2.5rem' }}>
             {[
-              { title: 'Lume: A Deterministic Natural-Language Programming Language', sub: 'The core language and compiler powering the 42-node governance organisms, trust certificates, and deterministic intent resolution.', doi: '10.5281/zenodo.19382282', version: 'v6 Â· April 2026', color: 'var(--accent-emerald)', relevance: 'Core substrate for all platform governance' },
-              { title: 'Lume-V: Deterministic Governance for Non-Deterministic AI Systems', sub: 'The verification wrapper that validates, certifies, and arbitrates AI outputs before they reach downstream systems. 10-layer architecture with Ed25519-signed trust certificates.', doi: '10.5281/zenodo.19645097', version: 'v1 Â· 2026', color: 'var(--accent-cyan)', relevance: 'Directly deployed as the verification layer' },
-              { title: 'DAIGS: Deterministic Autonomous Infrastructure Governance System', sub: 'The multi-vertical governance framework defining Lume-Auto (vehicle systems), deterministic state models, invariant engines, and certificate fabrics across 23 infrastructure verticals.', doi: '10.5281/zenodo.19491784', version: 'v3 Â· 2026', color: 'var(--accent-cyan)', relevance: 'Defines the Lume-Auto vertical used here' },
-              { title: 'The Routed World â€” Meridian and Deterministic Physical Infrastructure', sub: 'Collected edition of the Meridian Canon: deterministic wireless energy routing, anchor node architecture, and the theory of Deterministic Infrastructure.', doi: '10.5281/zenodo.20028362', version: 'First Edition Â· May 2026', color: '#dc2626', relevance: 'Foundation for the Meridian charging system' },
-              { title: 'The Enterprise Mesh â€” Sovereign-Chain Architecture and Cross-Enterprise Verification', sub: 'Sovereign-chain network architecture where every enterprise operates its own private proof-of-authority ledger. Cross-enterprise verification via cryptographic proof exchange â€” no raw data ever leaves the originating chain. Introduces the Verified but Private invariant, Vehicle Asset Passports, and Employee Hash Receipts.', doi: '10.5281/zenodo.20251916', version: 'v1 Â· May 2026', color: '#8b5cf6', relevance: 'Architecture for Cox Automotive Ledger network expansion' },
+              { title: 'Lume: A Deterministic Natural-Language Programming Language', sub: 'The core language and compiler powering the 42-node governance organisms, trust certificates, and deterministic intent resolution.', doi: '10.5281/zenodo.19382282', version: 'v6 · April 2026', color: 'var(--accent-emerald)', relevance: 'Core substrate for all platform governance' },
+              { title: 'Lume-V: Deterministic Governance for Non-Deterministic AI Systems', sub: 'The verification wrapper that validates, certifies, and arbitrates AI outputs before they reach downstream systems. 10-layer architecture with Ed25519-signed trust certificates.', doi: '10.5281/zenodo.19645097', version: 'v1 · 2026', color: 'var(--accent-cyan)', relevance: 'Directly deployed as the verification layer' },
+              { title: 'DAIGS: Deterministic Autonomous Infrastructure Governance System', sub: 'The multi-vertical governance framework defining Lume-Auto (vehicle systems), deterministic state models, invariant engines, and certificate fabrics across 23 infrastructure verticals.', doi: '10.5281/zenodo.19491784', version: 'v3 · 2026', color: 'var(--accent-cyan)', relevance: 'Defines the Lume-Auto vertical used here' },
+              { title: 'Self-Healing Synthetic Organisms: Deterministic Autonomous Agents for Infrastructure Governance', sub: 'The architecture behind the 42-node governance mesh. Self-healing synthetic organisms that produce deterministic outputs from natural-language governance contracts — the core execution model powering every diagnostic and workflow.', doi: '10.5281/zenodo.19533627', version: 'v2 · 2026', color: '#f59e0b', relevance: 'Core execution model for all platform agents' },
+              { title: 'The Routed World — Meridian and Deterministic Physical Infrastructure', sub: 'Collected edition of the Meridian Canon: deterministic wireless energy routing, anchor node architecture, and the theory of Deterministic Infrastructure.', doi: '10.5281/zenodo.20028362', version: 'First Edition · May 2026', color: '#dc2626', relevance: 'Foundation for the Meridian charging system' },
+              { title: 'The Enterprise Mesh — Sovereign-Chain Architecture and Cross-Enterprise Verification', sub: 'Sovereign-chain network architecture where every enterprise operates its own private proof-of-authority ledger. Cross-enterprise verification via cryptographic proof exchange — no raw data ever leaves the originating chain.', doi: '10.5281/zenodo.20251916', version: 'v1 · May 2026', color: '#8b5cf6', relevance: 'Architecture for Cox Automotive Ledger network expansion' },
             ].map((paper, i) => (
               <motion.div key={i} {...f} transition={{ delay: i * 0.08 }} className="panel" style={{ padding: '1.5rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
@@ -34,7 +35,7 @@ export default function EcosystemCTA() {
                 <p className="text-muted" style={{ fontSize: '0.82rem', lineHeight: 1.5, marginBottom: '0.6rem' }}>{paper.sub}</p>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
                   <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noopener" style={{ fontSize: '0.68rem', color: paper.color, fontFamily: 'var(--font-mono)', opacity: 0.8 }}>
-                    DOI: {paper.doi} â†—
+                    DOI: {paper.doi} ↗
                   </a>
                   <span style={{ fontSize: '0.6rem', color: 'var(--text-dim)', fontStyle: 'italic' }}>{paper.relevance}</span>
                 </div>
@@ -62,7 +63,7 @@ export default function EcosystemCTA() {
           {/* External links */}
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem', flexWrap: 'wrap' }}>
             {[
-              { label: 'Lume Core Â· DOI', href: 'https://doi.org/10.5281/zenodo.19382282', icon: <BookOpen size={14}/> },
+              { label: 'Lume Core · DOI', href: 'https://doi.org/10.5281/zenodo.19382282', icon: <BookOpen size={14}/> },
               { label: 'Zenodo Archive', href: 'https://zenodo.org/communities/meridian-canon', icon: <BookOpen size={14}/> },
               { label: 'TrustShield', href: 'https://trustshield.tech', icon: <Globe size={14}/> },
               { label: 'MeridianCanon.com', href: 'https://meridiancanon.com', icon: <Globe size={14}/> },
@@ -93,7 +94,7 @@ export default function EcosystemCTA() {
               The system is built. The research is published. The patents are filed. The governance layer and ledger are deployed. The operational platform is ready for pilot validation.
             </p>
             <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '2rem' }}>
-              Â© 2026 DarkWave Studios LLC / Lume42 Labs Â· 6 U.S. Provisional Patents Pending Â· Published Research on Zenodo
+              © 2026 DarkWave Studios LLC / Lume42 Labs · 6 U.S. Provisional Patents Pending · Published Research on Zenodo
             </p>
           </motion.div>
         </div>
