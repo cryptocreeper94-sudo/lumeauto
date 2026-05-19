@@ -22,14 +22,14 @@ export default function EngineeringBrief() {
               <span style={{ color: 'var(--accent-cyan)' }}>For Engineering Review.</span>
             </h1>
             <p className="text-muted" style={{ fontSize: '1.05rem', lineHeight: 1.7, maxWidth: '700px', margin: '0 auto 2.5rem' }}>
-              This document details the complete system architecture — from OBD-II protocol parsing to governance organism topology to the native Lume build migration path. Every subsystem, protocol, and integration point is specified for engineering-grade review. The intent is simple: any qualified engineer should be able to read this document, review the published research, and independently verify every claim.
+              This document details the complete system architecture — from OBD-II protocol parsing to governance mesh topology to the native Lume build migration path. Every subsystem, protocol, and integration point is specified for engineering-grade review. The intent is simple: any qualified engineer should be able to read this document, review the published research, and independently verify every claim.
             </p>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', maxWidth: '360px', margin: '0 auto' }}>
               {[
-                { icon: <Layers size={14}/>, val: '9', label: 'Subsystems' },
+                { icon: <Layers size={14}/>, val: '14', label: 'Subsystems' },
                 { icon: <FileText size={14}/>, val: '42', label: 'OBD-II PIDs' },
-                { icon: <BookOpen size={14}/>, val: '6', label: 'API Endpoints' },
+                { icon: <BookOpen size={14}/>, val: '8', label: 'API Endpoints' },
                 { icon: <Cpu size={14}/>, val: '2', label: 'Build Targets' },
               ].map((s, i) => (
                 <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 + i * 0.1 }}
@@ -50,7 +50,7 @@ export default function EngineeringBrief() {
       <section style={{ padding: '4rem 0', textAlign: 'center' }}>
         <div className="container" style={{ maxWidth: '700px' }}>
           <p className="text-muted" style={{ fontSize: '0.95rem', lineHeight: 1.7 }}>
-            The architecture documented above is production-ready and verifiable. The React build is live and available for deployment. The native Lume build is architecturally complete and migration-ready. Both share the same 4/42 organism topology — the upgrade path requires no rearchitecture, only a deeper level of runtime enforcement. Every technical claim in this document is backed by published research with verifiable DOIs.
+            The architecture documented above is production-ready and verifiable. The React build is live and available for deployment. The native Lume build is architecturally complete and migration-ready. Both share the same 4-layer, 42-node mesh topology — the upgrade path requires no rearchitecture, only a deeper level of runtime enforcement. Every technical claim in this document is backed by published research with verifiable DOIs.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', margin: '1.5rem 0' }}>
             <a href="/app" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 22px', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)', color: 'var(--accent-cyan)', borderRadius: '30px', fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none' }}>

@@ -26,15 +26,15 @@ export default function StackComparison() {
           {[
             { label: 'Runtime', react: 'Node.js / V8 Engine', lume: 'Lume Deterministic Runtime (LDR)' },
             { label: 'Language', react: 'TypeScript / JavaScript', lume: 'Lume — deterministic, compiled' },
-            { label: 'Governance', react: 'Application-level logic', lume: 'Compiled governance organisms' },
-            { label: 'State', react: 'React useState / useEffect', lume: 'Organism state graph — self-healing' },
+            { label: 'Governance', react: 'Application-level logic', lume: 'Compiled LumeScan mesh' },
+            { label: 'State', react: 'React useState / useEffect', lume: 'Mesh network state graph — self-healing' },
             { label: 'Data Layer', react: 'PostgreSQL + Prisma ORM', lume: 'Lume Trust Store — cryptographic' },
             { label: 'Diagnostics', react: 'JS-parsed OBD-II frames', lume: 'Native CAN bus governance' },
             { label: 'Safety', react: 'Application error boundaries', lume: 'Formal safety envelope — provable bounds' },
             { label: 'Replay', react: 'Log-based reconstruction', lume: 'Deterministic replay — bit-identical' },
             { label: 'Deployment', react: 'Render / Vercel / any PaaS', lume: 'Edge-native — runs on-device' },
             { label: 'Trust Chain', react: 'PostgreSQL audit logs', lume: 'PoA enterprise ledger — immutable' },
-            { label: 'AI Usage', react: 'LLM for voice + summaries (optional)', lume: 'LLM for voice + summaries (optional, swappable)' },
+            { label: 'Enterprise Verification', react: 'Internal CAL (Cox Automotive Ledger)', lume: 'External VET (Verified Enterprise Trust)' },
           ].map((row, i) => (
             <motion.div key={i} {...f} transition={{ delay: i * 0.03 }} style={{ display: 'contents' }}>
               <div style={{ padding: '0.9rem 1.5rem', borderBottom: '1px solid var(--border-light)', background: i % 2 === 0 ? 'rgba(255,255,255,0.01)' : 'transparent' }}>
@@ -51,7 +51,7 @@ export default function StackComparison() {
 
         <motion.div {...f} className="panel" style={{ padding: '1.5rem', textAlign: 'center', borderColor: 'rgba(56,189,248,0.2)' }}>
           <p className="text-muted" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
-            <strong style={{ color: 'var(--accent-cyan)' }}>Key insight:</strong> The React build proves the architecture works in production — real drivers, real vehicles, real data, real results. The Lume build takes those same governance guarantees and moves them from application-level enforcement to <em>compiled runtime enforcement</em>. That distinction matters: in the React build, governance is logic that <em>could</em> be bypassed. In the Lume build, governance is physics — it cannot be circumvented because it is the runtime itself. The upgrade path is clean because both builds share the identical 4/42 organism topology. No rewrite. No rearchitecture. Just a deeper level of determinism.
+            <strong style={{ color: 'var(--accent-cyan)' }}>Key insight:</strong> The React build proves the architecture works in production — real drivers, real vehicles, real data, real results. The Lume build takes those same governance guarantees and moves them from application-level enforcement to <em>compiled runtime enforcement</em>. That distinction matters: in the React build, governance is logic that <em>could</em> be bypassed. In the Lume build, governance is physics — it cannot be circumvented because it is the runtime itself. The upgrade path is clean because both builds share the identical 4-layer, 42-node mesh topology. No rewrite. No rearchitecture. Just a deeper level of determinism.
           </p>
         </motion.div>
       </div>
