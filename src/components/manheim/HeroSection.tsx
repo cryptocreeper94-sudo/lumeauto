@@ -79,7 +79,11 @@ export default function HeroSection() {
           </p>
 
           {/* ═══ STAT CAROUSEL — self-contained ═══ */}
-          <div style={{ maxWidth: '280px', marginBottom: '2.5rem' }}>
+          <style>{`
+            .hero-stat-carousel { max-width: 320px; margin-bottom: 2.5rem; }
+            @media (max-width: 768px) { .hero-stat-carousel { max-width: 100%; margin-left: auto; margin-right: auto; } }
+          `}</style>
+          <div className="hero-stat-carousel">
             <div style={{
               position: 'relative',
               background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(16px)',
