@@ -124,6 +124,22 @@ export default function PlatformRoadmap() {
             </motion.div>
           ))}
         </div>
+
+        {/* Enterprise expansion note */}
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
+          style={{
+            marginTop: '3rem', padding: '2rem', borderRadius: '16px',
+            background: 'linear-gradient(135deg, rgba(167,139,250,0.04) 0%, rgba(56,189,248,0.04) 100%)',
+            border: '1px solid rgba(167,139,250,0.12)',
+            textAlign: 'center',
+          }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.8, maxWidth: '720px', margin: '0 auto' }}>
+            Every application on this roadmap is built on the same COP architecture — meaning every module is inherently expandable to any Cox Automotive subsidiary. Manheim is the proving ground. From here, the platform extends to Autotrader, Kelley Blue Book, Dealertrack, and beyond as enterprise priorities dictate. We build what you need, when you need it.
+          </p>
+          <p style={{ fontSize: '0.7rem', color: 'var(--text-dim)', marginTop: '0.75rem', letterSpacing: '0.05em' }}>
+            Architecture scales. Roadmap follows corporate direction.
+          </p>
+        </motion.div>
       </div>
     </section>
   );
