@@ -57,20 +57,8 @@ export default function PersonalNote() {
           <div style={{
             marginTop: '1.75rem', paddingTop: '1.25rem',
             borderTop: '1px solid rgba(255,255,255,0.04)',
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            flexWrap: 'wrap', gap: '0.75rem',
           }}>
-            <div>
-              <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-main)' }}>— Jason</div>
-              <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', marginTop: '2px' }}>Lume Ecosystem</div>
-            </div>
-            <div style={{
-              fontSize: '0.65rem', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)',
-              padding: '4px 10px', background: 'rgba(56,189,248,0.05)', borderRadius: '6px',
-              border: '1px solid rgba(56,189,248,0.08)',
-            }}>
-              team@dwsc.io
-            </div>
+            <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-main)' }}>— Jason</div>
           </div>
 
         </motion.div>
