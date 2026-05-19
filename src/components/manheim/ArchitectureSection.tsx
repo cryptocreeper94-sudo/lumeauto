@@ -12,21 +12,21 @@ export default function ArchitectureSection() {
         <div className="responsive-grid" style={{ marginBottom: '4rem' }}>
           <motion.div {...f}>
             <p style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Architecture</p>
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', lineHeight: 1.1 }}>The Synthetic Organism.</h2>
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', lineHeight: 1.1 }}>LumeScan.</h2>
             <p className="text-muted" style={{ fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '1.5rem' }}>
-              Lume-Auto is not an algorithm. It does not call an API. It is a deterministic synthetic organism — a living network of 42 governance nodes that monitors, cross-validates, and self-corrects in real-time on the edge device.
+              LumeScan is not a black-box algorithm, and it does not call a cloud API. It operates as a deterministic 42-node mesh network running directly on the edge hardware. It cross-validates raw vehicle telemetry locally in a sub-10ms processing loop to produce tamper-proof condition reports.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <div>
                 <h4 style={{ fontSize: '1.05rem', marginBottom: '0.25rem' }}>Zero AI in the Critical Path</h4>
                 <p className="text-muted" style={{ fontSize: '0.9rem', lineHeight: 1.5 }}>
-                  When the organism flags a failing catalytic converter, it is a deterministic certainty — not a statistical guess. No inference model. No hallucination surface. The safety envelope relies on pure, immutable mathematics.
+                  When the LumeScan mesh flags a failing catalytic converter, it is a deterministic certainty — not a statistical guess. No inference model. No hallucination surface. The diagnostic logic is governed by pure, immutable mathematics.
                 </p>
               </div>
               <div>
                 <h4 style={{ fontSize: '1.05rem', marginBottom: '0.25rem' }}>Deterministic Replay</h4>
                 <p className="text-muted" style={{ fontSize: '0.9rem', lineHeight: 1.5 }}>
-                  Feed the same sensor data through the same organism and you get the same diagnosis — every time, on any device, years later. This is what makes cryptographic arbitration defense possible.
+                  Feed the exact same raw OBD-II hex data through the exact same node mesh and you get the exact same diagnosis — every time, on any device, years later. This is what makes cryptographic arbitration defense possible.
                 </p>
               </div>
             </div>
@@ -40,8 +40,8 @@ export default function ArchitectureSection() {
         <motion.div {...f} style={{ marginBottom: '4rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
             <p style={{ color: 'var(--accent-cyan)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Live Simulation</p>
-            <h3 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>See the Organism Work.</h3>
-            <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto', fontSize: '0.95rem' }}>This is a real-time simulation of the 42-node governance organism processing a vehicle scan. Watch it identify faults, cross-validate sensor data, and produce a deterministic condition report in under 45 seconds.</p>
+            <h3 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>See LumeScan in Action.</h3>
+            <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto', fontSize: '0.95rem' }}>This is a real-time simulation of the 42-node LumeScan mesh processing a vehicle scan. Watch it identify faults, cross-validate sensor data, and produce a deterministic condition report in under 45 seconds.</p>
           </div>
           <LiveScanSimulator />
         </motion.div>
