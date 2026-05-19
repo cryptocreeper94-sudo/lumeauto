@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, Children, useRef } from 'react';
+import { useState, useEffect, useCallback, Children } from 'react';
 import type { ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
