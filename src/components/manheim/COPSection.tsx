@@ -311,7 +311,7 @@ export default function COPSection() {
         {/* Stats Bar */}
         <style>{`
           .cop-stats-grid {
-            display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; margin-bottom: 3rem;
+            display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.5rem; margin-bottom: 3rem;
             padding: 2rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
             border-radius: 16px;
           }
