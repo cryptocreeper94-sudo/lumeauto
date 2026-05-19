@@ -51,7 +51,11 @@ export default function ArchitectureSection() {
           <h3 style={{ fontSize: '1.8rem', marginBottom: '0.75rem' }}>What This Means on the Ground</h3>
           <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto' }}>Every step is deterministic. Every output is reproducible. Every decision has a traceable input chain.</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
+        <style>{`
+          .arch-ground-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+          @media (max-width: 768px) { .arch-ground-grid { grid-template-columns: 1fr; } }
+        `}</style>
+        <div className="arch-ground-grid">
           {[
             { icon: <Activity size={22}/>, title: 'Intake Automation', desc: '45-second deterministic scan generates a structured condition report. Dead batteries, severe misfires, and catalytic failures are flagged before the vehicle reaches a lane.', color: 'var(--accent-emerald)' },
             { icon: <MapPin size={22}/>, title: 'Intelligent Routing', desc: 'Health data feeds directly into Ops Recon. Vehicles route automatically to the correct lane or reconditioning queue. Drivers receive GPS move assignments instantly.', color: 'var(--accent-cyan)' },
