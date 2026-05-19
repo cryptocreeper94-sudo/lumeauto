@@ -14,6 +14,7 @@ import HardwareSection from '../components/manheim/HardwareSection';
 import MeridianTeaser from '../components/manheim/MeridianTeaser';
 import EnterpriseMeshTeaser from '../components/manheim/EnterpriseMeshTeaser';
 import EcosystemCTA from '../components/manheim/EcosystemCTA';
+import PlatformRoadmap from '../components/manheim/PlatformRoadmap';
 import ImplementationPath from '../components/manheim/ImplementationPath';
 
 export default function ManheimPitch() {
@@ -50,7 +51,9 @@ export default function ManheimPitch() {
       <EnterpriseMeshTeaser />
       {/* 11. Academic / Patent / DOI Section */}
       <EcosystemCTA />
-      {/* 12. Manheim-Specific Implementation Path */}
+      {/* 12. Platform Roadmap — Future Native COP Apps */}
+      <PlatformRoadmap />
+      {/* 13. Manheim-Specific Implementation Path */}
       <ImplementationPath />
     </div>
   );
