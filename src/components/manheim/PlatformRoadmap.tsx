@@ -19,6 +19,7 @@ const PHASES = [
     glow: 'rgba(56,189,248,0.06)',
     apps: [
       { icon: <Wrench size={20} />, name: 'Recon OS', desc: 'Manages the full reconditioning lifecycle — from initial work-order generation (auto-populated by LumeScan diagnostics) through vendor assignment, parts procurement, task completion, and final sign-off. Every recon step is verified and ledger-anchored, eliminating the "he said, she said" between facilities and vendors.' },
+      { icon: <ShieldCheck size={20} />, name: 'Safety OS', desc: 'Enterprise-wide safety compliance for every Cox subsidiary — not just the lot. Lot Ops Pro\'s built-in safety module covers auction facility operations; Safety OS extends that to Autotrader, Kelley Blue Book, Dealertrack, vAuto, Xtime, and corporate offices. Incident reporting, near-miss logging, training certification tracking, OSHA-aligned workflows, and cross-division compliance dashboards — all sealed on the CAL.' },
     ],
   },
   {
@@ -29,7 +30,6 @@ const PHASES = [
     apps: [
       { icon: <Truck size={20} />, name: 'Fleet OS', desc: 'Enterprise-wide fleet and asset management — maintenance scheduling, service history tracking, asset utilization analytics, and fleet health monitoring across all Cox subsidiaries. Extends the LumeScan diagnostic pipeline beyond auction inventory to operational vehicles, transport equipment, and facility assets.' },
       { icon: <Fingerprint size={20} />, name: 'Identity OS', desc: 'Enterprise identity, permissions, and role governance. Bridges internal authentication (Okta, Azure AD) with VET\'s external verification system, providing a single identity framework across all COP applications with ledger-anchored access control.' },
-      { icon: <ShieldCheck size={20} />, name: 'EHS Enterprise', desc: 'Cross-subsidiary Environmental Health & Safety compliance. Extends the safety module built into Lot Ops Pro to all Cox Automotive divisions — Autotrader, Kelley Blue Book, Dealertrack, and beyond. Centralized training certification tracking, OSHA reporting, and regulatory audit management with enterprise-wide dashboards.' },
       { icon: <Search size={20} />, name: 'CAL Explorer', desc: 'A full-featured ledger analytics application — block inspection, validator health, operational audit trails, and cross-system event tracing. Gives compliance teams and operations leadership direct visibility into every recorded event across the enterprise.' },
       { icon: <Zap size={20} />, name: 'Meridian Energy', desc: 'Wireless energy routing and management for lot infrastructure. Overhead anchor nodes deliver metered power to EV charging stations, lighting, and operational equipment. Every watt is tracked, timestamped, and ledger-verified — the same deterministic trust applied to energy that the CAL applies to vehicle records.' },
     ],
