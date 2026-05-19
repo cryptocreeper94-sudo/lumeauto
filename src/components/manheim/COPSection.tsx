@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { Layers, Database, Shield, Hexagon, Download, Lock, Monitor, Cpu, HardDrive, Globe, ServerCog, Fingerprint, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Layers, Database, Shield, Hexagon, Download, Lock, Monitor, Cpu, HardDrive, Globe, ServerCog, Fingerprint, ChevronLeft, ChevronRight, ShieldCheck } from 'lucide-react';
 
 /**
  * COPSection — Introduces the Cox Operational Platform (COP)
@@ -13,10 +13,11 @@ const fadeIn = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0
 const modules = [
   { icon: <Layers size={28} />, title: 'Lot Ops Pro', desc: 'Real-time lot operations management. Vehicle routing, driver assignments, OCR scanning, GPS navigation, and reconditioning workflows — all from a single interface.', color: 'var(--accent-cyan)', border: 'rgba(6,182,212,0.15)', glow: 'rgba(6,182,212,0.1)' },
   { icon: <Database size={28} />, title: 'Enterprise Ledger (CAL)', desc: 'Private Proof-of-Authority blockchain layer providing cryptographic provenance for every vehicle asset passport. Total auditability, tamper-proof by design.', color: '#10b981', border: 'rgba(16,185,129,0.15)', glow: 'rgba(16,185,129,0.1)' },
-  { icon: <Hexagon size={28} />, title: 'Meridian Visualization', desc: 'Spatial physics and 3D rendering engine. Real-time interactive canon of the 42-node facility mesh and structural operations monitoring.', color: '#8b5cf6', border: 'rgba(139,92,246,0.15)', glow: 'rgba(139,92,246,0.1)' },
+  { icon: <Hexagon size={28} />, title: 'Meridian Energy Protocol', desc: 'Deterministic overhead wireless charging architecture. Solid-state phased arrays deliver packetized microwave energy directly to vehicle rectennas.', color: '#8b5cf6', border: 'rgba(139,92,246,0.15)', glow: 'rgba(139,92,246,0.1)' },
   { icon: <Shield size={28} />, title: 'TrustShield Layer', desc: 'Guardian Security framework enforcing strict zero-trust boundaries at the hardware level. Enterprise data never leaks to public vectors.', color: '#94a3b8', border: 'rgba(255,255,255,0.08)', glow: 'rgba(255,255,255,0.05)' },
   { icon: <ServerCog size={28} />, title: 'LUME-V Governance', desc: 'Deterministic governance wrapper that unifies legacy systems into a single source of truth. Zero database migration, zero downtime.', color: '#38bdf8', border: 'rgba(56,189,248,0.15)', glow: 'rgba(56,189,248,0.1)' },
   { icon: <Fingerprint size={28} />, title: 'Enterprise SSO', desc: 'Native integration with existing Okta and Azure Active Directory. Employees log in exactly as they do today — zero new credentials required.', color: '#f59e0b', border: 'rgba(245,158,11,0.15)', glow: 'rgba(245,158,11,0.1)' },
+  { icon: <ShieldCheck size={28} />, title: 'Verified Enterprise Trust (VET)', desc: 'External verification portal for buyers, dealers, and financial partners. Cryptographically proves asset provenance anchored to the private CAL.', color: '#10b981', border: 'rgba(16,185,129,0.15)', glow: 'rgba(16,185,129,0.1)' },
 ];
 
 function ModuleCard({ mod, style }: { mod: typeof modules[0]; style?: React.CSSProperties }) {
@@ -36,25 +37,29 @@ function ModuleCard({ mod, style }: { mod: typeof modules[0]; style?: React.CSSP
 
 function ModuleCarousel() {
   const [active, setActive] = useState(0);
-  const [direction, setDirection] = useState(1);
   const [paused, setPaused] = useState(false);
 
   // Auto-advance every 5 seconds
   useEffect(() => {
     if (paused) return;
     const t = setInterval(() => {
-      setDirection(1);
       setActive(i => (i + 1) % modules.length);
     }, 5000);
     return () => clearInterval(t);
   }, [paused]);
 
   const goTo = (idx: number) => {
-    setDirection(idx > active ? 1 : -1);
     setActive(idx);
   };
-  const prev = () => { setDirection(-1); setActive(i => (i - 1 + modules.length) % modules.length); };
-  const next = () => { setDirection(1); setActive(i => (i + 1) % modules.length); };
+  const prev = () => { setActive(i => (i - 1 + modules.length) % modules.length); };
+  const next = () => { setActive(i => (i + 1) % modules.length); };
+
+  // Desktop visible cards (3)
+  const visible = [
+    active % modules.length,
+    (active + 1) % modules.length,
+    (active + 2) % modules.length,
+  ];
 
   // Touch swipe
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -67,19 +72,34 @@ function ModuleCarousel() {
   };
 
   return (
-    <div style={{ marginBottom: '3rem' }}>
-      {/* Card viewport */}
-      <div
-        style={{ position: 'relative', overflow: 'hidden', minHeight: '200px' }}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
+    <div style={{ marginBottom: '3rem' }} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      
+      {/* Desktop: 3 cards */}
+      <div className="cop-carousel-desktop" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1.25rem', minHeight: '220px', marginBottom: '1.5rem' }}>
+        <AnimatePresence mode="popLayout">
+          {visible.map((idx, pos) => (
+            <motion.div
+              key={`desktop-${idx}`}
+              layout
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.4 }}
+            >
+              <ModuleCard mod={modules[idx]} style={{ height: '100%' }} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+
+      {/* Mobile: 1 card */}
+      <div className="cop-carousel-mobile" style={{ display: 'none', position: 'relative', overflow: 'hidden', minHeight: '220px', marginBottom: '1.5rem' }} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
-            key={active}
-            initial={{ opacity: 0, x: direction * 60 }}
+            key={`mobile-${active}`}
+            initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -direction * 60 }}
+            exit={{ opacity: 0, x: -40 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
           >
             <ModuleCard mod={modules[active]} />
@@ -87,8 +107,8 @@ function ModuleCarousel() {
         </AnimatePresence>
       </div>
 
-      {/* Navigation: arrows + dots + pause */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '12px' }}>
+      {/* Navigation: arrows + dots */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
         <button onClick={prev} aria-label="Previous" style={{
           width: 32, height: 32, borderRadius: '50%',
           background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
@@ -108,15 +128,6 @@ function ModuleCarousel() {
             />
           ))}
         </div>
-
-        {/* Pause / Play */}
-        <button onClick={() => setPaused(p => !p)} aria-label={paused ? 'Play' : 'Pause'} style={{
-          width: 32, height: 32, borderRadius: '50%',
-          background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-          color: paused ? 'var(--accent-cyan)' : 'var(--text-muted)', cursor: 'pointer',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s',
-          fontSize: '0.7rem', fontWeight: 700,
-        }}>{paused ? '▶' : '⏸'}</button>
 
         <button onClick={next} aria-label="Next" style={{
           width: 32, height: 32, borderRadius: '50%',
@@ -147,10 +158,10 @@ export default function COPSection() {
     <section style={{ padding: '6rem 0', position: 'relative', overflow: 'hidden' }}>
       {/* Responsive styles */}
       <style>{`
-        .cop-grid-desktop { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
-        .cop-carousel-mobile { display: none; }
+        .cop-carousel-desktop { display: grid; }
+        .cop-carousel-mobile { display: none !important; }
         @media (max-width: 768px) {
-          .cop-grid-desktop { display: none !important; }
+          .cop-carousel-desktop { display: none !important; }
           .cop-carousel-mobile { display: block !important; }
         }
       `}</style>
@@ -240,25 +251,15 @@ export default function COPSection() {
           <h3 style={{ fontSize: '1.2rem', marginBottom: '1.25rem', textAlign: 'center' }}>Integrated Modules</h3>
         </motion.div>
 
-        {/* Desktop: 3×2 Grid */}
+        {/* Unified Carousel */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-50px" }}
-          className="cop-grid-desktop"
         >
-          {modules.map((mod, i) => (
-            <motion.div key={i} variants={itemVariants}>
-              <ModuleCard mod={mod} style={{ height: '100%' }} />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Mobile: Swipeable Carousel */}
-        <div className="cop-carousel-mobile">
           <ModuleCarousel />
-        </div>
+        </motion.div>
 
         {/* Architecture Breakdown — Two-Column */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
@@ -323,7 +324,7 @@ export default function COPSection() {
         `}</style>
         <div className="cop-stats-grid">
           {[
-            { val: '6', unit: '', label: 'Modules' },
+            { val: '7', unit: '', label: 'Modules' },
             { val: '<10', unit: 'ms', label: 'Latency' },
             { val: '0', unit: '', label: 'Cloud Deps' },
             { val: '256', unit: 'bit', label: 'Encryption' },
