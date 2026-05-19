@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Link2, Eye, Cpu, FileText, BookOpen, Activity, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Shield, Link2, Eye, Cpu, FileText, Activity, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const HERO_IMAGES = [
   '/assets/images/photos/hero_auction.png',
@@ -10,12 +10,12 @@ const HERO_IMAGES = [
 ];
 
 const STATS = [
-  { icon: <Link2 size={18}/>, val: 'CAL', label: 'Private Ledger', color: '#38bdf8' },
-  { icon: <Eye size={18}/>, val: 'Lume-V', label: 'Governance Layer', color: '#22d3ee' },
-  { icon: <Cpu size={18}/>, val: '42', label: 'Governance Nodes', color: '#10b981' },
-  { icon: <FileText size={18}/>, val: 'Lume', label: 'Native Runtime', color: '#38bdf8' },
-  { icon: <BookOpen size={18}/>, val: '10+', label: 'Published Papers', color: '#f59e0b' },
-  { icon: <Activity size={18}/>, val: '100Hz', label: 'Polling Rate', color: '#f472b6' },
+  { icon: <Shield size={18}/>, val: '45s', label: 'Full Vehicle Scan', color: '#10b981' },
+  { icon: <Link2 size={18}/>, val: '100%', label: 'Tamper-Proof Records', color: '#38bdf8' },
+  { icon: <Eye size={18}/>, val: '42', label: 'Validator Nodes', color: '#22d3ee' },
+  { icon: <Cpu size={18}/>, val: 'OBD-II', label: 'Deep Diagnostics', color: '#f59e0b' },
+  { icon: <FileText size={18}/>, val: '10+', label: 'Published Papers', color: '#f472b6' },
+  { icon: <Activity size={18}/>, val: 'Real-Time', label: 'Fleet Intelligence', color: '#38bdf8' },
 ];
 
 export default function HeroSection() {
@@ -68,14 +68,14 @@ export default function HeroSection() {
       <div className="container" style={{ maxWidth: '1100px', position: 'relative', zIndex: 2 }}>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', padding: '6px 14px', background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)', borderRadius: '20px', fontSize: '0.75rem', color: '#38bdf8', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
-            <Shield size={14} style={{ marginRight: 6 }} /> Enterprise Trust Infrastructure
+            <Shield size={14} style={{ marginRight: 6 }} /> Enterprise Operations Platform
           </div>
           <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.8rem)', lineHeight: 1.08, marginBottom: '1.5rem' }}>
-            Every Vehicle. Every Transfer.<br/>
-            <span className="text-gradient">Every Proof. One Ledger.</span>
+            Verified Vehicle Intelligence.<br/>
+            <span className="text-gradient">From Auction to Delivery.</span>
           </h1>
           <p className="text-muted" style={{ fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '760px', marginBottom: '2rem' }}>
-            A private cryptographic ledger that seals every custody transfer, condition report, and arbitration event into an immutable record. Deterministic vehicle diagnostics — powered by self-healing synthetic organisms running on a purpose-built runtime — that produce cryptographic proof in 45 seconds. An operations layer built for the scale and security Cox Automotive demands — not a concept, a deployed system.
+            A complete operations layer that gives Cox Automotive verifiable proof of every vehicle scan, custody transfer, and condition report — resolved in 45 seconds, not days. LumeScan diagnostics connect directly to OBD-II ports for deterministic vehicle intelligence, while a private enterprise ledger ensures every record is tamper-proof and audit-ready. Built for the scale Cox demands — validated, deployed, and ready for pilot.
           </p>
 
           {/* ═══ STAT CAROUSEL — self-contained ═══ */}
