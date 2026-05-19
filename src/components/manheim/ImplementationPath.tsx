@@ -197,8 +197,10 @@ export default function ImplementationPath() {
               { title: 'Meridian', desc: 'Wireless energy routing — EV charging, powered signage, and lot infrastructure.', color: '#dc2626' },
               { title: 'Unified Platform', desc: 'When deployed together, every component amplifies the others — the whole exceeds the sum of its parts.', color: '#fb923c' },
             ].map((mod, i) => (
-              <div key={i} className="panel" style={{
-                padding: '1.25rem', borderColor: `${mod.color}22`, display: 'flex', flexDirection: 'column',
+              <div key={i} style={{
+                padding: '1.25rem', display: 'flex', flexDirection: 'column',
+                background: 'rgba(255,255,255,0.02)', borderRadius: '16px',
+                border: `1px solid ${mod.color}44`,
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.5rem' }}>
                   <div style={{ width: 8, height: 8, borderRadius: '50%', background: mod.color, flexShrink: 0 }} />
