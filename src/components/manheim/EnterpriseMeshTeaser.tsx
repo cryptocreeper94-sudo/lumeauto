@@ -124,7 +124,7 @@ export default function EnterpriseMeshTeaser() {
         {/* Closing callout */}
         <motion.div {...fadeIn} transition={{ delay: 0.4 }} className="panel" style={{ padding: '2.5rem', textAlign: 'center', borderColor: accentBorder, background: `linear-gradient(180deg, ${accentDim} 0%, rgba(129,140,248,0.02) 100%)` }}>
           <p className="text-muted" style={{ maxWidth: '750px', margin: '0 auto', fontSize: '1rem', lineHeight: 1.7, marginBottom: '1.25rem' }}>
-            The pilot you are evaluating today is Phase 1 of a network that scales to every node in the automotive supply chain — without requiring any participant to expose their internal data, connect to a public network, or share a database with anyone. Each company gets their own sovereign system. The mesh connects them through proofs, not data.
+            This platform represents Phase 1 of a network that scales to every node in the automotive supply chain — without requiring any participant to expose their internal data, connect to a public network, or share a database with anyone. Each company gets their own sovereign system. The mesh connects them through proofs, not data.
           </p>
           <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)', margin: 0, letterSpacing: '0.05em' }}>
             PRIVATE INFRASTRUCTURE · SOVEREIGN CHAINS · ZERO PUBLIC EXPOSURE
