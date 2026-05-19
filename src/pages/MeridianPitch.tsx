@@ -180,9 +180,9 @@ export default function MeridianPitch() {
             <div style={{ position: 'absolute', left: '28px', top: '40px', bottom: '40px', width: '2px', background: `linear-gradient(180deg, ${red}, ${emerald}, rgba(16,185,129,0.1))` }} />
 
             {[
-              { step: '1', icon: <Activity size={20} />, title: 'Vehicle Sign-In', desc: 'The moment the vehicle enters the Meridian canopy, nodes identify its unique telemetry signature and log the exact incoming battery percentage.', color: red },
-              { step: '2', icon: <Zap size={20} />, title: 'Deterministic Charging', desc: 'Energy is routed from the nearest anchor node to the vehicle receiver plate. The governance protocol optimizes flow rate based on battery chemistry.', color: cyan },
-              { step: '3', icon: <ShieldCheck size={20} />, title: 'Cryptographic Receipt', desc: 'When the vehicle drives away, the session ends automatically. A cryptographic receipt captures the exact charge-in and charge-out state. Immutable and perfectly accurate.', color: emerald },
+              { step: '1', icon: <Activity size={20} />, title: 'Vehicle Sign-In', desc: 'The moment the vehicle enters the Meridian canopy, nodes identify its telemetry signature and establish a secure, authenticated session for energy transfer.', color: red },
+              { step: '2', icon: <Zap size={20} />, title: 'Deterministic Routing', desc: 'Energy is routed from the nearest anchor node to the vehicle rectenna plate via targeted beamforming. Micro-bursts of energy are transferred and logged.', color: cyan },
+              { step: '3', icon: <ShieldCheck size={20} />, title: 'Cryptographic Micro-Transactions', desc: 'When the vehicle leaves, the session terminates. The Anchor Node signs an Ed25519 receipt capturing the exact charge state, permanently anchoring the billing event to the private CAL.', color: emerald },
             ].map((item, i) => (
               <motion.div key={i} {...fadeUp} transition={{ delay: i * 0.15 }}
                 style={{ display: 'flex', gap: '1.5rem', padding: '2rem 0', position: 'relative' }}>
@@ -209,10 +209,34 @@ export default function MeridianPitch() {
             <p className="text-muted" style={{ fontSize: '1.1rem', marginBottom: '1.5rem', maxWidth: '600px', margin: '0 auto 1.5rem' }}>
               No ground stations. No adapter hunting. No manual billing. The Meridian architecture eliminates every physical bottleneck in EV fleet charging.
             </p>
-            <p style={{ fontSize: '1rem', maxWidth: '550px', margin: '0 auto', color: 'var(--text-main)', fontWeight: 500, lineHeight: 1.6 }}>
-              9 published papers. Provisional patent filed. Full deployment architecture documented. This is not a concept — it is an engineering specification ready for implementation.
-            </p>
-          </motion.div>
+            <div style={{ 
+              background: 'rgba(0,0,0,0.3)', border: '1px solid var(--border-light)', 
+              borderRadius: '12px', padding: '1.5rem', maxWidth: '650px', margin: '0 auto 2rem',
+              display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.9rem', fontFamily: 'var(--font-mono)'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)' }}>
+                <span>PATENT FILING</span>
+                <span style={{ color: 'var(--text-main)' }}>U.S. Provisional 64/056,378</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)' }}>
+                <span>ARCHIVE DOI</span>
+                <span style={{ color: 'var(--text-main)' }}>10.5281/zenodo.20028362</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)' }}>
+                <span>SPECIFICATION</span>
+                <span style={{ color: 'var(--text-main)' }}>Meridian Energy Architecture</span>
+              </div>
+            </div>
+            
+            <a href="https://zenodo.org/communities/meridian-canon" target="_blank" rel="noreferrer" style={{ 
+              display: 'inline-flex', alignItems: 'center', gap: '8px', 
+              padding: '12px 28px', background: red, color: '#fff', 
+              borderRadius: '30px', fontSize: '0.95rem', fontWeight: 600, 
+              textDecoration: 'none', transition: 'transform 0.2s',
+              boxShadow: '0 10px 20px rgba(220,38,38,0.2)'
+            }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'}>
+              View Zenodo Archive <ArrowRight size={16} />
+            </a>
         </div>
       </section>
     </div>
