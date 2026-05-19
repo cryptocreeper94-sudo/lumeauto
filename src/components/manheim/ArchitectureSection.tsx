@@ -40,7 +40,7 @@ export default function ArchitectureSection() {
         <motion.div {...f} style={{ marginBottom: '4rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
             <p style={{ color: 'var(--accent-cyan)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Live Simulation</p>
-            <h3 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>See LumeScan in Action.</h3>
+            <h3 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>See the Mesh in Action.</h3>
             <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto', fontSize: '0.95rem' }}>This is a real-time simulation of the 42-node LumeScan mesh processing a vehicle scan. Watch it identify faults, cross-validate sensor data, and produce a deterministic condition report in under 45 seconds.</p>
           </div>
           <LiveScanSimulator />
