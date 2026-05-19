@@ -68,7 +68,7 @@ export default function HeroSection() {
       <div className="container" style={{ maxWidth: '1100px', position: 'relative', zIndex: 2 }}>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', padding: '6px 14px', background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)', borderRadius: '20px', fontSize: '0.75rem', color: '#38bdf8', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
-            <Shield size={14} style={{ marginRight: 6 }} /> Cox Vehicle Intelligence Platform
+            <Shield size={14} style={{ marginRight: 6 }} /> Enterprise Trust Infrastructure
           </div>
           <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.8rem)', lineHeight: 1.08, marginBottom: '1.5rem' }}>
             Every Vehicle. Every Transfer.<br/>
