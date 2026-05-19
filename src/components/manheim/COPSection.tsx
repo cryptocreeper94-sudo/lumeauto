@@ -77,7 +77,7 @@ function ModuleCarousel() {
       {/* Desktop: 3 cards */}
       <div className="cop-carousel-desktop" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1.25rem', minHeight: '220px', marginBottom: '1.5rem' }}>
         <AnimatePresence mode="popLayout">
-          {visible.map((idx, pos) => (
+          {visible.map((idx) => (
             <motion.div
               key={`desktop-${idx}`}
               layout
@@ -149,10 +149,6 @@ export default function COPSection() {
     }
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-  };
 
   return (
     <section style={{ padding: '6rem 0', position: 'relative', overflow: 'hidden' }}>

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-
+import { Search, ClipboardList, Wrench, ShieldCheck, Truck, Fingerprint, Zap } from 'lucide-react';
 const PHASES = [
   {
     phase: 'Pilot Ready',

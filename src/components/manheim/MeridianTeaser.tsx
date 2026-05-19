@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Zap, Radio, Lightbulb, BatteryCharging, ArrowRight, Cpu, Activity, ShieldCheck } from 'lucide-react';
+import { Radio, Lightbulb, BatteryCharging, ArrowRight, Cpu, Activity, ShieldCheck } from 'lucide-react';
 
 const fadeIn = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
