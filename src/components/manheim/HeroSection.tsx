@@ -78,92 +78,121 @@ export default function HeroSection() {
             A private operations platform — purpose-built for Cox Enterprises — that delivers verifiable, tamper-proof records of every operational event. The COP operating environment, Cox Automotive Ledger, and Lume-V governance layer are enterprise infrastructure designed to scale across verticals. Manheim is the target: 45-second vehicle scans, deterministic condition reports, and a lot operations system built to replace guesswork with proof — validated, documented, and ready for pilot.
           </p>
 
-          {/* ═══ STAT CAROUSEL — self-contained ═══ */}
+          {/* ═══ STATS: Grid on Desktop, Carousel on Mobile ═══ */}
           <style>{`
-            .hero-stat-carousel { max-width: 320px; margin-bottom: 2.5rem; }
-            @media (max-width: 768px) { .hero-stat-carousel { max-width: 100%; margin-left: auto; margin-right: auto; } }
+            .hero-stats-wrapper { margin-bottom: 2.5rem; }
+            .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; max-width: 800px; }
+            .stat-carousel { display: none; }
+            @media (max-width: 768px) { 
+              .stat-grid { display: none; }
+              .stat-carousel { display: block; max-width: 100%; margin-left: auto; margin-right: auto; } 
+            }
           `}</style>
-          <div className="hero-stat-carousel">
-            <div style={{
-              position: 'relative',
-              background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(16px)',
-              border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px',
-              overflow: 'hidden',
-            }}>
-              {/* Stat display */}
-              <div style={{ position: 'relative', height: '90px' }}>
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={statIndex}
-                    initial={{ opacity: 0, x: 40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -40 }}
-                    transition={{ duration: 0.3 }}
-                    style={{
-                      position: 'absolute', inset: 0,
-                      display: 'flex', flexDirection: 'column',
-                      alignItems: 'center', justifyContent: 'center',
-                      textAlign: 'center', padding: '0.75rem 1rem',
-                    }}
-                  >
-                    <div style={{
-                      fontSize: '1.8rem', fontWeight: 800,
-                      color: STATS[statIndex].color,
-                      fontFamily: 'var(--font-mono)', lineHeight: 1.2,
-                    }}>
-                      {STATS[statIndex].val}
-                    </div>
-                    <div style={{
-                      display: 'flex', alignItems: 'center', gap: '5px',
-                      fontSize: '0.65rem', color: 'var(--text-dim)',
-                      letterSpacing: '0.06em', textTransform: 'uppercase',
-                      marginTop: '4px',
-                    }}>
-                      {STATS[statIndex].icon}
-                      {STATS[statIndex].label}
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+          
+          <div className="hero-stats-wrapper">
+            {/* Desktop Grid */}
+            <div className="stat-grid">
+              {STATS.map((stat, i) => (
+                <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.1 }}
+                  style={{
+                    background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(16px)',
+                    border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px',
+                    padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                    textAlign: 'center'
+                  }}>
+                  <div style={{ fontSize: '1.6rem', fontWeight: 800, color: stat.color, fontFamily: 'var(--font-mono)', lineHeight: 1.2, marginBottom: '4px' }}>
+                    {stat.val}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.65rem', color: 'var(--text-dim)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                    <span style={{ color: stat.color }}>{stat.icon}</span>
+                    {stat.label}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
 
-              {/* Internal nav — inside the card */}
+            {/* Mobile Carousel */}
+            <div className="stat-carousel">
               <div style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                padding: '6px 12px 10px',
-                borderTop: '1px solid rgba(255,255,255,0.05)',
+                position: 'relative',
+                background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px',
+                overflow: 'hidden',
               }}>
-                <button onClick={prevStat} aria-label="Previous stat" style={{
-                  width: '24px', height: '24px', borderRadius: '50%',
-                  background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)',
-                  color: 'var(--text-muted)', cursor: 'pointer',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  transition: 'all 0.2s',
-                }}>
-                  <ChevronLeft size={12} />
-                </button>
-
-                <div style={{ display: 'flex', gap: '4px' }}>
-                  {STATS.map((_, i) => (
-                    <button key={i} onClick={() => setStatIndex(i)} aria-label={`Stat ${i + 1}`}
+                <div style={{ position: 'relative', height: '90px' }}>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={statIndex}
+                      initial={{ opacity: 0, x: 40 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -40 }}
+                      transition={{ duration: 0.3 }}
                       style={{
-                        width: statIndex === i ? '14px' : '5px', height: '5px',
-                        borderRadius: '3px', border: 'none', cursor: 'pointer',
-                        background: statIndex === i ? STATS[statIndex].color : 'rgba(255,255,255,0.15)',
-                        transition: 'all 0.3s ease',
+                        position: 'absolute', inset: 0,
+                        display: 'flex', flexDirection: 'column',
+                        alignItems: 'center', justifyContent: 'center',
+                        textAlign: 'center', padding: '0.75rem 1rem',
                       }}
-                    />
-                  ))}
+                    >
+                      <div style={{
+                        fontSize: '1.8rem', fontWeight: 800,
+                        color: STATS[statIndex].color,
+                        fontFamily: 'var(--font-mono)', lineHeight: 1.2,
+                      }}>
+                        {STATS[statIndex].val}
+                      </div>
+                      <div style={{
+                        display: 'flex', alignItems: 'center', gap: '5px',
+                        fontSize: '0.65rem', color: 'var(--text-dim)',
+                        letterSpacing: '0.06em', textTransform: 'uppercase',
+                        marginTop: '4px',
+                      }}>
+                        <span style={{ color: STATS[statIndex].color }}>{STATS[statIndex].icon}</span>
+                        {STATS[statIndex].label}
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
 
-                <button onClick={nextStat} aria-label="Next stat" style={{
-                  width: '24px', height: '24px', borderRadius: '50%',
-                  background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)',
-                  color: 'var(--text-muted)', cursor: 'pointer',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  transition: 'all 0.2s',
+                {/* Internal nav */}
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                  padding: '6px 12px 10px',
+                  borderTop: '1px solid rgba(255,255,255,0.05)',
                 }}>
-                  <ChevronRight size={12} />
-                </button>
+                  <button onClick={prevStat} aria-label="Previous stat" style={{
+                    width: '24px', height: '24px', borderRadius: '50%',
+                    background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)',
+                    color: 'var(--text-muted)', cursor: 'pointer',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    transition: 'all 0.2s',
+                  }}>
+                    <ChevronLeft size={12} />
+                  </button>
+
+                  <div style={{ display: 'flex', gap: '4px' }}>
+                    {STATS.map((_, i) => (
+                      <button key={i} onClick={() => setStatIndex(i)} aria-label={`Stat ${i + 1}`}
+                        style={{
+                          width: statIndex === i ? '14px' : '5px', height: '5px',
+                          borderRadius: '3px', border: 'none', cursor: 'pointer',
+                          background: statIndex === i ? STATS[statIndex].color : 'rgba(255,255,255,0.15)',
+                          transition: 'all 0.3s ease',
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  <button onClick={nextStat} aria-label="Next stat" style={{
+                    width: '24px', height: '24px', borderRadius: '50%',
+                    background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)',
+                    color: 'var(--text-muted)', cursor: 'pointer',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    transition: 'all 0.2s',
+                  }}>
+                    <ChevronRight size={12} />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
