@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, Zap, Droplets, ShieldCheck, ActivitySquare, FileText, Download } from 'lucide-react';
 import { type TelemetrySnapshot } from '../../telemetry/SimulatedEngine';
@@ -13,7 +13,7 @@ function DataRow({ label, value, color }: { label: string; value: string; color?
   );
 }
 
-export default function OrganismDashboard({ onReport }: { onReport?: () => void }) {
+export default function engineDashboard({ onReport }: { onReport?: () => void }) {
   const [data, setData] = useState<TelemetrySnapshot | null>(null);
 
   useEffect(() => {
@@ -109,7 +109,7 @@ export default function OrganismDashboard({ onReport }: { onReport?: () => void 
           {[
             { val: data.tb6_rpm.toFixed(0), label: 'RPM' },
             { val: (data.tb7_speed * 0.621371).toFixed(0), label: 'MPH' },
-            { val: data.mpgInstant > 0 ? data.mpgInstant.toFixed(1) : '—', label: 'MPG' },
+            { val: data.mpgInstant > 0 ? data.mpgInstant.toFixed(1) : 'â€”', label: 'MPG' },
             { val: data.fs10_driverScore.toFixed(0), label: 'SCORE', color: data.fs10_driverScore > 80 ? 'var(--accent-emerald)' : '#f59e0b' },
           ].map((s, i) => (
             <div key={i} style={{ textAlign: 'center' }}>
@@ -121,7 +121,7 @@ export default function OrganismDashboard({ onReport }: { onReport?: () => void 
 
         {/* 4/42 Governance Nodes */}
         <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.15em', marginBottom: '16px' }}>
-          GOVERNANCE NODES — 42 ACTIVE
+          GOVERNANCE NODES â€” 42 ACTIVE
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '24px' }}>
 
@@ -129,7 +129,7 @@ export default function OrganismDashboard({ onReport }: { onReport?: () => void 
           <div style={cardStyle}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px', paddingBottom: '10px', borderBottom: '1px solid var(--border-light)' }}>
               <Activity size={16} style={{ color: 'var(--accent-cyan)' }} />
-              <span style={{ color: 'var(--text-main)', fontSize: '0.7rem', fontWeight: 700 }}>TB — Throughput</span>
+              <span style={{ color: 'var(--text-main)', fontSize: '0.7rem', fontWeight: 700 }}>TB â€” Throughput</span>
             </div>
             <DataRow label="MAF (TB1)" value={`${data.tb1_maf.toFixed(1)} g/s`} />
             <DataRow label="RPM (TB6)" value={`${data.tb6_rpm.toFixed(0)}`} />
@@ -142,9 +142,9 @@ export default function OrganismDashboard({ onReport }: { onReport?: () => void 
           <div style={cardStyle}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px', paddingBottom: '10px', borderBottom: '1px solid var(--border-light)' }}>
               <Zap size={16} style={{ color: 'var(--accent-emerald)' }} />
-              <span style={{ color: 'var(--text-main)', fontSize: '0.7rem', fontWeight: 700 }}>PR — Process</span>
+              <span style={{ color: 'var(--text-main)', fontSize: '0.7rem', fontWeight: 700 }}>PR â€” Process</span>
             </div>
-            <DataRow label="Timing (PR1)" value={`${data.pr1_timing.toFixed(1)}°`} />
+            <DataRow label="Timing (PR1)" value={`${data.pr1_timing.toFixed(1)}Â°`} />
             <DataRow label="Comb.Eff (PR6)" value={`${data.pr6_combEff.toFixed(1)}%`} color={data.pr6_combEff > 96 ? 'var(--accent-emerald)' : 'var(--accent-cyan)'} />
             <DataRow label="Load (PR7)" value={`${data.pr7_engLoad.toFixed(1)}%`} />
             <DataRow label="STFT B1 (PR2)" value={`${data.pr2_stftB1 > 0 ? '+' : ''}${data.pr2_stftB1.toFixed(1)}%`} />
@@ -155,7 +155,7 @@ export default function OrganismDashboard({ onReport }: { onReport?: () => void 
           <div style={cardStyle}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px', paddingBottom: '10px', borderBottom: '1px solid var(--border-light)' }}>
               <Droplets size={16} style={{ color: '#38bdf8' }} />
-              <span style={{ color: 'var(--text-main)', fontSize: '0.7rem', fontWeight: 700 }}>FS — Flow State</span>
+              <span style={{ color: 'var(--text-main)', fontSize: '0.7rem', fontWeight: 700 }}>FS â€” Flow State</span>
             </div>
             <DataRow label="O2 Up B1 (FS1)" value={`${data.fs1_o2UpB1.toFixed(2)}V`} />
             <DataRow label="O2 Dn B1 (FS2)" value={`${data.fs2_o2DnB1.toFixed(2)}V`} />
@@ -167,9 +167,9 @@ export default function OrganismDashboard({ onReport }: { onReport?: () => void 
           <div style={cardStyle}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px', paddingBottom: '10px', borderBottom: '1px solid var(--border-light)' }}>
               <ShieldCheck size={16} style={{ color: '#f59e0b' }} />
-              <span style={{ color: 'var(--text-main)', fontSize: '0.7rem', fontWeight: 700 }}>SL — Lifecycle</span>
+              <span style={{ color: 'var(--text-main)', fontSize: '0.7rem', fontWeight: 700 }}>SL â€” Lifecycle</span>
             </div>
-            <DataRow label="Coolant (SL1)" value={`${data.sl1_coolant.toFixed(1)}°C`} color={data.sl1_coolant < 100 ? 'var(--accent-emerald)' : '#ef4444'} />
+            <DataRow label="Coolant (SL1)" value={`${data.sl1_coolant.toFixed(1)}Â°C`} color={data.sl1_coolant < 100 ? 'var(--accent-emerald)' : '#ef4444'} />
             <DataRow label="Battery (SL3)" value={`${data.sl3_battery.toFixed(1)}V`} color={data.sl3_battery > 13.5 ? 'var(--accent-emerald)' : '#f59e0b'} />
             <DataRow label="MIL (SL7)" value={data.sl7_mil ? 'ON' : 'OFF'} color={data.sl7_mil ? '#ef4444' : 'var(--accent-emerald)'} />
             <DataRow label="Health (SL11)" value={`${data.sl11_degradation.toFixed(0)}%`} color={data.sl11_degradation > 80 ? 'var(--accent-emerald)' : '#f59e0b'} />
@@ -209,7 +209,7 @@ export default function OrganismDashboard({ onReport }: { onReport?: () => void 
           letterSpacing: '0.08em', cursor: 'pointer', transition: 'all 0.2s',
         }}>
           <Download size={16} />
-          EXPORT CSV · {getTelemetryHistoryCount()} SNAPSHOTS
+          EXPORT CSV Â· {getTelemetryHistoryCount()} SNAPSHOTS
         </button>
 
         {/* Runtime */}
@@ -217,9 +217,10 @@ export default function OrganismDashboard({ onReport }: { onReport?: () => void 
           color: 'var(--text-dim)', fontSize: '0.6rem', textAlign: 'center',
           marginTop: '16px', letterSpacing: '0.05em',
         }}>
-          Runtime: {data.sl4_runtime}s · 42 nodes · 100ms polling · Deterministic
+          Runtime: {data.sl4_runtime}s Â· 42 nodes Â· 100ms polling Â· Deterministic
         </p>
       </div>
     </div>
   );
 }
+

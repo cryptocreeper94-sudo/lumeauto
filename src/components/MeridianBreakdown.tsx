@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+﻿import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useCallback } from 'react';
 import { Zap, Radio, Shield, Cpu, Building2, Activity, ChevronLeft, ChevronRight, Pause, Play, ChevronDown } from 'lucide-react';
 
@@ -7,42 +7,42 @@ const components = [
     icon: <Radio size={24}/>,
     title: 'Anchor Node Transmitter',
     desc: 'Overhead energy transmitter mounted in existing canopy infrastructure. Broadcasts deterministic phased-array energy packets.',
-    detail: 'Each anchor node operates as an autonomous energy transmitter embedded in the canopy superstructure. The node uses solid-state phased arrays to achieve nanosecond-level beam steering in the 5.8GHz ISM band. Power delivery is deterministic: same input conditions produce identical output every time. Nodes require no active cooling and operate maintenance-free for 15+ years. A single canopy can support 12–24 anchor nodes.',
+    detail: 'Each anchor node operates as an autonomous energy transmitter embedded in the canopy superstructure. The node uses solid-state phased arrays to achieve nanosecond-level beam steering in the 5.8GHz ISM band. Power delivery is deterministic: same input conditions produce identical output every time. Nodes require no active cooling and operate maintenance-free for 15+ years. A single canopy can support 12â€“24 anchor nodes.',
     color: '#38bdf8',
   },
   {
     icon: <Zap size={24}/>,
     title: 'Wireless Energy Router',
     desc: 'Deterministic protocol engine that routes radiative energy packets from anchor nodes to vehicle receivers.',
-    detail: 'The router governs the radiative microwave power transmission (MPT). Energy is routed through directed beamforming, governed by the organism. Each packet of energy is metered, timestamped, and sealed before delivery. The router handles multi-vehicle simultaneous charging via spatial multiplexing — each vehicle receiver operates on an isolated targeting vector assigned by the organism.',
+    detail: 'The router governs the radiative microwave power transmission (MPT). Energy is routed through directed beamforming, governed by The Engine. Each packet of energy is metered, timestamped, and sealed before delivery. The router handles multi-vehicle simultaneous charging via spatial multiplexing â€” each vehicle receiver operates on an isolated targeting vector assigned by The Engine.',
     color: '#dc2626',
   },
   {
     icon: <Cpu size={24}/>,
     title: 'Vehicle Receiver Plate',
     desc: 'Rectenna (rectifying antenna) array mounted on vehicle roof. Converts radiative microwave energy to DC charging current.',
-    detail: 'The receiver plate is a passive rectenna tuned to the anchor node\'s 5.8GHz frequency. No active electronics on the vehicle side — the plate converts electromagnetic microwave energy directly to DC current through rectification. It acts as a universal intake plate, ignoring the underlying OEM battery architecture. Installation is a bolt-on retrofit requiring zero OEM software integration.',
+    detail: 'The receiver plate is a passive rectenna tuned to the anchor node\'s 5.8GHz frequency. No active electronics on the vehicle side â€” the plate converts electromagnetic microwave energy directly to DC current through rectification. It acts as a universal intake plate, ignoring the underlying OEM battery architecture. Installation is a bolt-on retrofit requiring zero OEM software integration.',
     color: '#38bdf8',
   },
   {
     icon: <Shield size={24}/>,
     title: 'Cryptographic Billing Engine',
     desc: 'On-chain metering and receipt generation using Ed25519 signatures. Every kWh is sealed and publicly verifiable.',
-    detail: 'Every energy transfer micro-burst generates a cryptographic receipt anchored to the Cox Automotive Ledger (CAL) via Ed25519 signatures. The receipt contains: kWh delivered, duration, vehicle VIN, anchor node ID, and a SHA-256 hash of the metering data. Billing disputes are resolved by mathematical replay — feed the same inputs, get the same receipt. No human judgment required.',
+    detail: 'Every energy transfer micro-burst generates a cryptographic receipt anchored to the Cox Automotive Ledger (CAL) via Ed25519 signatures. The receipt contains: kWh delivered, duration, vehicle VIN, anchor node ID, and a SHA-256 hash of the metering data. Billing disputes are resolved by mathematical replay â€” feed the same inputs, get the same receipt. No human judgment required.',
     color: 'var(--accent-emerald)',
   },
   {
     icon: <Building2 size={24}/>,
     title: 'Canopy Infrastructure',
     desc: 'Structural integration with existing Manheim staging canopies. Zero new construction required.',
-    detail: 'Meridian anchor nodes mount directly to existing steel canopy structures at Manheim facilities. No new construction, no trenching, no conduit runs. Electrical feed taps existing panel capacity with a single 240V circuit per node cluster. A facility with 200 staging spots can be fully equipped in a single weekend shutdown. The infrastructure is invisible to daily operations — vehicles park normally.',
+    detail: 'Meridian anchor nodes mount directly to existing steel canopy structures at Manheim facilities. No new construction, no trenching, no conduit runs. Electrical feed taps existing panel capacity with a single 240V circuit per node cluster. A facility with 200 staging spots can be fully equipped in a single weekend shutdown. The infrastructure is invisible to daily operations â€” vehicles park normally.',
     color: '#fb923c',
   },
   {
     icon: <Activity size={24}/>,
-    title: 'Governance Organism',
+    title: 'Governance engine',
     desc: '42-node runtime governing energy flow, load balancing, and safety interlocks across all active bays.',
-    detail: 'The Meridian organism evaluates all 42 governance nodes in a single 10ms cycle. It governs: anchor node power output, receiver plate alignment compensation, thermal management of all active nodes, load balancing across simultaneous charging sessions, and safety interlocks for human proximity. If any safety node triggers, the organism cuts power to the affected bay in under 5ms. The organism runs on-edge — no cloud dependency.',
+    detail: 'The Meridian engine evaluates all 42 governance nodes in a single 10ms cycle. It governs: anchor node power output, receiver plate alignment compensation, thermal management of all active nodes, load balancing across simultaneous charging sessions, and safety interlocks for human proximity. If any safety node triggers, The Engine cuts power to the affected bay in under 5ms. The Engine runs on-edge â€” no cloud dependency.',
     color: '#22d3ee',
   },
 ];
@@ -158,7 +158,7 @@ export default function MeridianBreakdown() {
           <p style={{ color: '#dc2626', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>System Architecture</p>
           <h3 style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>Component Breakdown</h3>
           <p className="text-muted" style={{ maxWidth: '620px', margin: '0 auto', fontSize: '0.95rem', lineHeight: 1.7 }}>
-            Six subsystems under unified organism governance. Tap any component to see the full technical specification.
+            Six subsystems under unified engine governance. Tap any component to see the full technical specification.
           </p>
         </div>
 
@@ -248,3 +248,4 @@ export default function MeridianBreakdown() {
     </section>
   );
 }
+

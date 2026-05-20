@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import OrganismConnection from '../components/organism/OrganismConnection';
-import OrganismDashboard from '../components/organism/OrganismDashboard';
-import OrganismReport from '../components/organism/OrganismReport';
-import OrganismVisualization from '../components/organism/OrganismVisualization';
+﻿import { useState } from 'react';
+import engineConnection from '../components/diagnostic/engineConnection';
+import engineDashboard from '../components/diagnostic/engineDashboard';
+import engineReport from '../components/diagnostic/engineReport';
+import engineVisualization from '../components/diagnostic/engineVisualization';
 import { type TelemetrySnapshot } from '../telemetry/SimulatedEngine';
 import { startBLETelemetryLoop, recordTelemetrySnapshot } from '../telemetry/BLEConnector';
 import { useEffect } from 'react';
 import { BarChart3, FileText, Cpu } from 'lucide-react';
 
-type Screen = 'connection' | 'dashboard' | 'organism' | 'report';
+type Screen = 'connection' | 'dashboard' | 'engine' | 'report';
 
-export default function OrganismApp() {
+export default function engineApp() {
   const [screen, setScreen] = useState<Screen>('connection');
   const [data, setData] = useState<TelemetrySnapshot | null>(null);
 
@@ -27,7 +27,7 @@ export default function OrganismApp() {
   if (screen === 'connection') {
     return (
       <div style={{ background: 'var(--bg-dark)', minHeight: '100vh' }}>
-        <OrganismConnection onConnect={() => setScreen('dashboard')} />
+        <engineConnection onConnect={() => setScreen('dashboard')} />
       </div>
     );
   }
@@ -35,13 +35,13 @@ export default function OrganismApp() {
   return (
     <div style={{ background: 'var(--bg-dark)', minHeight: '100vh', paddingBottom: '70px' }}>
       {screen === 'dashboard' && (
-        <OrganismDashboard onReport={() => setScreen('report')} />
+        <engineDashboard onReport={() => setScreen('report')} />
       )}
-      {screen === 'organism' && (
-        <OrganismVisualization onBack={() => setScreen('dashboard')} data={data} />
+      {screen === 'engine' && (
+        <engineVisualization onBack={() => setScreen('dashboard')} data={data} />
       )}
       {screen === 'report' && (
-        <OrganismReport onBack={() => setScreen('dashboard')} />
+        <engineReport onBack={() => setScreen('dashboard')} />
       )}
 
       {/* Bottom Navigation */}
@@ -56,7 +56,7 @@ export default function OrganismApp() {
         }}>
           {[
             { id: 'dashboard' as Screen, icon: BarChart3, label: 'Dashboard' },
-            { id: 'organism' as Screen, icon: Cpu, label: 'LumeScan' },
+            { id: 'engine' as Screen, icon: Cpu, label: 'LumeScan' },
             { id: 'report' as Screen, icon: FileText, label: 'Report' },
           ].map(tab => {
             const active = screen === tab.id;
@@ -93,3 +93,5 @@ export default function OrganismApp() {
     </div>
   );
 }
+
+

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { ArrowRight, Calendar } from 'lucide-react';
 
 const POSTS = [
@@ -13,14 +13,14 @@ const POSTS = [
     slug: 'the-diagnostic-gap',
     date: 'May 2026',
     title: 'The Diagnostic Gap: Why $150 Reads Should Cost $0',
-    excerpt: 'The average check engine light costs $150 just to diagnose at a mechanic shop. With a $15 Bluetooth OBD-II scanner and Lume-Auto, that same information is delivered to your phone instantly — in plain English.',
+    excerpt: 'The average check engine light costs $150 just to diagnose at a mechanic shop. With a $15 Bluetooth OBD-II scanner and Lume-Auto, that same information is delivered to your phone instantly â€” in plain English.',
     tag: 'Product',
   },
   {
     slug: 'passive-audio-coaching-and-classical-conditioning',
     date: 'May 2026',
     title: 'Passive Audio Coaching: Classical Conditioning Behind the Wheel',
-    excerpt: 'Attention spans are short. Lume-Auto\'s Passive Audio Coach uses simple audio tones to subconsciously train drivers toward optimal throttle behavior — no screen required.',
+    excerpt: 'Attention spans are short. Lume-Auto\'s Passive Audio Coach uses simple audio tones to subconsciously train drivers toward optimal throttle behavior â€” no screen required.',
     tag: 'Research',
   },
   {
@@ -41,7 +41,7 @@ export default function Blog() {
         </div>
         <h1 style={{ fontSize: '3rem', lineHeight: 1.1 }}>Journal</h1>
         <p className="text-muted" style={{ fontSize: '1.2rem' }}>
-          Technical dispatches from the Lume-Auto organism. Engineering insights, product strategy, and the science of deterministic vehicle governance.
+          Technical dispatches from the Lume-Auto engine. Engineering insights, product strategy, and the science of deterministic vehicle governance.
         </p>
 
         <div className="flex flex-col gap-6" style={{ marginTop: '2rem' }}>
@@ -76,3 +76,4 @@ export default function Blog() {
     </div>
   );
 }
+

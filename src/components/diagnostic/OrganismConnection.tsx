@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Bluetooth, Wifi, Zap, ChevronRight, AlertTriangle, Download, Info } from 'lucide-react';
 import { connectBLE, type BLEConnection, enterBLEDemoMode, isBLESupported } from '../../telemetry/BLEConnector';
@@ -7,7 +7,7 @@ import InfoBubble from '../InfoBubble';
 
 type ConnectionMode = 'idle' | 'ble' | 'wifi';
 
-export default function OrganismConnection({ onConnect }: { onConnect: () => void }) {
+export default function engineConnection({ onConnect }: { onConnect: () => void }) {
   const [bleStatus, setBleStatus] = useState<BLEConnection>({
     status: 'disconnected', deviceName: null, error: null, isSimulated: false, adapterInfo: null,
   });
@@ -210,7 +210,7 @@ export default function OrganismConnection({ onConnect }: { onConnect: () => voi
               <Zap size={18} />
               <span style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em' }}>DEMO MODE</span>
             </div>
-            <span style={{ fontSize: '0.6rem', color: 'var(--text-dim)' }}>Simulated 2019 F-150 5.0L V8 · No hardware needed</span>
+            <span style={{ fontSize: '0.6rem', color: 'var(--text-dim)' }}>Simulated 2019 F-150 5.0L V8 Â· No hardware needed</span>
           </button>
         </div>
 
@@ -218,20 +218,20 @@ export default function OrganismConnection({ onConnect }: { onConnect: () => voi
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', justifyContent: 'center', marginBottom: '1rem' }}>
           <InfoBubble title="Need WiFi?" icon={<Download size={13} />} color="var(--accent-emerald)">
             <p style={{ fontWeight: 700, color: 'var(--accent-emerald)', marginBottom: '6px' }}>WiFi adapters need the native app</p>
-            <p>Web browsers can’t open raw TCP connections to WiFi OBD-II adapters. If your adapter uses WiFi instead of Bluetooth, <a href="/download" style={{ color: 'var(--accent-cyan)', textDecoration: 'underline' }}>download the native Android app</a> for full WiFi support.</p>
+            <p>Web browsers canâ€™t open raw TCP connections to WiFi OBD-II adapters. If your adapter uses WiFi instead of Bluetooth, <a href="/download" style={{ color: 'var(--accent-cyan)', textDecoration: 'underline' }}>download the native Android app</a> for full WiFi support.</p>
             <p style={{ marginTop: '8px', color: 'var(--text-dim)', fontSize: '0.7rem' }}>Bluetooth adapters work perfectly in this web app.</p>
           </InfoBubble>
           <InfoBubble title="What can it do?" icon={<Info size={13} />}>
             <p style={{ fontWeight: 700, color: 'var(--accent-cyan)', marginBottom: '6px' }}>Full OBD-II Scanner</p>
-            <p>• Live telemetry (RPM, speed, MPG, 42 signals)<br/>
-               • Read stored diagnostic trouble codes<br/>
-               • Clear codes + reset Check Engine Light<br/>
-               • Pending DTCs — catch faults before MIL<br/>
-               • Freeze frame — engine state at fault time<br/>
-               • VIN auto-read directly from ECU<br/>
-               • 8 readiness monitors for inspections<br/>
-               • CSV telemetry export for fleet analysis<br/>
-               • Deterministic condition reports</p>
+            <p>â€¢ Live telemetry (RPM, speed, MPG, 42 signals)<br/>
+               â€¢ Read stored diagnostic trouble codes<br/>
+               â€¢ Clear codes + reset Check Engine Light<br/>
+               â€¢ Pending DTCs â€” catch faults before MIL<br/>
+               â€¢ Freeze frame â€” engine state at fault time<br/>
+               â€¢ VIN auto-read directly from ECU<br/>
+               â€¢ 8 readiness monitors for inspections<br/>
+               â€¢ CSV telemetry export for fleet analysis<br/>
+               â€¢ Deterministic condition reports</p>
           </InfoBubble>
         </div>
 
@@ -241,7 +241,7 @@ export default function OrganismConnection({ onConnect }: { onConnect: () => voi
           {[
             '1. Plug OBD-II adapter into vehicle (below steering column)',
             '2. Turn ignition to ACC or RUN',
-            '3. Bluetooth: Tap connect — select adapter from picker',
+            '3. Bluetooth: Tap connect â€” select adapter from picker',
             '4. WiFi: Join adapter hotspot first, then tap connect',
           ].map((step, i) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
@@ -267,11 +267,12 @@ export default function OrganismConnection({ onConnect }: { onConnect: () => voi
 
         {/* Compatible */}
         <p style={{ fontSize: '0.55rem', color: 'var(--text-dim)', textAlign: 'center', lineHeight: 1.6 }}>
-          BLE: Veepeak BLE · OBDLink MX+ · BAFX BLE<br />
-          WiFi: Any ELM327 WiFi · OBDLink MX WiFi<br />
-          42 Nodes · 4 Primitives · Zero AI · US Patent 64/032,339
+          BLE: Veepeak BLE Â· OBDLink MX+ Â· BAFX BLE<br />
+          WiFi: Any ELM327 WiFi Â· OBDLink MX WiFi<br />
+          42 Nodes Â· 4 Primitives Â· Zero AI Â· US Patent 64/032,339
         </p>
       </motion.div>
     </div>
   );
 }
+

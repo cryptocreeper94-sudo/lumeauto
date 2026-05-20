@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
+﻿import { useEffect, useRef } from 'react';
 
 /**
- * MiniOrganism — A small, auto-playing 42-node organism visualization.
+ * MiniDiagnostic â€” A small, auto-playing 42-node engine visualization.
  * Designed to sit in the hero section as an ambient visual.
- * No interactivity — pure atmosphere.
+ * No interactivity â€” pure atmosphere.
  */
 
 const RINGS = [
@@ -13,7 +13,7 @@ const RINGS = [
   { count: 12, radius: 125, color: '251, 146, 60',    label: 'SL' },  // orange
 ];
 
-export default function MiniOrganism({ size = 280 }: { size?: number }) {
+export default function MiniDiagnostic({ size = 280 }: { size?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -130,3 +130,5 @@ export default function MiniOrganism({ size = 280 }: { size?: number }) {
     />
   );
 }
+
+

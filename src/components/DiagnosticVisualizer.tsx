@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 
 // Generate 42 nodes for the visualizer once outside the component to maintain render purity
 const NODES = Array.from({ length: 42 }).map((_, i) => {
@@ -14,7 +14,7 @@ const NODES = Array.from({ length: 42 }).map((_, i) => {
   };
 });
 
-export default function OrganismVisualizer() {
+export default function DiagnosticVisualizer() {
   return (
     <div className="panel" style={{ width: '100%', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', background: '#0a0a0c', border: '1px solid rgba(16, 185, 129, 0.4)', borderRadius: '16px', boxShadow: 'inset 0 0 60px rgba(16, 185, 129, 0.05)' }}>
       
@@ -85,3 +85,5 @@ export default function OrganismVisualizer() {
     </div>
   );
 }
+
+

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+﻿import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Activity, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -16,7 +16,7 @@ import Blog from './pages/Blog';
 import GetStarted from './pages/GetStarted';
 import EngineeringBrief from './pages/EngineeringBrief';
 import Whitepaper from './pages/Whitepaper';
-import OrganismApp from './pages/OrganismApp';
+import DiagnosticApp from './pages/DiagnosticApp';
 import DownloadPage from './pages/DownloadPage';
 import Order from './pages/Order';
 import Footer from './components/Footer';
@@ -167,7 +167,7 @@ function Navigation() {
             {/* Executive Summary */}
             <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '1.25rem' }}>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.7, marginBottom: '0.75rem' }}>
-                Lume-Auto reads 42 real-time signals from your vehicle's OBD-II port to passively improve fuel efficiency, predict maintenance failures, and eliminate diagnostic fees — using hardware you already own.
+                Lume-Auto reads 42 real-time signals from your vehicle's OBD-II port to passively improve fuel efficiency, predict maintenance failures, and eliminate diagnostic fees â€” using hardware you already own.
               </p>
               <p style={{ fontSize: '0.7rem', color: 'var(--text-dim)', letterSpacing: '0.05em' }}>
                 US Provisional Patent 64/032,339<br />
@@ -264,7 +264,7 @@ function App() {
               <Route path="/order" element={<Order />} />
               <Route path="/engineering" element={<EngineeringBrief />} />
               <Route path="/whitepaper" element={<Whitepaper />} />
-              <Route path="/app" element={<OrganismApp />} />
+              <Route path="/app" element={<DiagnosticApp />} />
               <Route path="/download" element={<DownloadPage />} />
             </Routes>
           </main>
@@ -277,4 +277,6 @@ function App() {
 }
 
 export default App;
+
+
 

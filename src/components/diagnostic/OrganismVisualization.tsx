@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+﻿import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, ShieldCheck, ArrowLeft } from 'lucide-react';
 import { getBLEStatus } from '../../telemetry/BLEConnector';
@@ -20,7 +20,7 @@ interface NodeState {
 function generateNodes(): NodeState[] {
   const nodes: NodeState[] = [];
   const rings = [
-    { count: 4, radius: 38 },   // Core — 4 primitives
+    { count: 4, radius: 38 },   // Core â€” 4 primitives
     { count: 10, radius: 72 },  // Inner ring
     { count: 14, radius: 108 }, // Middle ring
     { count: 14, radius: 142 }, // Outer ring
@@ -46,7 +46,7 @@ function getTimeStr(): string {
   return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
 }
 
-export default function OrganismVisualization({ onBack, data }: { onBack: () => void; data: any }) {
+export default function engineVisualization({ onBack, data }: { onBack: () => void; data: any }) {
   const [nodes, setNodes] = useState<NodeState[]>(generateNodes);
   const [log, setLog] = useState<GovernanceEvent[]>([]);
   const [driftCount, setDriftCount] = useState(0);
@@ -69,7 +69,7 @@ export default function OrganismVisualization({ onBack, data }: { onBack: () => 
         setDriftCount(d => d + 1);
         setLog(prev => [{
           time: getTimeStr(),
-          message: `Node ${driftNode} drift detected — corrected in ${(1 + Math.random() * 4).toFixed(0)}ms`,
+          message: `Node ${driftNode} drift detected â€” corrected in ${(1 + Math.random() * 4).toFixed(0)}ms`,
           type: 'drift' as const,
         }, ...prev].slice(0, 20));
 
@@ -103,7 +103,7 @@ export default function OrganismVisualization({ onBack, data }: { onBack: () => 
       } else if (roll < 0.4) {
         setLog(prev => [{
           time: getTimeStr(),
-          message: `Scan cycle #${scanCycle} complete — all 42 PIDs nominal`,
+          message: `Scan cycle #${scanCycle} complete â€” all 42 PIDs nominal`,
           type: 'info' as const,
         }, ...prev].slice(0, 20));
       }
@@ -250,13 +250,13 @@ export default function OrganismVisualization({ onBack, data }: { onBack: () => 
           </span>
         </div>
 
-        {/* Organism Status Card */}
+        {/* engine Status Card */}
         <div style={{
           background: 'rgba(255,255,255,0.03)', borderRadius: '16px',
           border: '1px solid var(--border-light)', padding: '20px', marginBottom: '16px',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.15em' }}>ORGANISM STATUS</span>
+            <span style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.15em' }}>engine STATUS</span>
             <motion.div
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
@@ -370,10 +370,11 @@ export default function OrganismVisualization({ onBack, data }: { onBack: () => 
           color: 'var(--text-dim)', fontSize: '0.55rem', textAlign: 'center',
           marginTop: '16px', letterSpacing: '0.05em',
         }}>
-          {bleStatus.isSimulated ? 'Demo Mode' : bleStatus.adapterInfo || 'Connected'} · 42 nodes · 4 primitives · {consensus.toFixed(1)}% consensus
-          <br />Deterministic · Zero AI · US Patent 64/032,339
+          {bleStatus.isSimulated ? 'Demo Mode' : bleStatus.adapterInfo || 'Connected'} Â· 42 nodes Â· 4 primitives Â· {consensus.toFixed(1)}% consensus
+          <br />Deterministic Â· Zero AI Â· US Patent 64/032,339
         </p>
       </div>
     </div>
   );
 }
+

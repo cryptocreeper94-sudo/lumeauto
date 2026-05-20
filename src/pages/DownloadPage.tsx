@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { Smartphone, Download, Bluetooth, Wifi, Shield, Activity, ArrowLeft, QrCode, Monitor } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import QRCodeLib from 'qrcode';
@@ -50,7 +50,7 @@ export default function DownloadPage() {
             </h1>
           </div>
           <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', maxWidth: '500px', margin: '0 auto', lineHeight: 1.6 }}>
-            Native Android app with full WiFi + Bluetooth OBD-II connectivity. Direct APK — no Play Store needed.
+            Native Android app with full WiFi + Bluetooth OBD-II connectivity. Direct APK â€” no Play Store needed.
           </p>
         </motion.div>
 
@@ -104,8 +104,8 @@ export default function DownloadPage() {
               <p style={{ color: 'var(--text-dim)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em' }}>INSTALL STEPS</p>
               {[
                 'Download the APK file',
-                'Open it — tap "Install" when prompted',
-                'If blocked: Settings → allow from this source',
+                'Open it â€” tap "Install" when prompted',
+                'If blocked: Settings â†’ allow from this source',
                 'Open LUME-Auto and connect your adapter',
               ].map((s, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -117,7 +117,7 @@ export default function DownloadPage() {
           </motion.div>
         </div>
 
-        {/* Enterprise Desktop Section — hidden on mobile */}
+        {/* Enterprise Desktop Section â€” hidden on mobile */}
         {!isMobile && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} style={{
             background: 'rgba(255,255,255,0.03)', borderRadius: '16px', padding: '2rem',
@@ -155,7 +155,7 @@ export default function DownloadPage() {
                 <Download size={18} /> DOWNLOAD .EXE
               </a>
               <p style={{ color: 'var(--text-dim)', fontSize: '0.65rem', textAlign: 'center' }}>
-                Requires Windows 10/11 (64-bit) · ~1 GB
+                Requires Windows 10/11 (64-bit) Â· ~1 GB
               </p>
             </div>
           </motion.div>
@@ -169,10 +169,10 @@ export default function DownloadPage() {
           <h3 style={{ fontSize: '1.1rem', marginBottom: '1.5rem', textAlign: 'center' }}>Native App Capabilities</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
             {[
-              { icon: <Wifi size={20} />, title: 'WiFi Connectivity', desc: 'Direct TCP socket to ELM327 WiFi adapters — full raw protocol access', color: 'var(--accent-cyan)' },
-              { icon: <Bluetooth size={20} />, title: 'Bluetooth Low Energy', desc: 'Native BLE pairing for wireless adapters — OBDLink MX+, Veepeak, BAFX', color: '#22d3ee' },
-              { icon: <Activity size={20} />, title: '42-Node Governance', desc: 'Real-time telemetry at 100ms intervals — same deterministic organism', color: 'var(--accent-emerald)' },
-              { icon: <Shield size={20} />, title: 'Condition Reports', desc: 'Cryptographically signed vehicle health assessments — arbitration-grade', color: '#f59e0b' },
+              { icon: <Wifi size={20} />, title: 'WiFi Connectivity', desc: 'Direct TCP socket to ELM327 WiFi adapters â€” full raw protocol access', color: 'var(--accent-cyan)' },
+              { icon: <Bluetooth size={20} />, title: 'Bluetooth Low Energy', desc: 'Native BLE pairing for wireless adapters â€” OBDLink MX+, Veepeak, BAFX', color: '#22d3ee' },
+              { icon: <Activity size={20} />, title: '42-Node Governance', desc: 'Real-time telemetry at 100ms intervals â€” same deterministic engine', color: 'var(--accent-emerald)' },
+              { icon: <Shield size={20} />, title: 'Condition Reports', desc: 'Cryptographically signed vehicle health assessments â€” arbitration-grade', color: '#f59e0b' },
             ].map((f, i) => (
               <div key={i} style={{ display: 'flex', gap: '12px' }}>
                 <div style={{ color: f.color, flexShrink: 0, marginTop: '2px' }}>{f.icon}</div>
@@ -188,12 +188,13 @@ export default function DownloadPage() {
         {/* Requirements */}
         <div style={{ textAlign: 'center' }}>
           <p style={{ color: 'var(--text-dim)', fontSize: '0.7rem', lineHeight: 1.7 }}>
-            Requires Android 8.0+ · ~25MB · No Play Store account needed<br />
-            WiFi: Any ELM327 WiFi adapter · BLE: Any Bluetooth Low Energy adapter<br />
-            US Provisional Patent 64/032,339 · DarkWave Studios LLC
+            Requires Android 8.0+ Â· ~25MB Â· No Play Store account needed<br />
+            WiFi: Any ELM327 WiFi adapter Â· BLE: Any Bluetooth Low Energy adapter<br />
+            US Provisional Patent 64/032,339 Â· DarkWave Studios LLC
           </p>
         </div>
       </div>
     </div>
   );
 }
+

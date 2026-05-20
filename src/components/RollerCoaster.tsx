@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 
 /**
- * RollerCoaster Easter Egg — Enhanced Edition
- * Desktop: Type "coaster" or Konami code (↑↑↓↓←→←→)
+ * RollerCoaster Easter Egg â€” Enhanced Edition
+ * Desktop: Type "coaster" or Konami code (â†‘â†‘â†“â†“â†â†’â†â†’)
  * Mobile: Triple-tap the footer copyright text
  */
 
 const PHRASES = [
   "Recalibrating your governance nodes...",
   "Deterministic stress relief in progress.",
-  "Your organism is self-healing. Are you?",
+  "Your engine is self-healing. Are you?",
   "Zero AI was harmed in the making of this ride.",
   "Same inputs. Same outputs. Same screams.",
   "This ride is cryptographically signed.",
@@ -19,9 +19,9 @@ const PHRASES = [
   "Your condition report: mildly entertained.",
   "This is what happens when engineers get bored.",
   "Arbitration-grade amusement. Tamper-proof fun.",
-  "Probabilistic drop incoming. Just kidding — deterministic.",
+  "Probabilistic drop incoming. Just kidding â€” deterministic.",
   "Auditable. Reproducible. Ridiculous.",
-  "Please keep hands inside the organism at all times.",
+  "Please keep hands inside The Engine at all times.",
   "If you can read this, you're not working hard enough.",
   "Merkle root of happiness: verified.",
   "Edge-computed thrills. No cloud required.",
@@ -61,7 +61,7 @@ export default function RollerCoaster() {
     if (active) { phraseIdxRef.current = Math.floor(Math.random() * PHRASES.length); phraseTimerRef.current = 0; timeRef.current = 0; }
   }, [active]);
 
-  // ═══ THE RIDE ═══
+  // â•â•â• THE RIDE â•â•â•
   useEffect(() => {
     if (!active || !canvasRef.current) return;
     const canvas = canvasRef.current;
@@ -131,7 +131,7 @@ export default function RollerCoaster() {
       phraseTimerRef.current++;
       if (phraseTimerRef.current >= PHRASE_DURATION) { phraseTimerRef.current = 0; phraseIdxRef.current = (phraseIdxRef.current + 1) % PHRASES.length; }
 
-      // ═══ SKY ═══
+      // â•â•â• SKY â•â•â•
       const sky = ctx.createLinearGradient(0, 0, 0, h);
       sky.addColorStop(0, '#050510');
       sky.addColorStop(0.3, '#0a0f2e');
@@ -140,7 +140,7 @@ export default function RollerCoaster() {
       ctx.fillStyle = sky;
       ctx.fillRect(0, 0, w, h);
 
-      // ═══ AURORA BOREALIS ═══
+      // â•â•â• AURORA BOREALIS â•â•â•
       for (let i = 0; i < 5; i++) {
         const auroraY = h * 0.15 + i * 15;
         const wave = Math.sin(timeRef.current * 0.008 + i * 0.7) * 40;
@@ -160,7 +160,7 @@ export default function RollerCoaster() {
         ctx.fill();
       }
 
-      // ═══ MOON ═══
+      // â•â•â• MOON â•â•â•
       const moonX = w * 0.82;
       const moonY = h * 0.12;
       const moonR = 35;
@@ -179,7 +179,7 @@ export default function RollerCoaster() {
       ctx.beginPath(); ctx.arc(moonX + 12, moonY + 8, 5, 0, Math.PI * 2); ctx.fill();
       ctx.beginPath(); ctx.arc(moonX - 3, moonY + 12, 6, 0, Math.PI * 2); ctx.fill();
 
-      // ═══ STARS ═══
+      // â•â•â• STARS â•â•â•
       stars.forEach(s => {
         const twinkle = 0.4 + Math.sin(timeRef.current * 0.05 + s.b * 100) * 0.6;
         ctx.fillStyle = `rgba(255,255,255,${twinkle * 0.7})`;
@@ -197,7 +197,7 @@ export default function RollerCoaster() {
         ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(sx + 80, sy + 30); ctx.stroke();
       }
 
-      // ═══ MOUNTAINS ═══
+      // â•â•â• MOUNTAINS â•â•â•
       mountains.forEach(m => {
         ctx.fillStyle = m.color;
         ctx.beginPath();
@@ -210,7 +210,7 @@ export default function RollerCoaster() {
         ctx.fill();
       });
 
-      // ═══ GROUND GRID ═══
+      // â•â•â• GROUND GRID â•â•â•
       const horizon = h * 0.65;
       for (let i = 0; i < 20; i++) {
         const depth = i / 20;
@@ -228,7 +228,7 @@ export default function RollerCoaster() {
         ctx.beginPath(); ctx.moveTo(w / 2 + spread * 3, h); ctx.lineTo(w / 2, horizon); ctx.stroke();
       }
 
-      // ═══ SPEED LINES ═══
+      // â•â•â• SPEED LINES â•â•â•
       const currentSpeed = 87 + Math.sin(timeRef.current * 0.02) * 15;
       speedLines.forEach(sl => {
         sl.y += sl.speed * 0.005;
@@ -241,7 +241,7 @@ export default function RollerCoaster() {
         ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(sx, sy + sl.len * intensity); ctx.stroke();
       });
 
-      // ═══ 3D TRACK ═══
+      // â•â•â• 3D TRACK â•â•â•
       const camPos = timeRef.current % numPoints;
       const camIdx = Math.floor(camPos);
       const fov = 400;
@@ -328,7 +328,7 @@ export default function RollerCoaster() {
         ctx.beginPath(); ctx.arc(p.sx, h, pillarW * 3, 0, Math.PI * 2); ctx.fill();
       }
 
-      // ═══ TRAIL PARTICLES ═══
+      // â•â•â• TRAIL PARTICLES â•â•â•
       if (Math.random() < 0.4) {
         trails.push({
           x: w / 2 + (Math.random() - 0.5) * 30,
@@ -345,7 +345,7 @@ export default function RollerCoaster() {
         ctx.beginPath(); ctx.arc(t.x, t.y, t.size, 0, Math.PI * 2); ctx.fill();
       }
 
-      // ═══ PHRASE ═══
+      // â•â•â• PHRASE â•â•â•
       const phraseProgress = phraseTimerRef.current / PHRASE_DURATION;
       let phraseAlpha = 1;
       if (phraseProgress < 0.15) phraseAlpha = phraseProgress / 0.15;
@@ -373,7 +373,7 @@ export default function RollerCoaster() {
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.fillText(currentPhrase, w / 2, h * 0.35);
 
-      // ═══ HUD ═══
+      // â•â•â• HUD â•â•â•
       // Speed
       const speed = currentSpeed;
       ctx.fillStyle = 'rgba(0,0,0,0.6)';
@@ -389,7 +389,7 @@ export default function RollerCoaster() {
       ctx.fillText('MPH', 95, h - 50);
       ctx.fillStyle = 'rgba(255,255,255,0.3)';
       ctx.font = '600 9px "Inter", sans-serif';
-      ctx.fillText('LUME COASTER™', 30, h - 30);
+      ctx.fillText('LUME COASTERâ„¢', 30, h - 30);
 
       // G-force
       const gForce = 1 + Math.sin(timeRef.current * 0.03) * 1.5;
@@ -430,3 +430,4 @@ export default function RollerCoaster() {
     </div>
   );
 }
+

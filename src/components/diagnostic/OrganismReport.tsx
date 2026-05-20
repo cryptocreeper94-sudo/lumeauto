@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, AlertTriangle, XCircle, ArrowLeft, Activity, Trash2, List, Hash, Clock, AlertOctagon, Lock } from 'lucide-react';
 import { generateConditionReport } from '../../telemetry/SimulatedEngine';
@@ -19,7 +19,7 @@ const STATUS_COLORS: Record<string, string> = {
   critical: '#ef4444',
 };
 
-export default function OrganismReport({ onBack }: { onBack: () => void }) {
+export default function engineReport({ onBack }: { onBack: () => void }) {
   const [report, setReport] = useState<ReturnType<typeof generateConditionReport> | null>(null);
   const [clearing, setClearing] = useState(false);
   const [clearResult, setClearResult] = useState<string | null>(null);
@@ -101,7 +101,7 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
             <Hash size={12} style={{ color: 'var(--accent-cyan)' }} />
             <p style={{ color: 'var(--text-dim)', fontSize: '0.75rem', fontFamily: 'var(--font-mono)', margin: 0 }}>
               {ecuVIN || report.vin}
-              {ecuVIN && <span style={{ color: 'var(--accent-emerald)', fontSize: '0.6rem', marginLeft: '8px' }}>✓ ECU verified</span>}
+              {ecuVIN && <span style={{ color: 'var(--accent-emerald)', fontSize: '0.6rem', marginLeft: '8px' }}>âœ“ ECU verified</span>}
             </p>
           </div>
         </div>
@@ -132,7 +132,7 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
                 fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em',
                 color: report.laneReady ? 'var(--accent-emerald)' : '#f59e0b',
               }}>
-                {report.laneReady ? '✓ LANE READY' : '⚠ REVIEW REQUIRED'}
+                {report.laneReady ? 'âœ“ LANE READY' : 'âš  REVIEW REQUIRED'}
               </span>
             </div>
           </div>
@@ -160,7 +160,7 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
                 fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.05em',
                 color: STATUS_COLORS[section.status] || 'var(--accent-emerald)',
               }}>
-                ● {section.status.toUpperCase()}
+                â— {section.status.toUpperCase()}
               </span>
             </div>
             {section.items.map((item, j) => (
@@ -241,7 +241,7 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
             textAlign: 'center',
           }}>
             <p style={{ color: 'var(--accent-emerald)', fontSize: '0.75rem', fontWeight: 700 }}>
-              ✓ {clearResult}
+              âœ“ {clearResult}
             </p>
           </div>
         )}
@@ -255,7 +255,7 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
               <AlertOctagon size={14} style={{ color: '#f59e0b' }} />
               <p style={{ color: '#f59e0b', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', margin: 0 }}>
-                {pendingDTCs.length} PENDING DTC{pendingDTCs.length !== 1 ? 'S' : ''} — NOT YET TRIGGERING MIL
+                {pendingDTCs.length} PENDING DTC{pendingDTCs.length !== 1 ? 'S' : ''} â€” NOT YET TRIGGERING MIL
               </p>
             </div>
             {pendingDTCs.map((code, i) => (
@@ -279,7 +279,7 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', paddingBottom: '10px', borderBottom: '1px solid rgba(14,165,233,0.15)' }}>
               <Clock size={14} style={{ color: '#38bdf8' }} />
-              <span style={{ color: '#38bdf8', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em' }}>FREEZE FRAME — ENGINE STATE AT FAULT</span>
+              <span style={{ color: '#38bdf8', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em' }}>FREEZE FRAME â€” ENGINE STATE AT FAULT</span>
             </div>
             <p style={{ fontSize: '0.6rem', color: 'var(--text-dim)', marginBottom: '10px' }}>
               Captured: {freezeFrame.timestamp}
@@ -287,7 +287,7 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
             {[
               { label: 'RPM', value: `${freezeFrame.rpm.toFixed(0)}`, color: 'var(--accent-cyan)' },
               { label: 'Speed', value: `${freezeFrame.speed} km/h (${(freezeFrame.speed * 0.621371).toFixed(0)} mph)`, color: 'var(--accent-cyan)' },
-              { label: 'Coolant', value: `${freezeFrame.coolant}°C`, color: freezeFrame.coolant < 100 ? 'var(--accent-emerald)' : '#ef4444' },
+              { label: 'Coolant', value: `${freezeFrame.coolant}Â°C`, color: freezeFrame.coolant < 100 ? 'var(--accent-emerald)' : '#ef4444' },
               { label: 'Engine Load', value: `${freezeFrame.engineLoad.toFixed(1)}%`, color: freezeFrame.engineLoad > 70 ? '#f59e0b' : 'var(--accent-cyan)' },
               { label: 'Fuel Trim', value: `${freezeFrame.fuelTrim > 0 ? '+' : ''}${freezeFrame.fuelTrim.toFixed(1)}%`, color: Math.abs(freezeFrame.fuelTrim) > 10 ? '#f59e0b' : 'var(--accent-emerald)' },
             ].map((row, i) => (
@@ -310,7 +310,7 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
           <p style={{ color: 'var(--accent-cyan)', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.15em', marginBottom: '8px' }}>DETERMINISTIC ASSESSMENT</p>
           <p style={{ color: 'var(--text-main)', fontSize: '0.8rem', lineHeight: 1.6, marginBottom: '16px' }}>{report.summary}</p>
           <p style={{ color: 'var(--text-dim)', fontSize: '0.6rem', lineHeight: 1.6, textAlign: 'center' }}>
-            42 nodes scanned · 4 primitives · Zero AI calls<br />
+            42 nodes scanned Â· 4 primitives Â· Zero AI calls<br />
             US Provisional Patent 64/032,339
           </p>
         </div>
@@ -331,7 +331,7 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
               {anchoring ? 'ANCHORING TO LEDGER...' :
                anchor?.status === 'anchored' ? `ANCHORED TO ${anchor.anchoredTo}` :
                anchor?.status === 'pending' ? 'ANCHOR PENDING' :
-               anchor ? 'HASH COMPUTED · LOCAL' : 'COMPUTING HASH...'}
+               anchor ? 'HASH COMPUTED Â· LOCAL' : 'COMPUTING HASH...'}
             </span>
           </div>
 
@@ -370,3 +370,4 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
     </div>
   );
 }
+
