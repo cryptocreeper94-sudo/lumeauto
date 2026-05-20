@@ -107,9 +107,9 @@ export default function PlainEnglish() {
                 <span style={{ fontWeight: 700, fontSize: '0.95rem' }}>So what is it?</span>
               </div>
               <p style={{ fontSize: '0.88rem', lineHeight: 1.75, color: 'var(--text-muted)', margin: 0 }}>
-                It's an infrastructure layer that sits on top of what Manheim already runs. It doesn't replace your systems. 
+                It's an infrastructure layer that sits on top of what Manheim already runs. It doesn't replace your systems — including your existing Cox2M telematics dongles, which stay exactly where they are. 
                 It adds modular capabilities that complement existing operations: deterministic condition reports via <strong>LumeScan</strong>, 
-                the tamper-evident dual-ledger (<strong>CAL/VET</strong>) for internal operations and external buyer trust, and a mobile-first 
+                the tamper-evident <strong>Cox Automotive Ledger (CAL)</strong> for immutable operational records, the <strong>Verified Enterprise Trust (VET)</strong> ledger for external buyer and dealer verification, and a mobile-first 
                 platform that works on the phones your drivers already carry. Every piece works on its own. You don't have to adopt the whole thing to get value from one part.
               </p>
             </div>
