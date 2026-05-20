@@ -338,7 +338,6 @@ export function EcosystemAccountHub() {
   const toggle = useCallback(() => setOpen(o => !o), []);
   const close  = useCallback(() => setOpen(false), []);
 
-  const _redir = (() => { try { return encodeURIComponent(window.location.origin); } catch { return ''; } })();
 
   async function copyToClipboard(text: string, key: string) {
     try { await navigator.clipboard.writeText(text); } catch { return; }
@@ -361,7 +360,6 @@ export function EcosystemAccountHub() {
   const affTier     = identity?.affiliateTier || { name: 'Base', commissionRate: 10 };
   const affStats    = identity?.affiliateStats || { totalReferrals: 0, convertedReferrals: 0, totalEarnings: 0 };
   const isLoggedIn  = !!identity;
-  const _token       = getStoredToken();
 
   return (
     <>
