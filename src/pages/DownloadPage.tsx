@@ -117,49 +117,66 @@ export default function DownloadPage() {
           </motion.div>
         </div>
 
-        {/* Enterprise Desktop Section â€” hidden on mobile */}
-        {!isMobile && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} style={{
+        {/* Enterprise Desktop Section */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} style={{
             background: 'rgba(255,255,255,0.03)', borderRadius: '16px', padding: '2rem',
             border: '1px solid var(--border-light)', marginBottom: '3rem',
-            display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems: 'center', justifyContent: 'space-between'
+            opacity: isMobile ? 0.6 : 1,
           }}>
-            <div style={{ flex: '1 1 300px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
-                <Monitor size={28} style={{ color: '#38bdf8' }} />
-                <h2 style={{ fontSize: '1.4rem', margin: 0 }}>Lot Ops Pro Desktop</h2>
-              </div>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '1rem' }}>
-                The complete operational workforce platform built specifically for Windows desktops. Features real-time custody tracking, routing, and messaging.
-              </p>
-              <div style={{ display: 'inline-block', padding: '6px 12px', background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)', borderRadius: '6px', color: '#38bdf8', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.05em' }}>
-                POWERED BY NATIVE LUME BUILD
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem', flexWrap: 'wrap' }}>
+              <Monitor size={28} style={{ color: '#38bdf8' }} />
+              <h2 style={{ fontSize: '1.4rem', margin: 0 }}>Lot Ops Pro Desktop</h2>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '4px 10px', background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)', borderRadius: '20px', color: '#38bdf8', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.08em' }}>
+                🖥️ DESKTOP ONLY
               </div>
             </div>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '1rem' }}>
+              The complete operational workforce platform built specifically for Windows desktops. Features real-time custody tracking, routing, and messaging.
+            </p>
 
-            <div style={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column', gap: '1rem', minWidth: '200px' }}>
-              <a
-                href={EXE_URL}
-                download
-                style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-                  padding: '14px 24px', borderRadius: '30px',
-                  background: 'transparent', border: '2px solid #38bdf8',
-                  color: '#38bdf8', fontSize: '0.85rem', fontWeight: 800,
-                  letterSpacing: '0.1em', cursor: 'pointer', transition: 'all 0.2s',
-                  textDecoration: 'none',
-                }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(56,189,248,0.1)'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
-              >
-                <Download size={18} /> DOWNLOAD .EXE
-              </a>
-              <p style={{ color: 'var(--text-dim)', fontSize: '0.65rem', textAlign: 'center' }}>
-                Requires Windows 10/11 (64-bit) Â· ~1 GB
-              </p>
-            </div>
+            {isMobile ? (
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '10px', padding: '14px 18px',
+                background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)',
+                borderRadius: '12px', marginTop: '1rem',
+              }}>
+                <Monitor size={20} style={{ color: '#f59e0b', flexShrink: 0 }} />
+                <div>
+                  <p style={{ color: '#fbbf24', fontSize: '0.8rem', fontWeight: 700, marginBottom: '2px' }}>Windows / Desktop Required</p>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.7rem', lineHeight: 1.5 }}>
+                    This download is a .exe installer and can only be installed on a Windows PC or laptop. Visit this page from your desktop to download.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'inline-block', padding: '6px 12px', background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)', borderRadius: '6px', color: '#38bdf8', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.05em' }}>
+                  POWERED BY NATIVE LUME BUILD
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', minWidth: '200px' }}>
+                  <a
+                    href={EXE_URL}
+                    download
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+                      padding: '14px 24px', borderRadius: '30px',
+                      background: 'transparent', border: '2px solid #38bdf8',
+                      color: '#38bdf8', fontSize: '0.85rem', fontWeight: 800,
+                      letterSpacing: '0.1em', cursor: 'pointer', transition: 'all 0.2s',
+                      textDecoration: 'none',
+                    }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(56,189,248,0.1)'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
+                  >
+                    <Download size={18} /> DOWNLOAD .EXE
+                  </a>
+                  <p style={{ color: 'var(--text-dim)', fontSize: '0.65rem', textAlign: 'center' }}>
+                    Requires Windows 10/11 (64-bit) · ~1 GB
+                  </p>
+                </div>
+              </div>
+            )}
           </motion.div>
-        )}
 
         {/* Features */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} style={{
