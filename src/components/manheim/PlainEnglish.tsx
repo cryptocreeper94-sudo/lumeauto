@@ -93,16 +93,16 @@ export default function PlainEnglish() {
             <div style={{
               padding: '1.5rem',
               background: 'rgba(255,255,255,0.015)',
-              border: '1px solid rgba(168,85,247,0.12)',
+              border: '1px solid rgba(14,165,233,0.12)',
               borderRadius: '12px',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.75rem' }}>
                 <div style={{
                   width: 32, height: 32, borderRadius: 8,
-                  background: 'rgba(168,85,247,0.1)',
+                  background: 'rgba(14,165,233,0.1)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}>
-                  <ShieldCheck size={16} color="#a855f7" />
+                  <ShieldCheck size={16} color="#38bdf8" />
                 </div>
                 <span style={{ fontWeight: 700, fontSize: '0.95rem' }}>So what is it?</span>
               </div>

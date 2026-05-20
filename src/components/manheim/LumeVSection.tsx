@@ -8,7 +8,7 @@ export default function LumeVSection() {
     <section style={{ padding: '6rem 0', position: 'relative', overflow: 'hidden', background: 'var(--bg-dark)', borderBottom: '1px solid var(--border-light)' }}>
       {/* Background elements */}
       <div style={{ position: 'absolute', top: 0, right: 0, width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(56,189,248,0.05) 0%, transparent 70%)', transform: 'translate(30%, -30%)' }} />
-      <div style={{ position: 'absolute', bottom: 0, left: 0, width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(167,139,250,0.04) 0%, transparent 70%)', transform: 'translate(-30%, 30%)' }} />
+      <div style={{ position: 'absolute', bottom: 0, left: 0, width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(56,189,248,0.04) 0%, transparent 70%)', transform: 'translate(-30%, 30%)' }} />
 
       <div className="container" style={{ position: 'relative', zIndex: 2, maxWidth: '1100px' }}>
         <img src="/assets/images/photos/lumev_governance.png" alt="LUME-V Deterministic Governance Architecture" style={{ width: '100%', height: 'auto', objectFit: 'cover', objectPosition: 'center 20%', borderRadius: '20px', marginBottom: '2.5rem', border: '1px solid rgba(56,189,248,0.15)' }} />
@@ -80,7 +80,7 @@ export default function LumeVSection() {
             </ul>
           </motion.div>
 
-          <motion.div {...fadeIn} transition={{ delay: 0.3 }} className="panel" style={{ padding: '2.5rem', borderColor: 'rgba(167,139,250,0.15)', background: 'linear-gradient(180deg, rgba(167,139,250,0.02) 0%, transparent 100%)' }}>
+          <motion.div {...fadeIn} transition={{ delay: 0.3 }} className="panel" style={{ padding: '2.5rem', borderColor: 'rgba(56,189,248,0.15)', background: 'linear-gradient(180deg, rgba(56,189,248,0.02) 0%, transparent 100%)' }}>
             <h3 style={{ fontSize: '1.3rem', marginBottom: '1rem', color: '#c4b5fd' }}>What It Enables</h3>
             <p className="text-muted" style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>
               LUME-V breaks the chains of vendor lock-in, turning monolithic, isolated databases into an interoperable ecosystem ready for:
@@ -94,7 +94,7 @@ export default function LumeVSection() {
                 { text: 'Modernization without disruption' }
               ].map((item, i) => (
                 <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '14px', fontSize: '1rem', color: 'var(--text-main)' }}>
-                  <div style={{ color: '#c4b5fd', padding: '6px', background: 'rgba(167,139,250,0.1)', borderRadius: '8px', display: 'flex' }}>
+                  <div style={{ color: '#c4b5fd', padding: '6px', background: 'rgba(56,189,248,0.1)', borderRadius: '8px', display: 'flex' }}>
                     <Anchor size={18} />
                   </div>
                   {item.text}

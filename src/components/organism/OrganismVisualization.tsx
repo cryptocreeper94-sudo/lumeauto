@@ -178,8 +178,8 @@ export default function OrganismVisualization({ onBack, data }: { onBack: () => 
           glowColor = 'rgba(245, 158, 11, 0.6)';
           radius = (node.ring === 0 ? 5 : 3.5) * 1.4;
         } else if (node.status === 'healing') {
-          color = '#a78bfa';
-          glowColor = 'rgba(167, 139, 250, 0.4)';
+          color = '#38bdf8';
+          glowColor = 'rgba(56,189,248, 0.4)';
           radius = (node.ring === 0 ? 5 : 3.5) * 1.2;
         } else {
           color = node.ring === 0 ? '#10b981' : '#06b6d4';
@@ -229,7 +229,7 @@ export default function OrganismVisualization({ onBack, data }: { onBack: () => 
     info: 'var(--text-dim)',
     drift: '#f59e0b',
     consensus: 'var(--accent-emerald)',
-    heal: '#a78bfa',
+    heal: '#38bdf8',
   };
 
   return (

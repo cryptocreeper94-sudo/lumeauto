@@ -3,10 +3,10 @@ import { Globe, Lock, Link2, ShieldCheck } from 'lucide-react';
 
 const fadeIn = { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
-const accent = '#7c3aed';
-const accentDim = 'rgba(124,58,237,0.10)';
-const accentBorder = 'rgba(124,58,237,0.20)';
-const accentBorderHover = 'rgba(124,58,237,0.45)';
+const accent = '#0369a1';
+const accentDim = 'rgba(3,105,161,0.10)';
+const accentBorder = 'rgba(3,105,161,0.20)';
+const accentBorderHover = 'rgba(3,105,161,0.45)';
 
 export default function EnterpriseMeshTeaser() {
   return (
@@ -34,7 +34,7 @@ export default function EnterpriseMeshTeaser() {
         <motion.div {...fadeIn} transition={{ delay: 0.05 }} style={{
           display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
           padding: '14px 24px', background: 'rgba(255,255,255,0.02)',
-          border: '1px solid rgba(124,58,237,0.15)', borderRadius: '12px',
+          border: '1px solid rgba(3,105,161,0.15)', borderRadius: '12px',
           marginBottom: '2.5rem', maxWidth: '700px', marginLeft: 'auto', marginRight: 'auto',
         }}>
           <Lock size={18} style={{ color: accent, flexShrink: 0 }} />
@@ -122,7 +122,7 @@ export default function EnterpriseMeshTeaser() {
         </motion.div>
 
         {/* Closing callout */}
-        <motion.div {...fadeIn} transition={{ delay: 0.4 }} className="panel" style={{ padding: '2.5rem', textAlign: 'center', borderColor: accentBorder, background: `linear-gradient(180deg, ${accentDim} 0%, rgba(129,140,248,0.02) 100%)` }}>
+        <motion.div {...fadeIn} transition={{ delay: 0.4 }} className="panel" style={{ padding: '2.5rem', textAlign: 'center', borderColor: accentBorder, background: `linear-gradient(180deg, ${accentDim} 0%, rgba(34,211,238,0.02) 100%)` }}>
           <p className="text-muted" style={{ maxWidth: '750px', margin: '0 auto', fontSize: '1rem', lineHeight: 1.7, marginBottom: '1.25rem' }}>
             This platform represents Phase 1 of a network that scales to every node in the automotive supply chain — without requiring any participant to expose their internal data, connect to a public network, or share a database with anyone. Each company gets their own sovereign system. The mesh connects them through proofs, not data.
           </p>

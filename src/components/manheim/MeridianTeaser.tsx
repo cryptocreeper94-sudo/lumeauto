@@ -99,7 +99,7 @@ export default function MeridianTeaser() {
         </motion.div>
 
         {/* CTA */}
-        <motion.div {...fadeIn} transition={{ delay: 0.4 }} className="panel" style={{ padding: '2.5rem', textAlign: 'center', borderColor: accentBorder, background: `linear-gradient(180deg, ${accentDim} 0%, rgba(129,140,248,0.02) 100%)` }}>
+        <motion.div {...fadeIn} transition={{ delay: 0.4 }} className="panel" style={{ padding: '2.5rem', textAlign: 'center', borderColor: accentBorder, background: `linear-gradient(180deg, ${accentDim} 0%, rgba(34,211,238,0.02) 100%)` }}>
           <p className="text-muted" style={{ maxWidth: '700px', margin: '0 auto', fontSize: '1rem', lineHeight: 1.7, marginBottom: '1.25rem' }}>
             Meridian is fully architected research with a dedicated engineering specification. The spatial mesh, phased-array targeting, and ledger anchoring protocols are documented for the Phase 3 rollout.
           </p>

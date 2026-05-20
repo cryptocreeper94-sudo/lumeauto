@@ -72,7 +72,7 @@ export default function VETSection() {
         </div>
 
         {/* The chain of trust */}
-        <motion.div {...fadeIn} transition={{ delay: 0.3 }} className="panel" style={{ padding: '2.5rem', borderColor: accentBorder, background: `linear-gradient(180deg, ${accentDim} 0%, rgba(167,139,250,0.02) 100%)` }}>
+        <motion.div {...fadeIn} transition={{ delay: 0.3 }} className="panel" style={{ padding: '2.5rem', borderColor: accentBorder, background: `linear-gradient(180deg, ${accentDim} 0%, rgba(56,189,248,0.02) 100%)` }}>
           <h3 style={{ fontSize: '1.3rem', marginBottom: '2rem', color: accent, textAlign: 'center' }}>Chain of Trust</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0, maxWidth: '400px', margin: '0 auto' }}>
             {[

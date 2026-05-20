@@ -60,7 +60,7 @@ export default function Enterprise() {
                 icon: <Layers size={28} />,
                 features: ['Deterministic .lume compilation', 'Self-healing organism state correction', 'Native language for custom workflows', 'New organisms deployable in hours', 'Reproducible build outputs', '8 production organisms / 336 nodes', 'Client-specific capability extension', 'Published on Zenodo'],
                 stat: '8', statLabel: 'Production organisms',
-                color: '#a78bfa',
+                color: '#38bdf8',
               }
             ].map((product, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.12 }} className="panel flex flex-col" style={{ padding: '2rem', borderColor: `${product.color}33` }}>
@@ -97,7 +97,7 @@ export default function Enterprise() {
             {[
               { step: '01', title: 'Vehicle Arrives', product: 'Lume-Auto', desc: '45-second OBD-II scan at intake. Condition report generated. Battery health flagged. Pending faults identified. Lane readiness scored.', color: 'var(--accent-cyan)' },
               { step: '02', title: 'Routing & Assignment', product: 'Ops Recon', desc: 'Receives vehicle health data from Lume-Auto. Routes vehicle to correct lane or reconditioning. Driver assigned via GPS. Move tracked in real-time.', color: 'var(--accent-emerald)' },
-              { step: '03', title: 'Lot Residence', product: 'Both', desc: 'Lume-Auto monitors for battery drain and fault emergence. Ops Recon tracks lot position, move history, and time-on-lot.', color: '#a78bfa' },
+              { step: '03', title: 'Lot Residence', product: 'Both', desc: 'Lume-Auto monitors for battery drain and fault emergence. Ops Recon tracks lot position, move history, and time-on-lot.', color: '#38bdf8' },
               { step: '04', title: 'Pre-Sale', product: 'Lume-Auto', desc: 'Updated condition report generated for listing. Lane assignment confirmed. All data flows to the sale record.', color: 'var(--accent-cyan)' },
               { step: '05', title: 'Arbitration Defense', product: 'Lume-Auto', desc: 'Dispute? Pull the intake scan log. Deterministic replay: same inputs → same condition report. Resolved by data, not opinion.', color: 'var(--accent-emerald)' },
               { step: '06', title: 'Transport', product: 'Both', desc: 'Lume-Auto flags drivetrain health unsuitable for transport. Ops Recon assigns transport driver and tracks via GPS.', color: 'var(--accent-cyan)' },

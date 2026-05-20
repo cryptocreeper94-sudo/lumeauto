@@ -19,8 +19,8 @@ const brands = {
     icon: <Database size={28} color="#0a0a0c" />,
     title: 'Cox Automotive Ledger',
     subtitle: 'Cryptographic vehicle provenance explorer — authorized access only.',
-    gradient: 'linear-gradient(135deg, #818cf8, #a78bfa)',
-    accent: '#a78bfa',
+    gradient: 'linear-gradient(135deg, #22d3ee, #38bdf8)',
+    accent: '#38bdf8',
   },
 };
 
@@ -85,7 +85,7 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
       padding: '1.5rem', zIndex: 100,
     }}>
       {/* Background glow */}
-      <div style={{ position: 'fixed', top: '20%', left: '50%', transform: 'translateX(-50%)', width: '600px', height: '600px', background: `radial-gradient(circle, ${brand === 'manheim' ? 'rgba(56,189,248,0.06)' : 'rgba(129,140,248,0.06)'} 0%, transparent 70%)`, pointerEvents: 'none' }} />
+      <div style={{ position: 'fixed', top: '20%', left: '50%', transform: 'translateX(-50%)', width: '600px', height: '600px', background: `radial-gradient(circle, ${brand === 'manheim' ? 'rgba(56,189,248,0.06)' : 'rgba(34,211,238,0.06)'} 0%, transparent 70%)`, pointerEvents: 'none' }} />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -103,7 +103,7 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
             background: b.gradient,
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
             marginBottom: '1.25rem',
-            boxShadow: `0 8px 32px ${brand === 'manheim' ? 'rgba(56,189,248,0.2)' : 'rgba(129,140,248,0.2)'}`,
+            boxShadow: `0 8px 32px ${brand === 'manheim' ? 'rgba(56,189,248,0.2)' : 'rgba(34,211,238,0.2)'}`,
           }}>
             {b.icon}
           </div>

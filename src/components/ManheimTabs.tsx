@@ -6,7 +6,7 @@ export default function ManheimTabs() {
   const isSubdomain = window.location.hostname.includes('manheim');
   const tabs = [
     { path: isSubdomain ? '/' : '/manheim', label: 'Platform', fullLabel: 'Platform Overview', icon: <Shield size={14} />, color: 'var(--accent-cyan)' },
-    { path: isSubdomain ? '/meridian' : '/manheim-meridian', label: 'Meridian', fullLabel: 'Meridian Energy', icon: <Activity size={14} />, color: '#a78bfa' },
+    { path: isSubdomain ? '/meridian' : '/manheim-meridian', label: 'Meridian', fullLabel: 'Meridian Energy', icon: <Activity size={14} />, color: '#38bdf8' },
     { path: isSubdomain ? '/engineering' : '/manheim-engineering', label: 'Engineering', fullLabel: 'Engineering Brief', icon: <Cpu size={14} />, color: 'var(--accent-emerald)' },
   ];
 

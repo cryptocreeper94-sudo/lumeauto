@@ -23,9 +23,9 @@ const PHASES = [
   },
   {
     phase: 'Planned',
-    color: '#a78bfa',
-    border: 'rgba(167,139,250,0.2)',
-    glow: 'rgba(167,139,250,0.06)',
+    color: '#38bdf8',
+    border: 'rgba(56,189,248,0.2)',
+    glow: 'rgba(56,189,248,0.06)',
     apps: [
       { icon: <Truck size={20} />, name: 'Fleet OS', desc: 'Enterprise-wide fleet and asset management — maintenance scheduling, service history tracking, asset utilization analytics, and fleet health monitoring across all Cox subsidiaries. Extends the LumeScan diagnostic pipeline beyond auction inventory to operational vehicles, transport equipment, and facility assets.' },
       { icon: <Fingerprint size={20} />, name: 'Identity OS', desc: 'Enterprise identity, permissions, and role governance. Bridges internal authentication (Okta, Azure AD) with VET\'s external verification system, providing a single identity framework across all COP applications with ledger-anchored access control.' },
@@ -43,8 +43,8 @@ export default function PlatformRoadmap() {
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div style={{
               display: 'inline-flex', alignItems: 'center', padding: '6px 14px',
-              background: 'rgba(167,139,250,0.1)', border: '1px solid rgba(167,139,250,0.2)',
-              borderRadius: '20px', fontSize: '0.75rem', color: '#a78bfa',
+              background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)',
+              borderRadius: '20px', fontSize: '0.75rem', color: '#38bdf8',
               fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1rem',
             }}>
               Platform Roadmap
@@ -128,8 +128,8 @@ export default function PlatformRoadmap() {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
           style={{
             marginTop: '3rem', padding: '2rem', borderRadius: '16px',
-            background: 'linear-gradient(135deg, rgba(167,139,250,0.04) 0%, rgba(56,189,248,0.04) 100%)',
-            border: '1px solid rgba(167,139,250,0.12)',
+            background: 'linear-gradient(135deg, rgba(56,189,248,0.04) 0%, rgba(56,189,248,0.04) 100%)',
+            border: '1px solid rgba(56,189,248,0.12)',
             textAlign: 'center',
           }}>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.8, maxWidth: '720px', margin: '0 auto' }}>

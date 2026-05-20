@@ -194,7 +194,7 @@ export default function ImplementationPath() {
               { title: 'Lot Ops Pro', desc: 'Operational workforce platform — custody tracking, routing, messaging.', color: '#38bdf8' },
               { title: 'LUME-V', desc: 'Deterministic governance wrapper — operates across any legacy enterprise stack.', color: 'var(--accent-emerald)' },
               { title: 'CAL', desc: 'Cox Automotive Ledger — private, tamper-evident operational records anchored on-chain.', color: '#38bdf8' },
-              { title: 'VET', desc: 'Verified Enterprise Trust — external verification certificates for buyers, dealers, and financing partners.', color: '#a78bfa' },
+              { title: 'VET', desc: 'Verified Enterprise Trust — external verification certificates for buyers, dealers, and financing partners.', color: '#38bdf8' },
               { title: 'Meridian', desc: 'Wireless energy routing — EV charging, powered signage, and lot infrastructure.', color: '#dc2626' },
               { title: 'Unified Platform', desc: 'When deployed together, every component amplifies the others — the whole exceeds the sum of its parts.', color: '#fb923c' },
             ].map((mod, i) => (

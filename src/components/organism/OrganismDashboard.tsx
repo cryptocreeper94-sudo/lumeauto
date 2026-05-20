@@ -154,7 +154,7 @@ export default function OrganismDashboard({ onReport }: { onReport?: () => void 
           {/* Flow State */}
           <div style={cardStyle}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px', paddingBottom: '10px', borderBottom: '1px solid var(--border-light)' }}>
-              <Droplets size={16} style={{ color: '#a78bfa' }} />
+              <Droplets size={16} style={{ color: '#38bdf8' }} />
               <span style={{ color: 'var(--text-main)', fontSize: '0.7rem', fontWeight: 700 }}>FS — Flow State</span>
             </div>
             <DataRow label="O2 Up B1 (FS1)" value={`${data.fs1_o2UpB1.toFixed(2)}V`} />

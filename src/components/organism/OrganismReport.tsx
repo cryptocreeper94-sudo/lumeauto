@@ -274,12 +274,12 @@ export default function OrganismReport({ onBack }: { onBack: () => void }) {
         {/* Freeze Frame */}
         {freezeFrame && (
           <div style={{
-            background: 'rgba(139,92,246,0.05)', borderRadius: '12px', padding: '16px',
-            border: '1px solid rgba(139,92,246,0.2)', marginBottom: '12px',
+            background: 'rgba(14,165,233,0.05)', borderRadius: '12px', padding: '16px',
+            border: '1px solid rgba(14,165,233,0.2)', marginBottom: '12px',
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', paddingBottom: '10px', borderBottom: '1px solid rgba(139,92,246,0.15)' }}>
-              <Clock size={14} style={{ color: '#a78bfa' }} />
-              <span style={{ color: '#a78bfa', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em' }}>FREEZE FRAME — ENGINE STATE AT FAULT</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', paddingBottom: '10px', borderBottom: '1px solid rgba(14,165,233,0.15)' }}>
+              <Clock size={14} style={{ color: '#38bdf8' }} />
+              <span style={{ color: '#38bdf8', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em' }}>FREEZE FRAME — ENGINE STATE AT FAULT</span>
             </div>
             <p style={{ fontSize: '0.6rem', color: 'var(--text-dim)', marginBottom: '10px' }}>
               Captured: {freezeFrame.timestamp}

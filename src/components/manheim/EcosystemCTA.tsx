@@ -7,7 +7,7 @@ export default function EcosystemCTA() {
   return (
     <>
       {/* Academic Foundation */}
-      <section style={{ padding: '5rem 0', background: 'linear-gradient(180deg, rgba(167,139,250,0.03) 0%, var(--bg-dark) 100%)', borderBottom: '1px solid var(--border-light)' }}>
+      <section style={{ padding: '5rem 0', background: 'linear-gradient(180deg, rgba(56,189,248,0.03) 0%, var(--bg-dark) 100%)', borderBottom: '1px solid var(--border-light)' }}>
         <div className="container" style={{ maxWidth: '1000px' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <p style={{ color: 'var(--accent-cyan)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>Academic Foundation</p>
@@ -25,7 +25,7 @@ export default function EcosystemCTA() {
               { title: 'DAIGS: Deterministic Autonomous Infrastructure Governance System', sub: 'The multi-vertical governance framework defining Lume-Auto (vehicle systems), deterministic state models, invariant engines, and certificate fabrics across 23 infrastructure verticals.', doi: '10.5281/zenodo.19491784', version: 'v3 · 2026', color: 'var(--accent-cyan)', relevance: 'Defines the Lume-Auto vertical used here' },
               { title: 'Self-Healing Synthetic Organisms: Deterministic Autonomous Agents for Infrastructure Governance', sub: 'The architecture behind the 42-node governance mesh. Self-healing synthetic organisms that produce deterministic outputs from natural-language governance contracts — the core execution model powering every diagnostic and workflow.', doi: '10.5281/zenodo.19533627', version: 'v2 · 2026', color: '#f59e0b', relevance: 'Core execution model for all platform agents' },
               { title: 'The Routed World — Meridian and Deterministic Physical Infrastructure', sub: 'Collected edition of the Meridian Canon: deterministic wireless energy routing, anchor node architecture, and the theory of Deterministic Infrastructure.', doi: '10.5281/zenodo.20028362', version: 'First Edition · May 2026', color: '#dc2626', relevance: 'Foundation for the Meridian charging system' },
-              { title: 'The Enterprise Mesh — Sovereign-Chain Architecture and Cross-Enterprise Verification', sub: 'Sovereign-chain network architecture where every enterprise operates its own private proof-of-authority ledger. Cross-enterprise verification via cryptographic proof exchange — no raw data ever leaves the originating chain.', doi: '10.5281/zenodo.20251916', version: 'v1 · May 2026', color: '#8b5cf6', relevance: 'Architecture for Cox Automotive Ledger network expansion' },
+              { title: 'The Enterprise Mesh — Sovereign-Chain Architecture and Cross-Enterprise Verification', sub: 'Sovereign-chain network architecture where every enterprise operates its own private proof-of-authority ledger. Cross-enterprise verification via cryptographic proof exchange — no raw data ever leaves the originating chain.', doi: '10.5281/zenodo.20251916', version: 'v1 · May 2026', color: '#0ea5e9', relevance: 'Architecture for Cox Automotive Ledger network expansion' },
             ].map((paper, i) => (
               <motion.div key={i} {...f} transition={{ delay: i * 0.08 }} className="panel" style={{ padding: '1.5rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
@@ -70,7 +70,7 @@ export default function EcosystemCTA() {
               { label: 'ORCID Profile', href: 'https://orcid.org/0009-0007-5214-649X', icon: <ExternalLink size={14}/> },
             ].map((link, i) => (
               <a key={i} href={link.href} target="_blank" rel="noopener" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '8px 16px', fontSize: '0.8rem', color: 'var(--text-muted)', border: '1px solid var(--border-light)', borderRadius: '8px', transition: 'all 0.2s' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(167,139,250,0.4)'; (e.currentTarget as HTMLElement).style.color = '#c4b5fd'; }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.4)'; (e.currentTarget as HTMLElement).style.color = '#c4b5fd'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-light)'; (e.currentTarget as HTMLElement).style.color = 'var(--text-muted)'; }}>
                 {link.icon} {link.label}
               </a>

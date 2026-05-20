@@ -170,7 +170,7 @@ export default function DownloadPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
             {[
               { icon: <Wifi size={20} />, title: 'WiFi Connectivity', desc: 'Direct TCP socket to ELM327 WiFi adapters — full raw protocol access', color: 'var(--accent-cyan)' },
-              { icon: <Bluetooth size={20} />, title: 'Bluetooth Low Energy', desc: 'Native BLE pairing for wireless adapters — OBDLink MX+, Veepeak, BAFX', color: '#818cf8' },
+              { icon: <Bluetooth size={20} />, title: 'Bluetooth Low Energy', desc: 'Native BLE pairing for wireless adapters — OBDLink MX+, Veepeak, BAFX', color: '#22d3ee' },
               { icon: <Activity size={20} />, title: '42-Node Governance', desc: 'Real-time telemetry at 100ms intervals — same deterministic organism', color: 'var(--accent-emerald)' },
               { icon: <Shield size={20} />, title: 'Condition Reports', desc: 'Cryptographically signed vehicle health assessments — arbitration-grade', color: '#f59e0b' },
             ].map((f, i) => (

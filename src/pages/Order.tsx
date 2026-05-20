@@ -11,7 +11,7 @@ const FEATURES = [
   { icon: <Activity size={20} />, title: '42-Signal Governance Engine', desc: 'Reads 42 OBD-II signals at 100ms intervals. RPM, fuel flow, combustion timing, air-fuel ratio — everything a $200 scanner shows and more.', color: 'var(--accent-cyan)' },
   { icon: <Zap size={20} />, title: 'Passive Audio Coaching', desc: 'Bluetooth audio tones through your car speakers. Chime = efficient. Buzz = wasting fuel. Your brain learns the pattern automatically.', color: 'var(--accent-emerald)' },
   { icon: <Wrench size={20} />, title: 'Skip the $150 Diagnostic', desc: 'Check engine light? Reads the code, translates to English, tells you what\'s wrong, and links the exact part on Amazon.', color: '#f59e0b' },
-  { icon: <Shield size={20} />, title: 'Predictive Maintenance', desc: 'Detects component degradation 1–3% MPG before it triggers a check engine light. Fix $30 parts before they become $500 repairs.', color: '#a78bfa' },
+  { icon: <Shield size={20} />, title: 'Predictive Maintenance', desc: 'Detects component degradation 1–3% MPG before it triggers a check engine light. Fix $30 parts before they become $500 repairs.', color: '#38bdf8' },
   { icon: <Star size={20} />, title: 'Driver Score & Family Dashboard', desc: 'Track efficiency over time. Teen driver scoring. Multi-vehicle household monitoring. Fleet analytics at scale.', color: 'var(--accent-cyan)' },
   { icon: <Gauge size={20} />, title: 'Real-Time Engine Dashboard', desc: '42 live gauges updating 10x per second on your phone. Professional-grade telemetry for every driver.', color: 'var(--accent-emerald)' },
 ];
@@ -159,7 +159,7 @@ export default function Order() {
             {[
               { icon: <Package size={28} />, title: 'WiFi OBD-II Adapter', desc: 'Professional-grade hardware. Plugs into any vehicle sold after 1996. WiFi connectivity — works with iPhone and Android.', color: 'var(--accent-cyan)' },
               { icon: <Smartphone size={28} />, title: 'Lume-Auto App', desc: 'Native Android APK + Progressive Web App. Download code emailed instantly. iOS App Store build coming soon.', color: 'var(--accent-emerald)' },
-              { icon: <Activity size={28} />, title: '42-Node Organism License', desc: 'Full deterministic governance engine. Real-time coaching, diagnostics, predictive maintenance. No subscription required to start.', color: '#a78bfa' },
+              { icon: <Activity size={28} />, title: '42-Node Organism License', desc: 'Full deterministic governance engine. Real-time coaching, diagnostics, predictive maintenance. No subscription required to start.', color: '#38bdf8' },
             ].map((item, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 className="panel" style={{ padding: '2rem', textAlign: 'center', minHeight: '220px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

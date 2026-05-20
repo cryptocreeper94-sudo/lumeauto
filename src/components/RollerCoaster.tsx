@@ -397,11 +397,11 @@ export default function RollerCoaster() {
       ctx.beginPath(); ctx.roundRect(w - 146, h - 84, 130, 64, 10); ctx.fill();
       ctx.strokeStyle = `rgba(${gForce > 2 ? '239,68,68' : '167,139,250'},0.25)`;
       ctx.lineWidth = 1; ctx.stroke();
-      ctx.fillStyle = gForce > 2 ? '#ef4444' : '#a78bfa';
+      ctx.fillStyle = gForce > 2 ? '#ef4444' : '#38bdf8';
       ctx.font = '700 28px "JetBrains Mono", monospace';
       ctx.textAlign = 'right';
       ctx.fillText(`${gForce.toFixed(1)}`, w - 45, h - 48);
-      ctx.fillStyle = gForce > 2 ? 'rgba(239,68,68,0.5)' : 'rgba(167,139,250,0.5)';
+      ctx.fillStyle = gForce > 2 ? 'rgba(239,68,68,0.5)' : 'rgba(56,189,248,0.5)';
       ctx.font = '400 12px "Inter", sans-serif';
       ctx.fillText('G', w - 28, h - 50);
       ctx.fillStyle = 'rgba(255,255,255,0.3)';
