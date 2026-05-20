@@ -19,6 +19,7 @@ import Whitepaper from './pages/Whitepaper';
 import DiagnosticApp from './pages/DiagnosticApp';
 import DownloadPage from './pages/DownloadPage';
 import Order from './pages/Order';
+import Redeem from './pages/Redeem';
 import Footer from './components/Footer';
 import RollerCoaster from './components/RollerCoaster';
 import { EcosystemAccountHub } from './components/EcosystemAccountHub';
@@ -267,6 +268,7 @@ function App() {
               <Route path="/whitepaper" element={<Whitepaper />} />
               <Route path="/app" element={<DiagnosticApp />} />
               <Route path="/download" element={<DownloadPage />} />
+              <Route path="/redeem" element={<Redeem />} />
             </Routes>
           </main>
           <Footer />
