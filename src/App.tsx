@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Activity, Menu, X } from 'lucide-react';
+import { Activity, Menu, X, Shield } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -24,6 +24,7 @@ import Footer from './components/Footer';
 import RollerCoaster from './components/RollerCoaster';
 import { EcosystemAccountHub } from './components/EcosystemAccountHub';
 
+// @ts-expect-error LoadingScreen kept for subdomain loading states
 function LoadingScreen({ subdomain }: { subdomain: 'manheim' | 'cal' | null }) {
   const isManheim = subdomain === 'manheim' || subdomain === 'cal';
   return (

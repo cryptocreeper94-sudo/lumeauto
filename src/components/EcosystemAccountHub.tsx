@@ -179,7 +179,7 @@ const S = {
   drag: { display: isMob ? 'flex' : 'none', justifyContent: 'center', padding: '10px 0 4px' },
   dragBar: { width: 36, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.12)' },
   hdr: { padding: '18px 18px 14px', borderBottom: '1px solid rgba(255,255,255,0.04)', display: 'flex', alignItems: 'center', gap: 12 },
-  av: (url?: string | null) => ({
+  av: (_url?: string | null) => ({
     width: 48, height: 48, borderRadius: '50%',
     border: '2px solid rgba(6,182,212,0.25)',
     overflow: 'hidden' as const, flexShrink: 0, cursor: 'pointer',
@@ -261,7 +261,7 @@ const S = {
   carouselArrow: (disabled: boolean) => ({
     background: 'none', border: '1px solid rgba(6,182,212,0.2)', borderRadius: 6,
     width: 26, height: 26, display: 'flex', alignItems: 'center', justifyContent: 'center',
-    cursor: (disabled ? 'default' : 'pointer') as const, padding: 0, outline: 'none',
+    cursor: disabled ? 'default' as const : 'pointer' as const, padding: 0, outline: 'none',
     color: disabled ? 'rgba(255,255,255,0.12)' : '#67e8f9', fontSize: 14, lineHeight: 1,
     opacity: disabled ? 0.4 : 1, transition: 'all 0.15s',
   }),
@@ -338,7 +338,7 @@ export function EcosystemAccountHub() {
   const toggle = useCallback(() => setOpen(o => !o), []);
   const close  = useCallback(() => setOpen(false), []);
 
-  const redir = (() => { try { return encodeURIComponent(window.location.origin); } catch { return ''; } })();
+  const _redir = (() => { try { return encodeURIComponent(window.location.origin); } catch { return ''; } })();
 
   async function copyToClipboard(text: string, key: string) {
     try { await navigator.clipboard.writeText(text); } catch { return; }
@@ -361,7 +361,7 @@ export function EcosystemAccountHub() {
   const affTier     = identity?.affiliateTier || { name: 'Base', commissionRate: 10 };
   const affStats    = identity?.affiliateStats || { totalReferrals: 0, convertedReferrals: 0, totalEarnings: 0 };
   const isLoggedIn  = !!identity;
-  const token       = getStoredToken();
+  const _token       = getStoredToken();
 
   return (
     <>

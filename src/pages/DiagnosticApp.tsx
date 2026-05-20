@@ -1,8 +1,8 @@
-﻿import { useState } from 'react';
-import engineConnection from '../components/diagnostic/engineConnection';
-import engineDashboard from '../components/diagnostic/engineDashboard';
-import engineReport from '../components/diagnostic/engineReport';
-import engineVisualization from '../components/diagnostic/engineVisualization';
+import { useState } from 'react';
+import EngineConnection from '../components/diagnostic/EngineConnection';
+import EngineDashboard from '../components/diagnostic/EngineDashboard';
+import EngineReport from '../components/diagnostic/EngineReport';
+import EngineVisualization from '../components/diagnostic/EngineVisualization';
 import { type TelemetrySnapshot } from '../telemetry/SimulatedEngine';
 import { startBLETelemetryLoop, recordTelemetrySnapshot } from '../telemetry/BLEConnector';
 import { useEffect } from 'react';
@@ -10,7 +10,7 @@ import { BarChart3, FileText, Cpu } from 'lucide-react';
 
 type Screen = 'connection' | 'dashboard' | 'engine' | 'report';
 
-export default function engineApp() {
+export default function DiagnosticApp() {
   const [screen, setScreen] = useState<Screen>('connection');
   const [data, setData] = useState<TelemetrySnapshot | null>(null);
 
@@ -27,7 +27,7 @@ export default function engineApp() {
   if (screen === 'connection') {
     return (
       <div style={{ background: 'var(--bg-dark)', minHeight: '100vh' }}>
-        <engineConnection onConnect={() => setScreen('dashboard')} />
+        <EngineConnection onConnect={() => setScreen('dashboard')} />
       </div>
     );
   }
@@ -35,13 +35,13 @@ export default function engineApp() {
   return (
     <div style={{ background: 'var(--bg-dark)', minHeight: '100vh', paddingBottom: '70px' }}>
       {screen === 'dashboard' && (
-        <engineDashboard onReport={() => setScreen('report')} />
+        <EngineDashboard onReport={() => setScreen('report')} />
       )}
       {screen === 'engine' && (
-        <engineVisualization onBack={() => setScreen('dashboard')} data={data} />
+        <EngineVisualization onBack={() => setScreen('dashboard')} data={data} />
       )}
       {screen === 'report' && (
-        <engineReport onBack={() => setScreen('dashboard')} />
+        <EngineReport onBack={() => setScreen('dashboard')} />
       )}
 
       {/* Bottom Navigation */}
