@@ -106,7 +106,7 @@ app.post('/api/checkout-kit', async (req, res) => {
             description: 'Professional OBD-II WiFi adapter + Lume-Auto software license. App download code emailed instantly.',
             images: [`${process.env.SITE_URL || 'https://lumeauto.tech'}/dongle_product.png`],
           },
-          unit_amount: 4999, // $49.99
+          unit_amount: 2999, // $29.99
         },
         quantity: 1,
       }],
@@ -127,7 +127,66 @@ app.post('/api/checkout-kit', async (req, res) => {
 
 // ─── API: Health Check ──────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'operational', organism: 'lume-auto', version: '1.0.0' });
+  res.json({ status: 'operational', service: 'lume-auto', version: '1.0.0' });
+});
+
+// ─── API: Stripe Webhook — Entitlement Gating ──────────────────────────────
+// Listens for checkout.session.completed and sets lumescan_purchased in Firestore
+app.post('/api/webhook/stripe', express.raw({ type: 'application/json' }), async (req, res) => {
+  const stripe = (await import('stripe')).default;
+  const stripeClient = new stripe(process.env.STRIPE_SECRET_KEY);
+  const sig = req.headers['stripe-signature'];
+  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+  let event;
+  try {
+    if (endpointSecret && sig) {
+      event = stripeClient.webhooks.constructEvent(req.body, sig, endpointSecret);
+    } else {
+      event = JSON.parse(req.body.toString());
+    }
+  } catch (err) {
+    console.error('[Lume-Auto] ❌ Webhook signature verification failed:', err.message);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    const email = session.customer_details?.email;
+    const product = session.metadata?.product;
+
+    if (email && product === 'lume-auto-kit') {
+      try {
+        // Set entitlement via Firebase Admin REST API (Firestore)
+        const firestoreUrl = `https://firestore.googleapis.com/v1/projects/darkwave-auth/databases/(default)/documents/entitlements/${encodeURIComponent(email)}`;
+        const entitlementDoc = {
+          fields: {
+            lumescan_purchased: { booleanValue: true },
+            purchased_at: { timestampValue: new Date().toISOString() },
+            email: { stringValue: email },
+            stripe_session_id: { stringValue: session.id },
+            product: { stringValue: 'lumescan' },
+          },
+        };
+
+        const fbRes = await fetch(firestoreUrl, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(entitlementDoc),
+        });
+
+        if (fbRes.ok) {
+          console.log(`[Lume-Auto] ✅ Entitlement granted: ${email}`);
+        } else {
+          console.error(`[Lume-Auto] ⚠️ Firestore write failed:`, await fbRes.text());
+        }
+      } catch (err) {
+        console.error('[Lume-Auto] ❌ Entitlement error:', err);
+      }
+    }
+  }
+
+  res.status(200).json({ received: true });
 });
 
 // ─── Serve Vite static build ────────────────────────────────────────────────

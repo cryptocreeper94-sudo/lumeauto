@@ -1,10 +1,10 @@
-﻿import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Zap, Shield, Activity, Wrench, Star, CheckCircle, ChevronDown, Smartphone, Gauge, Package } from 'lucide-react';
 import QRCodeLib from 'qrcode';
 
 const RETAIL_VALUE = 199;
-const KIT_PRICE = 49.99;
+const KIT_PRICE = 29.99;
 const SAVINGS_PCT = Math.round((1 - KIT_PRICE / RETAIL_VALUE) * 100);
 
 const FEATURES = [
