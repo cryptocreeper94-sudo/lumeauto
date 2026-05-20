@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import QRCodeLib from 'qrcode';
 
 // Direct download URLs
-const APK_URL = 'https://expo.dev/accounts/cryptocreeper/projects/lume-auto/builds/d0ac60e9-e374-4cb1-bc01-48319a11e306';
+const APK_URL = 'https://expo.dev/accounts/cryptocreeper/projects/lume-auto/builds/db45f96d-409d-4f8b-beb6-6d2d73b059ee';
 const EXE_URL = 'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2FLot_Ops_Pro_Setup.exe?alt=media&token=36fe7582-07b0-423a-a366-bd1a1e6af6a0';
 const DOWNLOAD_URL = 'https://cox.tlid.io/download';
 

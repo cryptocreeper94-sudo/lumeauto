@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Gift, ArrowLeft, CheckCircle, AlertCircle, Loader, Smartphone, Download } from 'lucide-react';
 import { useState } from 'react';
 
-const APK_URL = 'https://expo.dev/accounts/cryptocreeper/projects/lume-auto/builds/d0ac60e9-e374-4cb1-bc01-48319a11e306';
+const APK_URL = 'https://expo.dev/accounts/cryptocreeper/projects/lume-auto/builds/db45f96d-409d-4f8b-beb6-6d2d73b059ee';
 const REDEEM_API = 'https://dwtl.io/api/lumescan/redeem';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
