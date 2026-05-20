@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 
 export default function Technology() {
   return (
@@ -7,7 +7,7 @@ export default function Technology() {
         <div style={{ display: 'inline-flex', alignItems: 'center', padding: '6px 12px', background: 'rgba(6, 182, 212, 0.1)', border: '1px solid rgba(6, 182, 212, 0.2)', borderRadius: '20px', fontSize: '0.8rem', color: 'var(--accent-cyan)', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', alignSelf: 'flex-start' }}>
           Architecture
         </div>
-        <h1 style={{ fontSize: '3rem', lineHeight: 1.1 }}>The 42-Node Organism</h1>
+        <h1 style={{ fontSize: '3rem', lineHeight: 1.1 }}>The 42-Signal Diagnostic Engine</h1>
         <p className="text-muted" style={{ fontSize: '1.2rem' }}>
           Lume-Auto maps 42 governance nodes across four flow primitives. It treats the internal combustion engine (ICE) as a deterministic multi-flow system.
         </p>
@@ -35,3 +35,4 @@ export default function Technology() {
     </div>
   );
 }
+
