@@ -4,23 +4,12 @@ import { ShoppingCart, Zap, Shield, Activity, Wrench, Star, CheckCircle, Chevron
 import QRCodeLib from 'qrcode';
 
 
-// 3-tier launch pricing
+// 3-tier launch pricing (static fallback — overridden by /api/tier on mount)
 const TIERS = [
   { name: 'Founders', cap: 100, price: 9.99, color: '#fbbf24', icon: '🔥' },
   { name: 'Early Adopter', cap: 500, price: 19.99, color: 'var(--accent-cyan)', icon: '⚡' },
   { name: 'Standard', cap: Infinity, price: 39.99, color: 'var(--accent-emerald)', icon: '🚀' },
 ];
-const TOTAL_CLAIMED = 12; // Update this as users purchase
-const getCurrentTier = () => {
-  let acc = 0;
-  for (const t of TIERS) {
-    if (TOTAL_CLAIMED < acc + t.cap) return { ...t, remaining: t.cap === Infinity ? null : (acc + t.cap) - TOTAL_CLAIMED };
-    acc += t.cap;
-  }
-  return TIERS[TIERS.length - 1];
-};
-const CURRENT_TIER = getCurrentTier();
-const KIT_PRICE = CURRENT_TIER.price;
 const AMAZON_TAG = 'garagebot-20';
 
 
@@ -119,6 +108,21 @@ export default function Order() {
   const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const qrRef = useRef<HTMLCanvasElement>(null);
+
+  // Live tier from Firestore via /api/tier
+  const [tierData, setTierData] = useState<{ tier: string; price: number; claimed: number; remaining: number | null }>({
+    tier: 'Founders', price: 9.99, claimed: 0, remaining: 100,
+  });
+
+  useEffect(() => {
+    fetch('/api/tier').then(r => r.json()).then(d => setTierData(d)).catch(() => {});
+  }, []);
+
+  const CURRENT_TIER = {
+    ...TIERS.find(t => t.name === tierData.tier) || TIERS[0],
+    remaining: tierData.remaining,
+  };
+  const KIT_PRICE = tierData.price;
 
   // Detect Stripe redirect success/cancel
   const urlParams = new URLSearchParams(window.location.search);

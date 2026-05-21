@@ -145,31 +145,87 @@ app.post('/api/checkout', async (req, res) => {
   }
 });
 
-// ─── API: Lume Scan Pro License (One-Time Purchase) ─────────────────────────
-// 3-tier launch pricing — update TOTAL_CLAIMED as sales come in
+// 3-tier launch pricing — reads claimed count from Firestore
 const LAUNCH_TIERS = [
   { name: 'Founders',      cap: 100, cents: 999  },  // $9.99
   { name: 'Early Adopter',  cap: 500, cents: 1999 },  // $19.99
   { name: 'Standard',       cap: Infinity, cents: 3999 }, // $39.99
 ];
-let TOTAL_CLAIMED = 12; // TODO: read from Firestore for real-time count
 
-function getCurrentTierPrice() {
+// Cached entitlement count — refreshes every 60s
+let _claimedCache = { count: 0, ts: 0 };
+const CACHE_TTL = 60_000; // 60 seconds
+
+async function getClaimedCount() {
+  if (Date.now() - _claimedCache.ts < CACHE_TTL) return _claimedCache.count;
+
+  try {
+    // Firestore REST aggregation query — count entitlements where lumescan_purchased == true
+    const url = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT}/databases/(default)/documents:runAggregationQuery`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        structuredAggregationQuery: {
+          structuredQuery: {
+            from: [{ collectionId: 'entitlements' }],
+            where: {
+              fieldFilter: {
+                field: { fieldPath: 'lumescan_purchased' },
+                op: 'EQUAL',
+                value: { booleanValue: true },
+              },
+            },
+          },
+          aggregations: [{ alias: 'count', count: {} }],
+        },
+      }),
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      const count = parseInt(data[0]?.result?.aggregateFields?.count?.integerValue || '0', 10);
+      _claimedCache = { count, ts: Date.now() };
+      console.log(`[Tier] 📊 Firestore entitlement count: ${count}`);
+      return count;
+    }
+    console.warn('[Tier] ⚠️ Aggregation query failed, falling back to cached:', _claimedCache.count);
+    return _claimedCache.count;
+  } catch (err) {
+    console.warn('[Tier] ⚠️ Firestore count error:', err.message);
+    return _claimedCache.count;
+  }
+}
+
+function getTierFromCount(claimed) {
   let acc = 0;
   for (const t of LAUNCH_TIERS) {
-    if (TOTAL_CLAIMED < acc + t.cap) return t;
+    if (claimed < acc + t.cap) return t;
     acc += t.cap;
   }
   return LAUNCH_TIERS[LAUNCH_TIERS.length - 1];
 }
+
+// Expose current tier info for the frontend
+app.get('/api/tier', async (req, res) => {
+  const claimed = await getClaimedCount();
+  const tier = getTierFromCount(claimed);
+  res.json({
+    tier: tier.name,
+    price: tier.cents / 100,
+    claimed,
+    remaining: tier.cap === Infinity ? null : (tier.cap - claimed + (tier === LAUNCH_TIERS[0] ? 0 : LAUNCH_TIERS.slice(0, LAUNCH_TIERS.indexOf(tier)).reduce((a, t) => a + t.cap, 0))),
+  });
+});
 
 app.post('/api/checkout-kit', async (req, res) => {
   try {
     const stripe = (await import('stripe')).default;
     const stripeClient = new stripe(process.env.STRIPE_SECRET_KEY);
 
-    const tier = getCurrentTierPrice();
-    console.log(`[Lume-Auto] 💰 Checkout at ${tier.name} tier: $${(tier.cents / 100).toFixed(2)} (${TOTAL_CLAIMED} claimed)`);
+    const claimed = await getClaimedCount();
+    const tier = getTierFromCount(claimed);
+    console.log(`[Lume-Auto] 💰 Checkout at ${tier.name} tier: $${(tier.cents / 100).toFixed(2)} (${claimed} claimed)`);
 
     const session = await stripeClient.checkout.sessions.create({
       mode: 'payment',
