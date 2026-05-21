@@ -426,6 +426,64 @@ const APP_VERSION = {
   min_version: '1.0.0',
 };
 
+// ─── API: Stripe Customer Portal (Self-Service Cancel/Manage) ───────────────
+// Users can manage billing, update payment method, and cancel — zero friction
+app.post('/api/billing-portal', async (req, res) => {
+  try {
+    const stripe = (await import('stripe')).default;
+    const stripeClient = new stripe(process.env.STRIPE_SECRET_KEY);
+    const { email } = req.body;
+
+    if (!email) return res.status(400).json({ error: 'Email required' });
+
+    // Find customer by email
+    const customers = await stripeClient.customers.list({ email: email.toLowerCase(), limit: 1 });
+    if (customers.data.length === 0) {
+      return res.status(404).json({ error: 'No subscription found for this email. If you purchased recently, please allow a few minutes for processing.' });
+    }
+
+    const customer = customers.data[0];
+
+    // Create a portal session
+    const portalSession = await stripeClient.billingPortal.sessions.create({
+      customer: customer.id,
+      return_url: `${SITE_URL}/account?returned=true`,
+    });
+
+    console.log(`[Portal] 🔗 Billing portal opened for ${email}`);
+    res.json({ url: portalSession.url });
+  } catch (err) {
+    console.error('[Portal] ❌ Error:', err);
+    res.status(500).json({ error: 'Could not open billing portal. Please try again.' });
+  }
+});
+
+// ─── API: Account Status Check ──────────────────────────────────────────────
+app.post('/api/account/status', async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ error: 'Email required' });
+
+    const doc = await getFirestoreDoc(`entitlements/${encodeURIComponent(email.toLowerCase())}`);
+    if (!doc) {
+      return res.status(404).json({ error: 'No account found for this email.' });
+    }
+
+    const fields = doc.fields || {};
+    res.json({
+      email: email.toLowerCase(),
+      tier: fields.pricing_tier?.stringValue || 'Unknown',
+      license_type: fields.license_type?.stringValue || 'subscription',
+      subscription_active: fields.subscription_active?.booleanValue ?? false,
+      purchased_at: fields.purchased_at?.timestampValue || null,
+      last_payment_at: fields.last_payment_at?.timestampValue || null,
+    });
+  } catch (err) {
+    console.error('[Account] ❌ Error:', err);
+    res.status(500).json({ error: 'Could not retrieve account status.' });
+  }
+});
+
 app.get('/api/version', (req, res) => {
   res.json(APP_VERSION);
 });

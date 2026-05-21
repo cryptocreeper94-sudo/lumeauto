@@ -18,6 +18,7 @@ import GetStarted from './pages/GetStarted';
 import DiagnosticApp from './pages/DiagnosticApp';
 import DownloadPage from './pages/DownloadPage';
 import Order from './pages/Order';
+import Account from './pages/Account';
 import Redeem from './pages/Redeem';
 import Footer from './components/Footer';
 import RollerCoaster from './components/RollerCoaster';
@@ -80,8 +81,8 @@ function Navigation() {
               {link.label}
             </Link>
           ))}
-          <Link to="/waitlist" className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
-            Get Early Access
+          <Link to="/account" className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
+            My Account
           </Link>
         </div>
 
@@ -135,8 +136,8 @@ function Navigation() {
               </p>
             </div>
             <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '1rem' }}>
-              <Link to="/waitlist" className="btn-primary" style={{ width: '100%', justifyContent: 'center', padding: '0.75rem' }}>
-                Get Early Access
+              <Link to="/account" className="btn-primary" style={{ width: '100%', justifyContent: 'center', padding: '0.75rem' }}>
+                My Account
               </Link>
             </div>
           </motion.div>
@@ -226,6 +227,7 @@ function App() {
               <Route path="/app" element={<DiagnosticApp />} />
               <Route path="/download" element={<DownloadPage />} />
               <Route path="/redeem" element={<Redeem />} />
+              <Route path="/account" element={<Account />} />
             </Routes>
           </main>
           <Footer />
