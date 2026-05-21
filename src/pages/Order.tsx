@@ -41,7 +41,7 @@ function ReviewCarousel() {
   useEffect(() => {
     timerRef.current = setInterval(() => {
       setActive(prev => (prev + 1) % REVIEWS.length);
-    }, 5000);
+    }, 8000);
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, []);
 
@@ -50,7 +50,7 @@ function ReviewCarousel() {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
       setActive(prev => (prev + 1) % REVIEWS.length);
-    }, 5000);
+    }, 8000);
   };
 
   const r = REVIEWS[active];
