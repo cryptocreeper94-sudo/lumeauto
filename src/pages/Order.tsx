@@ -339,10 +339,16 @@ export default function Order() {
                   </div>
                 ))}
               </div>
-              <a href="https://www.amazon.com/s?k=ELM327+BLE+OBD2+adapter&i=automotive&tag=garagebot-20" target="_blank" rel="noopener"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', borderRadius: '10px', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.2)', color: 'var(--accent-cyan)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', width: '100%', justifyContent: 'center' }}>
-                Shop BLE Adapters →
-              </a>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <a href="https://www.amazon.com/s?k=ELM327+BLE+OBD2+adapter&i=automotive&tag=garagebot-20" target="_blank" rel="noopener"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 16px', borderRadius: '10px', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.2)', color: 'var(--accent-cyan)', fontWeight: 700, fontSize: '0.8rem', textDecoration: 'none', flex: 1, justifyContent: 'center' }}>
+                  Amazon →
+                </a>
+                <a href="https://www.ebay.com/sch/i.html?_nkw=ELM327+BLE+OBD2+adapter&_sacat=6000&LH_BIN=1&mkcid=1&mkrid=711-53200-19255-0&campid=5339140935&toolid=10001" target="_blank" rel="noopener"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 16px', borderRadius: '10px', background: 'rgba(6,182,212,0.06)', border: '1px solid rgba(6,182,212,0.15)', color: 'var(--accent-cyan)', fontWeight: 700, fontSize: '0.8rem', textDecoration: 'none', flex: 1, justifyContent: 'center' }}>
+                  eBay →
+                </a>
+              </div>
             </motion.div>
 
             {/* WiFi Card */}
@@ -372,10 +378,16 @@ export default function Order() {
                   </div>
                 ))}
               </div>
-              <a href="https://www.amazon.com/s?k=ELM327+WiFi+OBD2+adapter&i=automotive&tag=garagebot-20" target="_blank" rel="noopener"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', borderRadius: '10px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', width: '100%', justifyContent: 'center' }}>
-                Shop WiFi Adapters →
-              </a>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <a href="https://www.amazon.com/s?k=ELM327+WiFi+OBD2+adapter&i=automotive&tag=garagebot-20" target="_blank" rel="noopener"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 16px', borderRadius: '10px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '0.8rem', textDecoration: 'none', flex: 1, justifyContent: 'center' }}>
+                  Amazon →
+                </a>
+                <a href="https://www.ebay.com/sch/i.html?_nkw=ELM327+WiFi+OBD2+adapter&_sacat=6000&LH_BIN=1&mkcid=1&mkrid=711-53200-19255-0&campid=5339140935&toolid=10001" target="_blank" rel="noopener"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 16px', borderRadius: '10px', background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.15)', color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '0.8rem', textDecoration: 'none', flex: 1, justifyContent: 'center' }}>
+                  eBay →
+                </a>
+              </div>
             </motion.div>
           </div>
           <p className="text-dim" style={{ fontSize: '0.75rem', textAlign: 'center', marginTop: '1.5rem' }}>
