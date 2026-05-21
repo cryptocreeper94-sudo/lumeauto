@@ -10,15 +10,15 @@ interface LoginScreenProps {
 const brands = {
   manheim: {
     icon: <Shield size={28} color="#0a0a0c" />,
-    title: 'Cox Enterprise Platform',
-    subtitle: 'Sign in with your authorized Cox Automotive email address.',
+    title: 'Lume Auto',
+    subtitle: 'Sign in to access your diagnostic dashboard.',
     gradient: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))',
     accent: 'var(--accent-cyan)',
   },
   cal: {
     icon: <Database size={28} color="#0a0a0c" />,
-    title: 'Cox Automotive Ledger',
-    subtitle: 'Cryptographic vehicle provenance explorer — authorized access only.',
+    title: 'Trust Layer Ledger',
+    subtitle: 'Cryptographic vehicle provenance explorer.',
     gradient: 'linear-gradient(135deg, #22d3ee, #38bdf8)',
     accent: '#38bdf8',
   },
@@ -145,7 +145,7 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
               <Mail size={16} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
               <input
                 type="email"
-                placeholder={brand === 'manheim' ? 'your.name@coxautoinc.com' : 'Email address'}
+                placeholder="Email address"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
@@ -202,7 +202,7 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
               onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setError(''); }}
               style={{ background: 'none', border: 'none', color: b.accent, fontSize: '0.8rem', cursor: 'pointer', fontWeight: 500 }}
             >
-              {mode === 'login' ? "Don't have an account? Register with your authorized email" : 'Already have an account? Sign in'}
+              {mode === 'login' ? "Don't have an account? Register" : 'Already have an account? Sign in'}
             </button>
           </div>
         </div>
@@ -210,8 +210,8 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
         {/* Footer */}
         <div style={{ textAlign: 'center', margin: '2rem 0' }}>
           <p style={{ fontSize: '0.65rem', color: 'var(--text-dim)', lineHeight: 1.6 }}>
-            Cox Enterprise Platform<br />
-            Authentication secured by Firebase · Access restricted to authorized addresses
+            Lume Auto by DarkWave Studios<br />
+            Authentication secured by Firebase
           </p>
         </div>
       </motion.div>

@@ -25,23 +25,23 @@ export default function Footer() {
             <div style={{ padding: '6px', background: 'rgba(6, 182, 212, 0.1)', borderRadius: '8px' }}>
               <Activity size={20} color="var(--accent-cyan)" />
             </div>
-            Cox Enterprise Platform
+            Lume Auto
           </Link>
           <p className="text-muted" style={{ fontSize: '0.85rem', maxWidth: '250px', lineHeight: 1.6 }}>
-            Deterministic governance, operational intelligence, and enterprise trust infrastructure for Cox Automotive.
+            42-signal diagnostic governance, fuel coaching, and vehicle intelligence by DarkWave Studios.
           </p>
           <p className="text-dim" style={{ fontSize: '0.75rem', lineHeight: 1.5 }}>
-            6 U.S. Provisional Patents Pending
+            US Provisional Patent 64/032,339
           </p>
         </div>
 
         {/* Platform */}
         <div className="flex flex-col gap-3">
           <h4 style={{ color: 'var(--text-main)', marginBottom: '0.5rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Platform</h4>
-          <Link to="/whitepaper" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Whitepaper</Link>
-          <Link to="/engineering" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Engineering Brief</Link>
+          <Link to="/order" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Get Lume Scan</Link>
           <Link to="/download" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Downloads</Link>
-          <Link to="/app" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Launch LumeScan</Link>
+          <a href="https://lumescan.tech/explorer.html" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Scan Explorer</a>
+          <a href="https://lumescan.tech" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>LumeScan.tech</a>
         </div>
 
         {/* Research */}
@@ -49,7 +49,7 @@ export default function Footer() {
           <h4 style={{ color: 'var(--text-main)', marginBottom: '0.5rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Research</h4>
           <a href="https://zenodo.org/search?q=Jason%20Andrews%20DarkWave" target="_blank" rel="noreferrer" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Published Papers</a>
           <a href="https://orcid.org/0009-0007-5214-649X" target="_blank" rel="noreferrer" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>ORCID Profile</a>
-          <a href="https://cal.tlid.io" target="_blank" rel="noreferrer" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Live Ledger</a>
+          <a href="https://dwtl.io" target="_blank" rel="noreferrer" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Trust Layer Ledger</a>
           <a href="https://meridiancanon.com" target="_blank" rel="noreferrer" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Meridian Canon</a>
         </div>
 
@@ -58,9 +58,6 @@ export default function Footer() {
           <h4 style={{ color: 'var(--text-main)', marginBottom: '0.5rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Legal</h4>
           <Link to="/terms" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Terms of Service</Link>
           <Link to="/privacy" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Privacy Policy</Link>
-          <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '0.5rem', lineHeight: 1.5 }}>
-            Restricted access. Authorized personnel only.
-          </p>
         </div>
       </div>
 
