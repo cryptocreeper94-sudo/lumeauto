@@ -304,7 +304,175 @@ export default function Order() {
         </div>
       </section>
 
-      {/* === FEATURES === */}
+      {/* === WIFI vs BLE ADAPTER GUIDE === */}
+      <section style={{ padding: '5rem 0', borderBottom: '1px solid var(--border-light)' }}>
+        <div className="container" style={{ maxWidth: '900px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>WiFi or BLE?</h2>
+            <p className="text-muted" style={{ fontSize: '1.05rem' }}>Both work with Lume Scan. Here's how to choose.</p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+            {/* BLE Card */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              className="panel" style={{ padding: '2rem', borderColor: 'rgba(6,182,212,0.2)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1rem' }}>
+                <div style={{ padding: '10px', background: 'rgba(6,182,212,0.1)', borderRadius: '12px', color: 'var(--accent-cyan)' }}>
+                  <Smartphone size={24} />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '1.2rem', marginBottom: '2px' }}>BLE Adapter</h3>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--accent-cyan)', fontWeight: 700 }}>$15–$25 on Amazon</span>
+                </div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '1.5rem' }}>
+                {[
+                  { label: 'Best for', value: 'Personal use, single vehicle' },
+                  { label: 'Range', value: '~30 feet' },
+                  { label: 'Power draw', value: 'Ultra-low (safe to leave plugged in)' },
+                  { label: 'Phone compatibility', value: 'Android + iOS' },
+                  { label: 'Battery impact', value: 'Minimal — BLE 4.0+ is efficient' },
+                  { label: 'Connection', value: 'Auto-pairs via Bluetooth settings' },
+                ].map((row, i) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', padding: '6px 0', borderBottom: '1px solid var(--border-light)' }}>
+                    <span style={{ color: 'var(--text-dim)', fontWeight: 500 }}>{row.label}</span>
+                    <span style={{ color: 'var(--text-main)', fontWeight: 600, textAlign: 'right', maxWidth: '55%' }}>{row.value}</span>
+                  </div>
+                ))}
+              </div>
+              <a href="https://www.amazon.com/s?k=ELM327+BLE+OBD2+adapter&i=automotive&tag=garagebot-20" target="_blank" rel="noopener"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', borderRadius: '10px', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.2)', color: 'var(--accent-cyan)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', width: '100%', justifyContent: 'center' }}>
+                Shop BLE Adapters →
+              </a>
+            </motion.div>
+
+            {/* WiFi Card */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+              className="panel" style={{ padding: '2rem', borderColor: 'rgba(16,185,129,0.2)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1rem' }}>
+                <div style={{ padding: '10px', background: 'rgba(16,185,129,0.1)', borderRadius: '12px', color: 'var(--accent-emerald)' }}>
+                  <Zap size={24} />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '1.2rem', marginBottom: '2px' }}>WiFi Adapter</h3>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--accent-emerald)', fontWeight: 700 }}>$20–$30 on Amazon</span>
+                </div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '1.5rem' }}>
+                {[
+                  { label: 'Best for', value: 'Fleet, lot ops, multi-vehicle' },
+                  { label: 'Range', value: '~100 feet' },
+                  { label: 'Power draw', value: 'Moderate (unplug when not in use)' },
+                  { label: 'Phone compatibility', value: 'Android + iOS' },
+                  { label: 'Speed', value: 'Faster data throughput' },
+                  { label: 'Connection', value: 'Joins as WiFi network' },
+                ].map((row, i) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', padding: '6px 0', borderBottom: '1px solid var(--border-light)' }}>
+                    <span style={{ color: 'var(--text-dim)', fontWeight: 500 }}>{row.label}</span>
+                    <span style={{ color: 'var(--text-main)', fontWeight: 600, textAlign: 'right', maxWidth: '55%' }}>{row.value}</span>
+                  </div>
+                ))}
+              </div>
+              <a href="https://www.amazon.com/s?k=ELM327+WiFi+OBD2+adapter&i=automotive&tag=garagebot-20" target="_blank" rel="noopener"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', borderRadius: '10px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', width: '100%', justifyContent: 'center' }}>
+                Shop WiFi Adapters →
+              </a>
+            </motion.div>
+          </div>
+          <p className="text-dim" style={{ fontSize: '0.75rem', textAlign: 'center', marginTop: '1.5rem' }}>
+            Not sure? Start with BLE — it's cheaper, lower power, and works great for personal use. Upgrade to WiFi if you're scanning multiple vehicles or need longer range.
+          </p>
+        </div>
+      </section>
+
+      {/* === TRUE BIDIRECTIONAL PROOF === */}
+      <section style={{ padding: '5rem 0', background: 'rgba(16,185,129,0.02)', borderBottom: '1px solid var(--border-light)' }}>
+        <div className="container" style={{ maxWidth: '900px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <div style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '20px', fontSize: '0.7rem', color: 'var(--accent-emerald)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+              Industry First
+            </div>
+            <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>True Bidirectional Communication</h2>
+            <p className="text-muted" style={{ fontSize: '1.05rem', maxWidth: '600px', margin: '0 auto' }}>
+              Most "bidirectional" scanners only <em>read</em> data. Lume Scan reads, writes, and clears — real two-way communication with your ECU.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+            {/* What competitors claim */}
+            <div className="panel" style={{ padding: '1.5rem', borderColor: 'rgba(239,68,68,0.15)' }}>
+              <div style={{ fontSize: '0.7rem', color: '#ef4444', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>What "Bidirectional" Usually Means</div>
+              {[
+                { label: 'Read DTCs', status: '✓', ok: true },
+                { label: 'Read live data', status: '✓', ok: true },
+                { label: 'Clear codes', status: '✗', ok: false },
+                { label: 'Write parameters', status: '✗', ok: false },
+                { label: 'Active system tests', status: '✗', ok: false },
+                { label: 'Freeze frame access', status: '✗', ok: false },
+              ].map((row, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', padding: '6px 0', borderBottom: '1px solid var(--border-light)' }}>
+                  <span className="text-muted">{row.label}</span>
+                  <span style={{ color: row.ok ? 'var(--text-dim)' : '#ef4444', fontWeight: 600 }}>{row.status}</span>
+                </div>
+              ))}
+              <p className="text-dim" style={{ fontSize: '0.7rem', marginTop: '0.75rem', fontStyle: 'italic' }}>
+                Most scanners under $100 are read-only despite "bidirectional" marketing.
+              </p>
+            </div>
+
+            {/* What Lume Scan actually does */}
+            <div className="panel" style={{ padding: '1.5rem', borderColor: 'rgba(16,185,129,0.2)', background: 'rgba(16,185,129,0.03)' }}>
+              <div style={{ fontSize: '0.7rem', color: 'var(--accent-emerald)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>What Lume Scan Actually Does</div>
+              {[
+                { label: 'Read DTCs', status: '✓', desc: 'All standard + manufacturer codes' },
+                { label: 'Read live data', status: '✓', desc: '42 signals at 100ms intervals' },
+                { label: 'Clear codes', status: '✓', desc: 'Full ECU reset + MIL off' },
+                { label: 'Write parameters', status: '✓', desc: 'Mode 08 request control' },
+                { label: 'Active system tests', status: '✓', desc: 'O2 sensor, EVAP, catalyst' },
+                { label: 'Freeze frame access', status: '✓', desc: 'Snapshot at time of fault' },
+              ].map((row, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.85rem', padding: '6px 0', borderBottom: '1px solid var(--border-light)' }}>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 500 }}>{row.label}</span>
+                  <div style={{ textAlign: 'right' }}>
+                    <span style={{ color: 'var(--accent-emerald)', fontWeight: 700 }}>{row.status}</span>
+                    <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>{row.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Technical proof */}
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+            className="panel" style={{ padding: '1.5rem', borderColor: 'rgba(6,182,212,0.15)' }}>
+            <div style={{ fontSize: '0.7rem', color: 'var(--accent-cyan)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>OBD-II Protocol Coverage</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px' }}>
+              {[
+                { mode: 'Mode 01', desc: 'Live powertrain data', dir: 'READ' },
+                { mode: 'Mode 02', desc: 'Freeze frame data', dir: 'READ' },
+                { mode: 'Mode 03', desc: 'Read stored DTCs', dir: 'READ' },
+                { mode: 'Mode 04', desc: 'Clear codes + MIL reset', dir: 'WRITE' },
+                { mode: 'Mode 05', desc: 'O2 sensor monitoring', dir: 'READ' },
+                { mode: 'Mode 06', desc: 'On-board test results', dir: 'READ' },
+                { mode: 'Mode 07', desc: 'Pending DTCs', dir: 'READ' },
+                { mode: 'Mode 08', desc: 'Request control of system', dir: 'WRITE' },
+                { mode: 'Mode 09', desc: 'Vehicle info (VIN)', dir: 'READ' },
+                { mode: 'Mode 0A', desc: 'Permanent DTCs', dir: 'READ' },
+              ].map((m, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', borderRadius: '8px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-light)' }}>
+                  <span style={{ fontSize: '0.7rem', fontFamily: 'var(--font-mono)', fontWeight: 700, color: m.dir === 'WRITE' ? 'var(--accent-emerald)' : 'var(--accent-cyan)', minWidth: '52px' }}>{m.mode}</span>
+                  <div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-main)', fontWeight: 500 }}>{m.desc}</div>
+                    <div style={{ fontSize: '0.6rem', fontWeight: 700, color: m.dir === 'WRITE' ? 'var(--accent-emerald)' : 'var(--text-dim)', letterSpacing: '0.05em' }}>{m.dir}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-dim" style={{ fontSize: '0.7rem', marginTop: '1rem' }}>
+              Lume Scan implements all 10 standard OBD-II service modes. Modes 04 and 08 are <strong style={{ color: 'var(--accent-emerald)' }}>write operations</strong> — true bidirectional communication that most consumer scanners omit or fake.
+            </p>
+          </motion.div>
+        </div>
+      </section>
       <section style={{ padding: '5rem 0', borderBottom: '1px solid var(--border-light)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
