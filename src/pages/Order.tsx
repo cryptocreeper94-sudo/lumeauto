@@ -645,7 +645,7 @@ export default function Order() {
               </button>
             </div>
             <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '1.5rem' }}>
-              Lume Scan — DarkWave Studios LLC / Lume42 Labs — US Provisional Patent 64/032,339
+              Lume Scan — DarkWave Studios LLC / <a href="https://lume42.com" target="_blank" rel="noreferrer" style={{ color: 'inherit' }}>Lume42 Labs</a> — US Provisional Patent 64/032,339
             </p>
           </motion.div>
         </div>

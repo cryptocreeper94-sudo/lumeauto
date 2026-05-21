@@ -175,7 +175,7 @@ function Navigation() {
               </p>
               <p style={{ fontSize: '0.7rem', color: 'var(--text-dim)', letterSpacing: '0.05em' }}>
                 US Provisional Patent 64/032,339<br />
-                DarkWave Studios LLC / Lume42 Labs
+                DarkWave Studios LLC / <a href="https://lume42.com" target="_blank" rel="noreferrer" style={{ color: 'inherit' }}>Lume42 Labs</a>
               </p>
             </div>
             <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '1rem' }}>

@@ -529,7 +529,7 @@ async function sendPurchaseEmail(email, code) {
             <!-- Footer -->
             <div style="text-align:center;border-top:1px solid rgba(255,255,255,0.04);padding-top:20px;">
               <p style="color:#475569;font-size:11px;margin:0 0 4px;">
-                DarkWave Studios LLC / Lume42 Labs
+                DarkWave Studios LLC / <a href="https://lume42.com" style="color:#475569;">Lume42 Labs</a>
               </p>
               <p style="color:#334155;font-size:10px;margin:0 0 4px;">
                 🇺🇸 Gladeville, Tennessee · US Patent Pending 64/032,339
