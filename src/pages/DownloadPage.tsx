@@ -12,7 +12,7 @@ export default function DownloadPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [apkUrl, setApkUrl] = useState(DEFAULT_APK_URL);
-  const [appVersion, setAppVersion] = useState('1.0.0');
+  const [_appVersion, setAppVersion] = useState('1.0.0');
 
   useEffect(() => {
     const mobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)

@@ -357,10 +357,8 @@ export default function engineReport({ onBack }: { onBack: () => void }) {
 
               {/* Verification note */}
               <p style={{ fontSize: '0.5rem', color: 'var(--text-dim)', marginTop: '8px', textAlign: 'center' }}>
-                {anchor.anchoredTo === 'CAL'
+                {anchor.anchoredTo === 'TLL'
                   ? 'This report is sealed on the Trust Layer Ledger. Any modification to the scan data will produce a different hash.'
-                  : anchor.anchoredTo === 'VET'
-                  ? 'This report is publicly verifiable via VET (Verified Enterprise Trust). Share the certificate ID for third-party verification.'
                   : 'Hash computed locally. Will be anchored to the ledger when network connectivity is available.'}
               </p>
             </>

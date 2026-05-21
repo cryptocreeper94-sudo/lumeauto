@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ShoppingCart, Zap, Shield, Activity, Wrench, Star, CheckCircle, ChevronDown, Smartphone, Gauge, Package, Download, Flame, CreditCard, Crown } from 'lucide-react';
+import { ShoppingCart, Zap, Shield, Activity, Wrench, Star, CheckCircle, ChevronDown, Smartphone, Gauge, Package, Download, Flame, Crown } from 'lucide-react';
 import QRCodeLib from 'qrcode';
 
 
@@ -10,7 +10,6 @@ const TIERS = [
   { name: 'Early Adopter',  cap: 500,      purchase: 19.99, monthly: 2.49, color: 'var(--accent-cyan)',  icon: '⚡' },
   { name: 'Standard',       cap: Infinity, purchase: 39.99, monthly: 4.99, color: 'var(--accent-emerald)', icon: '🚀' },
 ];
-const AMAZON_TAG = 'garagebot-20';
 
 
 const FEATURES = [
