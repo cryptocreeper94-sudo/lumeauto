@@ -321,31 +321,70 @@ export default function Order() {
 
       {/* === VALUE COMPARISON === */}
       <section style={{ padding: '5rem 0', borderBottom: '1px solid var(--border-light)' }}>
-        <div className="container" style={{ maxWidth: '900px' }}>
+        <div className="container" style={{ maxWidth: '1000px' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>Why Pay $200?</h2>
-            <p className="text-muted" style={{ fontSize: '1.05rem' }}>Everything a professional scanner does. Plus everything it <em>can't</em>.</p>
+            <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>The Real Value</h2>
+            <p className="text-muted" style={{ fontSize: '1.05rem', maxWidth: '600px', margin: '0 auto' }}>Comparable diagnostic platforms cost $149–$299 for hardware alone. We deliver the same engine — you just choose how you pay.</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem' }}>
             {/* Competitor */}
             <div className="panel" style={{ padding: '2rem', borderColor: 'rgba(239,68,68,0.2)' }}>
-              <div style={{ fontSize: '0.75rem', color: '#ef4444', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>Typical OBD-II Scanner</div>
-              <div style={{ fontSize: '2.5rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: '#ef4444', marginBottom: '1rem' }}>$149-$299</div>
-              {['Read diagnostic codes', 'Clear check engine light', 'Basic live data', 'X No fuel coaching', 'X No predictive maintenance', 'X No driver scoring', 'X No family dashboard', 'X Static - no intelligence'].map((item, i) => (
-                <div key={i} style={{ fontSize: '0.85rem', color: item.startsWith('X') ? 'var(--text-dim)' : 'var(--text-muted)', padding: '4px 0' }}>{item}</div>
+              <div style={{ fontSize: '0.7rem', color: '#ef4444', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>Typical OBD-II Scanner</div>
+              <div style={{ fontSize: '2.2rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: '#ef4444', marginBottom: '1rem' }}>$149–$299</div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', marginBottom: '1rem' }}>Hardware only. No intelligence.</div>
+              {['Read diagnostic codes', 'Clear check engine light', 'Basic live data', 'X No fuel coaching', 'X No predictive maintenance', 'X No driver scoring', 'X No family dashboard', 'X Static — no intelligence'].map((item, i) => (
+                <div key={i} style={{ fontSize: '0.82rem', color: item.startsWith('X') ? 'var(--text-dim)' : 'var(--text-muted)', padding: '3px 0' }}>{item}</div>
               ))}
             </div>
 
-            {/* Lume */}
-            <div className="panel" style={{ padding: '2rem', borderColor: 'rgba(16,185,129,0.3)', background: 'rgba(16,185,129,0.03)' }}>
-              <div style={{ fontSize: '0.75rem', color: 'var(--accent-emerald)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>Lume-Auto Kit</div>
-              <div style={{ fontSize: '2.5rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: 'var(--accent-emerald)', marginBottom: '1rem' }}>${PURCHASE_PRICE}<span style={{ fontSize: '1rem', fontWeight: 400, color: 'var(--text-dim)' }}> + </span><span style={{ fontSize: '1.5rem' }}>${MONTHLY_PRICE}</span><span style={{ fontSize: '0.9rem', fontWeight: 400, color: 'var(--text-dim)' }}>/mo</span></div>
-              {['Read diagnostic codes', 'Clear check engine light', '42 live signals at 100ms', 'Passive fuel coaching', 'Predictive maintenance', 'Driver efficiency scoring', 'Family & fleet dashboard', 'Deterministic engine intelligence'].map((item, i) => (
-                <div key={i} style={{ fontSize: '0.85rem', color: 'var(--text-main)', padding: '4px 0', fontWeight: 500 }}>{item}</div>
+            {/* Lume License — the hero */}
+            <div className="panel" style={{ padding: '2rem', borderColor: 'rgba(16,185,129,0.4)', background: 'rgba(16,185,129,0.04)', position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, var(--accent-cyan), var(--accent-emerald))' }} />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                <div style={{ fontSize: '0.7rem', color: 'var(--accent-emerald)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Lume Scan Pro — License</div>
+                <span style={{ fontSize: '0.6rem', padding: '3px 10px', background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '10px', color: 'var(--accent-emerald)', fontWeight: 700 }}>BEST VALUE</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '4px' }}>
+                <span style={{ fontSize: '2.2rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: 'var(--accent-emerald)' }}>${PURCHASE_PRICE}</span>
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-dim)' }}>+</span>
+                <span style={{ fontSize: '1.3rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: 'var(--accent-emerald)' }}>${MONTHLY_PRICE}</span>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>/mo</span>
+              </div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--accent-emerald)', marginBottom: '1rem' }}>🔒 {CURRENT_TIER.name} rate locked for life. Cancel anytime.</div>
+              {['Read diagnostic codes', 'Clear check engine light', '42 live signals at 100ms', 'Passive fuel coaching', 'Predictive maintenance', 'Driver efficiency scoring', 'Family & fleet dashboard', 'Continuous updates & support'].map((item, i) => (
+                <div key={i} style={{ fontSize: '0.82rem', color: 'var(--text-main)', padding: '3px 0', fontWeight: 500 }}>{item}</div>
               ))}
+              <button onClick={handleCheckout} disabled={loading} className="btn-primary" style={{
+                width: '100%', marginTop: '1.25rem', padding: '12px', fontSize: '0.85rem',
+                background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))',
+                color: '#000', fontWeight: 800, border: 'none', borderRadius: '12px',
+              }}>
+                {loading ? 'Redirecting...' : <><ShoppingCart size={16} /> Get Pro — ${PURCHASE_PRICE} + ${MONTHLY_PRICE}/mo</>}
+              </button>
+            </div>
+
+            {/* Own Outright — the anchor */}
+            <div className="panel" style={{ padding: '2rem', borderColor: 'rgba(245,158,11,0.2)', background: 'rgba(245,158,11,0.02)' }}>
+              <div style={{ fontSize: '0.7rem', color: '#fbbf24', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>Own Outright</div>
+              <div style={{ fontSize: '2.2rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: '#fbbf24', marginBottom: '4px' }}>$249</div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', marginBottom: '1rem' }}>Lifetime license. No monthly fee. Ever.</div>
+              {['Everything in Pro License', 'Zero recurring charges', 'Lifetime updates included', 'Priority support channel', 'Fleet/multi-vehicle eligible', 'Future hardware discount'].map((item, i) => (
+                <div key={i} style={{ fontSize: '0.82rem', color: 'var(--text-muted)', padding: '3px 0', fontWeight: 500 }}>{item}</div>
+              ))}
+              <button onClick={handleCheckout} disabled={loading} style={{
+                width: '100%', marginTop: '1.25rem', padding: '12px', fontSize: '0.85rem',
+                background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)',
+                color: '#fbbf24', fontWeight: 700, borderRadius: '12px', cursor: 'pointer',
+              }}>
+                {loading ? 'Redirecting...' : <><Crown size={16} style={{ display: 'inline', marginRight: '6px', verticalAlign: '-3px' }} /> Own Outright — $249</>}
+              </button>
             </div>
           </div>
+
+          <p className="text-dim" style={{ fontSize: '0.72rem', textAlign: 'center', marginTop: '1.5rem', maxWidth: '600px', margin: '1.5rem auto 0' }}>
+            The license model gives you full Pro access at a fraction of the cost. The software purchase is yours to keep even if you cancel the monthly service — you just lose access to updates, new features, and cloud-powered diagnostics.
+          </p>
         </div>
       </section>
 

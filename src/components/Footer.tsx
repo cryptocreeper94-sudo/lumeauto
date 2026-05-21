@@ -79,6 +79,11 @@ export default function Footer() {
         <p style={{ fontSize: '0.85rem', fontWeight: 600, color: '#e2e8f0', letterSpacing: '0.03em' }}>🇺🇸 Proudly made in Gladeville, TN, USA</p>
         <p className="text-dim" style={{ fontSize: '0.8rem' }}>System Status: <span style={{ color: 'var(--accent-emerald)' }}>● Operational</span></p>
       </div>
+      <div className="container" style={{ paddingTop: '1rem' }}>
+        <p className="text-dim" style={{ fontSize: '0.65rem', lineHeight: 1.6, maxWidth: '700px' }}>
+          Lume Scan Pro subscriptions are billed monthly via Stripe. Your payment method is charged automatically at the start of each billing cycle. Cancel anytime — no contracts, no cancellation fees. Software purchase is non-refundable after 7 days. See <Link to="/terms" style={{ color: 'var(--accent-cyan)', fontSize: '0.65rem' }}>Terms</Link> and <Link to="/privacy" style={{ color: 'var(--accent-cyan)', fontSize: '0.65rem' }}>Privacy</Link> for details.
+        </p>
+      </div>
     </footer>
   );
 }

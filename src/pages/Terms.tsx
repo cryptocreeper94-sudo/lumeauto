@@ -5,27 +5,64 @@ export default function Terms() {
     <div className="container" style={{ paddingBottom: '6rem' }}>
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-6" style={{ maxWidth: '800px', margin: '0 auto', paddingTop: '4rem' }}>
         <h1 style={{ fontSize: '3rem', lineHeight: 1.1 }}>Terms of Service</h1>
-        <p className="text-muted" style={{ fontSize: '1.2rem' }}>Last updated: May 2026</p>
+        <p className="text-muted" style={{ fontSize: '1.2rem' }}>Last updated: May 21, 2026</p>
         
         <div className="panel mt-8 flex flex-col gap-6">
           <div>
             <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>1. Acceptance of Terms</h2>
-            <p className="text-muted">By accessing or using the Lume-Auto application, hardware adapter, or associated services (collectively, the "Services"), you agree to be bound by these Terms. If you do not agree, do not use the Services.</p>
+            <p className="text-muted">By accessing or using the Lume Scan application, Lume-Auto platform, hardware adapters, or associated services (collectively, the "Services"), you agree to be bound by these Terms. If you do not agree, do not use the Services. These Terms constitute a legally binding agreement between you and DarkWave Studios LLC ("Company", "we", "us").</p>
           </div>
           
           <div>
             <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>2. Use of Services</h2>
-            <p className="text-muted">Lume-Auto provides vehicle telemetry, diagnostic insights, and behavioral governance guidance. The Services are intended solely for informational and educational purposes. You are solely responsible for operating your vehicle safely and in compliance with all traffic laws.</p>
+            <p className="text-muted">Lume-Auto provides vehicle telemetry, diagnostic insights, and behavioral governance guidance. The Services are intended solely for informational and educational purposes. You are solely responsible for operating your vehicle safely and in compliance with all traffic laws. The Services do not replace professional automotive diagnosis or repair.</p>
           </div>
 
           <div>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>3. Limitation of Liability</h2>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>3. Subscription & Billing</h2>
+            <p className="text-muted" style={{ marginBottom: '0.75rem' }}>Lume Scan Pro is available through two purchasing models:</p>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>a) License Model (Software Purchase + Monthly Service):</strong> You make a one-time software purchase at the current tier price, which grants you permanent ownership of the Lume Scan application. A separate monthly subscription fee provides access to continuous software updates, cloud-powered diagnostics, predictive maintenance features, and support services. The monthly rate is locked at the tier price active at the time of your purchase for as long as your subscription remains active and in good standing.</p>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>b) Own Outright Model:</strong> A single one-time payment grants permanent, lifetime access to all Pro features, updates, and support with no recurring charges.</p>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>c) Auto-Renewal:</strong> Monthly subscriptions automatically renew on the same date each month. Your payment method on file will be charged the locked monthly rate unless you cancel before the renewal date.</p>
+            <p className="text-muted"><strong style={{ color: 'var(--text-main)' }}>d) Price Lock Policy:</strong> Your monthly subscription rate is locked at the tier price at the time of purchase. If you cancel and later resubscribe, you will be charged the then-current tier rate, which may be higher than your original locked rate.</p>
+          </div>
+
+          <div>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>4. Cancellation & Refunds</h2>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>Subscription Cancellation:</strong> You may cancel your monthly subscription at any time through your account settings or by contacting support@lumescan.tech. Cancellation takes effect at the end of the current billing period. No partial-month refunds are issued.</p>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>Software Ownership:</strong> If you cancel the monthly service, you retain permanent ownership of the Lume Scan application and basic scanning functionality (Free tier features). Pro features — including the 42-signal engine, fuel coaching, predictive maintenance, and driver scoring — require an active subscription or Own Outright license.</p>
+            <p className="text-muted"><strong style={{ color: 'var(--text-main)' }}>7-Day Satisfaction Guarantee:</strong> If you are not satisfied with your purchase, you may request a full refund of the software purchase price within 7 days of the original transaction. Monthly subscription fees already charged are non-refundable. To request a refund, email support@lumescan.tech with your order confirmation.</p>
+          </div>
+
+          <div>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>5. Tiered Pricing</h2>
+            <p className="text-muted">Software purchase prices and monthly subscription rates are determined by the active pricing tier at the time of purchase. Tiers are based on the number of licenses sold and increase as each tier's allocation is filled. Pricing tiers, allocations, and rates are subject to change at the Company's discretion. Once purchased, your locked monthly rate is guaranteed as described in Section 3(d).</p>
+          </div>
+
+          <div>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>6. Limitation of Liability</h2>
             <p className="text-muted">Lume-Auto is primarily a diagnostic read tool that retrieves data from your vehicle's Engine Control Unit (ECU). The platform also includes a DTC clearing function (OBD-II Mode 04) that sends a standard reset command to the ECU to clear stored trouble codes and the Malfunction Indicator Lamp. This is the same function performed by any standard OBD-II scan tool and does not alter engine calibration, firmware, or operating parameters. Use of the code-clearing function is at your sole discretion and responsibility. Under no circumstances shall Lume-Auto, DarkWave Studios LLC, its directors, employees, or affiliates be liable for any direct, indirect, incidental, or consequential damages resulting from vehicle malfunction, accidents, warranty disputes, or emissions inspection outcomes.</p>
           </div>
 
           <div>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>4. SMS and Communications</h2>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>7. Intellectual Property</h2>
+            <p className="text-muted">All intellectual property related to Lume-Auto, Lume Scan, the Trust Layer Ledger, and the deterministic governance engine is owned by DarkWave Studios LLC and protected under US Provisional Patent 64/032,339 and related filings. You are granted a limited, non-exclusive, non-transferable license to use the software for personal or fleet diagnostic purposes. You may not reverse-engineer, redistribute, or sublicense the software.</p>
+          </div>
+
+          <div>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>8. SMS and Communications</h2>
             <p className="text-muted">If you opt-in to our SMS waitlist or alerts, you agree to receive text messages from Lume-Auto at the number provided. Consent is not a condition of purchase. Message and data rates may apply. Reply STOP to cancel.</p>
+          </div>
+
+          <div>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>9. Governing Law</h2>
+            <p className="text-muted">These Terms shall be governed by and construed in accordance with the laws of the State of Tennessee, without regard to conflict of law provisions. Any disputes arising under these Terms shall be resolved in the courts of Tennessee.</p>
+          </div>
+
+          <div>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>10. Contact</h2>
+            <p className="text-muted">For billing inquiries, cancellations, or refund requests: <strong style={{ color: 'var(--text-main)' }}>support@lumescan.tech</strong></p>
+            <p className="text-muted" style={{ marginTop: '0.5rem' }}>DarkWave Studios LLC — <a href="https://lume42.com" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-cyan)' }}>Lume42 Labs</a></p>
           </div>
         </div>
       </motion.div>
