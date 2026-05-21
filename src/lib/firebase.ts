@@ -31,7 +31,7 @@ const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 // ── Domain Whitelist ──
-const ALLOWED_DOMAINS = ['coxautoinc.com', 'darkwavestudios.com'];
+const ALLOWED_DOMAINS = ['darkwavestudios.com'];
 const ALLOWED_EMAILS = ['kathytidwell74@gmail.com', 'rtaron@bellsouth.net', 'cryptocreeper94@gmail.com', 'averymackenna@gmail.com'];
 
 function validateEmailDomain(email: string | null): void {

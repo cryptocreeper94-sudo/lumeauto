@@ -4,18 +4,18 @@ import { Shield, Database, Mail, Lock, LogIn, AlertCircle } from 'lucide-react';
 import { signInWithGoogle, signInWithEmail, registerWithEmail } from '../lib/firebase';
 
 interface LoginScreenProps {
-  brand: 'manheim' | 'cal';
+  brand?: 'lumescan' | 'tll';
 }
 
 const brands = {
-  manheim: {
+  lumescan: {
     icon: <Shield size={28} color="#0a0a0c" />,
-    title: 'Lume Auto',
+    title: 'Lume Scan',
     subtitle: 'Sign in to access your diagnostic dashboard.',
     gradient: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))',
     accent: 'var(--accent-cyan)',
   },
-  cal: {
+  tll: {
     icon: <Database size={28} color="#0a0a0c" />,
     title: 'Trust Layer Ledger',
     subtitle: 'Cryptographic vehicle provenance explorer.',
@@ -24,7 +24,7 @@ const brands = {
   },
 };
 
-export default function LoginScreen({ brand }: LoginScreenProps) {
+export default function LoginScreen({ brand = 'lumescan' }: LoginScreenProps) {
   const b = brands[brand];
   const [mode, setMode] = useState<'login' | 'register'>('login');
   const [email, setEmail] = useState('');
@@ -85,7 +85,7 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
       padding: '1.5rem', zIndex: 100,
     }}>
       {/* Background glow */}
-      <div style={{ position: 'fixed', top: '20%', left: '50%', transform: 'translateX(-50%)', width: '600px', height: '600px', background: `radial-gradient(circle, ${brand === 'manheim' ? 'rgba(56,189,248,0.06)' : 'rgba(34,211,238,0.06)'} 0%, transparent 70%)`, pointerEvents: 'none' }} />
+      <div style={{ position: 'fixed', top: '20%', left: '50%', transform: 'translateX(-50%)', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -103,7 +103,7 @@ export default function LoginScreen({ brand }: LoginScreenProps) {
             background: b.gradient,
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
             marginBottom: '1.25rem',
-            boxShadow: `0 8px 32px ${brand === 'manheim' ? 'rgba(56,189,248,0.2)' : 'rgba(34,211,238,0.2)'}`,
+            boxShadow: '0 8px 32px rgba(56,189,248,0.2)',
           }}>
             {b.icon}
           </div>

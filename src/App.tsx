@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Activity, Menu, X, Shield } from 'lucide-react';
+import { Activity, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -14,8 +14,7 @@ import Privacy from './pages/Privacy';
 import Waitlist from './pages/Waitlist';
 import Blog from './pages/Blog';
 import GetStarted from './pages/GetStarted';
-import EngineeringBrief from './pages/EngineeringBrief';
-import Whitepaper from './pages/Whitepaper';
+
 import DiagnosticApp from './pages/DiagnosticApp';
 import DownloadPage from './pages/DownloadPage';
 import Order from './pages/Order';
@@ -24,50 +23,7 @@ import Footer from './components/Footer';
 import RollerCoaster from './components/RollerCoaster';
 import { EcosystemAccountHub } from './components/EcosystemAccountHub';
 
-// @ts-expect-error LoadingScreen kept for subdomain loading states
-function LoadingScreen({ subdomain }: { subdomain: 'manheim' | 'cal' | null }) {
-  const isManheim = subdomain === 'manheim' || subdomain === 'cal';
-  return (
-    <motion.div
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
-      style={{
-        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-        background: 'var(--bg-dark)', zIndex: 9999,
-        display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center', gap: '1rem'
-      }}
-    >
-      <motion.div
-        animate={{ scale: [1, 1.1, 1], opacity: [0.5, 1, 0.5] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <Shield size={48} className="text-cyan" />
-      </motion.div>
-      <div style={{ fontSize: '1.2rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', textAlign: 'center', padding: '0 20px' }} className="text-muted">
-        {isManheim ? (
-          <>Cox <span className="text-cyan">Enterprise Platform</span></>
-        ) : (
-          <>Lume<span className="text-cyan">Auto</span></>
-        )}
-      </div>
-      <div style={{ fontSize: '0.8rem', letterSpacing: '0.1em', textAlign: 'center', padding: '0 20px' }} className="text-dim">
-        {isManheim ? 'INITIALIZING ENTERPRISE PLATFORM' : 'INITIALIZING DETERMINISTIC GOVERNANCE'}
-      </div>
-      <motion.div
-        style={{ width: '200px', height: '2px', background: 'var(--border-light)', borderRadius: '1px', marginTop: '1rem', overflow: 'hidden' }}
-      >
-        <motion.div
-          initial={{ width: '0%' }}
-          animate={{ width: '100%' }}
-          transition={{ duration: 2, ease: 'easeInOut' }}
-          style={{ height: '100%', background: 'var(--accent-cyan)' }}
-        />
-      </motion.div>
-    </motion.div>
-  );
-}
+
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -266,8 +222,7 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/get-started" element={<GetStarted />} />
               <Route path="/order" element={<Order />} />
-              <Route path="/engineering" element={<EngineeringBrief />} />
-              <Route path="/whitepaper" element={<Whitepaper />} />
+
               <Route path="/app" element={<DiagnosticApp />} />
               <Route path="/download" element={<DownloadPage />} />
               <Route path="/redeem" element={<Redeem />} />

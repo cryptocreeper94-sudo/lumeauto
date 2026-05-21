@@ -4,8 +4,8 @@ import LoginScreen from './LoginScreen';
 
 interface AuthGateProps {
   children: ReactNode;
-  /** Which subdomain brand to show on the login screen */
-  brand: 'manheim' | 'cal';
+  /** Which brand to show on the login screen */
+  brand?: 'lumescan' | 'tll';
 }
 
 export default function AuthGate({ children, brand }: AuthGateProps) {

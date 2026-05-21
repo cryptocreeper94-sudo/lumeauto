@@ -1,4 +1,4 @@
-﻿import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useCallback } from 'react';
 import { Zap, Radio, Shield, Cpu, Building2, Activity, ChevronLeft, ChevronRight, Pause, Play, ChevronDown } from 'lucide-react';
 
@@ -28,14 +28,14 @@ const components = [
     icon: <Shield size={24}/>,
     title: 'Cryptographic Billing Engine',
     desc: 'On-chain metering and receipt generation using Ed25519 signatures. Every kWh is sealed and publicly verifiable.',
-    detail: 'Every energy transfer micro-burst generates a cryptographic receipt anchored to the Cox Automotive Ledger (CAL) via Ed25519 signatures. The receipt contains: kWh delivered, duration, vehicle VIN, anchor node ID, and a SHA-256 hash of the metering data. Billing disputes are resolved by mathematical replay â€” feed the same inputs, get the same receipt. No human judgment required.',
+    detail: 'Every energy transfer micro-burst generates a cryptographic receipt anchored to the Trust Layer Ledger (TLL) via Ed25519 signatures. The receipt contains: kWh delivered, duration, vehicle VIN, anchor node ID, and a SHA-256 hash of the metering data. Billing disputes are resolved by mathematical replay — feed the same inputs, get the same receipt. No human judgment required.',
     color: 'var(--accent-emerald)',
   },
   {
     icon: <Building2 size={24}/>,
     title: 'Canopy Infrastructure',
-    desc: 'Structural integration with existing Manheim staging canopies. Zero new construction required.',
-    detail: 'Meridian anchor nodes mount directly to existing steel canopy structures at Manheim facilities. No new construction, no trenching, no conduit runs. Electrical feed taps existing panel capacity with a single 240V circuit per node cluster. A facility with 200 staging spots can be fully equipped in a single weekend shutdown. The infrastructure is invisible to daily operations â€” vehicles park normally.',
+    desc: 'Structural integration with existing facility staging canopies. Zero new construction required.',
+    detail: 'Meridian anchor nodes mount directly to existing steel canopy structures at automotive facilities. No new construction, no trenching, no conduit runs. Electrical feed taps existing panel capacity with a single 240V circuit per node cluster. A facility with 200 staging spots can be fully equipped in a single weekend shutdown. The infrastructure is invisible to daily operations — vehicles park normally.',
     color: '#fb923c',
   },
   {
