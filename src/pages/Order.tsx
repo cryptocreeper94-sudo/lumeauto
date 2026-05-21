@@ -435,6 +435,9 @@ export default function Order() {
             {/* BLE Card */}
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
               className="panel" style={{ padding: '2rem', borderColor: 'rgba(6,182,212,0.2)' }}>
+              <div style={{ borderRadius: '12px', overflow: 'hidden', marginBottom: '1rem', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-light)' }}>
+                <img src="/ble-adapter.png" alt="ELM327 BLE OBD-II Adapter" style={{ width: '100%', height: '180px', objectFit: 'contain', padding: '12px' }} />
+              </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1rem' }}>
                 <div style={{ padding: '10px', background: 'rgba(6,182,212,0.1)', borderRadius: '12px', color: 'var(--accent-cyan)' }}>
                   <Smartphone size={24} />
@@ -474,6 +477,9 @@ export default function Order() {
             {/* WiFi Card */}
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
               className="panel" style={{ padding: '2rem', borderColor: 'rgba(16,185,129,0.2)' }}>
+              <div style={{ borderRadius: '12px', overflow: 'hidden', marginBottom: '1rem', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-light)' }}>
+                <img src="/wifi-adapter.png" alt="ELM327 WiFi OBD-II Adapter" style={{ width: '100%', height: '180px', objectFit: 'contain', padding: '12px' }} />
+              </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1rem' }}>
                 <div style={{ padding: '10px', background: 'rgba(16,185,129,0.1)', borderRadius: '12px', color: 'var(--accent-emerald)' }}>
                   <Zap size={24} />
