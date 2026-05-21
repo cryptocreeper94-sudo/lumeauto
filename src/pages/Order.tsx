@@ -4,12 +4,11 @@ import { ShoppingCart, Zap, Shield, Activity, Wrench, Star, CheckCircle, Chevron
 import QRCodeLib from 'qrcode';
 
 
-// 4-tier launch pricing — dual track (subscription + lifetime)
+// 3-tier launch pricing — software purchase + monthly service
 const TIERS = [
-  { name: 'Founders',      cap: 100,      monthly: 1.99, lifetime: 14.99, color: '#fbbf24',             icon: '🔥' },
-  { name: 'Early Adopter',  cap: 500,      monthly: 2.99, lifetime: 24.99, color: 'var(--accent-cyan)',  icon: '⚡' },
-  { name: 'Growth',         cap: 1000,     monthly: 3.99, lifetime: 34.99, color: '#38bdf8',             icon: '📈' },
-  { name: 'Standard',       cap: Infinity, monthly: 4.99, lifetime: 49.99, color: 'var(--accent-emerald)', icon: '🚀' },
+  { name: 'Founders',      cap: 100,      purchase: 9.99,  monthly: 1.99, color: '#fbbf24',             icon: '🔥' },
+  { name: 'Early Adopter',  cap: 500,      purchase: 19.99, monthly: 2.49, color: 'var(--accent-cyan)',  icon: '⚡' },
+  { name: 'Standard',       cap: Infinity, purchase: 39.99, monthly: 4.99, color: 'var(--accent-emerald)', icon: '🚀' },
 ];
 const AMAZON_TAG = 'garagebot-20';
 
@@ -28,7 +27,7 @@ const FAQS = [
   { q: 'How much will I actually save?', a: 'At $3.50/gallon and 15,000 miles/year, most drivers save $180-$320 annually in fuel alone. But the real savings come from predictive maintenance — catching a failing catalytic converter early can save you $2,000+ in a single repair. First-year value: $2,700+.' },
   { q: 'What do I get?', a: 'Your Lume Scan Pro license with instant download. The free version includes code reading + basic live data. Pro unlocks the full 42-signal engine, fuel coaching, predictive maintenance, and driver scoring. Works with any ELM327 BLE adapter ($15-$30 on Amazon).' },
   { q: 'Do I need a mechanic to install it?', a: 'No. You plug the adapter into the OBD-II port under your dashboard (every car has one). Takes 10 seconds. No wiring, no tools, no modifications.' },
-  { q: 'Is there a subscription?', a: 'Yes — and it\'s the most affordable way in. Founders get $1.99/month, locked for life, cancel anytime. Prefer one-time? Lifetime access starts at $14.99 during Founders tier. Both options include the full 42-signal engine.' },
+  { q: 'Is there a subscription?', a: 'Yes. You purchase the software once at your tier price, then pay a small monthly fee for continuous updates, new features, and full Pro service. Founders lock in at $1.99/month for life. Cancel the service anytime — you keep the software.' },
   { q: 'Why is the Founders price so low?', a: 'We\'re an indie lab launching our first product. We need 100 people who believe in what we\'re building. Founders pricing is NOT discount pricing — it\'s investor-grade early access. The price goes up as each tier fills. Lock in now or pay more later. All we ask is that you use it, and if it earns it, tell people about it.' },
   { q: 'How is this different from a cheap Amazon scanner?', a: 'Cheap scanners just read codes. Lume-Auto runs a continuous 42-node deterministic engine that actively coaches you, predicts failures before they happen, and quantifies your fuel savings in real-time. It\'s the difference between a thermometer and a doctor.' },
 ];
@@ -112,9 +111,8 @@ export default function Order() {
 
   // Live tier from Firestore via /api/tier
   const [tierData, setTierData] = useState<{ tier: string; price: number; monthly: number; claimed: number; remaining: number | null }>({
-    tier: 'Founders', price: 14.99, monthly: 1.99, claimed: 0, remaining: 100,
+    tier: 'Founders', price: 9.99, monthly: 1.99, claimed: 0, remaining: 100,
   });
-  const [planType, setPlanType] = useState<'subscribe' | 'lifetime'>('subscribe');
 
   useEffect(() => {
     fetch('/api/tier').then(r => r.json()).then(d => setTierData(d)).catch(() => {});
@@ -124,7 +122,7 @@ export default function Order() {
     ...TIERS.find(t => t.name === tierData.tier) || TIERS[0],
     remaining: tierData.remaining,
   };
-  const LIFETIME_PRICE = CURRENT_TIER.lifetime;
+  const PURCHASE_PRICE = CURRENT_TIER.purchase;
   const MONTHLY_PRICE = CURRENT_TIER.monthly;
 
   // Detect Stripe redirect success/cancel
@@ -205,27 +203,21 @@ export default function Order() {
                 Download free. Scan free. Upgrade to <strong style={{ color: 'var(--text-main)' }}>Pro</strong> to unlock the full 42-signal engine, fuel coaching, predictive maintenance, and driver scoring.
               </p>
               <p className="text-muted" style={{ fontSize: '0.85rem', maxWidth: '520px', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-                Pairs with any ELM327 BLE adapter ($15–$30 on Amazon). <strong style={{ color: 'var(--text-main)' }}>Subscribe monthly or buy lifetime — your choice.</strong>
+                Pairs with any ELM327 BLE adapter ($15–$30 on Amazon). <strong style={{ color: 'var(--text-main)' }}>Buy once. Stay current for ${MONTHLY_PRICE}/mo. Cancel anytime.</strong>
               </p>
 
-              {/* Plan Toggle */}
-              <div style={{ display: 'flex', gap: '4px', padding: '4px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-light)', borderRadius: '14px', marginBottom: '1rem', maxWidth: '340px' }}>
-                <button onClick={() => setPlanType('subscribe')} style={{
-                  flex: 1, padding: '10px 16px', borderRadius: '11px', border: 'none', cursor: 'pointer',
-                  background: planType === 'subscribe' ? 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))' : 'transparent',
-                  color: planType === 'subscribe' ? '#000' : 'var(--text-muted)', fontWeight: 700, fontSize: '0.85rem', transition: 'all 0.2s',
-                }}>
-                  <CreditCard size={14} style={{ display: 'inline', marginRight: '6px', verticalAlign: '-2px' }} />
-                  ${MONTHLY_PRICE}/mo
-                </button>
-                <button onClick={() => setPlanType('lifetime')} style={{
-                  flex: 1, padding: '10px 16px', borderRadius: '11px', border: 'none', cursor: 'pointer',
-                  background: planType === 'lifetime' ? 'linear-gradient(135deg, #fbbf24, #f59e0b)' : 'transparent',
-                  color: planType === 'lifetime' ? '#000' : 'var(--text-muted)', fontWeight: 700, fontSize: '0.85rem', transition: 'all 0.2s',
-                }}>
-                  <Crown size={14} style={{ display: 'inline', marginRight: '6px', verticalAlign: '-2px' }} />
-                  ${LIFETIME_PRICE} forever
-                </button>
+              {/* Pricing Summary Card */}
+              <div style={{ padding: '16px 20px', background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '16px', marginBottom: '1.25rem', maxWidth: '400px' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '2rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: 'var(--text-main)' }}>${PURCHASE_PRICE}</span>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-dim)' }}>one-time</span>
+                  <span style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>+</span>
+                  <span style={{ fontSize: '1.5rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: 'var(--accent-emerald)' }}>${MONTHLY_PRICE}</span>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-dim)' }}>/mo</span>
+                </div>
+                <p style={{ fontSize: '0.75rem', color: 'var(--accent-emerald)', margin: 0 }}>
+                  🔒 {CURRENT_TIER.name} rate locked for life. Cancel the service anytime — the software is yours to keep.
+                </p>
               </div>
 
               {/* CTA Buttons */}
@@ -236,44 +228,28 @@ export default function Order() {
                 <button onClick={handleCheckout} disabled={loading} className="btn-primary" style={{
                   padding: '0.9rem 1.8rem', fontSize: '0.95rem',
                   justifyContent: 'center', opacity: loading ? 0.6 : 1,
-                  background: planType === 'subscribe'
-                    ? 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))'
-                    : 'linear-gradient(135deg, #fbbf24, #f59e0b)',
+                  background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))',
                   color: '#000', fontWeight: 800, border: 'none', borderRadius: '14px',
                 }}>
-                  {loading ? 'Redirecting...' : planType === 'subscribe'
-                    ? <><CreditCard size={18} /> Subscribe — ${MONTHLY_PRICE}/mo</>
-                    : <><Crown size={18} /> Buy Lifetime — ${LIFETIME_PRICE}</>}
+                  {loading ? 'Redirecting...' : <><ShoppingCart size={18} /> Get Pro — ${PURCHASE_PRICE} + ${MONTHLY_PRICE}/mo</>}
                 </button>
               </div>
 
-              {/* Plan context line */}
-              {planType === 'subscribe' ? (
-                <p style={{ fontSize: '0.78rem', color: 'var(--accent-emerald)', maxWidth: '400px', marginBottom: '1rem' }}>
-                  🔒 {CURRENT_TIER.name} price locked for life. Cancel anytime. No contracts.
-                </p>
-              ) : (
-                <p style={{ fontSize: '0.78rem', color: '#fbbf24', maxWidth: '400px', marginBottom: '1rem' }}>
-                  👑 One purchase. Yours forever. Never pay again.
-                </p>
-              )}
-
-              {/* 4-Tier pricing roadmap */}
-              <div style={{ display: 'flex', gap: '4px', marginBottom: '1rem', maxWidth: '480px' }}>
+              {/* 3-Tier pricing roadmap */}
+              <div style={{ display: 'flex', gap: '6px', marginBottom: '1rem', maxWidth: '420px' }}>
                 {TIERS.map((t, i) => {
                   const isActive = t.name === CURRENT_TIER.name;
                   return (
-                    <div key={i} style={{ flex: 1, padding: '8px 4px', borderRadius: '10px', background: isActive ? 'rgba(16,185,129,0.1)' : 'rgba(255,255,255,0.02)', border: `1px solid ${isActive ? 'rgba(16,185,129,0.3)' : 'var(--border-light)'}`, textAlign: 'center', opacity: isActive ? 1 : 0.45 }}>
-                      <div style={{ fontSize: '0.55rem', fontWeight: 700, color: isActive ? 'var(--accent-emerald)' : 'var(--text-dim)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>{t.icon} {t.name}</div>
-                      <div style={{ fontSize: '0.8rem', fontWeight: 800, color: isActive ? 'var(--text-main)' : 'var(--text-dim)', fontFamily: 'var(--font-mono)', marginTop: '2px' }}>
-                        ${planType === 'subscribe' ? t.monthly + '/mo' : t.lifetime}
-                      </div>
-                      <div style={{ fontSize: '0.5rem', color: 'var(--text-dim)' }}>{t.cap === Infinity ? 'After 1,000' : `First ${t.cap}`}</div>
+                    <div key={i} style={{ flex: 1, padding: '8px 6px', borderRadius: '10px', background: isActive ? 'rgba(16,185,129,0.1)' : 'rgba(255,255,255,0.02)', border: `1px solid ${isActive ? 'rgba(16,185,129,0.3)' : 'var(--border-light)'}`, textAlign: 'center', opacity: isActive ? 1 : 0.45 }}>
+                      <div style={{ fontSize: '0.6rem', fontWeight: 700, color: isActive ? 'var(--accent-emerald)' : 'var(--text-dim)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>{t.icon} {t.name}</div>
+                      <div style={{ fontSize: '0.9rem', fontWeight: 800, color: isActive ? 'var(--text-main)' : 'var(--text-dim)', fontFamily: 'var(--font-mono)', marginTop: '2px' }}>${t.purchase}</div>
+                      <div style={{ fontSize: '0.65rem', fontWeight: 600, color: isActive ? 'var(--accent-emerald)' : 'var(--text-dim)' }}>+ ${t.monthly}/mo</div>
+                      <div style={{ fontSize: '0.5rem', color: 'var(--text-dim)', marginTop: '2px' }}>{t.cap === Infinity ? 'After 500' : `First ${t.cap}`}</div>
                     </div>
                   );
                 })}
               </div>
-              <p style={{ fontSize: '0.72rem', color: 'var(--text-dim)', maxWidth: '400px' }}>{CURRENT_TIER.name} pricing. {CURRENT_TIER.remaining !== null ? `${CURRENT_TIER.remaining} spots remaining.` : ''} Price increases when this tier fills. Free version is always free.</p>
+              <p style={{ fontSize: '0.72rem', color: 'var(--text-dim)', maxWidth: '400px' }}>{CURRENT_TIER.name} pricing — not a discount, this is founder-grade access. {CURRENT_TIER.remaining !== null ? `${CURRENT_TIER.remaining} spots remaining.` : ''} Price increases when this tier fills.</p>
 
               <div style={{ display: 'flex', gap: '16px', marginTop: '1rem', flexWrap: 'wrap' }}>
                 {['Free basic scanning', 'Pro: full 42-signal engine', '7-day guarantee'].map((t, i) => (
@@ -317,7 +293,7 @@ export default function Order() {
                 <div style={{ padding: '14px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                     <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>Pro + BLE Adapter</span>
-                    <span style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--accent-emerald)', fontFamily: 'var(--font-mono)' }}>~${(LIFETIME_PRICE + 18).toFixed(0)} total</span>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--accent-emerald)', fontFamily: 'var(--font-mono)' }}>~${(PURCHASE_PRICE + 18).toFixed(0)} total</span>
                   </div>
                   <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '10px', lineHeight: 1.5 }}>Get Pro above, then grab a compatible adapter below. Already have one? Skip this.</p>
                   <a href={`https://www.amazon.com/s?k=ELM327+BLE+OBD2+adapter&i=automotive&tag=garagebot-20`} target="_blank" rel="noopener" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '10px', borderRadius: '10px', background: 'rgba(255,153,0,0.08)', border: '1px solid rgba(255,153,0,0.2)', color: '#ff9900', fontWeight: 700, fontSize: '0.8rem', textDecoration: 'none' }}>
@@ -364,7 +340,7 @@ export default function Order() {
             {/* Lume */}
             <div className="panel" style={{ padding: '2rem', borderColor: 'rgba(16,185,129,0.3)', background: 'rgba(16,185,129,0.03)' }}>
               <div style={{ fontSize: '0.75rem', color: 'var(--accent-emerald)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>Lume-Auto Kit</div>
-              <div style={{ fontSize: '2.5rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: 'var(--accent-emerald)', marginBottom: '1rem' }}>${LIFETIME_PRICE}<span style={{ fontSize: '1rem', fontWeight: 400, color: 'var(--text-dim)' }}> lifetime</span> <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>or</span> <span style={{ fontSize: '1.5rem' }}>${MONTHLY_PRICE}</span><span style={{ fontSize: '0.9rem', fontWeight: 400, color: 'var(--text-dim)' }}>/mo</span></div>
+              <div style={{ fontSize: '2.5rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: 'var(--accent-emerald)', marginBottom: '1rem' }}>${PURCHASE_PRICE}<span style={{ fontSize: '1rem', fontWeight: 400, color: 'var(--text-dim)' }}> + </span><span style={{ fontSize: '1.5rem' }}>${MONTHLY_PRICE}</span><span style={{ fontSize: '0.9rem', fontWeight: 400, color: 'var(--text-dim)' }}>/mo</span></div>
               {['Read diagnostic codes', 'Clear check engine light', '42 live signals at 100ms', 'Passive fuel coaching', 'Predictive maintenance', 'Driver efficiency scoring', 'Family & fleet dashboard', 'Deterministic engine intelligence'].map((item, i) => (
                 <div key={i} style={{ fontSize: '0.85rem', color: 'var(--text-main)', padding: '4px 0', fontWeight: 500 }}>{item}</div>
               ))}
@@ -378,7 +354,7 @@ export default function Order() {
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>What You Get</h2>
-              <p className="text-muted">Software + intelligence. Subscribe or buy lifetime.</p>
+              <p className="text-muted">Software + intelligence. Buy once, stay current monthly.</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
             {[
@@ -622,7 +598,7 @@ export default function Order() {
             style={{ textAlign: 'center', marginTop: '2rem', padding: '2rem', background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '16px' }}>
             <div style={{ fontSize: '0.8rem', color: 'var(--accent-emerald)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Annual savings</div>
             <div style={{ fontSize: '3.5rem', fontWeight: 800, fontFamily: 'var(--font-mono)' }}><span className="text-gradient">$328</span></div>
-              <div className="text-muted" style={{ fontSize: '0.95rem' }}>Pro is <strong style={{ color: 'var(--text-main)' }}>${MONTHLY_PRICE}/mo or ${LIFETIME_PRICE} lifetime</strong>{CURRENT_TIER.name !== 'Standard' ? <> <span style={{ color: '#fbbf24', fontWeight: 700 }}>({CURRENT_TIER.name} pricing)</span></> : ''}.<br />$2,700+ saved in year one. The math does itself.</div>
+              <div className="text-muted" style={{ fontSize: '0.95rem' }}>Pro is <strong style={{ color: 'var(--text-main)' }}>${PURCHASE_PRICE} + ${MONTHLY_PRICE}/mo</strong>{CURRENT_TIER.name !== 'Standard' ? <> <span style={{ color: '#fbbf24', fontWeight: 700 }}>({CURRENT_TIER.name} pricing)</span></> : ''}.<br />$2,700+ saved in year one. The math does itself.</div>
           </motion.div>
         </div>
       </section>
@@ -670,7 +646,7 @@ export default function Order() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Stop Overpaying for Gas.</h2>
             <p className="text-muted" style={{ maxWidth: '500px', margin: '0 auto 2rem', fontSize: '1.05rem' }}>
-              Download free. Go Pro for ${MONTHLY_PRICE}/mo or ${LIFETIME_PRICE} lifetime{CURRENT_TIER.name !== 'Standard' ? <> <span style={{ color: '#fbbf24', fontWeight: 700 }}>({CURRENT_TIER.name} pricing)</span></> : ''}.<br />$2,700+ saved in year one. The math does itself.
+              Download free. Go Pro for ${PURCHASE_PRICE} + ${MONTHLY_PRICE}/mo{CURRENT_TIER.name !== 'Standard' ? <> <span style={{ color: '#fbbf24', fontWeight: 700 }}>({CURRENT_TIER.name} pricing)</span></> : ''}.<br />$2,700+ saved in year one. The math does itself.
             </p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <a href="https://lumeauto.tech/download" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '1rem 2rem', borderRadius: '14px', border: '1px solid var(--border-light)', background: 'rgba(255,255,255,0.03)', color: 'var(--text-main)', fontWeight: 700, fontSize: '1rem', textDecoration: 'none' }}>
@@ -681,14 +657,7 @@ export default function Order() {
                 background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))',
                 color: '#000', fontWeight: 800, border: 'none', borderRadius: '14px',
               }}>
-                {loading ? 'Redirecting...' : <><CreditCard size={20} /> Subscribe — ${MONTHLY_PRICE}/mo</>}
-              </button>
-              <button onClick={handleCheckout} disabled={loading} className="btn-primary" style={{
-                padding: '1rem 2rem', fontSize: '1rem',
-                background: 'linear-gradient(135deg, #fbbf24, #f59e0b)',
-                color: '#000', fontWeight: 800, border: 'none', borderRadius: '14px',
-              }}>
-                {loading ? 'Redirecting...' : <><Crown size={20} /> Lifetime — ${LIFETIME_PRICE}</>}
+                {loading ? 'Redirecting...' : <><ShoppingCart size={20} /> Get Pro — ${PURCHASE_PRICE} + ${MONTHLY_PRICE}/mo</>}
               </button>
             </div>
             <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '1.5rem' }}>
