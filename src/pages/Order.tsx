@@ -141,10 +141,10 @@ export default function Order() {
                 * {SAVINGS_PCT}% Off Retail Value
               </div>
               <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', lineHeight: 1.08, marginBottom: '1rem' }}>
-                The <span className="text-gradient">$200 Scanner</span><br />For ${KIT_PRICE}.
+                <span className="text-gradient">Lume Scan</span><br />Software License
               </h1>
               <p className="text-muted" style={{ fontSize: '1.1rem', maxWidth: '520px', lineHeight: 1.7, marginBottom: '1.5rem' }}>
-                Professional-grade OBD-II diagnostics + deterministic fuel governance. Everything a $200 scanner does - <strong style={{ color: 'var(--text-main)' }}>plus an AI-free engine that saves you $180-$320/year on gas.</strong>
+                Professional-grade OBD-II diagnostics + deterministic fuel governance. Pairs with any $12 BLE adapter from Amazon. <strong style={{ color: 'var(--text-main)' }}>No subscription. No hidden fees. One-time purchase, yours forever.</strong>
               </p>
 
               {/* Price block */}
@@ -161,11 +161,11 @@ export default function Order() {
                 background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))',
                 color: '#000', fontWeight: 800, border: 'none', borderRadius: '14px',
               }}>
-                {loading ? 'Redirecting to Checkout...' : <><ShoppingCart size={20} /> Order Lume-Auto Kit</>}
+                {loading ? 'Redirecting to Checkout...' : <><ShoppingCart size={20} /> Get Lume Scan — ${KIT_PRICE}</>}
               </button>
 
               <div style={{ display: 'flex', gap: '16px', marginTop: '1rem', flexWrap: 'wrap' }}>
-                {['Free shipping', 'App included', '30-day guarantee'].map((t, i) => (
+                {['Instant download', 'Works with any BLE adapter', '30-day guarantee'].map((t, i) => (
                   <span key={i} className="flex items-center gap-2" style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                     <CheckCircle size={14} color="var(--accent-emerald)" /> {t}
                   </span>
@@ -173,18 +173,28 @@ export default function Order() {
               </div>
             </motion.div>
 
-            {/* Right: Product Image */}
+            {/* Right: App Preview + Adapter Info */}
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}>
               <div style={{
                 borderRadius: '20px', overflow: 'hidden', border: '1px solid var(--border-light)',
-                background: 'linear-gradient(145deg, rgba(255,255,255,0.03), rgba(0,0,0,0.2))',
-                boxShadow: '0 20px 80px rgba(6,182,212,0.08)',
+                background: 'linear-gradient(145deg, rgba(6,182,212,0.04), rgba(16,185,129,0.03))',
+                padding: '2rem', textAlign: 'center',
               }}>
-                <img src="/dongle_product.png" alt="Lume-Auto OBD-II Kit" style={{ width: '100%', display: 'block' }} />
+                <Smartphone size={64} style={{ color: 'var(--accent-cyan)', marginBottom: '1rem' }} />
+                <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>Lume Scan App</h3>
+                <p className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+                  Android app with full BLE + WiFi OBD-II connectivity. Direct APK download — no Play Store needed.
+                </p>
+                <div style={{ padding: '12px 16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-light)', textAlign: 'left' }}>
+                  <p style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-emerald)', marginBottom: '6px', letterSpacing: '0.08em' }}>COMPATIBLE ADAPTERS</p>
+                  <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.6 }}>
+                    Any ELM327 BLE 4.0+ adapter (~$12 on Amazon). WiFi adapters also supported. No proprietary hardware required.
+                  </p>
+                </div>
               </div>
-              <p className="text-dim" style={{ fontSize: '0.7rem', textAlign: 'center', marginTop: '0.75rem', letterSpacing: '0.05em' }}>
-                LUME-AUTO DIAGNOSTIC KIT - PROFESSIONAL-GRADE HARDWARE + SOFTWARE
-              </p>
+              <div style={{ marginTop: '1rem', padding: '12px 16px', borderRadius: '12px', background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.15)', textAlign: 'center' }}>
+                <p style={{ fontSize: '0.75rem', color: '#fbbf24', fontWeight: 600 }}>🔜 Coming soon: BLE + WiFi adapter bundles on Amazon</p>
+              </div>
             </motion.div>
           </div>
         </div>
