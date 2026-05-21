@@ -260,7 +260,7 @@ export default function Whitepaper() {
           {/* 7. LUME-Auto */}
           <WpSection num={7} title="LUME-Auto â€” Diagnostic Organism">
             <p>
-              LUME-Auto is a 42-node synthetic organism that processes real-time OBD-II telemetry to produce structured, deterministic vehicle condition reports. It represents the diagnostic intelligence layer of the platform â€” the system that turns raw vehicle data into cryptographically verifiable condition certificates.
+              LUME-Auto is a 42-node deterministic diagnostic engine that processes real-time OBD-II telemetry to produce structured, deterministic vehicle condition reports. It represents the diagnostic intelligence layer of the platform â€” the system that turns raw vehicle data into cryptographically verifiable condition certificates.
             </p>
             <h4>Technical Specifications</h4>
             <ul>
@@ -360,9 +360,9 @@ export default function Whitepaper() {
               This is not a feature added after the fact. Determinism is a mathematical property of the language itself â€” enforced by the compiler, guaranteed by the type system, and verified at runtime.
             </p>
 
-            <h4>Synthetic Organisms</h4>
+            <h4>Deterministic Engines</h4>
             <p>
-              The platform's processing units are not traditional software modules, services, or functions. They are synthetic organisms â€” autonomous, self-governing networks of nodes that process data through cross-validation consensus.
+              The platform's processing units are not traditional software modules, services, or functions. They are deterministic engines — autonomous, self-governing networks of nodes that process data through cross-validation consensus.
             </p>
             <p>
               The LUME-Auto diagnostic organism, for example, consists of 42 nodes. Each node monitors a specific domain of vehicle telemetry (fuel system, ignition, emissions, electrical) and cross-validates its readings against adjacent nodes. A condition report is only produced when the organism reaches internal consensus â€” not when a single algorithm produces a score.
@@ -515,7 +515,7 @@ export default function Whitepaper() {
               ))}
             </div>
             <p style={{ fontSize: '0.88rem', color: 'var(--text-dim)' }}>
-              All research is published and publicly accessible. Additional papers covering DAIGS v2, DAIGS v3, Lume-X, and the Deterministic Synthetic Organism specification are in preparation.
+              All research is published and publicly accessible. Additional papers covering DAIGS v2, DAIGS v3, Lume-X, and the Deterministic Engine specification are in preparation.
             </p>
           </WpSection>
 
