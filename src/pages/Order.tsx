@@ -126,7 +126,7 @@ export default function Order() {
             <p className="text-muted" style={{ fontSize: '1.05rem' }}>Everything a professional scanner does. Plus everything it <em>can't</em>.</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
             {/* Competitor */}
             <div className="panel" style={{ padding: '2rem', borderColor: 'rgba(239,68,68,0.2)' }}>
               <div style={{ fontSize: '0.75rem', color: '#ef4444', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>Typical OBD-II Scanner</div>
@@ -201,7 +201,7 @@ export default function Order() {
             <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>Do The Math</h2>
             <p className="text-muted">At $3.50/gallon and 15,000 miles per year</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
             <div className="panel" style={{ padding: '2rem', textAlign: 'center' }}>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Without Lume-Auto</div>
               <div style={{ fontSize: '2.5rem', fontWeight: 700, color: '#ef4444', fontFamily: 'var(--font-mono)' }}>$2,187</div>
@@ -260,7 +260,7 @@ export default function Order() {
               {loading ? 'Redirecting...' : <><ShoppingCart size={20} /> Order Now - ${KIT_PRICE}</>}
             </button>
             <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '1.5rem' }}>
-              Lume-Auto · DarkWave Studios LLC / Lume42 Labs · US Provisional Patent 64/032,339
+              Lume-Auto - DarkWave Studios LLC / Lume42 Labs - US Provisional Patent 64/032,339
             </p>
           </motion.div>
         </div>
