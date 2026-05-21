@@ -146,10 +146,30 @@ app.post('/api/checkout', async (req, res) => {
 });
 
 // ─── API: Lume Scan Pro License (One-Time Purchase) ─────────────────────────
+// 3-tier launch pricing — update TOTAL_CLAIMED as sales come in
+const LAUNCH_TIERS = [
+  { name: 'Founders',      cap: 100, cents: 999  },  // $9.99
+  { name: 'Early Adopter',  cap: 500, cents: 1999 },  // $19.99
+  { name: 'Standard',       cap: Infinity, cents: 3999 }, // $39.99
+];
+let TOTAL_CLAIMED = 12; // TODO: read from Firestore for real-time count
+
+function getCurrentTierPrice() {
+  let acc = 0;
+  for (const t of LAUNCH_TIERS) {
+    if (TOTAL_CLAIMED < acc + t.cap) return t;
+    acc += t.cap;
+  }
+  return LAUNCH_TIERS[LAUNCH_TIERS.length - 1];
+}
+
 app.post('/api/checkout-kit', async (req, res) => {
   try {
     const stripe = (await import('stripe')).default;
     const stripeClient = new stripe(process.env.STRIPE_SECRET_KEY);
+
+    const tier = getCurrentTierPrice();
+    console.log(`[Lume-Auto] 💰 Checkout at ${tier.name} tier: $${(tier.cents / 100).toFixed(2)} (${TOTAL_CLAIMED} claimed)`);
 
     const session = await stripeClient.checkout.sessions.create({
       mode: 'payment',
@@ -159,10 +179,10 @@ app.post('/api/checkout-kit', async (req, res) => {
         price_data: {
           currency: 'usd',
           product_data: {
-            name: 'Lume Scan Pro License',
+            name: `Lume Scan Pro License — ${tier.name} Pricing`,
             description: 'Full 42-signal OBD-II diagnostic engine. Fuel coaching, predictive maintenance, driver scoring. One-time purchase — no subscription.',
           },
-          unit_amount: 2999, // $29.99
+          unit_amount: tier.cents,
         },
         quantity: 1,
       }],
@@ -172,6 +192,7 @@ app.post('/api/checkout-kit', async (req, res) => {
         type: 'lumescan',
         product: 'lumescan-pro',
         includes_software_license: 'true',
+        tier: tier.name,
       },
     });
 
