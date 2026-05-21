@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 import { db } from './server/db/index.js';
 import { waitlist } from './server/db/schema.js';
@@ -14,8 +15,66 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const SITE_URL = process.env.SITE_URL || 'https://lumeauto.tech';
+const FIRESTORE_PROJECT = 'darkwave-auth';
 
 app.use(cors());
+
+// ─── Stripe Webhook (raw body needed) ───────────────────────────────────────
+// This must come BEFORE express.json() middleware
+app.post('/api/webhook/stripe', express.raw({ type: 'application/json' }), async (req, res) => {
+  const stripe = (await import('stripe')).default;
+  const stripeClient = new stripe(process.env.STRIPE_SECRET_KEY);
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+  let event;
+
+  // Verify webhook signature if secret is configured
+  if (webhookSecret) {
+    const sig = req.headers['stripe-signature'];
+    try {
+      event = stripeClient.webhooks.constructEvent(req.body, sig, webhookSecret);
+    } catch (err) {
+      console.error('[Webhook] ❌ Signature verification failed:', err.message);
+      return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+  } else {
+    // Dev mode — parse raw body
+    event = JSON.parse(req.body.toString());
+    console.warn('[Webhook] ⚠️ No STRIPE_WEBHOOK_SECRET — skipping signature verification');
+  }
+
+  // Handle checkout completion
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    const customerEmail = session.customer_details?.email;
+    const metadata = session.metadata || {};
+
+    console.log(`[Webhook] ✅ Payment completed: ${customerEmail} — ${metadata.product}`);
+
+    if (metadata.product === 'lumescan-pro' && customerEmail) {
+      try {
+        // 1. Generate unique redemption code
+        const code = generateRedemptionCode();
+
+        // 2. Write entitlement to Firestore (direct REST API)
+        await writeFirestoreEntitlement(customerEmail, code);
+
+        // 3. Send confirmation email with code + download link
+        await sendPurchaseEmail(customerEmail, code);
+
+        console.log(`[Webhook] ✅ Pro license activated for ${customerEmail} — code: ${code}`);
+      } catch (err) {
+        console.error('[Webhook] ❌ Post-purchase processing failed:', err);
+        // Don't return error to Stripe — payment succeeded, we'll fix manually
+      }
+    }
+  }
+
+  res.json({ received: true });
+});
+
+// Now apply JSON parser for all other routes
 app.use(express.json());
 
 // ─── API: SMS Waitlist Opt-In ───────────────────────────────────────────────
@@ -52,7 +111,7 @@ app.post('/api/opt-in', async (req, res) => {
   }
 });
 
-// ─── API: Stripe Checkout Session ───────────────────────────────────────────
+// ─── API: Stripe Checkout Session (Fleet Subscriptions) ─────────────────────
 app.post('/api/checkout', async (req, res) => {
   const { tier } = req.body; // 'family' | 'commercial' | 'premium'
 
@@ -75,8 +134,8 @@ app.post('/api/checkout', async (req, res) => {
       mode: 'subscription',
       payment_method_types: ['card'],
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${process.env.SITE_URL || 'https://lumeauto.tech'}/waitlist?success=true`,
-      cancel_url: `${process.env.SITE_URL || 'https://lumeauto.tech'}/fleet?cancelled=true`,
+      success_url: `${SITE_URL}/waitlist?success=true`,
+      cancel_url: `${SITE_URL}/fleet?cancelled=true`,
     });
 
     res.status(200).json({ url: session.url });
@@ -86,7 +145,7 @@ app.post('/api/checkout', async (req, res) => {
   }
 });
 
-// ─── API: Kit Order (One-Time Purchase) ─────────────────────────────────────
+// ─── API: Lume Scan Pro License (One-Time Purchase) ─────────────────────────
 app.post('/api/checkout-kit', async (req, res) => {
   try {
     const stripe = (await import('stripe')).default;
@@ -95,40 +154,75 @@ app.post('/api/checkout-kit', async (req, res) => {
     const session = await stripeClient.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card'],
-      shipping_address_collection: {
-        allowed_countries: ['US'],
-      },
+      // NO shipping — software-only purchase
       line_items: [{
         price_data: {
           currency: 'usd',
           product_data: {
-            name: 'Lume-Auto Diagnostic Kit',
-            description: 'Professional OBD-II WiFi adapter + Lume-Auto software license. App download code emailed instantly.',
-            images: [`${process.env.SITE_URL || 'https://lumeauto.tech'}/dongle_product.png`],
+            name: 'Lume Scan Pro License',
+            description: 'Full 42-signal OBD-II diagnostic engine. Fuel coaching, predictive maintenance, driver scoring. One-time purchase — no subscription.',
           },
           unit_amount: 2999, // $29.99
         },
         quantity: 1,
       }],
-      success_url: `${process.env.SITE_URL || 'https://lumeauto.tech'}/order?success=true`,
-      cancel_url: `${process.env.SITE_URL || 'https://lumeauto.tech'}/order?cancelled=true`,
+      success_url: `${SITE_URL}/order?success=true`,
+      cancel_url: `${SITE_URL}/order?cancelled=true`,
       metadata: {
         type: 'lumescan',
-        product: 'lume-auto-kit',
+        product: 'lumescan-pro',
         includes_software_license: 'true',
       },
     });
 
     res.status(200).json({ url: session.url });
   } catch (err) {
-    console.error('[Lume-Auto] ❌ Kit checkout error:', err);
+    console.error('[Lume-Auto] ❌ Pro license checkout error:', err);
     res.status(500).json({ error: 'Payment initialization failed.' });
+  }
+});
+
+// ─── API: Verify Redemption Code ────────────────────────────────────────────
+app.post('/api/redeem', async (req, res) => {
+  const { code, email } = req.body;
+
+  if (!code || !email) {
+    return res.status(400).json({ error: 'Code and email are required.' });
+  }
+
+  try {
+    // Check if code exists in Firestore
+    const codeDoc = await getFirestoreDoc(`redemption_codes/${code.toUpperCase()}`);
+
+    if (!codeDoc) {
+      return res.status(404).json({ error: 'Invalid redemption code.' });
+    }
+
+    if (codeDoc.fields?.redeemed?.booleanValue === true) {
+      return res.status(409).json({ error: 'This code has already been redeemed.' });
+    }
+
+    // Mark code as redeemed
+    await patchFirestoreDoc(`redemption_codes/${code.toUpperCase()}`, {
+      redeemed: { booleanValue: true },
+      redeemed_by: { stringValue: email.toLowerCase() },
+      redeemed_at: { timestampValue: new Date().toISOString() },
+    });
+
+    // Activate Pro entitlement for this email
+    await writeFirestoreEntitlement(email.toLowerCase(), code.toUpperCase());
+
+    console.log(`[Redeem] ✅ Code ${code} redeemed by ${email}`);
+    res.status(200).json({ success: true, message: 'Pro license activated!' });
+  } catch (err) {
+    console.error('[Redeem] ❌ Error:', err);
+    res.status(500).json({ error: 'Redemption failed. Please try again.' });
   }
 });
 
 // ─── API: Health Check ──────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'operational', service: 'lume-auto', version: '1.0.0' });
+  res.json({ status: 'operational', service: 'lume-auto', version: '2.0.0' });
 });
 
 // ─── Serve Vite static build ────────────────────────────────────────────────
@@ -139,5 +233,165 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`[Lume-Auto] 🚀 Web service running on port ${PORT}`);
+  console.log(`[Lume Scan] 🚀 Web service running on port ${PORT}`);
 });
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// HELPER FUNCTIONS
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Generate a unique 12-character redemption code.
+ * Format: LUME-XXXX-XXXX (uppercase alphanumeric)
+ */
+function generateRedemptionCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // No I/O/0/1 to avoid confusion
+  const seg1 = Array.from({ length: 4 }, () => chars[crypto.randomInt(chars.length)]).join('');
+  const seg2 = Array.from({ length: 4 }, () => chars[crypto.randomInt(chars.length)]).join('');
+  return `LUME-${seg1}-${seg2}`;
+}
+
+/**
+ * Write Pro entitlement to Firestore via REST API.
+ * Sets lumescan_purchased: true for the given email.
+ */
+async function writeFirestoreEntitlement(email, code) {
+  const docPath = `entitlements/${encodeURIComponent(email.toLowerCase())}`;
+  const url = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT}/databases/(default)/documents/${docPath}`;
+
+  const body = {
+    fields: {
+      lumescan_purchased: { booleanValue: true },
+      tier: { stringValue: 'pro' },
+      redemption_code: { stringValue: code },
+      purchased_at: { timestampValue: new Date().toISOString() },
+      email: { stringValue: email.toLowerCase() },
+    },
+  };
+
+  // Try PATCH (update), if 404 create new
+  const res = await fetch(url, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`Firestore write failed: ${res.status} — ${errText}`);
+  }
+
+  console.log(`[Firestore] ✅ Entitlement written for ${email}`);
+}
+
+/**
+ * Write a redemption code document to Firestore.
+ */
+async function writeRedemptionCode(code, email) {
+  const url = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT}/databases/(default)/documents/redemption_codes/${code}`;
+
+  const body = {
+    fields: {
+      code: { stringValue: code },
+      created_for: { stringValue: email },
+      created_at: { timestampValue: new Date().toISOString() },
+      redeemed: { booleanValue: false },
+    },
+  };
+
+  await fetch(url, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+}
+
+/**
+ * Get a Firestore document via REST API.
+ */
+async function getFirestoreDoc(docPath) {
+  const url = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT}/databases/(default)/documents/${docPath}`;
+  const res = await fetch(url);
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`Firestore read failed: ${res.status}`);
+  return res.json();
+}
+
+/**
+ * Patch (update) a Firestore document via REST API.
+ */
+async function patchFirestoreDoc(docPath, fields) {
+  const url = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT}/databases/(default)/documents/${docPath}`;
+  const body = { fields };
+  const res = await fetch(url, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`Firestore patch failed: ${res.status}`);
+}
+
+/**
+ * Send purchase confirmation email with redemption code.
+ * Uses Resend API (or falls back to console log in dev).
+ */
+async function sendPurchaseEmail(email, code) {
+  const resendKey = process.env.RESEND_API_KEY;
+
+  if (!resendKey) {
+    console.log(`[Email] ⚠️ No RESEND_API_KEY — would have sent to ${email}:`);
+    console.log(`[Email]   Code: ${code}`);
+    console.log(`[Email]   Download: ${SITE_URL}/download`);
+    return;
+  }
+
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${resendKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: 'Lume Scan <noreply@lumescan.tech>',
+      to: [email],
+      subject: '🔧 Your Lume Scan Pro License is Ready',
+      html: `
+        <div style="font-family:-apple-system,sans-serif;max-width:500px;margin:0 auto;padding:40px 20px;color:#f0f4f8;background:#06080e;">
+          <h1 style="color:#10b981;font-size:24px;margin-bottom:8px;">Lume Scan Pro</h1>
+          <p style="color:#94a3b8;font-size:14px;margin-bottom:24px;">Your license is active. Here's everything you need:</p>
+
+          <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:20px;text-align:center;margin-bottom:24px;">
+            <p style="color:#94a3b8;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Your Redemption Code</p>
+            <p style="font-size:28px;font-weight:800;color:#10b981;font-family:monospace;letter-spacing:4px;">${code}</p>
+          </div>
+
+          <h3 style="color:#f0f4f8;font-size:16px;margin-bottom:12px;">Get Started:</h3>
+          <ol style="color:#94a3b8;font-size:14px;line-height:2;">
+            <li>Download the app: <a href="${SITE_URL}/download" style="color:#06b6d4;">lumescan.tech/download</a></li>
+            <li>Create your account or sign in</li>
+            <li>Go to Settings → Redeem Code</li>
+            <li>Enter your code: <strong style="color:#10b981;">${code}</strong></li>
+          </ol>
+
+          <div style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.15);border-radius:12px;padding:16px;margin-top:24px;">
+            <p style="color:#06b6d4;font-size:12px;font-weight:700;margin-bottom:4px;">NEED AN ADAPTER?</p>
+            <p style="color:#94a3b8;font-size:13px;line-height:1.5;">Lume Scan works with any ELM327 BLE adapter ($15-$30 on Amazon). Search "ELM327 BLE OBD2" — any 4.0+ model works.</p>
+          </div>
+
+          <p style="color:#475569;font-size:11px;margin-top:32px;text-align:center;">
+            DarkWave Studios LLC / Lume42 Labs<br>
+            support@lumescan.tech
+          </p>
+        </div>
+      `,
+    }),
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    console.error(`[Email] ❌ Failed to send to ${email}:`, err);
+  } else {
+    console.log(`[Email] ✅ Purchase confirmation sent to ${email}`);
+  }
+}

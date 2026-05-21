@@ -104,6 +104,11 @@ export default function Order() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const qrRef = useRef<HTMLCanvasElement>(null);
 
+  // Detect Stripe redirect success/cancel
+  const urlParams = new URLSearchParams(window.location.search);
+  const purchaseSuccess = urlParams.get('success') === 'true';
+  const purchaseCancelled = urlParams.get('cancelled') === 'true';
+
   useEffect(() => {
     if (qrRef.current) {
       QRCodeLib.toCanvas(qrRef.current, 'https://lumeauto.tech/download', {
@@ -113,6 +118,13 @@ export default function Order() {
       });
     }
   }, []);
+
+  // Scroll to top and show success message
+  useEffect(() => {
+    if (purchaseSuccess) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [purchaseSuccess]);
 
   const handleCheckout = async () => {
     setLoading(true);
@@ -126,6 +138,26 @@ export default function Order() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+
+      {/* === PURCHASE SUCCESS BANNER === */}
+      {purchaseSuccess && (
+        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
+          style={{ background: 'linear-gradient(135deg, rgba(16,185,129,0.12), rgba(6,182,212,0.08))', border: '1px solid rgba(16,185,129,0.3)', padding: '2rem', textAlign: 'center', marginTop: '5rem' }}>
+          <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>🎉</div>
+          <h2 style={{ fontSize: '1.8rem', marginBottom: '0.5rem', color: 'var(--accent-emerald)' }}>You're In — Welcome to Pro!</h2>
+          <p className="text-muted" style={{ fontSize: '1rem', maxWidth: '500px', margin: '0 auto 1.5rem', lineHeight: 1.6 }}>
+            Check your email for your redemption code. Open the Lume Scan app → Settings → Redeem Code to activate.
+          </p>
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a href="/download" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '0.8rem 1.5rem', borderRadius: '12px', background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))', color: '#000', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none' }}>
+              <Download size={18} /> Download App
+            </a>
+          </div>
+          <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '1rem' }}>
+            Didn't get the email? Check spam, or contact support@lumescan.tech
+          </p>
+        </motion.div>
+      )}
 
       {/* === HERO === */}
       <section style={{
