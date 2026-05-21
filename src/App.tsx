@@ -90,6 +90,7 @@ function Navigation() {
   const links = [
     { path: '/', label: 'Home' },
     { path: '/order', label: 'Order' },
+    { path: '/download', label: 'Download' },
     { path: '/fleet', label: 'Pricing' },
     { path: '/blog', label: 'Journal' },
   ];
