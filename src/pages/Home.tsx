@@ -64,7 +64,7 @@ export default function Home() {
             </p>
             <div className="flex gap-4 items-center" style={{ flexWrap: 'wrap' }}>
               <Link to="/order" className="btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.05rem' }}>
-                Order Now — $29.99 <ArrowRight size={20} />
+                Order Now — From $9.99 <ArrowRight size={20} />
               </Link>
               <Link to="/enterprise" className="flex items-center gap-2 text-cyan" style={{ fontWeight: 600, fontSize: '0.95rem' }}>
                 Enterprise Solutions <ChevronRight size={18} />
@@ -253,7 +253,7 @@ export default function Home() {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', maxWidth: '1100px', margin: '0 auto' }}>
           {[
-            { name: 'Lume Scan', desc: 'Professional OBD-II diagnostic scanner — 42 signals, predictive maintenance, fuel governance.', status: 'Live · $29.99', statusColor: 'var(--accent-emerald)', icon: <Gauge size={20} />, url: 'https://lumescan.tech' },
+            { name: 'Lume Scan', desc: 'Professional OBD-II diagnostic scanner — 42 signals, predictive maintenance, fuel governance.', status: 'Live · From $9.99', statusColor: 'var(--accent-emerald)', icon: <Gauge size={20} />, url: 'https://lumescan.tech' },
             { name: 'GarageBot', desc: 'Smart garage and workshop management with IoT integration, tool inventory, and maintenance tracking.', status: 'Live', statusColor: 'var(--accent-emerald)', icon: <Wrench size={20} />, url: 'https://garagebot.io' },
             { name: 'HydroCore', desc: 'Smart water management engine for residential and commercial flow governance and leak detection.', status: 'Active', statusColor: 'var(--accent-cyan)', icon: <Droplets size={20} />, url: 'https://hydrocore.com' },
             { name: 'Meridian Canon', desc: 'Navigation and positioning framework for deterministic route computation and location services.', status: 'Active', statusColor: 'var(--accent-emerald)', icon: <Activity size={20} />, url: 'https://meridiancanon.com' },

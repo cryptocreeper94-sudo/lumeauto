@@ -3,19 +3,26 @@ import { Smartphone, Download, Bluetooth, Wifi, Shield, Activity, ArrowLeft, QrC
 import { useEffect, useRef, useState } from 'react';
 import QRCodeLib from 'qrcode';
 
-// Direct download URLs
-const APK_URL = 'https://expo.dev/artifacts/eas/grw2FbYnjH5793EHeBvQgD.apk';
+// Fallback download URLs
+const DEFAULT_APK_URL = 'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2Flumescan-pro.apk?alt=media';
 const EXE_URL = 'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2FLot_Ops_Pro_Setup.exe?alt=media&token=36fe7582-07b0-423a-a366-bd1a1e6af6a0';
 const DOWNLOAD_URL = 'https://lumeauto.tech/download';
 
 export default function DownloadPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [apkUrl, setApkUrl] = useState(DEFAULT_APK_URL);
+  const [appVersion, setAppVersion] = useState('1.0.0');
 
   useEffect(() => {
     const mobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
       || (window.innerWidth <= 768);
     setIsMobile(mobile);
+    // Fetch latest APK URL from version endpoint
+    fetch('/api/version').then(r => r.json()).then(d => {
+      if (d.apk_url) setApkUrl(d.apk_url);
+      if (d.version) setAppVersion(d.version);
+    }).catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -89,7 +96,7 @@ export default function DownloadPage() {
               Download the APK and install directly on any Android device
             </p>
 
-            <a href={APK_URL} target="_blank" rel="noopener noreferrer" style={{
+            <a href={apkUrl} target="_blank" rel="noopener noreferrer" style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
               padding: '14px 24px', borderRadius: '30px', marginBottom: '1rem',
               background: 'var(--accent-cyan)', border: 'none',

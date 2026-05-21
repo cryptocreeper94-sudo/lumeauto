@@ -45,22 +45,30 @@ export default function Terms() {
           </div>
 
           <div>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>7. Intellectual Property</h2>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>7. Hardware & Third-Party Products</h2>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>a) Software-Only Product:</strong> Lume Scan is a software and firmware product. The OBD-II adapter ("dongle") is a standard commodity Bluetooth/WiFi device that you purchase separately from third-party retailers (Amazon, eBay, etc.). DarkWave Studios LLC does not manufacture, sell, warranty, or provide technical support for OBD-II adapters.</p>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>b) Adapter Returns & Exchanges:</strong> If your OBD-II adapter is defective, damaged, or unsatisfactory, contact the original retailer (e.g., Amazon) directly for return, exchange, or warranty service. DarkWave Studios LLC has no involvement in adapter fulfillment, shipping, or returns.</p>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>c) What We Guarantee:</strong> We guarantee the Lume Scan application, diagnostic firmware, and deterministic governance engine. Every scan result produced by Lume Scan is cryptographically hashed (SHA-256) and anchored to the Trust Layer Ledger (TLL) for independent verification. This cryptographic guarantee ensures your diagnostic data is tamper-proof and independently provable.</p>
+            <p className="text-muted"><strong style={{ color: 'var(--text-main)' }}>d) No Hardware Liability:</strong> DarkWave Studios LLC is not liable for any damage, malfunction, or data loss caused by third-party OBD-II adapters, including but not limited to adapter defects, firmware incompatibility, or electrical issues. Use of any adapter with the Lume Scan application is at your own risk.</p>
+          </div>
+
+          <div>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>8. Intellectual Property</h2>
             <p className="text-muted">All intellectual property related to Lume-Auto, Lume Scan, the Trust Layer Ledger, and the deterministic governance engine is owned by DarkWave Studios LLC and protected under US Provisional Patent 64/032,339 and related filings. You are granted a limited, non-exclusive, non-transferable license to use the software for personal or fleet diagnostic purposes. You may not reverse-engineer, redistribute, or sublicense the software.</p>
           </div>
 
           <div>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>8. SMS and Communications</h2>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>9. SMS and Communications</h2>
             <p className="text-muted">If you opt-in to our SMS waitlist or alerts, you agree to receive text messages from Lume-Auto at the number provided. Consent is not a condition of purchase. Message and data rates may apply. Reply STOP to cancel.</p>
           </div>
 
           <div>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>9. Governing Law</h2>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>10. Governing Law</h2>
             <p className="text-muted">These Terms shall be governed by and construed in accordance with the laws of the State of Tennessee, without regard to conflict of law provisions. Any disputes arising under these Terms shall be resolved in the courts of Tennessee.</p>
           </div>
 
           <div>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>10. Contact</h2>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>11. Contact</h2>
             <p className="text-muted">For billing inquiries, cancellations, or refund requests: <strong style={{ color: 'var(--text-main)' }}>support@lumescan.tech</strong></p>
             <p className="text-muted" style={{ marginTop: '0.5rem' }}>DarkWave Studios LLC — <a href="https://lume42.com" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-cyan)' }}>Lume42 Labs</a></p>
           </div>

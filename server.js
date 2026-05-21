@@ -44,7 +44,7 @@ app.post('/api/webhook/stripe', express.raw({ type: 'application/json' }), async
     console.warn('[Webhook] ⚠️ No STRIPE_WEBHOOK_SECRET — skipping signature verification');
   }
 
-  // Handle checkout completion
+  // Handle checkout completion (one-time purchase)
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
     const customerEmail = session.customer_details?.email;
@@ -52,21 +52,95 @@ app.post('/api/webhook/stripe', express.raw({ type: 'application/json' }), async
 
     console.log(`[Webhook] ✅ Payment completed: ${customerEmail} — ${metadata.product}`);
 
-    if (metadata.product === 'lumescan-pro' && customerEmail) {
+    if ((metadata.product === 'lumescan-pro' || metadata.product === 'lumescan-outright') && customerEmail) {
       try {
-        // 1. Generate unique redemption code
+        const isLifetime = metadata.product === 'lumescan-outright';
         const code = generateRedemptionCode();
+        await writeFirestoreEntitlement(customerEmail, code, metadata.tier || 'Standard', isLifetime);
+        await sendPurchaseEmail(customerEmail, code, isLifetime);
+        console.log(`[Webhook] ✅ Pro license activated for ${customerEmail} — code: ${code} (${isLifetime ? 'Lifetime' : 'Subscription'})`);
 
-        // 2. Write entitlement to Firestore (direct REST API)
-        await writeFirestoreEntitlement(customerEmail, code);
+        // ── Create recurring subscription for non-lifetime purchases ──
+        if (!isLifetime && metadata.monthly_rate_cents) {
+          try {
+            const monthlyCents = parseInt(metadata.monthly_rate_cents, 10);
+            const customerId = session.customer; // Stripe customer ID from checkout
 
-        // 3. Send confirmation email with code + download link
-        await sendPurchaseEmail(customerEmail, code);
+            if (customerId && monthlyCents > 0) {
+              // Create a Stripe Price for the monthly service (or reuse if exists)
+              const monthlyPrice = await stripeClient.prices.create({
+                currency: 'usd',
+                unit_amount: monthlyCents,
+                recurring: { interval: 'month' },
+                product_data: {
+                  name: `Lume Scan Pro — ${metadata.tier || 'Standard'} Monthly Service`,
+                  metadata: { tier: metadata.tier || 'Standard' },
+                },
+              });
 
-        console.log(`[Webhook] ✅ Pro license activated for ${customerEmail} — code: ${code}`);
+              // Create the subscription — first payment is immediate
+              const subscription = await stripeClient.subscriptions.create({
+                customer: customerId,
+                items: [{ price: monthlyPrice.id }],
+                metadata: {
+                  email: customerEmail,
+                  tier: metadata.tier || 'Standard',
+                  product: 'lumescan-monthly-service',
+                },
+                // Trial for the remainder of the current month (first month free since they just paid)
+                trial_period_days: 30,
+              });
+
+              // Store subscription ID in Firestore entitlement
+              await patchFirestoreDoc(`entitlements/${encodeURIComponent(customerEmail.toLowerCase())}`, {
+                subscription_id: { stringValue: subscription.id },
+                subscription_active: { booleanValue: true },
+                monthly_rate_cents: { integerValue: String(monthlyCents) },
+                subscription_tier: { stringValue: metadata.tier || 'Standard' },
+              });
+
+              console.log(`[Webhook] ✅ Subscription ${subscription.id} created for ${customerEmail} at $${(monthlyCents/100).toFixed(2)}/mo (30-day trial)`);
+            }
+          } catch (subErr) {
+            console.error(`[Webhook] ⚠️ Subscription creation failed for ${customerEmail}:`, subErr.message);
+            // Non-fatal — the license is still activated, subscription can be set up manually
+          }
+        }
       } catch (err) {
         console.error('[Webhook] ❌ Post-purchase processing failed:', err);
-        // Don't return error to Stripe — payment succeeded, we'll fix manually
+      }
+    }
+  }
+
+  // Handle subscription lifecycle
+  if (event.type === 'customer.subscription.deleted' || event.type === 'customer.subscription.paused') {
+    const subscription = event.data.object;
+    const customerEmail = subscription.metadata?.email;
+    if (customerEmail) {
+      try {
+        await patchFirestoreDoc(`entitlements/${encodeURIComponent(customerEmail.toLowerCase())}`, {
+          subscription_active: { booleanValue: false },
+          subscription_ended_at: { timestampValue: new Date().toISOString() },
+        });
+        console.log(`[Webhook] 🔴 Subscription ended for ${customerEmail}`);
+      } catch (err) {
+        console.error('[Webhook] ❌ Subscription cancellation processing failed:', err);
+      }
+    }
+  }
+
+  if (event.type === 'invoice.paid') {
+    const invoice = event.data.object;
+    const customerEmail = invoice.customer_email;
+    if (customerEmail && invoice.subscription) {
+      try {
+        await patchFirestoreDoc(`entitlements/${encodeURIComponent(customerEmail.toLowerCase())}`, {
+          subscription_active: { booleanValue: true },
+          last_payment_at: { timestampValue: new Date().toISOString() },
+        });
+        console.log(`[Webhook] ✅ Invoice paid — subscription active for ${customerEmail}`);
+      } catch (err) {
+        console.error('[Webhook] ❌ Invoice processing failed:', err);
       }
     }
   }
@@ -145,11 +219,11 @@ app.post('/api/checkout', async (req, res) => {
   }
 });
 
-// 3-tier launch pricing — reads claimed count from Firestore
+// 3-tier launch pricing — software purchase + monthly service
 const LAUNCH_TIERS = [
-  { name: 'Founders',      cap: 100, cents: 999  },  // $9.99
-  { name: 'Early Adopter',  cap: 500, cents: 1999 },  // $19.99
-  { name: 'Standard',       cap: Infinity, cents: 3999 }, // $39.99
+  { name: 'Founders',      cap: 100, purchaseCents: 999,   monthlyCents: 199  },  // $9.99 + $1.99/mo
+  { name: 'Early Adopter',  cap: 500, purchaseCents: 1999,  monthlyCents: 249  },  // $19.99 + $2.49/mo
+  { name: 'Standard',       cap: Infinity, purchaseCents: 3999, monthlyCents: 499 }, // $39.99 + $4.99/mo
 ];
 
 // Cached entitlement count — refreshes every 60s
@@ -210,11 +284,14 @@ function getTierFromCount(claimed) {
 app.get('/api/tier', async (req, res) => {
   const claimed = await getClaimedCount();
   const tier = getTierFromCount(claimed);
+  const tierIdx = LAUNCH_TIERS.indexOf(tier);
+  const prevCap = LAUNCH_TIERS.slice(0, tierIdx).reduce((a, t) => a + t.cap, 0);
   res.json({
     tier: tier.name,
-    price: tier.cents / 100,
+    price: tier.purchaseCents / 100,
+    monthly: tier.monthlyCents / 100,
     claimed,
-    remaining: tier.cap === Infinity ? null : (tier.cap - claimed + (tier === LAUNCH_TIERS[0] ? 0 : LAUNCH_TIERS.slice(0, LAUNCH_TIERS.indexOf(tier)).reduce((a, t) => a + t.cap, 0))),
+    remaining: tier.cap === Infinity ? null : (tier.cap + prevCap - claimed),
   });
 });
 
@@ -225,23 +302,26 @@ app.post('/api/checkout-kit', async (req, res) => {
 
     const claimed = await getClaimedCount();
     const tier = getTierFromCount(claimed);
-    console.log(`[Lume-Auto] 💰 Checkout at ${tier.name} tier: $${(tier.cents / 100).toFixed(2)} (${claimed} claimed)`);
+    console.log(`[Lume-Auto] 💰 Checkout at ${tier.name} tier: $${(tier.purchaseCents / 100).toFixed(2)} + $${(tier.monthlyCents / 100).toFixed(2)}/mo (${claimed} claimed)`);
 
+    // Create a checkout session with software purchase as the initial payment
+    // The subscription will be set up separately after purchase confirmation
     const session = await stripeClient.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card'],
-      // NO shipping — software-only purchase
-      line_items: [{
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: `Lume Scan Pro License — ${tier.name} Pricing`,
-            description: 'Full 42-signal OBD-II diagnostic engine. Fuel coaching, predictive maintenance, driver scoring. One-time purchase — no subscription.',
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: `Lume Scan Pro — ${tier.name} Software License`,
+              description: `One-time software purchase. Includes monthly Pro service at $${(tier.monthlyCents / 100).toFixed(2)}/mo (${tier.name} rate, locked for life). Cancel service anytime — software is yours to keep.`,
+            },
+            unit_amount: tier.purchaseCents,
           },
-          unit_amount: tier.cents,
+          quantity: 1,
         },
-        quantity: 1,
-      }],
+      ],
       success_url: `${SITE_URL}/order?success=true`,
       cancel_url: `${SITE_URL}/order?cancelled=true`,
       metadata: {
@@ -249,12 +329,51 @@ app.post('/api/checkout-kit', async (req, res) => {
         product: 'lumescan-pro',
         includes_software_license: 'true',
         tier: tier.name,
+        monthly_rate_cents: String(tier.monthlyCents),
       },
     });
 
     res.status(200).json({ url: session.url });
   } catch (err) {
     console.error('[Lume-Auto] ❌ Pro license checkout error:', err);
+    res.status(500).json({ error: 'Payment initialization failed.' });
+  }
+});
+
+// Own Outright — $249 lifetime, no monthly
+app.post('/api/checkout-outright', async (req, res) => {
+  try {
+    const stripe = (await import('stripe')).default;
+    const stripeClient = new stripe(process.env.STRIPE_SECRET_KEY);
+
+    const session = await stripeClient.checkout.sessions.create({
+      mode: 'payment',
+      payment_method_types: ['card'],
+      line_items: [{
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: 'Lume Scan Pro — Own Outright (Lifetime License)',
+            description: 'Lifetime access to all Pro features, updates, and priority support. No monthly fee. No recurring charges. Ever.',
+          },
+          unit_amount: 24900, // $249.00
+        },
+        quantity: 1,
+      }],
+      success_url: `${SITE_URL}/order?success=true`,
+      cancel_url: `${SITE_URL}/order?cancelled=true`,
+      metadata: {
+        type: 'lumescan',
+        product: 'lumescan-outright',
+        includes_software_license: 'true',
+        tier: 'Lifetime',
+        lifetime: 'true',
+      },
+    });
+
+    res.status(200).json({ url: session.url });
+  } catch (err) {
+    console.error('[Lume-Auto] ❌ Own Outright checkout error:', err);
     res.status(500).json({ error: 'Payment initialization failed.' });
   }
 });
@@ -297,6 +416,20 @@ app.post('/api/redeem', async (req, res) => {
   }
 });
 
+// ─── API: App Version (Auto-Update Check) ──────────────────────────────────
+// Mobile app calls this on launch to check for new versions
+const APP_VERSION = {
+  version: '1.0.0',
+  build: 1,
+  apk_url: 'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2Flumescan-pro.apk?alt=media',
+  changelog: 'Initial release — 42-signal diagnostic engine, fuel coaching, predictive maintenance, driver scoring.',
+  min_version: '1.0.0',
+};
+
+app.get('/api/version', (req, res) => {
+  res.json(APP_VERSION);
+});
+
 // ─── API: Health Check ──────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
   res.json({ status: 'operational', service: 'lume-auto', version: '2.0.0' });
@@ -333,7 +466,7 @@ function generateRedemptionCode() {
  * Write Pro entitlement to Firestore via REST API.
  * Sets lumescan_purchased: true for the given email.
  */
-async function writeFirestoreEntitlement(email, code) {
+async function writeFirestoreEntitlement(email, code, tierName = 'Founders', isLifetime = false) {
   const docPath = `entitlements/${encodeURIComponent(email.toLowerCase())}`;
   const url = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT}/databases/(default)/documents/${docPath}`;
 
@@ -341,13 +474,15 @@ async function writeFirestoreEntitlement(email, code) {
     fields: {
       lumescan_purchased: { booleanValue: true },
       tier: { stringValue: 'pro' },
+      pricing_tier: { stringValue: tierName },
       redemption_code: { stringValue: code },
       purchased_at: { timestampValue: new Date().toISOString() },
       email: { stringValue: email.toLowerCase() },
+      license_type: { stringValue: isLifetime ? 'lifetime' : 'subscription' },
+      subscription_active: { booleanValue: true },
     },
   };
 
-  // Try PATCH (update), if 404 create new
   const res = await fetch(url, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
@@ -359,7 +494,7 @@ async function writeFirestoreEntitlement(email, code) {
     throw new Error(`Firestore write failed: ${res.status} — ${errText}`);
   }
 
-  console.log(`[Firestore] ✅ Entitlement written for ${email}`);
+  console.log(`[Firestore] ✅ Entitlement written for ${email} (${isLifetime ? 'Lifetime' : tierName + ' subscription'})`);
 }
 
 /**
@@ -413,7 +548,7 @@ async function patchFirestoreDoc(docPath, fields) {
  * Send purchase confirmation email with redemption code.
  * Uses Resend API (or falls back to console log in dev).
  */
-async function sendPurchaseEmail(email, code) {
+async function sendPurchaseEmail(email, code, isLifetime = false) {
   const resendKey = process.env.RESEND_API_KEY;
 
   if (!resendKey) {
@@ -426,7 +561,8 @@ async function sendPurchaseEmail(email, code) {
   const claimed = await getClaimedCount();
   const tier = getTierFromCount(claimed);
   const tierLabel = tier.name;
-  const price = (tier.cents / 100).toFixed(2);
+  const price = (tier.purchaseCents / 100).toFixed(2);
+  const monthly = (tier.monthlyCents / 100).toFixed(2);
 
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -451,7 +587,7 @@ async function sendPurchaseEmail(email, code) {
             <!-- Welcome -->
             <h1 style="color:#10b981;font-size:28px;margin:0 0 6px;font-weight:800;">You're in. 🎉</h1>
             <p style="color:#94a3b8;font-size:15px;margin:0 0 24px;line-height:1.6;">
-              Welcome to the Lume Scan Pro family. You just got a professional-grade diagnostic engine for <strong style="color:#f0f4f8;">$${price}</strong> — the kind of tool that costs $200+ anywhere else.
+              Welcome to the Lume Scan Pro family. You just got a professional-grade diagnostic engine for <strong style="color:#f0f4f8;">$${price}</strong>${isLifetime ? '' : ` + $${monthly}/mo`} — the kind of tool that costs $200+ anywhere else.
             </p>
 
             <!-- Tier Badge -->
@@ -508,7 +644,7 @@ async function sendPurchaseEmail(email, code) {
                 <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ Predictive maintenance alerts</td></tr>
                 <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ Driver efficiency scoring</td></tr>
                 <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ DTC translation + Amazon part links</td></tr>
-                <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ All future updates — forever</td></tr>
+                <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ ${isLifetime ? 'All future updates — forever. No monthly fee.' : `All updates included with your $${monthly}/mo service`}</td></tr>
               </table>
             </div>
 

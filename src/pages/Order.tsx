@@ -29,14 +29,17 @@ const FAQS = [
   { q: 'Do I need a mechanic to install it?', a: 'No. You plug the adapter into the OBD-II port under your dashboard (every car has one). Takes 10 seconds. No wiring, no tools, no modifications.' },
   { q: 'Is there a subscription?', a: 'Yes. You purchase the software once at your tier price, then pay a small monthly fee for continuous updates, new features, and full Pro service. Founders lock in at $1.99/month for life. Cancel the service anytime — you keep the software.' },
   { q: 'Why is the Founders price so low?', a: 'We\'re an indie lab launching our first product. We need 100 people who believe in what we\'re building. Founders pricing is NOT discount pricing — it\'s investor-grade early access. The price goes up as each tier fills. Lock in now or pay more later. All we ask is that you use it, and if it earns it, tell people about it.' },
+  { q: 'How do I get updates?', a: 'Updates are delivered automatically through the app. On launch, Lume Scan checks for new versions and prompts you to download. If you\'re on the monthly service plan, all updates are included — new features, improvements, and diagnostic intelligence. Own Outright licenses receive all updates forever. If you cancel your monthly service, you keep the software but stop receiving new updates and cloud-powered features.' },
   { q: 'How is this different from a cheap Amazon scanner?', a: 'Cheap scanners just read codes. Lume-Auto runs a continuous 42-node deterministic engine that actively coaches you, predicts failures before they happen, and quantifies your fuel savings in real-time. It\'s the difference between a thermometer and a doctor.' },
+  { q: 'What about the OBD-II adapter?', a: 'The adapter is a standard commodity Bluetooth dongle you purchase separately (typically $15–30 on Amazon). We do not sell, manufacture, or warranty the adapter. If you need to return or exchange the adapter, handle that directly through Amazon or the original retailer. We guarantee our firmware and app — not third-party hardware.' },
+  { q: 'What exactly do you guarantee?', a: 'We guarantee our software and diagnostic engine. Every scan result is cryptographically hashed and anchored to the Trust Layer Ledger (TLL) — meaning your diagnostic data is mathematically provable, tamper-proof, and independently verifiable. No other consumer diagnostic tool offers this level of data integrity. We do not guarantee the physical adapter, your vehicle, or any third-party hardware.' },
 ];
 
 const REVIEWS = [
   { name: 'Ron A.', stars: 5, text: 'Plugged it in, paired in seconds. Found a pending P0420 my dealer wanted $150 just to diagnose. Cleared it myself and it hasn\'t come back. This thing pays for itself on day one.', tag: 'Verified Purchase' },
   { name: 'Jennifer L.', stars: 5, text: 'I know nothing about cars and this app made me feel like a mechanic. The fuel coaching alone saved me a tank a month. My husband is jealous.', tag: 'Verified Purchase' },
   { name: 'Kathy G.', stars: 5, text: 'Bought one for myself and one for my daughter at college. Peace of mind knowing she can check her car health without paying a shop. The satisfaction guarantee sealed it.', tag: 'Verified Purchase' },
-  { name: 'Madeline A.', stars: 5, text: 'I\'ve used BlueDriver and FIXD. Returned both. Lume Scan gives me 42 live signals for a third of the price with zero subscription. Not even close.', tag: 'Verified Purchase' },
+  { name: 'Madeline A.', stars: 5, text: 'I\'ve used BlueDriver and FIXD. Returned both. Lume Scan gives me 42 live signals for a fraction of the price. Not even close.', tag: 'Verified Purchase' },
   { name: 'Chris L.', stars: 5, text: 'Fleet manager here. Bought 5 units for our shop trucks. The predictive maintenance alerts caught a failing O2 sensor before it killed the cat. Easily saved us $1,200.', tag: 'Fleet Customer' },
   { name: 'Barry C.', stars: 4, text: 'Solid scanner. The live data is faster than my Snap-On. Only reason for 4 stars is I want an iOS app too - but Android version is flawless. Will update when iOS drops.', tag: 'Verified Purchase' },
 ];
@@ -150,6 +153,16 @@ export default function Order() {
     setLoading(true);
     try {
       const res = await fetch('/api/checkout-kit', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+      else setLoading(false);
+    } catch { setLoading(false); }
+  };
+
+  const handleOutright = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/checkout-outright', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
       const data = await res.json();
       if (data.url) window.location.href = data.url;
       else setLoading(false);
@@ -352,7 +365,7 @@ export default function Order() {
                 <span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>/mo</span>
               </div>
               <div style={{ fontSize: '0.7rem', color: 'var(--accent-emerald)', marginBottom: '1rem' }}>🔒 {CURRENT_TIER.name} rate locked for life. Cancel anytime.</div>
-              {['Read diagnostic codes', 'Clear check engine light', '42 live signals at 100ms', 'Passive fuel coaching', 'Predictive maintenance', 'Driver efficiency scoring', 'Family & fleet dashboard', 'Continuous updates & support'].map((item, i) => (
+              {['Read diagnostic codes', 'Clear check engine light', '42 live signals at 100ms', 'Passive fuel coaching', 'Predictive maintenance', 'Driver efficiency scoring', 'Family & fleet dashboard', '✅ All updates while subscribed'].map((item, i) => (
                 <div key={i} style={{ fontSize: '0.82rem', color: 'var(--text-main)', padding: '3px 0', fontWeight: 500 }}>{item}</div>
               ))}
               <button onClick={handleCheckout} disabled={loading} className="btn-primary" style={{
@@ -372,7 +385,7 @@ export default function Order() {
               {['Everything in Pro License', 'Zero recurring charges', 'Lifetime updates included', 'Priority support channel', 'Fleet/multi-vehicle eligible', 'Future hardware discount'].map((item, i) => (
                 <div key={i} style={{ fontSize: '0.82rem', color: 'var(--text-muted)', padding: '3px 0', fontWeight: 500 }}>{item}</div>
               ))}
-              <button onClick={handleCheckout} disabled={loading} style={{
+              <button onClick={handleOutright} disabled={loading} style={{
                 width: '100%', marginTop: '1.25rem', padding: '12px', fontSize: '0.85rem',
                 background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)',
                 color: '#fbbf24', fontWeight: 700, borderRadius: '12px', cursor: 'pointer',
@@ -393,12 +406,12 @@ export default function Order() {
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>What You Get</h2>
-              <p className="text-muted">Software + intelligence. Buy once, stay current monthly.</p>
+              <p className="text-muted">Software + intelligence. Buy once, stay current with monthly service. Updates included — always.</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
             {[
               { icon: <Smartphone size={28} />, title: 'Lume Scan App', desc: 'Native Android APK with full BLE + WiFi OBD-II connectivity. Direct download — no Play Store needed. iOS coming soon.', color: 'var(--accent-emerald)' },
-              { icon: <Activity size={28} />, title: '42-Signal Diagnostic Engine', desc: 'Full deterministic governance engine. Real-time coaching, diagnostics, predictive maintenance. No subscription required.', color: '#38bdf8' },
+              { icon: <Activity size={28} />, title: '42-Signal Diagnostic Engine', desc: 'Full deterministic governance engine. Real-time coaching, diagnostics, predictive maintenance. All updates included with your monthly service.', color: '#38bdf8' },
               { icon: <Package size={28} />, title: 'BYO Adapter Compatible', desc: 'Works with any ELM327 BLE adapter ($15–$30 on Amazon). WiFi adapters also supported. No proprietary hardware lock-in.', color: 'var(--accent-cyan)' },
             ].map((item, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
