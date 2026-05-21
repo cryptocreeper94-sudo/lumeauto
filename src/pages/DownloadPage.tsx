@@ -6,7 +6,7 @@ import QRCodeLib from 'qrcode';
 // Direct download URLs
 const APK_URL = 'https://expo.dev/accounts/cryptocreeper/projects/lume-auto/builds/db45f96d-409d-4f8b-beb6-6d2d73b059ee';
 const EXE_URL = 'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2FLot_Ops_Pro_Setup.exe?alt=media&token=36fe7582-07b0-423a-a366-bd1a1e6af6a0';
-const DOWNLOAD_URL = 'https://cox.tlid.io/download';
+const DOWNLOAD_URL = 'https://lumeauto.tech/download';
 
 export default function DownloadPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
