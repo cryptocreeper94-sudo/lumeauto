@@ -58,6 +58,11 @@ export default function Whitepaper() {
               }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'}>
                 <FileDown size={18} /> Download as PDF
               </button>
+              <div className="no-print" style={{ marginTop: '1rem' }}>
+                <a href="https://lumescan.tech/whitepaper.html" target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.8rem', color: 'var(--accent-cyan)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  Looking for the Lume Scan consumer whitepaper? <ExternalLink size={12} />
+                </a>
+              </div>
             </motion.div>
           </div>
 
