@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Smartphone, Wifi, Gauge, CheckCircle, Download, ShieldCheck, Zap, Star, DollarSign, Wrench, Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -25,7 +25,7 @@ export default function GetStarted() {
               A $12 WiFi adapter. A free app. <strong style={{ color: 'var(--text-main)' }}>$180â€“$320 saved</strong> every year on gas.<br/>Works on any car made after 1996.
             </p>
             <p style={{ fontSize: '0.9rem', color: 'var(--accent-emerald)', fontWeight: 600, marginBottom: '2.5rem' }}>
-              No mechanic. No modifications. No subscription required to start.
+              No mechanic. No modifications. Free to start — upgrade when ready.
             </p>
           </motion.div>
         </div>
@@ -164,11 +164,11 @@ export default function GetStarted() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Download Lume-Auto</h2>
             <p className="text-muted" style={{ maxWidth: '500px', margin: '0 auto 2rem', fontSize: '1.05rem' }}>
-              Free to start. Premium features for $9.99/month.<br/>Cancel anytime.
+              Free to start. Upgrade to Pro from $9.99.<br/>Updates included with monthly service.
             </p>
             <div className="flex gap-4 items-center" style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link to="/waitlist" className="btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.05rem' }}>
-                <Download size={20} /> Join the Waitlist
+              <Link to="/download" className="btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.05rem' }}>
+                <Download size={20} /> Download Now
               </Link>
             </div>
             <div className="flex gap-4 items-center" style={{ justifyContent: 'center', marginTop: '1.5rem', flexWrap: 'wrap' }}>
