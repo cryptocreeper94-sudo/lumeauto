@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ShoppingCart, Zap, Shield, Activity, Wrench, Star, CheckCircle, ChevronDown, Smartphone, Gauge, Package } from 'lucide-react';
+import { ShoppingCart, Zap, Shield, Activity, Wrench, Star, CheckCircle, ChevronDown, Smartphone, Gauge, Package, Download, Flame } from 'lucide-react';
 import QRCodeLib from 'qrcode';
 
 const RETAIL_VALUE = 199;
 const KIT_PRICE = 29.99;
+const EARLY_ADOPTER_TOTAL = 500;
+const EARLY_ADOPTER_CLAIMED = 47; // Update this as users purchase
 const SAVINGS_PCT = Math.round((1 - KIT_PRICE / RETAIL_VALUE) * 100);
 
 const FEATURES = [
@@ -19,7 +21,7 @@ const FEATURES = [
 const FAQS = [
   { q: 'What vehicles does it work on?', a: 'Every car, truck, and SUV sold in the US after 1996 with an OBD-II port. That\'s 1.4 billion vehicles worldwide.' },
   { q: 'How much will I actually save?', a: 'At $3.50/gallon and 15,000 miles/year, most drivers save $180-$320 annually. The kit pays for itself in under 3 weeks.' },
-  { q: 'What do I get?', a: 'Your Lume Scan software license with a unique download code emailed instantly. Works with any $12 ELM327 BLE adapter from Amazon. Android APK — iOS coming soon. BLE + WiFi adapter bundles coming to Amazon.' },
+  { q: 'What do I get?', a: 'Your Lume Scan Pro license with instant download. The free version includes code reading + basic live data. Pro unlocks the full 42-signal engine, fuel coaching, predictive maintenance, and driver scoring. Works with any ELM327 BLE adapter ($15-$30 on Amazon).' },
   { q: 'Do I need a mechanic to install it?', a: 'No. You plug the adapter into the OBD-II port under your dashboard (every car has one). Takes 10 seconds. No wiring, no tools, no modifications.' },
   { q: 'Is there a subscription?', a: 'The core governance engine is included with your kit purchase. Premium features (fleet analytics, family dashboard, priority support) are available for $9.99/month. Cancel anytime.' },
   { q: 'How is this different from a cheap Amazon scanner?', a: 'Cheap scanners just read codes. Lume-Auto runs a continuous 42-node deterministic engine that actively coaches you, predicts failures before they happen, and quantifies your fuel savings in real-time. It\'s the difference between a thermometer and a doctor.' },
@@ -137,35 +139,47 @@ export default function Order() {
 
             {/* Left: Product Info */}
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
-              <div style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: '20px', fontSize: '0.75rem', color: '#ef4444', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
-                * {SAVINGS_PCT}% Off Retail Value
+              {/* Early Adopter Badge */}
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)', borderRadius: '20px', fontSize: '0.75rem', color: '#fbbf24', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
+                <Flame size={14} /> Early Adopter Pricing — {EARLY_ADOPTER_TOTAL - EARLY_ADOPTER_CLAIMED} of {EARLY_ADOPTER_TOTAL} left
               </div>
+
               <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', lineHeight: 1.08, marginBottom: '1rem' }}>
-                <span className="text-gradient">Lume Scan</span><br />Software License
+                <span className="text-gradient">Lume Scan</span><br />Pro License
               </h1>
-              <p className="text-muted" style={{ fontSize: '1.1rem', maxWidth: '520px', lineHeight: 1.7, marginBottom: '1.5rem' }}>
-                Professional-grade OBD-II diagnostics + deterministic fuel governance. Pairs with any $12 BLE adapter from Amazon. <strong style={{ color: 'var(--text-main)' }}>No subscription. No hidden fees. One-time purchase, yours forever.</strong>
+              <p className="text-muted" style={{ fontSize: '1.05rem', maxWidth: '520px', lineHeight: 1.7, marginBottom: '0.75rem' }}>
+                Download free. Scan free. Upgrade to <strong style={{ color: 'var(--text-main)' }}>Pro</strong> to unlock the full 42-signal engine, fuel coaching, predictive maintenance, and driver scoring.
+              </p>
+              <p className="text-muted" style={{ fontSize: '0.85rem', maxWidth: '520px', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+                Pairs with any ELM327 BLE adapter ($15–$30 on Amazon). <strong style={{ color: 'var(--text-main)' }}>No subscription. No hidden fees. Yours forever.</strong>
               </p>
 
-              {/* Price block */}
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '2.8rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: 'var(--accent-emerald)' }}>${KIT_PRICE}</span>
-                <span style={{ fontSize: '1.4rem', fontWeight: 600, color: 'var(--text-dim)', textDecoration: 'line-through' }}>${RETAIL_VALUE}.99</span>
-                <span style={{ padding: '4px 10px', background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '8px', fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-emerald)' }}>SAVE ${(RETAIL_VALUE - KIT_PRICE).toFixed(0)}</span>
+              {/* Free vs Pro */}
+              <div style={{ display: 'flex', gap: '12px', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+                <a href="https://lumeauto.tech/download" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '0.9rem 1.8rem', borderRadius: '14px', border: '1px solid var(--border-light)', background: 'rgba(255,255,255,0.03)', color: 'var(--text-main)', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s' }}>
+                  <Download size={18} /> Download Free
+                </a>
+                <button onClick={handleCheckout} disabled={loading} className="btn-primary" style={{
+                  padding: '0.9rem 1.8rem', fontSize: '0.95rem',
+                  justifyContent: 'center', opacity: loading ? 0.6 : 1,
+                  background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))',
+                  color: '#000', fontWeight: 800, border: 'none', borderRadius: '14px',
+                }}>
+                  {loading ? 'Redirecting...' : <><ShoppingCart size={18} /> Get Pro — ${KIT_PRICE}</>}
+                </button>
               </div>
 
-              {/* CTA */}
-              <button onClick={handleCheckout} disabled={loading} className="btn-primary" style={{
-                padding: '1.1rem 2.5rem', fontSize: '1.1rem', width: '100%', maxWidth: '400px',
-                justifyContent: 'center', opacity: loading ? 0.6 : 1,
-                background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))',
-                color: '#000', fontWeight: 800, border: 'none', borderRadius: '14px',
-              }}>
-                {loading ? 'Redirecting to Checkout...' : <><ShoppingCart size={20} /> Get Lume Scan — ${KIT_PRICE}</>}
-              </button>
+              {/* FOMO counter */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 16px', background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)', borderRadius: '12px', maxWidth: '400px', marginBottom: '1rem' }}>
+                <div style={{ width: '100%', height: '6px', borderRadius: '3px', background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
+                  <div style={{ width: `${(EARLY_ADOPTER_CLAIMED / EARLY_ADOPTER_TOTAL) * 100}%`, height: '100%', borderRadius: '3px', background: 'linear-gradient(90deg, var(--accent-emerald), #ef4444)', transition: 'width 0.5s' }} />
+                </div>
+                <span style={{ fontSize: '0.7rem', color: '#ef4444', fontWeight: 700, whiteSpace: 'nowrap' }}>{EARLY_ADOPTER_CLAIMED}/{EARLY_ADOPTER_TOTAL}</span>
+              </div>
+              <p style={{ fontSize: '0.72rem', color: 'var(--text-dim)', maxWidth: '400px' }}>After {EARLY_ADOPTER_TOTAL} early adopters, Pro price increases to $39.99. Free version is always free.</p>
 
               <div style={{ display: 'flex', gap: '16px', marginTop: '1rem', flexWrap: 'wrap' }}>
-                {['Instant download', 'Works with any BLE adapter', '30-day guarantee'].map((t, i) => (
+                {['Free basic scanning', 'Pro: full 42-signal engine', '30-day guarantee'].map((t, i) => (
                   <span key={i} className="flex items-center gap-2" style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                     <CheckCircle size={14} color="var(--accent-emerald)" /> {t}
                   </span>
@@ -188,8 +202,12 @@ export default function Order() {
                 <div style={{ padding: '12px 16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-light)', textAlign: 'left' }}>
                   <p style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-emerald)', marginBottom: '6px', letterSpacing: '0.08em' }}>COMPATIBLE ADAPTERS</p>
                   <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.6 }}>
-                    Any ELM327 BLE 4.0+ adapter (~$12 on Amazon). WiFi adapters also supported. No proprietary hardware required.
+                    Any ELM327 BLE 4.0+ adapter ($15–$30 on Amazon). WiFi adapters also supported. No proprietary hardware required.
                   </p>
+                </div>
+                <div style={{ marginTop: '12px', padding: '10px 14px', borderRadius: '10px', background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.15)' }}>
+                  <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--accent-emerald)', marginBottom: '4px' }}>FREE VERSION INCLUDES</p>
+                  <p className="text-muted" style={{ fontSize: '0.78rem', lineHeight: 1.5 }}>Read/clear codes · Basic live data (6 signals) · 1 condition report per day</p>
                 </div>
               </div>
               <div style={{ marginTop: '1rem', padding: '12px 16px', borderRadius: '12px', background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.15)', textAlign: 'center' }}>
@@ -241,7 +259,7 @@ export default function Order() {
             {[
               { icon: <Smartphone size={28} />, title: 'Lume Scan App', desc: 'Native Android APK with full BLE + WiFi OBD-II connectivity. Direct download — no Play Store needed. iOS coming soon.', color: 'var(--accent-emerald)' },
               { icon: <Activity size={28} />, title: '42-Signal Diagnostic Engine', desc: 'Full deterministic governance engine. Real-time coaching, diagnostics, predictive maintenance. No subscription required.', color: '#38bdf8' },
-              { icon: <Package size={28} />, title: 'BYO Adapter Compatible', desc: 'Works with any $12 ELM327 BLE adapter from Amazon. WiFi adapters also supported. No proprietary hardware lock-in.', color: 'var(--accent-cyan)' },
+              { icon: <Package size={28} />, title: 'BYO Adapter Compatible', desc: 'Works with any ELM327 BLE adapter ($15–$30 on Amazon). WiFi adapters also supported. No proprietary hardware lock-in.', color: 'var(--accent-cyan)' },
             ].map((item, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 className="panel" style={{ padding: '2rem', textAlign: 'center', minHeight: '220px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -285,12 +303,12 @@ export default function Order() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
             <div className="panel" style={{ padding: '2rem', textAlign: 'center' }}>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Without Lume-Auto</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Without Lume Scan</div>
               <div style={{ fontSize: '2.5rem', fontWeight: 700, color: '#ef4444', fontFamily: 'var(--font-mono)' }}>$2,187</div>
               <div className="text-muted" style={{ fontSize: '0.85rem' }}>per year on gas</div>
             </div>
             <div className="panel" style={{ padding: '2rem', textAlign: 'center', borderColor: 'rgba(16,185,129,0.3)' }}>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>With Lume-Auto</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>With Lume Scan Pro</div>
               <div style={{ fontSize: '2.5rem', fontWeight: 700, color: 'var(--accent-emerald)', fontFamily: 'var(--font-mono)' }}>$1,859</div>
               <div className="text-muted" style={{ fontSize: '0.85rem' }}>per year on gas</div>
             </div>
@@ -299,7 +317,7 @@ export default function Order() {
             style={{ textAlign: 'center', marginTop: '2rem', padding: '2rem', background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '16px' }}>
             <div style={{ fontSize: '0.8rem', color: 'var(--accent-emerald)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Annual savings</div>
             <div style={{ fontSize: '3.5rem', fontWeight: 800, fontFamily: 'var(--font-mono)' }}><span className="text-gradient">$328</span></div>
-            <div className="text-muted" style={{ fontSize: '0.95rem' }}>Kit costs ${KIT_PRICE} - <strong style={{ color: 'var(--text-main)' }}>Pays for itself in {Math.ceil(KIT_PRICE / (328/365))} days</strong></div>
+            <div className="text-muted" style={{ fontSize: '0.95rem' }}>Pro costs ${KIT_PRICE} — <strong style={{ color: 'var(--text-main)' }}>Pays for itself in {Math.ceil(KIT_PRICE / (328/365))} days</strong></div>
           </motion.div>
         </div>
       </section>
@@ -347,17 +365,22 @@ export default function Order() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Stop Overpaying for Gas.</h2>
             <p className="text-muted" style={{ maxWidth: '500px', margin: '0 auto 2rem', fontSize: '1.05rem' }}>
-              ${KIT_PRICE} today. $328 saved every year.<br />The math does itself.
+              Download free. Upgrade to Pro for ${KIT_PRICE}.<br />$328 saved every year. The math does itself.
             </p>
-            <button onClick={handleCheckout} disabled={loading} className="btn-primary" style={{
-              padding: '1.1rem 3rem', fontSize: '1.1rem',
-              background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))',
-              color: '#000', fontWeight: 800, border: 'none', borderRadius: '14px',
-            }}>
-              {loading ? 'Redirecting...' : <><ShoppingCart size={20} /> Order Now - ${KIT_PRICE}</>}
-            </button>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <a href="https://lumeauto.tech/download" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '1rem 2rem', borderRadius: '14px', border: '1px solid var(--border-light)', background: 'rgba(255,255,255,0.03)', color: 'var(--text-main)', fontWeight: 700, fontSize: '1rem', textDecoration: 'none' }}>
+                <Download size={20} /> Download Free
+              </a>
+              <button onClick={handleCheckout} disabled={loading} className="btn-primary" style={{
+                padding: '1rem 2rem', fontSize: '1rem',
+                background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald))',
+                color: '#000', fontWeight: 800, border: 'none', borderRadius: '14px',
+              }}>
+                {loading ? 'Redirecting...' : <><ShoppingCart size={20} /> Get Pro — ${KIT_PRICE}</>}
+              </button>
+            </div>
             <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '1.5rem' }}>
-              Lume-Auto - DarkWave Studios LLC / Lume42 Labs - US Provisional Patent 64/032,339
+              Lume Scan — DarkWave Studios LLC / Lume42 Labs — US Provisional Patent 64/032,339
             </p>
           </motion.div>
         </div>
