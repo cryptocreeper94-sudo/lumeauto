@@ -4,9 +4,24 @@ import { ShoppingCart, Zap, Shield, Activity, Wrench, Star, CheckCircle, Chevron
 import QRCodeLib from 'qrcode';
 
 
-const KIT_PRICE = 29.99;
-const EARLY_ADOPTER_TOTAL = 500;
-const EARLY_ADOPTER_CLAIMED = 47; // Update this as users purchase
+// 3-tier launch pricing
+const TIERS = [
+  { name: 'Founders', cap: 100, price: 9.99, color: '#fbbf24', icon: '🔥' },
+  { name: 'Early Adopter', cap: 500, price: 19.99, color: 'var(--accent-cyan)', icon: '⚡' },
+  { name: 'Standard', cap: Infinity, price: 39.99, color: 'var(--accent-emerald)', icon: '🚀' },
+];
+const TOTAL_CLAIMED = 12; // Update this as users purchase
+const getCurrentTier = () => {
+  let acc = 0;
+  for (const t of TIERS) {
+    if (TOTAL_CLAIMED < acc + t.cap) return { ...t, remaining: t.cap === Infinity ? null : (acc + t.cap) - TOTAL_CLAIMED };
+    acc += t.cap;
+  }
+  return TIERS[TIERS.length - 1];
+};
+const CURRENT_TIER = getCurrentTier();
+const KIT_PRICE = CURRENT_TIER.price;
+const AMAZON_TAG = 'garagebot-20';
 
 
 const FEATURES = [
@@ -20,10 +35,11 @@ const FEATURES = [
 
 const FAQS = [
   { q: 'What vehicles does it work on?', a: 'Every car, truck, and SUV sold in the US after 1996 with an OBD-II port. That\'s 1.4 billion vehicles worldwide.' },
-  { q: 'How much will I actually save?', a: 'At $3.50/gallon and 15,000 miles/year, most drivers save $180-$320 annually. The kit pays for itself in under 3 weeks.' },
+  { q: 'How much will I actually save?', a: 'At $3.50/gallon and 15,000 miles/year, most drivers save $180-$320 annually in fuel alone. But the real savings come from predictive maintenance — catching a failing catalytic converter early can save you $2,000+ in a single repair. First-year value: $2,700+.' },
   { q: 'What do I get?', a: 'Your Lume Scan Pro license with instant download. The free version includes code reading + basic live data. Pro unlocks the full 42-signal engine, fuel coaching, predictive maintenance, and driver scoring. Works with any ELM327 BLE adapter ($15-$30 on Amazon).' },
   { q: 'Do I need a mechanic to install it?', a: 'No. You plug the adapter into the OBD-II port under your dashboard (every car has one). Takes 10 seconds. No wiring, no tools, no modifications.' },
-  { q: 'Is there a subscription?', a: 'The core governance engine is included with your kit purchase. Premium features (fleet analytics, family dashboard, priority support) are available for $9.99/month. Cancel anytime.' },
+  { q: 'Is there a subscription?', a: 'No. One purchase, yours forever. No monthly fees, no annual renewals, no premium tiers. The full 42-signal engine is included.' },
+  { q: 'Why is the Founders price so low?', a: 'We\'re an indie lab launching our first product. We need 100 people who believe in what we\'re building. Founders pricing is our way of saying thank you — all we ask in return is that you use it, and if it earns it, tell people about it. An honest review is the best way to support an indie launch.' },
   { q: 'How is this different from a cheap Amazon scanner?', a: 'Cheap scanners just read codes. Lume-Auto runs a continuous 42-node deterministic engine that actively coaches you, predicts failures before they happen, and quantifies your fuel savings in real-time. It\'s the difference between a thermometer and a doctor.' },
 ];
 
@@ -170,9 +186,9 @@ export default function Order() {
 
             {/* Left: Product Info */}
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
-              {/* Early Adopter Badge */}
+              {/* Tier Badge */}
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)', borderRadius: '20px', fontSize: '0.75rem', color: '#fbbf24', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
-                <Flame size={14} /> Early Adopter Pricing — {EARLY_ADOPTER_TOTAL - EARLY_ADOPTER_CLAIMED} of {EARLY_ADOPTER_TOTAL} left
+                <Flame size={14} /> {CURRENT_TIER.icon} {CURRENT_TIER.name} Pricing{CURRENT_TIER.remaining !== null ? ` — ${CURRENT_TIER.remaining} left` : ''}
               </div>
 
               <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', lineHeight: 1.08, marginBottom: '1rem' }}>
@@ -200,14 +216,20 @@ export default function Order() {
                 </button>
               </div>
 
-              {/* FOMO counter */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 16px', background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)', borderRadius: '12px', maxWidth: '400px', marginBottom: '1rem' }}>
-                <div style={{ width: '100%', height: '6px', borderRadius: '3px', background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
-                  <div style={{ width: `${(EARLY_ADOPTER_CLAIMED / EARLY_ADOPTER_TOTAL) * 100}%`, height: '100%', borderRadius: '3px', background: 'linear-gradient(90deg, var(--accent-emerald), #ef4444)', transition: 'width 0.5s' }} />
-                </div>
-                <span style={{ fontSize: '0.7rem', color: '#ef4444', fontWeight: 700, whiteSpace: 'nowrap' }}>{EARLY_ADOPTER_CLAIMED}/{EARLY_ADOPTER_TOTAL}</span>
+              {/* 3-Tier pricing roadmap */}
+              <div style={{ display: 'flex', gap: '6px', marginBottom: '1rem', maxWidth: '420px' }}>
+                {TIERS.map((t, i) => {
+                  const isActive = t.name === CURRENT_TIER.name;
+                  return (
+                    <div key={i} style={{ flex: 1, padding: '8px 6px', borderRadius: '10px', background: isActive ? 'rgba(16,185,129,0.1)' : 'rgba(255,255,255,0.02)', border: `1px solid ${isActive ? 'rgba(16,185,129,0.3)' : 'var(--border-light)'}`, textAlign: 'center', opacity: isActive ? 1 : 0.5 }}>
+                      <div style={{ fontSize: '0.6rem', fontWeight: 700, color: isActive ? 'var(--accent-emerald)' : 'var(--text-dim)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{t.icon} {t.name}</div>
+                      <div style={{ fontSize: '1rem', fontWeight: 800, color: isActive ? 'var(--text-main)' : 'var(--text-dim)', fontFamily: 'var(--font-mono)', marginTop: '2px' }}>${t.price}</div>
+                      <div style={{ fontSize: '0.55rem', color: 'var(--text-dim)' }}>{t.cap === Infinity ? 'After 500' : `First ${t.cap}`}</div>
+                    </div>
+                  );
+                })}
               </div>
-              <p style={{ fontSize: '0.72rem', color: 'var(--text-dim)', maxWidth: '400px' }}>After {EARLY_ADOPTER_TOTAL} early adopters, Pro price increases to $39.99. Free version is always free.</p>
+              <p style={{ fontSize: '0.72rem', color: 'var(--text-dim)', maxWidth: '400px' }}>New release pricing. {CURRENT_TIER.remaining !== null ? `${CURRENT_TIER.remaining} ${CURRENT_TIER.name} spots remaining.` : ''} Free version is always free.</p>
 
               <div style={{ display: 'flex', gap: '16px', marginTop: '1rem', flexWrap: 'wrap' }}>
                 {['Free basic scanning', 'Pro: full 42-signal engine', '30-day guarantee'].map((t, i) => (
@@ -241,11 +263,39 @@ export default function Order() {
                   <p className="text-muted" style={{ fontSize: '0.78rem', lineHeight: 1.5 }}>Read/clear codes · 3 live signals (RPM, speed, coolant) · 39 gauges visible but locked</p>
                 </div>
               </div>
-              <div style={{ marginTop: '1rem', padding: '12px 16px', borderRadius: '12px', background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.15)', textAlign: 'center' }}>
-                <p style={{ fontSize: '0.75rem', color: '#fbbf24', fontWeight: 600 }}>🔜 Coming soon: BLE + WiFi adapter bundles on Amazon</p>
+              {/* Combo purchase card */}
+              <div style={{ marginTop: '12px', borderRadius: '14px', overflow: 'hidden', border: '1px solid rgba(6,182,212,0.15)', background: 'rgba(6,182,212,0.03)' }}>
+                <div style={{ height: '120px', overflow: 'hidden', position: 'relative' }}>
+                  <img src="/combo-bundle.png" alt="Lume Scan + BLE Adapter combo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,10,12,0.85), transparent 60%)' }} />
+                  <div style={{ position: 'absolute', bottom: '10px', left: '14px', fontSize: '0.65rem', color: 'var(--accent-cyan)', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>RECOMMENDED COMBO</div>
+                </div>
+                <div style={{ padding: '14px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>Pro + BLE Adapter</span>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--accent-emerald)', fontFamily: 'var(--font-mono)' }}>~${(KIT_PRICE + 18).toFixed(0)} total</span>
+                  </div>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '10px', lineHeight: 1.5 }}>Get Pro above, then grab a compatible adapter below. Already have one? Skip this.</p>
+                  <a href={`https://www.amazon.com/s?k=ELM327+BLE+OBD2+adapter&i=automotive&tag=garagebot-20`} target="_blank" rel="noopener" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '10px', borderRadius: '10px', background: 'rgba(255,153,0,0.08)', border: '1px solid rgba(255,153,0,0.2)', color: '#ff9900', fontWeight: 700, fontSize: '0.8rem', textDecoration: 'none' }}>
+                    <ShoppingCart size={14} /> Shop BLE Adapters on Amazon — $15–$25
+                  </a>
+                </div>
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* === FOUNDERS HANDSHAKE === */}
+      <section style={{ padding: '3rem 0', borderBottom: '1px solid var(--border-light)', background: 'rgba(245,158,11,0.02)' }}>
+        <div className="container" style={{ maxWidth: '700px', textAlign: 'center' }}>
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+            <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>🤝</div>
+            <h3 style={{ fontSize: '1.3rem', marginBottom: '0.75rem' }}>The Founders Handshake</h3>
+            <p className="text-muted" style={{ fontSize: '0.95rem', lineHeight: 1.8, maxWidth: '550px', margin: '0 auto' }}>
+              You're getting {CURRENT_TIER.name} pricing because we believe in this product and we need people who believe in it too. We're a small indie lab in Tennessee — not a corporation. All we ask is that you use it, and if it earns it — <strong style={{ color: 'var(--text-main)' }}>tell people about it</strong>. An honest review is the best way to support an indie launch.
+            </p>
+          </motion.div>
         </div>
       </section>
 
@@ -576,7 +626,7 @@ export default function Order() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Stop Overpaying for Gas.</h2>
             <p className="text-muted" style={{ maxWidth: '500px', margin: '0 auto 2rem', fontSize: '1.05rem' }}>
-              Download free. Upgrade to Pro for ${KIT_PRICE}.<br />$328 saved every year. The math does itself.
+              Download free. Upgrade to Pro for ${KIT_PRICE}{CURRENT_TIER.name !== 'Standard' ? <> <span style={{ color: '#fbbf24', fontWeight: 700 }}>({CURRENT_TIER.name} pricing)</span></> : ''}.<br />$2,700+ saved in year one. The math does itself.
             </p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <a href="https://lumeauto.tech/download" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '1rem 2rem', borderRadius: '14px', border: '1px solid var(--border-light)', background: 'rgba(255,255,255,0.03)', color: 'var(--text-main)', fontWeight: 700, fontSize: '1rem', textDecoration: 'none' }}>
