@@ -423,6 +423,11 @@ async function sendPurchaseEmail(email, code) {
     return;
   }
 
+  const claimed = await getClaimedCount();
+  const tier = getTierFromCount(claimed);
+  const tierLabel = tier.name;
+  const price = (tier.cents / 100).toFixed(2);
+
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
@@ -432,34 +437,109 @@ async function sendPurchaseEmail(email, code) {
     body: JSON.stringify({
       from: 'Lume Scan <noreply@lumescan.tech>',
       to: [email],
-      subject: '🔧 Your Lume Scan Pro License is Ready',
+      subject: '🔥 Welcome to Lume Scan Pro — You\'re In',
       html: `
-        <div style="font-family:-apple-system,sans-serif;max-width:500px;margin:0 auto;padding:40px 20px;color:#f0f4f8;background:#06080e;">
-          <h1 style="color:#10b981;font-size:24px;margin-bottom:8px;">Lume Scan Pro</h1>
-          <p style="color:#94a3b8;font-size:14px;margin-bottom:24px;">Your license is active. Here's everything you need:</p>
+        <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:600px;margin:0 auto;background:#06080e;color:#f0f4f8;">
 
-          <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:20px;text-align:center;margin-bottom:24px;">
-            <p style="color:#94a3b8;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Your Redemption Code</p>
-            <p style="font-size:28px;font-weight:800;color:#10b981;font-family:monospace;letter-spacing:4px;">${code}</p>
+          <!-- Hero Banner -->
+          <div style="position:relative;overflow:hidden;">
+            <img src="https://lumescan.tech/img/email-hero.png" alt="Lume Scan Pro" style="width:100%;display:block;height:auto;" />
           </div>
 
-          <h3 style="color:#f0f4f8;font-size:16px;margin-bottom:12px;">Get Started:</h3>
-          <ol style="color:#94a3b8;font-size:14px;line-height:2;">
-            <li>Download the app: <a href="${SITE_URL}/download" style="color:#06b6d4;">lumescan.tech/download</a></li>
-            <li>Create your account or sign in</li>
-            <li>Go to Settings → Redeem Code</li>
-            <li>Enter your code: <strong style="color:#10b981;">${code}</strong></li>
-          </ol>
+          <div style="padding:32px 28px 40px;">
 
-          <div style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.15);border-radius:12px;padding:16px;margin-top:24px;">
-            <p style="color:#06b6d4;font-size:12px;font-weight:700;margin-bottom:4px;">NEED AN ADAPTER?</p>
-            <p style="color:#94a3b8;font-size:13px;line-height:1.5;">Lume Scan works with any ELM327 BLE adapter ($15-$30 on Amazon). Search "ELM327 BLE OBD2" — any 4.0+ model works.</p>
+            <!-- Welcome -->
+            <h1 style="color:#10b981;font-size:28px;margin:0 0 6px;font-weight:800;">You're in. 🎉</h1>
+            <p style="color:#94a3b8;font-size:15px;margin:0 0 24px;line-height:1.6;">
+              Welcome to the Lume Scan Pro family. You just got a professional-grade diagnostic engine for <strong style="color:#f0f4f8;">$${price}</strong> — the kind of tool that costs $200+ anywhere else.
+            </p>
+
+            <!-- Tier Badge -->
+            <div style="display:inline-block;padding:6px 14px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:16px;font-size:12px;color:#fbbf24;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:24px;">
+              🔥 ${tierLabel} Member #${claimed}
+            </div>
+
+            <!-- Redemption Code -->
+            <div style="background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(6,182,212,0.06));border:2px solid rgba(16,185,129,0.25);border-radius:16px;padding:28px;text-align:center;margin-bottom:28px;">
+              <p style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:0.15em;margin:0 0 10px;font-weight:600;">Your Pro License Code</p>
+              <p style="font-size:32px;font-weight:900;color:#10b981;font-family:'Courier New',monospace;letter-spacing:6px;margin:0 0 8px;">${code}</p>
+              <p style="color:#475569;font-size:11px;margin:0;">Keep this safe — it's your permanent Pro license key</p>
+            </div>
+
+            <!-- Setup Steps -->
+            <h3 style="color:#f0f4f8;font-size:16px;margin:0 0 16px;font-weight:700;">⚡ Get scanning in 2 minutes:</h3>
+            <table style="width:100%;border-collapse:collapse;margin-bottom:28px;">
+              <tr>
+                <td style="padding:12px 14px;background:rgba(6,182,212,0.04);border:1px solid rgba(6,182,212,0.1);border-radius:10px 10px 0 0;">
+                  <span style="color:#06b6d4;font-weight:800;font-size:14px;">1.</span>
+                  <span style="color:#f0f4f8;font-size:14px;margin-left:8px;font-weight:600;">Download the app</span>
+                  <br><a href="https://lumescan.tech/download" style="color:#06b6d4;font-size:13px;margin-left:22px;">lumescan.tech/download →</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:12px 14px;background:rgba(6,182,212,0.03);border-left:1px solid rgba(6,182,212,0.1);border-right:1px solid rgba(6,182,212,0.1);">
+                  <span style="color:#06b6d4;font-weight:800;font-size:14px;">2.</span>
+                  <span style="color:#f0f4f8;font-size:14px;margin-left:8px;font-weight:600;">Create your account</span>
+                  <br><span style="color:#94a3b8;font-size:13px;margin-left:22px;">Takes 10 seconds</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:12px 14px;background:rgba(6,182,212,0.02);border-left:1px solid rgba(6,182,212,0.1);border-right:1px solid rgba(6,182,212,0.1);">
+                  <span style="color:#06b6d4;font-weight:800;font-size:14px;">3.</span>
+                  <span style="color:#f0f4f8;font-size:14px;margin-left:8px;font-weight:600;">Settings → Redeem Code</span>
+                  <br><span style="color:#94a3b8;font-size:13px;margin-left:22px;">Enter: <strong style="color:#10b981;">${code}</strong></span>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:12px 14px;background:rgba(16,185,129,0.04);border:1px solid rgba(16,185,129,0.15);border-radius:0 0 10px 10px;">
+                  <span style="color:#10b981;font-weight:800;font-size:14px;">4.</span>
+                  <span style="color:#f0f4f8;font-size:14px;margin-left:8px;font-weight:600;">Plug in any BLE adapter & drive</span>
+                  <br><span style="color:#94a3b8;font-size:13px;margin-left:22px;">42 signals. 100ms. You're live.</span>
+                </td>
+              </tr>
+            </table>
+
+            <!-- What You Just Unlocked -->
+            <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:20px;margin-bottom:28px;">
+              <h4 style="color:#f0f4f8;font-size:14px;margin:0 0 12px;">What you just unlocked:</h4>
+              <table style="width:100%;border-collapse:collapse;">
+                <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ Full 42-signal diagnostic engine</td></tr>
+                <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ Passive fuel coaching (saves $180–$320/yr)</td></tr>
+                <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ Predictive maintenance alerts</td></tr>
+                <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ Driver efficiency scoring</td></tr>
+                <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ DTC translation + Amazon part links</td></tr>
+                <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ All future updates — forever</td></tr>
+              </table>
+            </div>
+
+            <!-- Adapter CTA -->
+            <div style="background:rgba(255,153,0,0.06);border:1px solid rgba(255,153,0,0.15);border-radius:12px;padding:16px;margin-bottom:28px;text-align:center;">
+              <p style="color:#ff9900;font-size:12px;font-weight:700;margin:0 0 4px;text-transform:uppercase;letter-spacing:0.08em;">Need an adapter?</p>
+              <p style="color:#94a3b8;font-size:13px;line-height:1.5;margin:0 0 12px;">Any ELM327 BLE adapter works. $15–$25 on Amazon.</p>
+              <a href="https://www.amazon.com/s?k=ELM327+BLE+OBD2+adapter&i=automotive&tag=garagebot-20" style="display:inline-block;padding:10px 24px;background:rgba(255,153,0,0.1);border:1px solid rgba(255,153,0,0.3);border-radius:8px;color:#ff9900;font-weight:700;font-size:13px;text-decoration:none;">Shop Adapters on Amazon →</a>
+            </div>
+
+            <!-- The Handshake -->
+            <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:24px;margin-bottom:24px;">
+              <p style="color:#94a3b8;font-size:13px;line-height:1.7;margin:0;">
+                <strong style="color:#f0f4f8;">One last thing.</strong> You got ${tierLabel} pricing because we believe in this product — and we need people who believe in it too. If Lume Scan earns it, the best way to support us is an honest review. We're a small indie lab in Tennessee, and every review helps us reach the next person. 🤝
+              </p>
+            </div>
+
+            <!-- Footer -->
+            <div style="text-align:center;border-top:1px solid rgba(255,255,255,0.04);padding-top:20px;">
+              <p style="color:#475569;font-size:11px;margin:0 0 4px;">
+                DarkWave Studios LLC / Lume42 Labs
+              </p>
+              <p style="color:#334155;font-size:10px;margin:0 0 4px;">
+                🇺🇸 Gladeville, Tennessee · US Patent Pending 64/032,339
+              </p>
+              <p style="color:#334155;font-size:10px;margin:0;">
+                Questions? Reply to this email or contact support@lumescan.tech
+              </p>
+            </div>
+
           </div>
-
-          <p style="color:#475569;font-size:11px;margin-top:32px;text-align:center;">
-            DarkWave Studios LLC / Lume42 Labs<br>
-            support@lumescan.tech
-          </p>
         </div>
       `,
     }),

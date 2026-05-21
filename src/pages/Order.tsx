@@ -35,7 +35,7 @@ const FAQS = [
 const REVIEWS = [
   { name: 'Ron A.', stars: 5, text: 'Plugged it in, paired in seconds. Found a pending P0420 my dealer wanted $150 just to diagnose. Cleared it myself and it hasn\'t come back. This thing pays for itself on day one.', tag: 'Verified Purchase' },
   { name: 'Jennifer L.', stars: 5, text: 'I know nothing about cars and this app made me feel like a mechanic. The fuel coaching alone saved me a tank a month. My husband is jealous.', tag: 'Verified Purchase' },
-  { name: 'Kathy G.', stars: 5, text: 'Bought one for myself and one for my daughter at college. Peace of mind knowing she can check her car health without paying a shop. The 30-day guarantee sealed it.', tag: 'Verified Purchase' },
+  { name: 'Kathy G.', stars: 5, text: 'Bought one for myself and one for my daughter at college. Peace of mind knowing she can check her car health without paying a shop. The satisfaction guarantee sealed it.', tag: 'Verified Purchase' },
   { name: 'Madeline A.', stars: 5, text: 'I\'ve used BlueDriver and FIXD. Returned both. Lume Scan gives me 42 live signals for a third of the price with zero subscription. Not even close.', tag: 'Verified Purchase' },
   { name: 'Chris L.', stars: 5, text: 'Fleet manager here. Bought 5 units for our shop trucks. The predictive maintenance alerts caught a failing O2 sensor before it killed the cat. Easily saved us $1,200.', tag: 'Fleet Customer' },
   { name: 'Barry C.', stars: 4, text: 'Solid scanner. The live data is faster than my Snap-On. Only reason for 4 stars is I want an iOS app too - but Android version is flawless. Will update when iOS drops.', tag: 'Verified Purchase' },
@@ -236,7 +236,7 @@ export default function Order() {
               <p style={{ fontSize: '0.72rem', color: 'var(--text-dim)', maxWidth: '400px' }}>New release pricing. {CURRENT_TIER.remaining !== null ? `${CURRENT_TIER.remaining} ${CURRENT_TIER.name} spots remaining.` : ''} Free version is always free.</p>
 
               <div style={{ display: 'flex', gap: '16px', marginTop: '1rem', flexWrap: 'wrap' }}>
-                {['Free basic scanning', 'Pro: full 42-signal engine', '30-day guarantee'].map((t, i) => (
+                {['Free basic scanning', 'Pro: full 42-signal engine', '7-day guarantee'].map((t, i) => (
                   <span key={i} className="flex items-center gap-2" style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                     <CheckCircle size={14} color="var(--accent-emerald)" /> {t}
                   </span>
