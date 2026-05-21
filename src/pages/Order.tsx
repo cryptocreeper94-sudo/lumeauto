@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { ShoppingCart, Zap, Shield, Activity, Wrench, Star, CheckCircle, ChevronDown, Smartphone, Gauge, Package, Download, Flame } from 'lucide-react';
 import QRCodeLib from 'qrcode';
 
-const RETAIL_VALUE = 199;
+
 const KIT_PRICE = 29.99;
 const EARLY_ADOPTER_TOTAL = 500;
 const EARLY_ADOPTER_CLAIMED = 47; // Update this as users purchase
