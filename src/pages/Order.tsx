@@ -207,7 +207,7 @@ export default function Order() {
                 </div>
                 <div style={{ marginTop: '12px', padding: '10px 14px', borderRadius: '10px', background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.15)' }}>
                   <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--accent-emerald)', marginBottom: '4px' }}>FREE VERSION INCLUDES</p>
-                  <p className="text-muted" style={{ fontSize: '0.78rem', lineHeight: 1.5 }}>Read/clear codes · Basic live data (6 signals) · 1 condition report per day</p>
+                  <p className="text-muted" style={{ fontSize: '0.78rem', lineHeight: 1.5 }}>Read/clear codes · 3 live signals (RPM, speed, coolant) · 39 gauges visible but locked</p>
                 </div>
               </div>
               <div style={{ marginTop: '1rem', padding: '12px 16px', borderRadius: '12px', background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.15)', textAlign: 'center' }}>
