@@ -7,7 +7,7 @@ const RETAIL_VALUE = 199;
 const KIT_PRICE = 29.99;
 const EARLY_ADOPTER_TOTAL = 500;
 const EARLY_ADOPTER_CLAIMED = 47; // Update this as users purchase
-const SAVINGS_PCT = Math.round((1 - KIT_PRICE / RETAIL_VALUE) * 100);
+const _SAVINGS_PCT = Math.round((1 - KIT_PRICE / RETAIL_VALUE) * 100);
 
 const FEATURES = [
   { icon: <Activity size={20} />, title: '42-Signal Governance Engine', desc: 'Reads 42 OBD-II signals at 100ms intervals. RPM, fuel flow, combustion timing, air-fuel ratio - everything a $200 scanner shows and more.', color: 'var(--accent-cyan)' },
@@ -107,7 +107,7 @@ export default function Order() {
   // Detect Stripe redirect success/cancel
   const urlParams = new URLSearchParams(window.location.search);
   const purchaseSuccess = urlParams.get('success') === 'true';
-  const purchaseCancelled = urlParams.get('cancelled') === 'true';
+  const _purchaseCancelled = urlParams.get('cancelled') === 'true';
 
   useEffect(() => {
     if (qrRef.current) {
