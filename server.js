@@ -482,6 +482,8 @@ app.post('/api/account/status', async (req, res) => {
     }
 
     const fields = doc.fields || {};
+    const devices = fields.active_devices?.arrayValue?.values?.map(v => JSON.parse(v.stringValue)) || [];
+
     res.json({
       email: email.toLowerCase(),
       tier: fields.pricing_tier?.stringValue || 'Unknown',
@@ -489,10 +491,137 @@ app.post('/api/account/status', async (req, res) => {
       subscription_active: fields.subscription_active?.booleanValue ?? false,
       purchased_at: fields.purchased_at?.timestampValue || null,
       last_payment_at: fields.last_payment_at?.timestampValue || null,
+      device_limit: MAX_DEVICES,
+      active_devices: devices.length,
     });
   } catch (err) {
     console.error('[Account] ❌ Error:', err);
     res.status(500).json({ error: 'Could not retrieve account status.' });
+  }
+});
+
+// ─── Device Activation — 3 devices per license ─────────────────────────────
+// The app calls this on launch with a device fingerprint.
+// If the device is already registered → pass through.
+// If under the limit → register and allow.
+// If at the limit → reject with a clear message.
+const MAX_DEVICES = 3;
+
+app.post('/api/device/activate', async (req, res) => {
+  try {
+    const { email, deviceId, deviceName } = req.body;
+    if (!email || !deviceId) {
+      return res.status(400).json({ error: 'Email and deviceId are required.' });
+    }
+
+    const docPath = `entitlements/${encodeURIComponent(email.toLowerCase())}`;
+    const doc = await getFirestoreDoc(docPath);
+
+    if (!doc) {
+      return res.status(404).json({ error: 'No license found for this email.', activated: false });
+    }
+
+    const fields = doc.fields || {};
+    if (!fields.lumescan_purchased?.booleanValue) {
+      return res.status(403).json({ error: 'No active Pro license.', activated: false });
+    }
+
+    // Parse existing devices array
+    const existingDevices = fields.active_devices?.arrayValue?.values?.map(v => JSON.parse(v.stringValue)) || [];
+
+    // Check if this device is already registered
+    const alreadyRegistered = existingDevices.find(d => d.id === deviceId);
+    if (alreadyRegistered) {
+      // Update last_seen timestamp
+      const updatedDevices = existingDevices.map(d =>
+        d.id === deviceId ? { ...d, last_seen: new Date().toISOString() } : d
+      );
+      await patchFirestoreDoc(docPath, {
+        active_devices: {
+          arrayValue: {
+            values: updatedDevices.map(d => ({ stringValue: JSON.stringify(d) })),
+          },
+        },
+      });
+      console.log(`[Device] ✅ Known device ${deviceId.slice(0, 8)}... for ${email}`);
+      return res.json({ activated: true, device_count: existingDevices.length, device_limit: MAX_DEVICES });
+    }
+
+    // New device — enforce limit
+    if (existingDevices.length >= MAX_DEVICES) {
+      console.log(`[Device] 🚫 Device limit reached for ${email} (${existingDevices.length}/${MAX_DEVICES})`);
+      return res.status(403).json({
+        error: `Device limit reached. Your license allows ${MAX_DEVICES} devices. Deactivate an existing device first.`,
+        activated: false,
+        device_count: existingDevices.length,
+        device_limit: MAX_DEVICES,
+        active_devices: existingDevices.map(d => ({
+          name: d.name || 'Unknown device',
+          activated_at: d.activated_at,
+          last_seen: d.last_seen,
+        })),
+      });
+    }
+
+    // Register new device
+    const newDevice = {
+      id: deviceId,
+      name: deviceName || 'Unknown device',
+      activated_at: new Date().toISOString(),
+      last_seen: new Date().toISOString(),
+    };
+    const updatedDevices = [...existingDevices, newDevice];
+
+    await patchFirestoreDoc(docPath, {
+      active_devices: {
+        arrayValue: {
+          values: updatedDevices.map(d => ({ stringValue: JSON.stringify(d) })),
+        },
+      },
+    });
+
+    console.log(`[Device] ✅ New device ${deviceId.slice(0, 8)}... registered for ${email} (${updatedDevices.length}/${MAX_DEVICES})`);
+    res.json({ activated: true, device_count: updatedDevices.length, device_limit: MAX_DEVICES });
+  } catch (err) {
+    console.error('[Device] ❌ Activation error:', err);
+    res.status(500).json({ error: 'Device activation failed.', activated: false });
+  }
+});
+
+// ─── Device Deactivation — swap devices ─────────────────────────────────────
+app.post('/api/device/deactivate', async (req, res) => {
+  try {
+    const { email, deviceId } = req.body;
+    if (!email || !deviceId) {
+      return res.status(400).json({ error: 'Email and deviceId are required.' });
+    }
+
+    const docPath = `entitlements/${encodeURIComponent(email.toLowerCase())}`;
+    const doc = await getFirestoreDoc(docPath);
+    if (!doc) {
+      return res.status(404).json({ error: 'No license found.' });
+    }
+
+    const existingDevices = doc.fields?.active_devices?.arrayValue?.values?.map(v => JSON.parse(v.stringValue)) || [];
+    const filtered = existingDevices.filter(d => d.id !== deviceId);
+
+    if (filtered.length === existingDevices.length) {
+      return res.status(404).json({ error: 'Device not found on this license.' });
+    }
+
+    await patchFirestoreDoc(docPath, {
+      active_devices: {
+        arrayValue: {
+          values: filtered.map(d => ({ stringValue: JSON.stringify(d) })),
+        },
+      },
+    });
+
+    console.log(`[Device] 🗑️ Device ${deviceId.slice(0, 8)}... deactivated for ${email} (${filtered.length}/${MAX_DEVICES} remaining)`);
+    res.json({ success: true, device_count: filtered.length, device_limit: MAX_DEVICES });
+  } catch (err) {
+    console.error('[Device] ❌ Deactivation error:', err);
+    res.status(500).json({ error: 'Device deactivation failed.' });
   }
 });
 
