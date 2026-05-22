@@ -750,28 +750,33 @@ export default function Order() {
         <div className="container" style={{ maxWidth: '700px' }}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>Do The Math</h2>
-            <p className="text-muted">At $3.50/gallon and 15,000 miles per year</p>
+            <p className="text-muted">What Lume Scan Pro saves you in year one</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
-            <div className="panel" style={{ padding: '2rem', textAlign: 'center' }}>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Without Lume Scan</div>
-              <div style={{ fontSize: '2.5rem', fontWeight: 700, color: '#ef4444', fontFamily: 'var(--font-mono)' }}>$2,187</div>
-              <div className="text-muted" style={{ fontSize: '0.85rem' }}>per year on gas</div>
-            </div>
-            <div className="panel" style={{ padding: '2rem', textAlign: 'center', borderColor: 'rgba(16,185,129,0.3)' }}>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>With Lume Scan Pro</div>
-              <div style={{ fontSize: '2.5rem', fontWeight: 700, color: 'var(--accent-emerald)', fontFamily: 'var(--font-mono)' }}>$1,859</div>
-              <div className="text-muted" style={{ fontSize: '0.85rem' }}>per year on gas</div>
-            </div>
+
+          {/* 3 uniform value cards */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+            {[
+              { label: 'Fuel Coaching', amount: '$300', desc: 'MPG improvement at $3.50/gal', color: 'var(--accent-cyan)' },
+              { label: 'Skipped Shop Visits', amount: '$150', desc: 'DTC reads you do yourself', color: 'var(--accent-emerald)' },
+              { label: 'Preventive Catch', amount: '$2,430', desc: 'One major repair avoided', color: '#fbbf24' },
+            ].map((item, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                className="panel" style={{ padding: '1.5rem 1rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '160px' }}>
+                <div style={{ fontSize: '0.6rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.75rem', fontWeight: 600 }}>{item.label}</div>
+                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: item.color, fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>{item.amount}</div>
+                <div className="text-dim" style={{ fontSize: '0.72rem', lineHeight: 1.4 }}>{item.desc}</div>
+              </motion.div>
+            ))}
           </div>
+
+          {/* Total */}
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-            style={{ textAlign: 'center', marginTop: '2rem', padding: '2rem', background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '16px' }}>
+            style={{ textAlign: 'center', marginTop: '1.5rem', padding: '2rem', background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '16px' }}>
             <div style={{ fontSize: '0.8rem', color: 'var(--accent-emerald)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>First-year value</div>
             <div style={{ fontSize: '3.5rem', fontWeight: 800, fontFamily: 'var(--font-mono)' }}><span className="text-gradient">$2,880+</span></div>
-              <div className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.6 }}>
-                ~$300 fuel savings · $150 in skipped shop visits · $2,430 in preventive repair catches<br />
-                Pro is <strong style={{ color: 'var(--text-main)' }}>${PURCHASE_PRICE} + ${MONTHLY_PRICE}/mo</strong>{CURRENT_TIER.name !== 'Standard' ? <> <span style={{ color: '#fbbf24', fontWeight: 700 }}>({CURRENT_TIER.name} pricing)</span></> : ''}. The math does itself.
-              </div>
+            <div className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.6 }}>
+              Pro is <strong style={{ color: 'var(--text-main)' }}>${PURCHASE_PRICE} + ${MONTHLY_PRICE}/mo</strong>{CURRENT_TIER.name !== 'Standard' ? <> <span style={{ color: '#fbbf24', fontWeight: 700 }}>({CURRENT_TIER.name} pricing)</span></> : ''}. The math does itself.
+            </div>
           </motion.div>
         </div>
       </section>
