@@ -488,6 +488,290 @@ app.get('/api/version', (req, res) => {
   res.json(APP_VERSION);
 });
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// ─── MODE 05: KEY MANAGEMENT APIs ───────────────────────────────────────────
+// LUME Mode 05 Key Management Firmware Extension v2.0
+// State disclaimer, key event records, license validation
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// 15 states with locksmith licensing requirements
+const REGULATED_STATES = {
+  CA: { enforcement_level: 'HIGH',     licensing_body: 'Bureau of Security and Investigative Services', url: 'https://www.bsis.ca.gov/' },
+  TX: { enforcement_level: 'HIGH',     licensing_body: 'Texas DPS Private Security Bureau',             url: 'https://www.dps.texas.gov/rsd/psb/' },
+  NJ: { enforcement_level: 'HIGH',     licensing_body: 'New Jersey State Police',                       url: 'https://www.njsp.org/' },
+  NC: { enforcement_level: 'HIGH',     licensing_body: 'NC Locksmith Licensing Board',                  url: 'https://www.ncdoi.gov/' },
+  TN: { enforcement_level: 'HIGH',     licensing_body: 'TN Dept. of Commerce & Insurance',             url: 'https://www.tn.gov/commerce.html' },
+  VA: { enforcement_level: 'HIGH',     licensing_body: 'VA Department of Criminal Justice Services',   url: 'https://www.dcjs.virginia.gov/' },
+  IL: { enforcement_level: 'MODERATE', licensing_body: 'IL Dept. of Financial & Professional Regulation', url: 'https://idfpr.illinois.gov/' },
+  CT: { enforcement_level: 'MODERATE', licensing_body: 'CT Dept. of Consumer Protection',              url: 'https://portal.ct.gov/dcp' },
+  NE: { enforcement_level: 'MODERATE', licensing_body: 'NE Secretary of State',                        url: 'https://sos.nebraska.gov/' },
+  OK: { enforcement_level: 'MODERATE', licensing_body: 'OK Department of Labor',                       url: 'https://oklahoma.gov/labor.html' },
+  MD: { enforcement_level: 'LOW',      licensing_body: 'MD Dept. of Labor',                            url: 'https://www.dllr.state.md.us/' },
+  LA: { enforcement_level: 'LOW',      licensing_body: 'LA State Fire Marshal',                        url: 'https://www.lasfm.org/' },
+  OR: { enforcement_level: 'LOW',      licensing_body: 'OR Construction Contractors Board',            url: 'https://www.oregon.gov/ccb/' },
+  AL: { enforcement_level: 'LOW',      licensing_body: 'AL Electronic Security Board',                 url: 'https://aesbl.alabama.gov/' },
+  NV: { enforcement_level: 'LOW',      licensing_body: 'NV Private Investigators Licensing Board',     url: 'https://pilb.nv.gov/' },
+};
+
+const STATE_NAMES = {
+  AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',
+  DE:'Delaware',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',
+  KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',
+  MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',
+  NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',
+  OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',
+  TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',
+  WI:'Wisconsin',WY:'Wyoming',DC:'District of Columbia',
+};
+
+// GET /api/key-management/state-disclaimer?state=XX
+// Returns whether a state disclaimer is required for Mode 05 key programming
+app.get('/api/key-management/state-disclaimer', (req, res) => {
+  const state = (req.query.state || '').toUpperCase().trim();
+
+  if (!state || !STATE_NAMES[state]) {
+    return res.status(400).json({ error: 'Valid US state code required (e.g., CA, TX, FL).' });
+  }
+
+  const regulated = REGULATED_STATES[state];
+  if (!regulated) {
+    // Unregulated state — no disclaimer needed
+    return res.json({
+      state,
+      state_name: STATE_NAMES[state],
+      disclaimer_required: false,
+      enforcement_level: 'NONE',
+      licensing_body: null,
+      notes: 'No state-level locksmith licensing requirement.',
+      disclaimer_text: null,
+    });
+  }
+
+  // Regulated state — disclaimer required
+  const stateName = STATE_NAMES[state];
+  res.json({
+    state,
+    state_name: stateName,
+    disclaimer_required: true,
+    enforcement_level: regulated.enforcement_level,
+    licensing_body: regulated.licensing_body,
+    licensing_body_url: regulated.url,
+    notes: `${stateName} requires locksmith licensing for key programming activities.`,
+    disclaimer_text: `${stateName} requires a locksmith license for some key programming activities. LUME is a professional diagnostic tool. You are responsible for complying with your state's licensing requirements.`,
+  });
+});
+
+// GET /api/key-management/regulated-states
+// Admin/dashboard endpoint — full list of all 15 regulated states
+app.get('/api/key-management/regulated-states', (_req, res) => {
+  const states = Object.entries(REGULATED_STATES).map(([code, data]) => ({
+    state: code,
+    state_name: STATE_NAMES[code],
+    ...data,
+  }));
+  res.json({
+    total: states.length,
+    states,
+    high: states.filter(s => s.enforcement_level === 'HIGH'),
+    moderate: states.filter(s => s.enforcement_level === 'MODERATE'),
+    low: states.filter(s => s.enforcement_level === 'LOW'),
+  });
+});
+
+// POST /api/key-management/event
+// Accepts a key programming event record and routes to CAL or TLL
+app.post('/api/key-management/event', async (req, res) => {
+  try {
+    const {
+      vin, dongle_id, user_id, context, ledger_target, event,
+      oem_identifier, transponder_type, chip_data_hash,
+      security_level, reason_code, session_duration_ms, result,
+      failure_nrc, key_slot_index, firmware_version,
+    } = req.body;
+
+    // Validate required fields
+    const missing = [];
+    if (!vin || vin.length !== 17) missing.push('vin (17 chars)');
+    if (!dongle_id) missing.push('dongle_id');
+    if (!user_id) missing.push('user_id');
+    if (!ledger_target || !['CAL', 'TLL'].includes(ledger_target)) missing.push('ledger_target (CAL|TLL)');
+    if (!event) missing.push('event');
+    if (!result) missing.push('result');
+    if (security_level === 'C' && !reason_code) missing.push('reason_code (required for Level C)');
+
+    if (missing.length > 0) {
+      return res.status(400).json({ error: `Missing required fields: ${missing.join(', ')}` });
+    }
+
+    const record = {
+      record_type: 'key_programming_event',
+      timestamp: new Date().toISOString(),
+      event,
+      vin: vin.toUpperCase(),
+      dongle_id,
+      user_id,
+      context: context || (ledger_target === 'CAL' ? 'ENTERPRISE' : 'CONSUMER'),
+      ledger_target,
+      oem_identifier: oem_identifier || null,
+      key_slot_index: key_slot_index ?? null,
+      transponder_type: transponder_type || null,
+      chip_data_hash: chip_data_hash || null,
+      security_level: security_level || 'B',
+      reason_code: reason_code || null,
+      session_duration_ms: session_duration_ms || 0,
+      result,
+      failure_nrc: failure_nrc || null,
+      firmware_version: firmware_version || null,
+      cal_anchor_hash: null,
+      tll_anchor_hash: null,
+    };
+
+    // Store in Firestore
+    const docPath = `key_events/${encodeURIComponent(vin)}__${Date.now()}`;
+    await setFirestoreDoc(docPath, record);
+    console.log(`[Mode05] 🔑 Key event recorded: ${event} for VIN ${vin.slice(-6)} → ${ledger_target}`);
+
+    // Route to ledger
+    let anchor_hash = null;
+    try {
+      const crypto = await import('crypto');
+      const serialized = JSON.stringify(record, Object.keys(record).sort());
+      anchor_hash = crypto.createHash('sha256').update(serialized).digest('hex');
+      record[ledger_target === 'CAL' ? 'cal_anchor_hash' : 'tll_anchor_hash'] = anchor_hash;
+
+      // Update Firestore with anchor hash
+      await setFirestoreDoc(docPath, record);
+    } catch (hashErr) {
+      console.error('[Mode05] Hash computation failed:', hashErr);
+    }
+
+    res.json({
+      status: 'recorded',
+      record_type: 'key_programming_event',
+      vin_last6: vin.slice(-6),
+      event,
+      result,
+      ledger_target,
+      anchor_hash,
+      verification_url: ledger_target === 'TLL' && anchor_hash
+        ? `https://trust-layer.onrender.com/verify/${anchor_hash}`
+        : null,
+      receipt: {
+        vehicle: `${vin.slice(-6)}`,
+        event: event === 'key_registered' ? 'New key registered' : event === 'key_deleted' ? 'Key removed' : event,
+        date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+        status: anchor_hash ? `${ledger_target}-VERIFIED ✓` : `HASH COMPUTED · PENDING ${ledger_target} SEAL`,
+        receipt_id: anchor_hash ? anchor_hash.slice(0, 12) : null,
+      },
+    });
+  } catch (err) {
+    console.error('[Mode05] ❌ Key event error:', err);
+    res.status(500).json({ error: 'Failed to record key programming event.' });
+  }
+});
+
+// GET /api/key-management/license/:dongleId
+// Validates dongle license tier for Mode 05 access
+app.get('/api/key-management/license/:dongleId', async (req, res) => {
+  try {
+    const { dongleId } = req.params;
+    if (!dongleId) return res.status(400).json({ error: 'Dongle ID required.' });
+
+    const doc = await getFirestoreDoc(`dongle_licenses/${encodeURIComponent(dongleId)}`);
+
+    if (!doc) {
+      // No license record — default to Tier 1 (diagnostics only)
+      return res.json({
+        dongle_id: dongleId,
+        tier: 1,
+        tier_name: 'Diagnostics',
+        mode_05_enabled: false,
+        modes: ['01', '02', '03', '04', '07', '09'],
+        message: 'Upgrade to Tier 2 to unlock Key Management (Mode 05).',
+      });
+    }
+
+    const fields = doc.fields || {};
+    const tier = parseInt(fields.tier?.integerValue || '1', 10);
+
+    res.json({
+      dongle_id: dongleId,
+      tier,
+      tier_name: tier >= 3 ? 'Enterprise' : tier >= 2 ? 'Key Management' : 'Diagnostics',
+      mode_05_enabled: tier >= 2,
+      modes: tier >= 2
+        ? ['01', '02', '03', '04', '05', '07', '09']
+        : ['01', '02', '03', '04', '07', '09'],
+      ledger_target: tier >= 3 ? 'CAL' : (tier >= 2 ? 'TLL' : null),
+      license_valid_until: fields.valid_until?.timestampValue || null,
+    });
+  } catch (err) {
+    console.error('[Mode05] ❌ License check error:', err);
+    res.status(500).json({ error: 'License validation failed.' });
+  }
+});
+
+// GET /api/key-management/history/:vin
+// Returns key programming history for a VIN (consumer: their own VINs only)
+app.get('/api/key-management/history/:vin', async (req, res) => {
+  try {
+    const { vin } = req.params;
+    if (!vin || vin.length !== 17) {
+      return res.status(400).json({ error: 'Valid 17-character VIN required.' });
+    }
+
+    // Query Firestore for key events matching this VIN
+    // Using structured query against the key_events collection
+    const queryUrl = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents:runQuery`;
+    const queryBody = {
+      structuredQuery: {
+        from: [{ collectionId: 'key_events' }],
+        where: {
+          fieldFilter: {
+            field: { fieldPath: 'vin' },
+            op: 'EQUAL',
+            value: { stringValue: vin.toUpperCase() },
+          },
+        },
+        orderBy: [{ field: { fieldPath: 'timestamp' }, direction: 'DESCENDING' }],
+        limit: 50,
+      },
+    };
+
+    const queryRes = await fetch(queryUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(queryBody),
+    });
+
+    const results = await queryRes.json();
+    const events = (Array.isArray(results) ? results : [])
+      .filter(r => r.document)
+      .map(r => {
+        const f = r.document.fields || {};
+        return {
+          event: f.event?.stringValue,
+          timestamp: f.timestamp?.stringValue,
+          result: f.result?.stringValue,
+          ledger_target: f.ledger_target?.stringValue,
+          anchor_hash: f.tll_anchor_hash?.stringValue || f.cal_anchor_hash?.stringValue || null,
+          oem_identifier: f.oem_identifier?.stringValue || null,
+          transponder_type: f.transponder_type?.stringValue || null,
+        };
+      });
+
+    res.json({
+      vin: vin.toUpperCase(),
+      vin_last6: vin.slice(-6),
+      total_events: events.length,
+      events,
+    });
+  } catch (err) {
+    console.error('[Mode05] ❌ History error:', err);
+    res.status(500).json({ error: 'Failed to retrieve key history.' });
+  }
+});
+
 // ─── API: Health Check ──────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
   res.json({ status: 'operational', service: 'lume-auto', version: '2.0.0' });

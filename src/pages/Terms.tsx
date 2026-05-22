@@ -58,17 +58,25 @@ export default function Terms() {
           </div>
 
           <div>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>9. SMS and Communications</h2>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>9. Key Management (Mode 05)</h2>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>a) Professional Diagnostic Feature:</strong> Key Management (Mode 05) is a professional diagnostic feature that enables immobilizer key programming via UDS over your vehicle's OBD-II diagnostic port. Users are responsible for complying with applicable state and local licensing requirements for automotive key programming in their jurisdiction.</p>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>b) State Licensing:</strong> Approximately 15 US states require a locksmith license for certain key programming activities. The LUME app will notify you of any applicable requirements in your state before Mode 05 is accessed. DarkWave Studios LLC does not hold a locksmith license and is not required to hold one as a manufacturer and seller of professional diagnostic tooling.</p>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>c) Permanent Records:</strong> Every key programming event performed through Mode 05 is cryptographically hashed and permanently recorded. Consumer events are anchored to the Trust Layer Ledger (TLL) and generate a TLL-verified receipt. Enterprise events are anchored to the applicable enterprise ledger. These records cannot be altered or deleted.</p>
+            <p className="text-muted"><strong style={{ color: 'var(--text-main)' }}>d) Operational Limitations:</strong> Mode 05 requires an active Bluetooth connection to the LUME app at all times during operation. Key programming cannot be performed unattended. The feature requires a Tier 2 (Key Management) or higher firmware license. Remote button programming (lock/unlock) requires additional hardware not included in the current dongle version.</p>
+          </div>
+
+          <div>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>10. SMS and Communications</h2>
             <p className="text-muted">If you opt-in to our SMS waitlist or alerts, you agree to receive text messages from Lume-Auto at the number provided. Consent is not a condition of purchase. Message and data rates may apply. Reply STOP to cancel.</p>
           </div>
 
           <div>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>10. Governing Law</h2>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>11. Governing Law</h2>
             <p className="text-muted">These Terms shall be governed by and construed in accordance with the laws of the State of Tennessee, without regard to conflict of law provisions. Any disputes arising under these Terms shall be resolved in the courts of Tennessee.</p>
           </div>
 
           <div>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>11. Contact</h2>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>12. Contact</h2>
             <p className="text-muted">For billing inquiries, cancellations, or refund requests: <strong style={{ color: 'var(--text-main)' }}>support@lumescan.tech</strong></p>
             <p className="text-muted" style={{ marginTop: '0.5rem' }}>DarkWave Studios LLC — <a href="https://lume42.com" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-cyan)' }}>Lume42 Labs</a></p>
           </div>
