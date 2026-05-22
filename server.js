@@ -292,6 +292,18 @@ app.get('/api/tier', async (req, res) => {
     monthly: tier.monthlyCents / 100,
     claimed,
     remaining: tier.cap === Infinity ? null : (tier.cap + prevCap - claimed),
+    keyManagement: {
+      firmwareUnlock: 199,
+      perKey: 8.99,
+      unlimitedBundle: 54.99,
+    },
+    allTiers: LAUNCH_TIERS.map(t => ({
+      name: t.name,
+      purchase: t.purchaseCents / 100,
+      monthly: t.monthlyCents / 100,
+      cap: t.cap === Infinity ? null : t.cap,
+    })),
+    firstYearValue: 2880,
   });
 });
 
