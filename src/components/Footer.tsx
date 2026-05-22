@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom';
-import { Activity } from 'lucide-react';
-import { useRef } from 'react';
+import { Activity, Shield } from 'lucide-react';
+import { useRef, useState } from 'react';
+import DevPortal from './DevPortal';
 
 export default function Footer() {
   const tapRef = useRef<number[]>([]);
+  const shieldTapRef = useRef<number[]>([]);
+  const [showPin, setShowPin] = useState(false);
+  const [showPortal, setShowPortal] = useState(false);
+  const [pinValue, setPinValue] = useState('');
+  const [pinError, setPinError] = useState(false);
 
   const handleCopyrightTap = () => {
     const now = Date.now();
@@ -12,6 +18,29 @@ export default function Footer() {
     if (tapRef.current.length >= 3) {
       tapRef.current = [];
       if ((window as any).__launchCoaster) (window as any).__launchCoaster();
+    }
+  };
+
+  const handleShieldTap = () => {
+    const now = Date.now();
+    shieldTapRef.current.push(now);
+    shieldTapRef.current = shieldTapRef.current.filter(t => now - t < 800);
+    if (shieldTapRef.current.length >= 3) {
+      shieldTapRef.current = [];
+      setShowPin(true);
+      setPinValue('');
+      setPinError(false);
+    }
+  };
+
+  const handlePinSubmit = () => {
+    if (pinValue === '0424') {
+      setShowPin(false);
+      setShowPortal(true);
+    } else {
+      setPinError(true);
+      setPinValue('');
+      setTimeout(() => setPinError(false), 600);
     }
   };
 
@@ -77,7 +106,10 @@ export default function Footer() {
       <div className="container" style={{ borderTop: '1px solid var(--border-light)', paddingTop: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <p className="text-dim" style={{ fontSize: '0.8rem', cursor: 'default', userSelect: 'none' }} onClick={handleCopyrightTap}>© 2026 DarkWave Studios LLC / <a href="https://lume42.com" target="_blank" rel="noreferrer" style={{ color: 'inherit' }}>Lume42 Labs</a>. All rights reserved.</p>
         <p style={{ fontSize: '0.85rem', fontWeight: 600, color: '#e2e8f0', letterSpacing: '0.03em' }}>🇺🇸 Proudly made in Gladeville, TN, USA</p>
-        <p className="text-dim" style={{ fontSize: '0.8rem' }}>System Status: <span style={{ color: 'var(--accent-emerald)' }}>● Operational</span></p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <p className="text-dim" style={{ fontSize: '0.8rem', margin: 0 }}>System Status: <span style={{ color: 'var(--accent-emerald)' }}>● Operational</span></p>
+          <Shield size={14} style={{ color: 'rgba(255,255,255,0.12)', cursor: 'default', userSelect: 'none' }} onClick={handleShieldTap} />
+        </div>
       </div>
       {/* Social & App Store */}
       <div className="container" style={{ paddingTop: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
@@ -106,6 +138,30 @@ export default function Footer() {
           Lume Scan Pro subscriptions are billed monthly via Stripe. Your payment method is charged automatically at the start of each billing cycle. Cancel anytime — no contracts, no cancellation fees. Software purchase is non-refundable after 7 days. See <Link to="/terms" style={{ color: 'var(--accent-cyan)', fontSize: '0.65rem' }}>Terms</Link> and <Link to="/privacy" style={{ color: 'var(--accent-cyan)', fontSize: '0.65rem' }}>Privacy</Link> for details.
         </p>
       </div>
+
+      {/* PIN Modal */}
+      {showPin && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 99998 }} onClick={() => setShowPin(false)}>
+          <div style={{ background: '#0a0a1a', border: '1px solid rgba(6,182,212,0.3)', borderRadius: 16, padding: 32, textAlign: 'center', minWidth: 280 }} onClick={e => e.stopPropagation()}>
+            <div style={{ fontSize: 12, color: '#06b6d4', marginBottom: 16, letterSpacing: '3px' }}>AUTHENTICATION REQUIRED</div>
+            <input
+              type="password" maxLength={4} autoFocus
+              value={pinValue}
+              onChange={e => setPinValue(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handlePinSubmit()}
+              style={{
+                background: 'rgba(6,182,212,0.05)', border: `1px solid ${pinError ? '#f43f5e' : 'rgba(6,182,212,0.2)'}`,
+                borderRadius: 8, padding: 12, color: '#fff', fontSize: 24, textAlign: 'center',
+                width: 120, letterSpacing: 8, outline: 'none', transition: 'border-color 0.2s',
+              }}
+            />
+            <div style={{ marginTop: 12, fontSize: 10, color: 'rgba(255,255,255,0.3)' }}>Enter PIN to continue</div>
+          </div>
+        </div>
+      )}
+
+      {/* Dev Portal */}
+      {showPortal && <DevPortal onClose={() => setShowPortal(false)} />}
     </footer>
   );
 }
