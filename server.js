@@ -923,7 +923,7 @@ app.get('/api/health', (req, res) => {
 // Users hit /download/apk → server fetches from Firebase → pipes to browser as .apk download
 app.get('/download/apk', async (req, res) => {
   const APK_FIREBASE_URL = process.env.APK_DOWNLOAD_URL ||
-    'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2FLume_Auto_Scanner.apk?alt=media';
+    'https://expo.dev/artifacts/eas/dxTKe5gQw2G11HQbe4GyR.apk';
 
   try {
     console.log('[Download] 📱 APK download requested');
