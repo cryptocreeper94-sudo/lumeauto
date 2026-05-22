@@ -522,6 +522,119 @@ export default function Order() {
         </div>
       </section>
 
+      {/* === KEY MANAGEMENT — MODE 05 === */}
+      <section style={{ padding: '5rem 0', background: 'linear-gradient(180deg, rgba(6,182,212,0.03) 0%, transparent 100%)', borderBottom: '1px solid var(--border-light)' }}>
+        <div className="container" style={{ maxWidth: '1000px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <div style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.3)', borderRadius: '20px', fontSize: '0.7rem', color: '#fbbf24', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+              Coming Soon — Firmware Upgrade
+            </div>
+            <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>
+              Key Management <span style={{ opacity: 0.4 }}>Mode 05</span>
+            </h2>
+            <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto', lineHeight: 1.7 }}>
+              Professional immobilizer key programming on the dongle you already own. No $3,000 scan tool required.
+              Every key event permanently recorded with a TLL-verified receipt.
+            </p>
+          </div>
+
+          {/* How It Works */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '3rem' }}>
+            {[
+              { step: '1', icon: '📱', title: 'NFC Read', desc: 'Hold your key blank near your phone. NFC reads the transponder chip type automatically.' },
+              { step: '2', icon: '🔌', title: 'Dongle Programs', desc: 'LUME dongle opens a UDS session with your vehicle\u2019s IMMO module via the OBD-II port.' },
+              { step: '3', icon: '🔑', title: 'Key Registered', desc: 'Vehicle accepts the new key credential. You\u2019re driving in under 2 minutes.' },
+              { step: '4', icon: '✓', title: 'TLL Receipt', desc: 'Key event is hashed, sealed, and permanently recorded. You have proof forever.' },
+            ].map((s, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
+                className="panel" style={{ padding: '1.5rem', textAlign: 'center' }}>
+                <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>{s.icon}</div>
+                <div style={{ fontSize: '0.6rem', color: 'var(--accent-cyan)', fontWeight: 700, letterSpacing: '0.15em', marginBottom: '6px' }}>STEP {s.step}</div>
+                <h4 style={{ fontSize: '1rem', marginBottom: '6px' }}>{s.title}</h4>
+                <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5 }}>{s.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Pricing Cards */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+
+            {/* Firmware Unlock */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              className="panel" style={{ padding: '2rem', borderColor: 'rgba(6,182,212,0.2)', position: 'relative', overflow: 'hidden' }}>
+              <div style={{ fontSize: '0.6rem', color: 'var(--accent-cyan)', fontWeight: 700, letterSpacing: '0.15em', marginBottom: '1rem' }}>ONE-TIME UNLOCK</div>
+              <div style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '4px' }}>$199</div>
+              <div className="text-dim" style={{ fontSize: '0.8rem', marginBottom: '1.25rem' }}>Firmware upgrade — pay once</div>
+              <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '1rem' }}>
+                {['Mode 05 IMMO key programming', 'NFC transponder identification', 'TLL-verified receipts', 'My Key History dashboard', 'Ford, GM, Stellantis + expanding'].map((f, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem', color: 'var(--text-muted)', padding: '5px 0' }}>
+                    <CheckCircle size={14} style={{ color: 'var(--accent-cyan)', flexShrink: 0 }} /> {f}
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: '1.25rem', padding: '10px 16px', borderRadius: '10px', background: 'rgba(6,182,212,0.06)', border: '1px solid rgba(6,182,212,0.15)', textAlign: 'center' }}>
+                <span className="text-dim" style={{ fontSize: '0.75rem' }}>+ <strong style={{ color: 'var(--accent-cyan)' }}>$8.99</strong> per key programmed</span>
+              </div>
+            </motion.div>
+
+            {/* Monthly Unlimited */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+              className="panel" style={{ padding: '2rem', borderColor: 'rgba(251,191,36,0.25)', position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', top: '12px', right: '12px', padding: '4px 10px', borderRadius: '8px', background: 'rgba(251,191,36,0.12)', border: '1px solid rgba(251,191,36,0.3)', fontSize: '0.6rem', fontWeight: 700, color: '#fbbf24' }}>
+                BEST VALUE
+              </div>
+              <div style={{ fontSize: '0.6rem', color: '#fbbf24', fontWeight: 700, letterSpacing: '0.15em', marginBottom: '1rem' }}>DIAGNOSTICS + KEY MGMT</div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
+                <span style={{ fontSize: '2.5rem', fontWeight: 800 }}>$54.99</span>
+                <span className="text-dim" style={{ fontSize: '0.85rem' }}>/mo</span>
+              </div>
+              <div className="text-dim" style={{ fontSize: '0.8rem', marginBottom: '1.25rem' }}>Unlimited keys + full diagnostics</div>
+              <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '1rem' }}>
+                {['Everything in Diagnostics tier', 'Unlimited key programming', 'No per-key token fees', 'Priority OEM coverage updates', 'Cancel anytime — keep software'].map((f, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem', color: 'var(--text-muted)', padding: '5px 0' }}>
+                    <CheckCircle size={14} style={{ color: '#fbbf24', flexShrink: 0 }} /> {f}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Per-Key Token */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+              className="panel" style={{ padding: '2rem', borderColor: 'rgba(16,185,129,0.2)' }}>
+              <div style={{ fontSize: '0.6rem', color: 'var(--accent-emerald)', fontWeight: 700, letterSpacing: '0.15em', marginBottom: '1rem' }}>PAY PER KEY</div>
+              <div style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '4px' }}>$8.99</div>
+              <div className="text-dim" style={{ fontSize: '0.8rem', marginBottom: '1.25rem' }}>Per successful programming</div>
+              <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '1rem' }}>
+                {['Charged on successful key only', 'Failed attempts are free', 'No monthly commitment', 'Ideal for occasional use', 'Same TLL-verified receipts'].map((f, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem', color: 'var(--text-muted)', padding: '5px 0' }}>
+                    <CheckCircle size={14} style={{ color: 'var(--accent-emerald)', flexShrink: 0 }} /> {f}
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: '1.25rem', padding: '10px 16px', borderRadius: '10px', background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.15)', textAlign: 'center' }}>
+                <span className="text-dim" style={{ fontSize: '0.75rem' }}>Requires <strong style={{ color: 'var(--accent-emerald)' }}>$199</strong> firmware unlock</span>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Competitor comparison */}
+          <div className="panel" style={{ padding: '1.5rem 2rem', textAlign: 'center', marginBottom: '1rem' }}>
+            <p className="text-dim" style={{ fontSize: '0.8rem', lineHeight: 1.7, margin: 0 }}>
+              <strong style={{ color: 'var(--text-main)' }}>Compare:</strong>{' '}
+              Autel IM608 — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$4,500</span> ·{' '}
+              Smart Pro — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$3,500 + $25/key</span> ·{' '}
+              XTOOL — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$800</span>{' '}
+              → <strong style={{ color: 'var(--accent-cyan)' }}>LUME: $199 + $9/key on hardware you already own</strong>
+            </p>
+          </div>
+
+          <p className="text-dim" style={{ fontSize: '0.7rem', textAlign: 'center', lineHeight: 1.6 }}>
+            Key Management (Mode 05) is a professional diagnostic feature. Users are responsible for complying with applicable state and local licensing requirements.
+            OEM coverage expanding. Currently supporting Ford, GM, Stellantis with Toyota, Honda, Nissan next.
+          </p>
+        </div>
+      </section>
+
       {/* === TRUE BIDIRECTIONAL PROOF === */}
       <section style={{ padding: '5rem 0', background: 'rgba(16,185,129,0.02)', borderBottom: '1px solid var(--border-light)' }}>
         <div className="container" style={{ maxWidth: '900px' }}>
