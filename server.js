@@ -979,7 +979,7 @@ async function sendPurchaseEmail(email, code, isLifetime = false) {
             <!-- Welcome -->
             <h1 style="color:#10b981;font-size:28px;margin:0 0 6px;font-weight:800;">You're in. 🎉</h1>
             <p style="color:#94a3b8;font-size:15px;margin:0 0 24px;line-height:1.6;">
-              Welcome to the Lume Scan Pro family. You just got a professional-grade diagnostic engine for <strong style="color:#f0f4f8;">$${price}</strong>${isLifetime ? '' : ` + $${monthly}/mo`} — the kind of tool that costs $200+ anywhere else.
+              Welcome to the Lume Scan Pro family. You just unlocked <strong style="color:#f0f4f8;">$3,700+ in professional diagnostic capability</strong> for <strong style="color:#f0f4f8;">$${price}</strong>${isLifetime ? '' : ` + $${monthly}/mo`}. The math does itself.
             </p>
 
             <!-- Tier Badge -->
@@ -1032,10 +1032,11 @@ async function sendPurchaseEmail(email, code, isLifetime = false) {
               <h4 style="color:#f0f4f8;font-size:14px;margin:0 0 12px;">What you just unlocked:</h4>
               <table style="width:100%;border-collapse:collapse;">
                 <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ Full 42-signal diagnostic engine</td></tr>
-                <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ Passive fuel coaching (saves $180–$320/yr)</td></tr>
+                <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ $2,880+ first-year value (fuel coaching + skipped shop visits + preventive catches)</td></tr>
                 <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ Predictive maintenance alerts</td></tr>
                 <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ Driver efficiency scoring</td></tr>
                 <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ DTC translation + Amazon part links</td></tr>
+                <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ Mode 05 key management eligible ($199 unlock when ready)</td></tr>
                 <tr><td style="padding:4px 0;color:#94a3b8;font-size:13px;">✅ ${isLifetime ? 'All future updates — forever. No monthly fee.' : `All updates included with your $${monthly}/mo service`}</td></tr>
               </table>
             </div>
