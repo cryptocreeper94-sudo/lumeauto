@@ -505,7 +505,7 @@ app.post('/api/account/status', async (req, res) => {
 // If the device is already registered → pass through.
 // If under the limit → register and allow.
 // If at the limit → reject with a clear message.
-const MAX_DEVICES = 3;
+const MAX_DEVICES = 1;
 
 app.post('/api/device/activate', async (req, res) => {
   try {
@@ -551,7 +551,7 @@ app.post('/api/device/activate', async (req, res) => {
     if (existingDevices.length >= MAX_DEVICES) {
       console.log(`[Device] 🚫 Device limit reached for ${email} (${existingDevices.length}/${MAX_DEVICES})`);
       return res.status(403).json({
-        error: `Device limit reached. Your license allows ${MAX_DEVICES} devices. Deactivate an existing device first.`,
+        error: `This license is already active on another device. You can deactivate your current device in Settings, or purchase an additional license at lumeauto.tech/order.`,
         activated: false,
         device_count: existingDevices.length,
         device_limit: MAX_DEVICES,
