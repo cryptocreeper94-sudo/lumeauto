@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Hammer, CheckCircle, XCircle, Clock } from 'lucide-react';
 
 interface Build {
