@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 import { Gift, ArrowLeft, CheckCircle, AlertCircle, Loader, Smartphone, Download } from 'lucide-react';
 import { useState } from 'react';
 
-const APK_URL = 'https://expo.dev/artifacts/eas/grw2FbYnjH5793EHeBvQgD.apk';
-const REDEEM_API = 'https://dwtl.io/api/lumescan/redeem';
+const APK_URL = '/download/apk';
+const REDEEM_API = '/api/redeem';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
