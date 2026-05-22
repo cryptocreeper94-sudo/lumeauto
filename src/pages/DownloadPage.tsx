@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Smartphone, Download, Bluetooth, Wifi, Shield, Activity, ArrowLeft, QrCode, Monitor } from 'lucide-react';
+import { Smartphone, Download, Bluetooth, Wifi, Shield, Activity, ArrowLeft, QrCode, Monitor, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import QRCodeLib from 'qrcode';
 
@@ -13,12 +13,16 @@ export default function DownloadPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [apkUrl, setApkUrl] = useState(DEFAULT_APK_URL);
   const [_appVersion, setAppVersion] = useState('1.0.0');
+  const [email, setEmail] = useState('');
+  const [verified, setVerified] = useState(false);
+  const [verifying, setVerifying] = useState(false);
+  const [verifyError, setVerifyError] = useState('');
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
     const mobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
       || (window.innerWidth <= 768);
     setIsMobile(mobile);
-    // Fetch latest APK URL from version endpoint
     fetch('/api/version').then(r => r.json()).then(d => {
       if (d.apk_url) setApkUrl(d.apk_url);
       if (d.version) setAppVersion(d.version);
@@ -28,16 +32,46 @@ export default function DownloadPage() {
   useEffect(() => {
     if (canvasRef.current) {
       QRCodeLib.toCanvas(canvasRef.current, DOWNLOAD_URL, {
-        width: 200,
-        margin: 2,
-        color: {
-          dark: '#06b6d4',
-          light: '#0a0a0c',
-        },
+        width: 200, margin: 2,
+        color: { dark: '#06b6d4', light: '#0a0a0c' },
         errorCorrectionLevel: 'M',
       });
     }
   }, []);
+
+  const verifyEmail = async () => {
+    if (!email.trim() || !email.includes('@')) {
+      setVerifyError('Please enter the email you used to purchase.');
+      return;
+    }
+    setVerifying(true);
+    setVerifyError('');
+    try {
+      const res = await fetch('/api/account/status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim().toLowerCase() }),
+      });
+      const data = await res.json();
+      if (res.ok && data.subscription_active) {
+        setVerified(true);
+        setUserName(data.email?.split('@')[0] || '');
+        setApkUrl(`/download/apk?email=${encodeURIComponent(email.trim().toLowerCase())}`);
+      } else {
+        setVerifyError(data.error || 'No active Pro license found for this email.');
+      }
+    } catch {
+      setVerifyError('Network error. Please try again.');
+    }
+    setVerifying(false);
+  };
+
+  const getGreeting = () => {
+    const h = new Date().getHours();
+    if (h < 12) return 'Good morning';
+    if (h < 17) return 'Good afternoon';
+    return 'Good evening';
+  };
 
   return (
     <div style={{ minHeight: 'calc(100vh - 56px)', padding: '3rem 1.5rem', background: 'var(--bg-dark)' }}>
@@ -56,8 +90,13 @@ export default function DownloadPage() {
               LUME<span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>AUTO</span>
             </h1>
           </div>
+          {verified && userName ? (
+            <p style={{ color: 'var(--accent-emerald)', fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+              {getGreeting()}, {userName.charAt(0).toUpperCase() + userName.slice(1)}! 👋
+            </p>
+          ) : null}
           <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', maxWidth: '500px', margin: '0 auto', lineHeight: 1.6 }}>
-            Native Android app with full WiFi + Bluetooth OBD-II connectivity. Direct APK â€” no Play Store needed.
+            Native Android app with full WiFi + Bluetooth OBD-II connectivity. Direct APK — no Play Store needed.
           </p>
         </motion.div>
 
@@ -77,42 +116,85 @@ export default function DownloadPage() {
             <div style={{
               width: '200px', height: '200px', margin: '0 auto', borderRadius: '12px',
               border: '2px solid rgba(6,182,212,0.3)', overflow: 'hidden',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              background: '#0a0a0c',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a0a0c',
             }}>
               <canvas ref={canvasRef} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </div>
             <p style={{ color: 'var(--text-dim)', fontSize: '0.65rem', marginTop: '1rem' }}>lumeauto.tech/download</p>
           </motion.div>
 
-          {/* Direct Download */}
+          {/* Direct Download — with email gate */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} style={{
             background: 'rgba(255,255,255,0.03)', borderRadius: '16px', padding: '2rem',
             border: '1px solid var(--border-light)',
           }}>
             <Smartphone size={24} style={{ color: 'var(--accent-emerald)', marginBottom: '1rem' }} />
             <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>Direct Install</h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginBottom: '1.5rem' }}>
-              Download the APK and install directly on any Android device
-            </p>
 
-            <a href={apkUrl} target="_blank" rel="noopener noreferrer" style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-              padding: '14px 24px', borderRadius: '30px', marginBottom: '1rem',
-              background: 'var(--accent-cyan)', border: 'none',
-              color: '#000', fontSize: '0.85rem', fontWeight: 800,
-              letterSpacing: '0.1em', textDecoration: 'none',
-              transition: 'transform 0.2s',
-            }}>
-              <Download size={18} /> DOWNLOAD APK
-            </a>
+            {!verified ? (
+              <>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginBottom: '1rem' }}>
+                  Enter your purchase email to download the APK
+                </p>
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && verifyEmail()}
+                  style={{
+                    width: '100%', padding: '12px 16px', borderRadius: '10px',
+                    border: '1px solid var(--border-light)', background: 'rgba(255,255,255,0.05)',
+                    color: '#fff', fontSize: '0.85rem', marginBottom: '10px',
+                    outline: 'none', boxSizing: 'border-box',
+                  }}
+                />
+                {verifyError && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#ef4444', fontSize: '0.75rem', marginBottom: '10px' }}>
+                    <AlertCircle size={14} /> {verifyError}
+                  </div>
+                )}
+                <button
+                  onClick={verifyEmail}
+                  disabled={verifying}
+                  style={{
+                    width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+                    padding: '14px 24px', borderRadius: '30px', marginBottom: '1rem',
+                    background: 'var(--accent-cyan)', border: 'none',
+                    color: '#000', fontSize: '0.85rem', fontWeight: 800,
+                    letterSpacing: '0.1em', cursor: verifying ? 'wait' : 'pointer',
+                    opacity: verifying ? 0.7 : 1, transition: 'all 0.2s',
+                  }}
+                >
+                  {verifying ? <><Loader size={16} className="spin" /> VERIFYING...</> : <>🔓 VERIFY & DOWNLOAD</>}
+                </button>
+                <p style={{ color: 'var(--text-dim)', fontSize: '0.7rem', textAlign: 'center' }}>
+                  Don't have a license? <a href="/order" style={{ color: 'var(--accent-cyan)', textDecoration: 'underline' }}>Get Lume Scan Pro →</a>
+                </p>
+              </>
+            ) : (
+              <>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--accent-emerald)', fontSize: '0.8rem', marginBottom: '1rem' }}>
+                  <CheckCircle size={16} /> License verified — download ready
+                </div>
+                <a href={apkUrl} target="_blank" rel="noopener noreferrer" style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+                  padding: '14px 24px', borderRadius: '30px', marginBottom: '1rem',
+                  background: 'var(--accent-cyan)', border: 'none',
+                  color: '#000', fontSize: '0.85rem', fontWeight: 800,
+                  letterSpacing: '0.1em', textDecoration: 'none', transition: 'transform 0.2s',
+                }}>
+                  <Download size={18} /> DOWNLOAD APK
+                </a>
+              </>
+            )}
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '1.5rem' }}>
               <p style={{ color: 'var(--text-dim)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em' }}>INSTALL STEPS</p>
               {[
                 'Download the APK file',
-                'Open it â€” tap "Install" when prompted',
-                'If blocked: Settings â†’ allow from this source',
+                'Open it — tap "Install" when prompted',
+                'If blocked: Settings → allow from this source',
                 'Open LUME-Auto and connect your adapter',
               ].map((s, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -193,10 +275,10 @@ export default function DownloadPage() {
           <h3 style={{ fontSize: '1.1rem', marginBottom: '1.5rem', textAlign: 'center' }}>Native App Capabilities</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
             {[
-              { icon: <Wifi size={20} />, title: 'WiFi Connectivity', desc: 'Direct TCP socket to ELM327 WiFi adapters â€” full raw protocol access', color: 'var(--accent-cyan)' },
-              { icon: <Bluetooth size={20} />, title: 'Bluetooth Low Energy', desc: 'Native BLE pairing for wireless adapters â€” OBDLink MX+, Veepeak, BAFX', color: '#22d3ee' },
-              { icon: <Activity size={20} />, title: '42-Node Governance', desc: 'Real-time telemetry at 100ms intervals â€” same deterministic engine', color: 'var(--accent-emerald)' },
-              { icon: <Shield size={20} />, title: 'Condition Reports', desc: 'Cryptographically signed vehicle health assessments â€” arbitration-grade', color: '#f59e0b' },
+              { icon: <Wifi size={20} />, title: 'WiFi Connectivity', desc: 'Direct TCP socket to ELM327 WiFi adapters — full raw protocol access', color: 'var(--accent-cyan)' },
+              { icon: <Bluetooth size={20} />, title: 'Bluetooth Low Energy', desc: 'Native BLE pairing for wireless adapters — OBDLink MX+, Veepeak, BAFX', color: '#22d3ee' },
+              { icon: <Activity size={20} />, title: '42-Node Governance', desc: 'Real-time telemetry at 100ms intervals — same deterministic engine', color: 'var(--accent-emerald)' },
+              { icon: <Shield size={20} />, title: 'Condition Reports', desc: 'Cryptographically signed vehicle health assessments — arbitration-grade', color: '#f59e0b' },
             ].map((f, i) => (
               <div key={i} style={{ display: 'flex', gap: '12px' }}>
                 <div style={{ color: f.color, flexShrink: 0, marginTop: '2px' }}>{f.icon}</div>
@@ -212,13 +294,12 @@ export default function DownloadPage() {
         {/* Requirements */}
         <div style={{ textAlign: 'center' }}>
           <p style={{ color: 'var(--text-dim)', fontSize: '0.7rem', lineHeight: 1.7 }}>
-            Requires Android 8.0+ Â· ~25MB Â· No Play Store account needed<br />
-            WiFi: Any ELM327 WiFi adapter Â· BLE: Any Bluetooth Low Energy adapter<br />
-            US Provisional Patent 64/032,339 Â· DarkWave Studios LLC
+            Requires Android 8.0+ · ~25MB · No Play Store account needed<br />
+            WiFi: Any ELM327 WiFi adapter · BLE: Any Bluetooth Low Energy adapter<br />
+            US Provisional Patent 64/032,339 · DarkWave Studios LLC
           </p>
         </div>
       </div>
     </div>
   );
 }
-

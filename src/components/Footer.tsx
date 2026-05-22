@@ -82,16 +82,16 @@ export default function Footer() {
       {/* Social & App Store */}
       <div className="container" style={{ paddingTop: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
         <a href="https://x.com/TrustSignal26" target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '8px 16px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.85rem', fontWeight: 500, textDecoration: 'none', transition: 'all 0.2s' }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 300 300" fill="currentColor" style={{ opacity: 0.85 }}><path d="M178.57 127.15 290.27 0h-26.46l-96.97 110.39L89.34 0H0l117.13 166.93L0 300.01h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.7l187.13 262.13h-40.7"/></svg>
           @TrustSignal26
         </a>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <a href="/download" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '8px 16px', background: 'rgba(6,182,212,0.08)', border: '1px solid rgba(6,182,212,0.2)', borderRadius: '8px', color: 'rgba(6,182,212,0.9)', fontSize: '0.8rem', fontWeight: 500, textDecoration: 'none' }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 2H6.477L0 17.346l3.477 4.308L12 15.116l8.523 6.538L24 17.346zM4.193 16.5L8 6h8l3.807 10.5L12 11.192z"/></svg>
+            <svg width="13" height="15" viewBox="0 0 24 28" fill="currentColor" style={{ opacity: 0.85 }}><path d="M12 0L2.5 5.5v5c0 .83.67 1.5 1.5 1.5h1V7.5L12 3.25 18.99 7.5V12h1c.83 0 1.5-.67 1.5-1.5v-5L12 0zM5 14v8.5c0 1.93 2.69 4.03 7 5.5 4.31-1.47 7-3.57 7-5.5V14H5zm7 11c-2.76-1.12-5-2.72-5-3.5V16h10v5.5c0 .78-2.24 2.38-5 3.5z"/></svg>
             Android — Download Now
           </a>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '8px 16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', color: 'rgba(255,255,255,0.35)', fontSize: '0.8rem', fontWeight: 500 }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            <svg width="13" height="15" viewBox="0 0 170 200" fill="currentColor" style={{ opacity: 0.6 }}><path d="M141.04 36.57c-7.75-9.87-18.7-15.72-30.29-16.6 1.65-8.4 6.3-16.06 13.22-20.68-5.45 1.04-10.6 3.54-14.9 7.23-3.3-4.68-8.06-8.06-13.72-9.52.47 5.15 2.6 10.03 6.04 13.77-8.2-.06-16.26 2.87-22.58 8.2 5.3 2.1 11.07 2.8 16.73 2.02-4.22 5.4-6.74 12.01-7.13 18.9h10.43c.3-5.64 2.32-11.06 5.78-15.44 8.97.73 17.2 5.64 22.65 13.5L141.04 36.57zM85 62C47.55 62 17 92.55 17 130c0 24.44 12.95 45.87 32.37 57.8V200l23.08-12.7c3.95 1.1 8.1 1.7 12.4 1.7 37.45 0 68-30.55 68-68S122.45 62 85 62z"/></svg>
             iOS — Coming Soon
           </span>
         </div>

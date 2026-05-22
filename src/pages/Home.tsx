@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ChevronRight, Activity, Zap, ShieldCheck, Droplets, Volume2, Wrench, Users, Cpu, Gauge } from 'lucide-react';
+import { ArrowRight, ChevronRight, Activity, Zap, ShieldCheck, Droplets, Volume2, Wrench, Users, Cpu, Gauge, BatteryCharging, MapPin, Radio } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ParticleField from '../components/effects/ParticleField';
 import MiniDiagnostic from '../components/effects/MiniDiagnostic';
 import AnimatedCounter from '../components/effects/AnimatedCounter';
+import MeridianBreakdown from '../components/MeridianBreakdown';
+
+const MeridianScene3D = lazy(() => import('../components/MeridianVisualizer'));
 
 const HERO_IMAGES = [
   '/hero_dashboard.png',
@@ -60,7 +63,7 @@ export default function Home() {
               42-signal diagnostic engine. Fuel coaching. Predictive maintenance. Immobilizer key programming. $3,700+ in professional scan tool capability — on a $15 adapter you already own.
             </p>
             <p style={{ fontSize: '0.9rem', color: 'var(--accent-emerald)', fontWeight: 600, marginBottom: '2rem' }}>
-              2,358 deterministic test cases passed · Key Management (Mode 05) coming soon
+              2,358 deterministic test cases passed · Key Management (Mode 05) live
             </p>
             <div className="flex gap-4 items-center" style={{ flexWrap: 'wrap' }}>
               <Link to="/order" className="btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.05rem' }}>
@@ -244,7 +247,197 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ Ecosystem ═══ */}
+      {/* ═══ HydroCore — Hydrogen Engine ═══ */}
+      <section style={{ position: 'relative', overflow: 'hidden', borderTop: '1px solid var(--border-light)' }}>
+        {/* Background image */}
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.08, backgroundImage: 'url(/assets/images/hydrocore/hero-bg.png)', backgroundSize: 'cover', backgroundPosition: 'center', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, var(--bg-dark), rgba(10,10,12,0.95), var(--bg-dark))', pointerEvents: 'none' }} />
+
+        <div className="container" style={{ position: 'relative', zIndex: 2, padding: '6rem 0' }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', background: 'rgba(0,229,255,0.08)', border: '1px solid rgba(0,229,255,0.2)', borderRadius: '20px', fontSize: '0.75rem', color: '#00E5FF', marginBottom: '2rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              <BatteryCharging size={14} /> Patent 64/032,339 Pending
+            </div>
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
+              HydroCore Drive — <span style={{ background: 'linear-gradient(135deg, #00E5FF, #06b6d4, #10b981)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Closed-Loop Hydrogen Engine</span>
+            </h2>
+            <p className="text-muted" style={{ maxWidth: '700px', margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7 }}>
+              The world's first deterministic closed-loop hydrogen engine. The vehicle carries water, splits it via PEM electrolysis, feeds hydrogen to a fuel cell, and recovers exhaust water. No hydrogen station required.
+            </p>
+          </div>
+
+          {/* Flow Diagram */}
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ maxWidth: '900px', margin: '0 auto 4rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0', flexWrap: 'wrap', padding: '2rem', background: 'rgba(0,229,255,0.03)', border: '1px solid rgba(0,229,255,0.12)', borderRadius: '20px' }}>
+              {[
+                { icon: '💧', label: 'Water\nReservoir', color: '#1565C0' },
+                { icon: '⚡', label: 'PEM\nElectrolyzer', color: '#FFC107' },
+                { icon: 'H₂', label: 'Hydrogen\nBuffer', color: '#00695C' },
+                { icon: '🔋', label: 'Fuel Cell\nStack', color: '#00E5FF' },
+                { icon: '⚙️', label: 'Electric\nDrivetrain', color: '#607D8B' },
+              ].map((node, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ textAlign: 'center', padding: '16px 12px', minWidth: '100px' }}>
+                    <div style={{ fontSize: '2rem', marginBottom: '8px', filter: 'drop-shadow(0 0 8px rgba(0,229,255,0.3))' }}>{node.icon}</div>
+                    <div style={{ fontSize: '0.7rem', fontWeight: 600, color: node.color, lineHeight: 1.4, letterSpacing: '0.03em', whiteSpace: 'pre-line' }}>{node.label}</div>
+                  </div>
+                  {i < 4 && <div style={{ color: 'rgba(0,229,255,0.4)', fontSize: '1.5rem', fontFamily: 'var(--font-mono)', padding: '0 4px' }}>→</div>}
+                </div>
+              ))}
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '8px' }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'rgba(0,229,255,0.5)', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.08em' }}>
+                ← Water Recovery Loop ←
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Stats */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.25rem', maxWidth: '800px', margin: '0 auto 4rem' }}>
+            {[
+              { val: '3–8%', label: 'Faraday Efficiency Gain', color: '#00E5FF' },
+              { val: '60–80', label: 'Extra Miles/Hr (Meridian)', color: '#10b981' },
+              { val: '10ms', label: 'Full System Response', color: '#38bdf8' },
+              { val: '0%', label: 'H₂ Infrastructure Needed', color: '#FFC107' },
+            ].map((s, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                style={{ padding: '1.25rem', background: `${s.color}0C`, border: `1px solid ${s.color}20`, borderRadius: '16px', textAlign: 'center' }}>
+                <div style={{ fontSize: '1.6rem', fontWeight: 800, color: s.color, fontFamily: 'var(--font-mono)' }}>{s.val}</div>
+                <div style={{ fontSize: '0.65rem', color: 'var(--text-dim)', letterSpacing: '0.04em', textTransform: 'uppercase', marginTop: '4px' }}>{s.label}</div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Component Grid */}
+          <h3 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', color: 'var(--text-dim)', textTransform: 'uppercase', marginBottom: '1.5rem', textAlign: 'center' }}>Vehicle Subsystems</h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', maxWidth: '900px', margin: '0 auto 3rem' }}>
+            {[
+              { img: '/assets/images/hydrocore/water.png', name: 'Water Reservoir', spec: 'Onboard H₂O supply', color: '#1565C0' },
+              { img: '/assets/images/hydrocore/electrolyzer.png', name: 'PEM Electrolyzer', spec: 'H₂O → H₂ + O₂', color: '#FFC107' },
+              { img: '/assets/images/hydrocore/h2buffer.png', name: 'H₂ Buffer Tank', spec: '10 bar pressurized', color: '#00695C' },
+              { img: '/assets/images/hydrocore/fuelcell.png', name: 'PEM Fuel Cell', spec: 'H₂ → Electricity', color: '#00E5FF' },
+              { img: '/assets/images/hydrocore/battery.png', name: 'Battery Pack', spec: 'Floor-mounted Li-ion', color: '#6A1B9A' },
+              { img: '/assets/images/hydrocore/motor.png', name: 'Electric Motor', spec: 'Rear-axle drive unit', color: '#607D8B' },
+            ].map((comp, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
+                style={{ borderRadius: '16px', overflow: 'hidden', border: `1px solid ${comp.color}25`, background: 'rgba(255,255,255,0.02)', transition: 'border-color 0.3s, transform 0.3s' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${comp.color}50`; (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = `${comp.color}25`; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}>
+                <div style={{ height: '140px', overflow: 'hidden', position: 'relative' }}>
+                  <img src={comp.img} alt={comp.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to top, rgba(10,10,12,0.85) 0%, transparent 60%)` }} />
+                </div>
+                <div style={{ padding: '1rem' }}>
+                  <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '4px' }}>{comp.name}</div>
+                  <div style={{ fontSize: '0.72rem', color: comp.color, fontFamily: 'var(--font-mono)', letterSpacing: '0.03em' }}>{comp.spec}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div style={{ textAlign: 'center' }}>
+            <a href="https://hydrocore.dev" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '0.85rem 2rem', fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'transparent', border: '1px solid rgba(0,229,255,0.3)', color: '#00E5FF' }}>
+              Explore Full 3D Architecture — hydrocore.dev <ArrowRight size={18} />
+            </a>
+            <p className="text-dim" style={{ fontSize: '0.72rem', marginTop: '1rem' }}>
+              Full specification: <em>HydroCore Drive — Hydrogen-Hybrid Electric Vehicle</em> · Canon² Paper Series · DOI pending Zenodo
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ Meridian — Wireless Energy Infrastructure ═══ */}
+      <section style={{ position: 'relative', overflow: 'hidden', borderTop: '1px solid var(--border-light)', padding: '6rem 0' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(165deg, rgba(30,58,95,0.08) 0%, transparent 50%)', pointerEvents: 'none' }} />
+        <div className="container" style={{ maxWidth: '1100px', position: 'relative', zIndex: 2 }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', background: 'rgba(6,182,212,0.08)', border: '1px solid rgba(6,182,212,0.2)', borderRadius: '20px', fontSize: '0.75rem', color: 'var(--accent-cyan)', marginBottom: '2rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              <Radio size={14} /> Patent 64/056,378 Pending · Wireless Energy
+            </div>
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
+              Meridian Canon — <span className="text-gradient">Deterministic Wireless Energy</span>
+            </h2>
+            <p className="text-muted" style={{ maxWidth: '700px', margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7 }}>
+              No ground stations. No broken adapters. No physical bottlenecks. Route energy to EVs deterministically from overhead while maintaining a perfect cryptographic billing ledger.
+            </p>
+          </div>
+
+          {/* 3D Scene */}
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+            <Suspense fallback={
+              <div style={{ width: '100%', height: '520px', borderRadius: '16px', background: '#04060c', border: '1px solid rgba(30,58,95,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ textAlign: 'center' }}>
+                  <Zap size={36} color="var(--accent-cyan)" style={{ marginBottom: 12 }} />
+                  <div style={{ color: 'var(--text-dim)', fontSize: '0.85rem' }}>Loading 3D Scene...</div>
+                </div>
+              </div>
+            }>
+              <MeridianScene3D />
+            </Suspense>
+            <div style={{ textAlign: 'center', marginTop: '0.5rem' }}>
+              <p className="text-dim" style={{ fontSize: '0.72rem', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>
+                INTERACTIVE 3D · DRAG TO ROTATE · SCROLL TO ZOOM
+              </p>
+              <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', maxWidth: '500px', margin: '0 auto', lineHeight: 1.5 }}>
+                Overhead Anchor Nodes route wireless energy to vehicles parked beneath the staging canopy. No ground infrastructure required.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Ground vs Overhead Comparison */}
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ margin: '4rem 0' }}>
+            <img src="/assets/images/meridian/ground_vs_overhead.png" alt="Ground vs Overhead Charging Comparison" style={{
+              width: '100%', borderRadius: '16px', border: '1px solid rgba(30,58,95,0.2)',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
+            }} />
+          </motion.div>
+
+          {/* Architecture Features */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
+            {[
+              { icon: <MapPin size={22} />, title: 'Zero Ground Friction', desc: 'No bollards taking up lot space. Vehicles flow freely through the charging zone without navigating around concrete stations or tangled cords.', color: 'var(--accent-cyan)' },
+              { icon: <BatteryCharging size={22} />, title: 'Adapter-Agnostic Routing', desc: 'Tesla, Ford, or Rivian — Meridian routes energy directly to the vehicle receiver. No hunting for the right J1772 or NACS adapter.', color: '#38bdf8' },
+              { icon: <Cpu size={22} />, title: 'Deterministic Protocol', desc: 'Not a probabilistic network. Each energy packet is routed via deterministic governance — same inputs, same outputs, every time.', color: 'var(--accent-emerald)' },
+              { icon: <ShieldCheck size={22} />, title: 'Cryptographic Ledger', desc: 'Every charge session is cryptographically signed with Ed25519 and anchored to the Trust Layer Ledger for immutable receipts.', color: '#38bdf8' },
+            ].map((feat, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                className="panel" style={{ padding: '2rem', borderColor: `${feat.color}22`, transition: 'border-color 0.3s, transform 0.3s', display: 'flex', flexDirection: 'column' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${feat.color}44`; (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = `${feat.color}22`; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}
+              >
+                <div style={{ padding: '12px', background: `${feat.color}15`, borderRadius: '12px', display: 'inline-flex', marginBottom: '1rem', color: feat.color }}>{feat.icon}</div>
+                <h4 style={{ fontSize: '1.15rem', marginBottom: '0.5rem' }}>{feat.title}</h4>
+                <p className="text-muted" style={{ fontSize: '0.9rem', lineHeight: 1.6 }}>{feat.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Component Breakdown Carousel */}
+          <MeridianBreakdown />
+
+          {/* Patent & CTA */}
+          <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+            <div style={{
+              background: 'rgba(0,0,0,0.3)', border: '1px solid var(--border-light)',
+              borderRadius: '12px', padding: '1.25rem', maxWidth: '550px', margin: '0 auto 2rem',
+              display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.85rem', fontFamily: 'var(--font-mono)'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)' }}>
+                <span>PATENT</span>
+                <span style={{ color: 'var(--text-main)' }}>U.S. Provisional 64/056,378</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)' }}>
+                <span>ARCHIVE</span>
+                <span style={{ color: 'var(--text-main)' }}>DOI: 10.5281/zenodo.20028362</span>
+              </div>
+            </div>
+            <a href="https://meridiancanon.com" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '0.85rem 2rem', fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+              Full Meridian Architecture <ArrowRight size={18} />
+            </a>
+          </div>
+        </div>
+      </section>
       <section className="container">
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
           <p className="text-cyan" style={{ fontSize: '0.85rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>Ecosystem</p>

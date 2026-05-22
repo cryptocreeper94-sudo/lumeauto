@@ -920,13 +920,34 @@ app.get('/api/health', (req, res) => {
 
 // ─── APK Download Proxy ─────────────────────────────────────────────────────
 // Proxies the APK download through our server to bypass Firebase Storage rules.
-// Users hit /download/apk → server fetches from Firebase → pipes to browser as .apk download
+// Pay-gated: requires verified entitlement (Pro license) to download.
+// Users hit /download/apk?email=user@example.com → server verifies → pipes APK
 app.get('/download/apk', async (req, res) => {
   const APK_FIREBASE_URL = process.env.APK_DOWNLOAD_URL ||
     'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2FLumeScan-latest.apk?alt=media';
 
+  const email = (req.query.email || '').toString().trim().toLowerCase();
+
+  // ── Entitlement check ──
+  if (!email) {
+    return res.status(401).json({
+      error: 'Email required. Purchase Lume Scan Pro at lumeauto.tech/order to download the APK.',
+      purchase_url: 'https://lumeauto.tech/order',
+    });
+  }
+
   try {
-    console.log('[Download] 📱 APK download requested');
+    // Check Firestore for active Pro entitlement
+    const doc = await getFirestoreDoc(`entitlements/${encodeURIComponent(email)}`);
+    if (!doc || !doc.fields?.lumescan_purchased?.booleanValue) {
+      console.log(`[Download] 🚫 APK blocked — no entitlement for ${email}`);
+      return res.status(403).json({
+        error: 'No active Pro license found for this email. Purchase at lumeauto.tech/order.',
+        purchase_url: 'https://lumeauto.tech/order',
+      });
+    }
+
+    console.log(`[Download] 📱 APK download authorized for ${email}`);
     const upstream = await fetch(APK_FIREBASE_URL);
 
     if (!upstream.ok) {

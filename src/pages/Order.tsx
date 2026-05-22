@@ -527,7 +527,7 @@ export default function Order() {
         <div className="container" style={{ maxWidth: '1000px' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.3)', borderRadius: '20px', fontSize: '0.7rem', color: '#fbbf24', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>
-              Coming Soon — Firmware Upgrade
+              Live — Firmware Upgrade
             </div>
             <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>
               Key Management <span style={{ opacity: 0.4 }}>Mode 05</span>
@@ -618,7 +618,7 @@ export default function Order() {
           </div>
 
           {/* Competitor comparison */}
-          <div className="panel" style={{ padding: '1.5rem 2rem', textAlign: 'center', marginBottom: '1rem' }}>
+          <div className="panel" style={{ padding: '1.5rem 2rem', textAlign: 'center', marginBottom: '1.5rem' }}>
             <p className="text-dim" style={{ fontSize: '0.8rem', lineHeight: 1.7, margin: 0 }}>
               <strong style={{ color: 'var(--text-main)' }}>Compare:</strong>{' '}
               Autel IM608 — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$4,500</span> ·{' '}
@@ -626,6 +626,58 @@ export default function Order() {
               XTOOL — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$800</span>{' '}
               → <strong style={{ color: 'var(--accent-cyan)' }}>LUME: $199 + $9/key on hardware you already own</strong>
             </p>
+          </div>
+
+          {/* What Mode 05 Does / Does NOT */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
+            <div className="panel" style={{ padding: '1.5rem', borderColor: 'rgba(16,185,129,0.2)', background: 'rgba(16,185,129,0.03)' }}>
+              <div style={{ fontSize: '0.7rem', color: 'var(--accent-emerald)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>✓ What Mode 05 Does</div>
+              {[
+                'Programs new transponder keys to your vehicle\'s immobilizer',
+                'Reads existing key IDs and transponder chip types via phone NFC',
+                'Deletes lost or stolen keys from the vehicle\'s IMMO module',
+                'Communicates over UDS via OBD-II — uses your existing ELM327 dongle',
+                'Creates a permanent TLL-verified receipt for every key event',
+                'Supports Ford, GM, and Stellantis with Toyota, Honda, Nissan expanding',
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.82rem', color: 'var(--text-muted)', padding: '4px 0' }}>
+                  <CheckCircle size={14} style={{ color: 'var(--accent-emerald)', flexShrink: 0, marginTop: '2px' }} /> {item}
+                </div>
+              ))}
+            </div>
+            <div className="panel" style={{ padding: '1.5rem', borderColor: 'rgba(239,68,68,0.15)' }}>
+              <div style={{ fontSize: '0.7rem', color: '#ef4444', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>✗ What Mode 05 Does NOT Do</div>
+              {[
+                'Does NOT cut physical key blades — you supply a blank key or fob',
+                'Does NOT program remote/fob buttons (lock/unlock) — transponder IMMO only',
+                'Does NOT work unattended — requires active BLE connection to LUME app',
+                'Does NOT bypass vehicle security — uses standard OEM seed/key authorization',
+                'Does NOT support every vehicle yet — OEM coverage is expanding',
+                'Does NOT replace a locksmith for physical lock/cylinder work',
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.82rem', color: 'var(--text-dim)', padding: '4px 0' }}>
+                  <span style={{ color: '#ef4444', fontWeight: 700, flexShrink: 0, fontSize: '0.85rem' }}>✗</span> {item}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Requirements */}
+          <div className="panel" style={{ padding: '1.25rem 1.5rem', marginBottom: '1rem', borderColor: 'rgba(6,182,212,0.15)' }}>
+            <div style={{ fontSize: '0.7rem', color: 'var(--accent-cyan)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Requirements</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '8px' }}>
+              {[
+                { label: 'Hardware', value: 'Any ELM327 BLE/WiFi adapter' },
+                { label: 'Phone', value: 'Android 7.0+ with NFC' },
+                { label: 'License', value: '$199 firmware unlock or $54.99/mo unlimited' },
+                { label: 'Key Blank', value: 'You supply the transponder blank or fob' },
+              ].map((r, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', padding: '4px 0', borderBottom: '1px solid var(--border-light)' }}>
+                  <span style={{ color: 'var(--text-dim)' }}>{r.label}</span>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 600, textAlign: 'right', maxWidth: '60%' }}>{r.value}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           <p className="text-dim" style={{ fontSize: '0.7rem', textAlign: 'center', lineHeight: 1.6 }}>
