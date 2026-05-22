@@ -57,10 +57,10 @@ export default function Home() {
               More MPG From the <span className="text-gradient">Car You Already Have</span>
             </h1>
             <p className="text-muted" style={{ fontSize: '1.2rem', maxWidth: '640px', marginBottom: '1rem', lineHeight: 1.6 }}>
-              42 OBD-II signals. 100ms intervals. Zero AI dependency. Pure deterministic governance for the 1.4 billion petroleum vehicles still on the road.
+              42-signal diagnostic engine. Fuel coaching. Predictive maintenance. Immobilizer key programming. $3,700+ in professional scan tool capability — on a $15 adapter you already own.
             </p>
             <p style={{ fontSize: '0.9rem', color: 'var(--accent-emerald)', fontWeight: 600, marginBottom: '2rem' }}>
-              2,358 deterministic test cases passed · Zero AI calls
+              2,358 deterministic test cases passed · Key Management (Mode 05) coming soon
             </p>
             <div className="flex gap-4 items-center" style={{ flexWrap: 'wrap' }}>
               <Link to="/order" className="btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.05rem' }}>

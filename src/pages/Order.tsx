@@ -13,7 +13,7 @@ const TIERS = [
 
 
 const FEATURES = [
-  { icon: <Activity size={20} />, title: '42-Signal Governance Engine', desc: 'Reads 42 OBD-II signals at 100ms intervals. RPM, fuel flow, combustion timing, air-fuel ratio - everything a $200 scanner shows and more.', color: 'var(--accent-cyan)' },
+  { icon: <Activity size={20} />, title: '42-Signal Governance Engine', desc: 'Reads 42 OBD-II signals at 100ms intervals. RPM, fuel flow, combustion timing, air-fuel ratio — professional-grade telemetry that rivals $3,700 scan tools. Plus immobilizer key programming via Mode 05.', color: 'var(--accent-cyan)' },
   { icon: <Zap size={20} />, title: 'Passive Audio Coaching', desc: 'Bluetooth audio tones through your car speakers. Chime = efficient. Buzz = wasting fuel. Your brain learns the pattern automatically.', color: 'var(--accent-emerald)' },
   { icon: <Wrench size={20} />, title: 'Skip the $150 Diagnostic', desc: 'Check engine light? Reads the code, translates to English, tells you what\'s wrong, and links the exact part on Amazon.', color: '#f59e0b' },
   { icon: <Shield size={20} />, title: 'Predictive Maintenance', desc: 'Detects component degradation 1-3% MPG before it triggers a check engine light. Fix $30 parts before they become $500 repairs.', color: '#38bdf8' },
@@ -728,7 +728,7 @@ export default function Order() {
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>Everything It Does</h2>
-            <p className="text-muted">A $200 scanner reads codes. Lume-Auto governs your vehicle.</p>
+            <p className="text-muted">A $200 scanner reads codes. A $3,500 scan tool programs keys. Lume‑Auto does both — on a $15 adapter.</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
             {FEATURES.map((f, i) => (
