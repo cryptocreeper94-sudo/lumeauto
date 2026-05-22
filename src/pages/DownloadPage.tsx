@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import QRCodeLib from 'qrcode';
 
 // Fallback download URLs
-const DEFAULT_APK_URL = 'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2Flumescan-pro.apk?alt=media';
+const DEFAULT_APK_URL = '/download/apk';
 const EXE_URL = 'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2FLot_Ops_Pro_Setup.exe?alt=media&token=36fe7582-07b0-423a-a366-bd1a1e6af6a0';
 const DOWNLOAD_URL = 'https://lumeauto.tech/download';
 

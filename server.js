@@ -421,7 +421,7 @@ app.post('/api/redeem', async (req, res) => {
 const APP_VERSION = {
   version: '1.0.0',
   build: 1,
-  apk_url: 'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2Flumescan-pro.apk?alt=media',
+  apk_url: 'https://lumeauto.tech/download/apk',
   changelog: 'Initial release — 42-signal diagnostic engine, fuel coaching, predictive maintenance, driver scoring.',
   min_version: '1.0.0',
 };
@@ -491,6 +491,44 @@ app.get('/api/version', (req, res) => {
 // ─── API: Health Check ──────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
   res.json({ status: 'operational', service: 'lume-auto', version: '2.0.0' });
+});
+
+// ─── APK Download Proxy ─────────────────────────────────────────────────────
+// Proxies the APK download through our server to bypass Firebase Storage rules.
+// Users hit /download/apk → server fetches from Firebase → pipes to browser as .apk download
+app.get('/download/apk', async (req, res) => {
+  const APK_FIREBASE_URL = process.env.APK_DOWNLOAD_URL ||
+    'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2Flumescan-pro.apk?alt=media';
+
+  try {
+    console.log('[Download] 📱 APK download requested');
+    const upstream = await fetch(APK_FIREBASE_URL);
+
+    if (!upstream.ok) {
+      console.error(`[Download] ❌ Firebase returned ${upstream.status}`);
+      return res.status(502).json({ error: 'APK file is temporarily unavailable. Please try again later.' });
+    }
+
+    res.setHeader('Content-Type', 'application/vnd.android.package-archive');
+    res.setHeader('Content-Disposition', 'attachment; filename="LumeScan-Pro.apk"');
+    if (upstream.headers.get('content-length')) {
+      res.setHeader('Content-Length', upstream.headers.get('content-length'));
+    }
+
+    // Pipe the binary stream directly to the response
+    const reader = upstream.body.getReader();
+    const pump = async () => {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) { res.end(); return; }
+        res.write(Buffer.from(value));
+      }
+    };
+    await pump();
+  } catch (err) {
+    console.error('[Download] ❌ APK proxy error:', err);
+    res.status(500).json({ error: 'Download failed. Please try again.' });
+  }
 });
 
 // ─── Serve Vite static build ────────────────────────────────────────────────
