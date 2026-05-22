@@ -22,7 +22,7 @@ export default function GetStarted() {
               Plug In. <span className="text-gradient">Save Money.</span><br/>That's It.
             </h1>
             <p className="text-muted" style={{ fontSize: '1.25rem', maxWidth: '600px', margin: '0 auto 1rem', lineHeight: 1.6 }}>
-              A $12 WiFi adapter. A free app. <strong style={{ color: 'var(--text-main)' }}>$180â€“$320 saved</strong> every year on gas.<br/>Works on any car made after 1996.
+              A $15 adapter. A free app. <strong style={{ color: 'var(--text-main)' }}>$2,880+ in first-year value</strong> from fuel savings, skipped shop visits, and preventive repair catches.<br/>Works on any car made after 1996.
             </p>
             <p style={{ fontSize: '0.9rem', color: 'var(--accent-emerald)', fontWeight: 600, marginBottom: '2.5rem' }}>
               No mechanic. No modifications. Free to start — upgrade when ready.
@@ -87,7 +87,7 @@ export default function GetStarted() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
             {[
-              { icon: <DollarSign size={22} />, title: 'Real Money Back', desc: '3â€“12% MPG improvement means $180â€“$320 saved per year at current gas prices. The adapter pays for itself in 2 weeks.' },
+              { icon: <DollarSign size={22} />, title: 'Real Money Back', desc: '$2,880+ in first-year value. ~$300 fuel savings, $150 in skipped diagnostics, and one preventive catch that saves you $2,400+ in repairs.' },
               { icon: <Activity size={22} />, title: 'Live Engine Dashboard', desc: '42 gauges updating 10 times per second. RPM, fuel flow, combustion efficiency, air-fuel ratio â€” everything your mechanic sees, but on your phone.' },
               { icon: <Wrench size={22} />, title: 'Skip the $150 Diagnostic', desc: 'Check engine light? The app reads the code, translates it to English, tells you what\'s wrong, and links the exact replacement part on Amazon.' },
               { icon: <ShieldCheck size={22} />, title: 'Predict Problems Early', desc: 'The Engine detects component degradation 1â€“3% MPG before it triggers a check engine light. Fix a $30 part before it becomes a $500 repair.' },
@@ -124,9 +124,9 @@ export default function GetStarted() {
             </div>
           </div>
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ textAlign: 'center', marginTop: '2rem', padding: '2rem', background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '16px' }}>
-            <div style={{ fontSize: '0.8rem', color: 'var(--accent-emerald)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>You save</div>
-            <div style={{ fontSize: '3.5rem', fontWeight: 800, fontFamily: 'var(--font-mono)' }}><span className="text-gradient">$328</span></div>
-            <div className="text-muted" style={{ fontSize: '0.95rem' }}>per year Â· The adapter costs $24 Â· Pays for itself in <strong style={{ color: 'var(--text-main)' }}>27 days</strong></div>
+            <div style={{ fontSize: '0.8rem', color: 'var(--accent-emerald)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>First-year value</div>
+            <div style={{ fontSize: '3.5rem', fontWeight: 800, fontFamily: 'var(--font-mono)' }}><span className="text-gradient">$2,880+</span></div>
+            <div className="text-muted" style={{ fontSize: '0.85rem' }}>~$300 fuel · $150 diagnostics · $2,430 preventive repairs · The adapter pays for itself in <strong style={{ color: 'var(--text-main)' }}>1 day</strong></div>
           </motion.div>
         </div>
       </section>

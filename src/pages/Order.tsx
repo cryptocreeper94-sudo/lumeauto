@@ -23,7 +23,7 @@ const FEATURES = [
 
 const FAQS = [
   { q: 'What vehicles does it work on?', a: 'Every car, truck, and SUV sold in the US after 1996 with an OBD-II port. That\'s 1.4 billion vehicles worldwide.' },
-  { q: 'How much will I actually save?', a: 'At $3.50/gallon and 15,000 miles/year, most drivers save $180-$320 annually in fuel alone. But the real savings come from predictive maintenance — catching a failing catalytic converter early can save you $2,000+ in a single repair. First-year value: $2,700+.' },
+  { q: 'How much will I actually save?', a: 'First-year value: $2,880+. That breaks down to ~$300 in fuel savings from coaching, $150 in diagnostic shop visits you skip entirely, and one preventive maintenance catch — like a failing catalytic converter — that saves you $2,400+ in a single avoided repair. With Key Management (Mode 05), add another $200+ per key you program yourself instead of paying a dealer or locksmith.' },
   { q: 'What do I get?', a: 'Your Lume Scan Pro license with instant download. The free version includes code reading + basic live data. Pro unlocks the full 42-signal engine, fuel coaching, predictive maintenance, and driver scoring. Works with any ELM327 BLE adapter ($15-$30 on Amazon).' },
   { q: 'Do I need a mechanic to install it?', a: 'No. You plug the adapter into the OBD-II port under your dashboard (every car has one). Takes 10 seconds. No wiring, no tools, no modifications.' },
   { q: 'Is there a subscription?', a: 'Yes. You purchase the software once at your tier price, then pay a small monthly fee for continuous updates, new features, and full Pro service. Founders lock in at $1.99/month for life. Cancel the service anytime — you keep the software.' },
@@ -766,9 +766,12 @@ export default function Order() {
           </div>
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
             style={{ textAlign: 'center', marginTop: '2rem', padding: '2rem', background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '16px' }}>
-            <div style={{ fontSize: '0.8rem', color: 'var(--accent-emerald)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Annual savings</div>
-            <div style={{ fontSize: '3.5rem', fontWeight: 800, fontFamily: 'var(--font-mono)' }}><span className="text-gradient">$328</span></div>
-              <div className="text-muted" style={{ fontSize: '0.95rem' }}>Pro is <strong style={{ color: 'var(--text-main)' }}>${PURCHASE_PRICE} + ${MONTHLY_PRICE}/mo</strong>{CURRENT_TIER.name !== 'Standard' ? <> <span style={{ color: '#fbbf24', fontWeight: 700 }}>({CURRENT_TIER.name} pricing)</span></> : ''}.<br />$2,700+ saved in year one. The math does itself.</div>
+            <div style={{ fontSize: '0.8rem', color: 'var(--accent-emerald)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>First-year value</div>
+            <div style={{ fontSize: '3.5rem', fontWeight: 800, fontFamily: 'var(--font-mono)' }}><span className="text-gradient">$2,880+</span></div>
+              <div className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.6 }}>
+                ~$300 fuel savings · $150 in skipped shop visits · $2,430 in preventive repair catches<br />
+                Pro is <strong style={{ color: 'var(--text-main)' }}>${PURCHASE_PRICE} + ${MONTHLY_PRICE}/mo</strong>{CURRENT_TIER.name !== 'Standard' ? <> <span style={{ color: '#fbbf24', fontWeight: 700 }}>({CURRENT_TIER.name} pricing)</span></> : ''}. The math does itself.
+              </div>
           </motion.div>
         </div>
       </section>
@@ -816,7 +819,7 @@ export default function Order() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Stop Overpaying for Gas.</h2>
             <p className="text-muted" style={{ maxWidth: '500px', margin: '0 auto 2rem', fontSize: '1.05rem' }}>
-              Download free. Go Pro for ${PURCHASE_PRICE} + ${MONTHLY_PRICE}/mo{CURRENT_TIER.name !== 'Standard' ? <> <span style={{ color: '#fbbf24', fontWeight: 700 }}>({CURRENT_TIER.name} pricing)</span></> : ''}.<br />$2,700+ saved in year one. The math does itself.
+              Download free. Go Pro for ${PURCHASE_PRICE} + ${MONTHLY_PRICE}/mo{CURRENT_TIER.name !== 'Standard' ? <> <span style={{ color: '#fbbf24', fontWeight: 700 }}>({CURRENT_TIER.name} pricing)</span></> : ''}.<br />$2,880+ in first-year value. The math does itself.
             </p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <a href="https://lumeauto.tech/download" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '1rem 2rem', borderRadius: '14px', border: '1px solid var(--border-light)', background: 'rgba(255,255,255,0.03)', color: 'var(--text-main)', fontWeight: 700, fontSize: '1rem', textDecoration: 'none' }}>

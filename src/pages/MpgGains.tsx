@@ -6,7 +6,7 @@ export default function MpgGains() {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-6" style={{ maxWidth: '800px', margin: '0 auto', paddingTop: '4rem' }}>
         <h1 style={{ fontSize: '3rem', lineHeight: 1.1 }}>Quantified MPG Gains</h1>
         <p className="text-muted" style={{ fontSize: '1.2rem' }}>
-          At US average fuel prices and 15,000 miles per year, a 10% MPG improvement saves the average driver $180–$320 per year.
+          First-year value: $2,880+. That's ~$300 in fuel coaching savings, $150 in diagnostic shop visits you never make, and one preventive maintenance catch worth $2,400+ in avoided repairs.
         </p>
 
         <div className="panel mt-8">

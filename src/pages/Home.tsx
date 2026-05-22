@@ -127,7 +127,7 @@ export default function Home() {
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <p className="text-cyan" style={{ fontSize: '0.85rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>Quantified Results</p>
             <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>What drivers are recovering</h2>
-            <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto' }}>At $3.50/gallon and 15,000 miles per year, a 10% improvement puts <strong style={{ color: 'var(--text-main)' }}>$180–$320 back in your pocket annually.</strong></p>
+            <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto' }}>Fuel coaching, skipped shop visits, and one major preventive repair catch. <strong style={{ color: 'var(--text-main)' }}>First-year value: $2,880+.</strong></p>
           </div>
           <div style={{ maxWidth: '700px', margin: '0 auto' }}>
             <table className="data-table">

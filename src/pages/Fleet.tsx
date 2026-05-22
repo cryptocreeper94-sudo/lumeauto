@@ -103,7 +103,7 @@ export default function Fleet() {
         </motion.div>
 
         <p className="text-dim" style={{ fontSize: '0.8rem', textAlign: 'center', marginTop: '2rem' }}>
-          Payback: At US average fuel prices, a 10% MPG improvement on 15,000 mi/year saves $180–$320 annually. Premium subscription pays back in 3–5 months.
+          Payback: First-year value per vehicle is $2,880+ (fuel savings, skipped diagnostics, preventive repair catches). Premium subscription pays back in under 30 days.
         </p>
       </div>
     </div>
