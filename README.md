@@ -7,8 +7,9 @@ The order, authentication, and download portal for **Lume Scan Pro**. Also hosts
 - Stripe-powered checkout with dynamic 3-tier pricing (Founders → Early Adopter → Standard)
 - Firebase Authentication (Google SSO)
 - Firestore entitlement management with license code provisioning
+- Mode 05 (IMMO Key Management) and Mode 06 (Remote Start) marketing & purchase flow
 - Branded purchase confirmation emails via Resend
-- APK download portal with entitlement gating
+- APK download portal — [Latest APK](https://expo.dev/artifacts/eas/daERWZBDSVug9YcGoKpvqw.apk)
 - Trust Layer Ledger (TLL) verification integration
 
 ## Tech Stack
