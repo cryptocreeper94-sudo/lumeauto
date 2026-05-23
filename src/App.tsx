@@ -62,7 +62,7 @@ function Navigation() {
       <div className="container flex justify-between items-center" style={{ height: '70px' }}>
         <Link to="/" className="flex items-center gap-2" style={{ fontWeight: 700, fontSize: '1.2rem', letterSpacing: '-0.03em' }}>
           <Activity className="text-cyan" size={24} />
-          <span>Lume<span style={{ opacity: 0.5 }}>Scan</span></span>
+          <span>Lume<span style={{ opacity: 0.5 }}>Auto</span></span>
         </Link>
 
         {/* Desktop Nav */}
