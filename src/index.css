@@ -394,3 +394,69 @@ html {
 .flex-shrink-0 {
   flex-shrink: 0;
 }
+
+
+/* --- Mobile Responsive --- */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    overflow-x: hidden;
+  }
+
+  h1, h2 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  h2 {
+    font-size: 1.75rem !important;
+  }
+
+  /* Ecosystem grid ? horizontal scroll carousel on mobile */
+  .ecosystem-grid {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem !important;
+    padding-bottom: 12px;
+    scrollbar-width: none;
+  }
+
+  .ecosystem-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ecosystem-card {
+    min-width: 260px !important;
+    max-width: 280px !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: start;
+  }
+
+  /* Desktop nav hidden, mobile toggle visible */
+  #desktop-nav {
+    display: none !important;
+  }
+
+  #mobile-toggle {
+    display: block !important;
+  }
+
+  /* Prevent any child from breaking viewport */
+  body, #root {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+}
+
+@media (min-width: 769px) {
+  #desktop-nav {
+    display: flex !important;
+  }
+
+  #mobile-toggle {
+    display: none !important;
+  }
+}

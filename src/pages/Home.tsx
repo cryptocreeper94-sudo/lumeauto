@@ -444,7 +444,13 @@ export default function Home() {
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>One Engine. Infinite Domains.</h2>
           <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto' }}>Lume Auto validates the deterministic governance substrate at consumer scale. Each subsequent engine inherits the same runtime, the same primitives, and the same integration pattern.</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', maxWidth: '1100px', margin: '0 auto' }}>
+        <div style={{ 
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+          gap: '1.5rem',
+          maxWidth: '1100px',
+          margin: '0 auto',
+        }} className="ecosystem-grid">
           {[
             { name: 'Lume Scan', desc: 'Professional OBD-II diagnostic scanner — 42 signals, predictive maintenance, fuel governance.', status: 'Live · From $9.99', statusColor: 'var(--accent-emerald)', icon: <Gauge size={20} />, url: 'https://lumescan.tech' },
             { name: 'GarageBot', desc: 'Smart garage and workshop management with IoT integration, tool inventory, and maintenance tracking.', status: 'Live', statusColor: 'var(--accent-emerald)', icon: <Wrench size={20} />, url: 'https://garagebot.io' },
@@ -455,7 +461,7 @@ export default function Home() {
             { name: 'AXIOM', desc: 'Deterministic knowledge architecture — 120K+ topics, offline-capable, zero-hallucination responses.', status: 'Active', statusColor: 'var(--accent-emerald)', icon: <Cpu size={20} />, url: 'https://axiom.tlid.io' },
             { name: 'Trust Layer', desc: 'The blockchain ecosystem powering all DarkWave products — Signal token, DeFi, NFTs, and 42 connected apps.', status: 'Live', statusColor: 'var(--accent-emerald)', icon: <Users size={20} />, url: 'https://dwtl.io' },
           ].map((item, i) => (
-            <motion.a key={i} href={item.url} target="_blank" rel="noopener noreferrer" initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="panel flex flex-col gap-3" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+            <motion.a key={i} href={item.url} target="_blank" rel="noopener noreferrer" initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="panel flex flex-col gap-3 ecosystem-card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
               <div className="flex items-center gap-3">
                 <div style={{ color: 'var(--accent-cyan)' }}>{item.icon}</div>
                 <h3 style={{ fontSize: '1.1rem' }}>{item.name}</h3>
