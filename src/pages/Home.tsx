@@ -548,6 +548,30 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ═══ Founder's Letter ═══ */}
+      <section style={{ padding: '5rem 0', borderTop: '1px solid var(--border-light)' }}>
+        <div className="container" style={{ maxWidth: '720px' }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            style={{ background: 'linear-gradient(135deg, rgba(6,182,212,0.04), rgba(16,185,129,0.03))', border: '1px solid rgba(6,182,212,0.12)', borderRadius: '20px', padding: 'clamp(2rem, 5vw, 3.5rem)', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '200px', height: '200px', background: 'radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 70%)', pointerEvents: 'none' }} />
+            <p style={{ color: 'var(--accent-cyan)', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>From the Founder</p>
+            <div style={{ fontSize: '1.05rem', color: 'rgba(255,255,255,0.8)', lineHeight: 1.8, display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <p style={{ margin: 0 }}>Professional tools shouldn't require a professional budget.</p>
+              <p style={{ margin: 0 }}>A diagnostic scan costs $150 at a shop. A professional scanner costs $3,700–$7,000. A remote start subscription costs $25–$35 a month. An aftermarket remote start install costs $400–$800. A locksmith for a single car key costs $200–$400.</p>
+              <p style={{ margin: 0 }}>We built Lume to end that.</p>
+              <p style={{ margin: 0 }}>Lume Scan puts $5,000+ in professional scan tool capability on a $15 adapter you already own — starting at $9.99. Mode 05 key management replaces a $300 locksmith visit. Mode 06 proximity remote start replaces a $400 aftermarket install or a $35/month OEM subscription — for $9.99 a month.</p>
+              <p style={{ margin: 0 }}>Every product we build follows the same principle: take something that costs hundreds at a shop and put it in your hands for under $40. Real tools. Real savings. Real ownership.</p>
+              <p style={{ margin: 0, fontStyle: 'italic', color: 'var(--accent-emerald)' }}>This is just the beginning.</p>
+            </div>
+            <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+              <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#fff', margin: '0 0 4px' }}>Jason A.</p>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: 0 }}>Founder, <a href="https://lume42.com" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-cyan)', textDecoration: 'none' }}>Lume42 Labs</a> & DarkWave Studios LLC</p>
+              <p style={{ fontSize: '0.7rem', color: 'var(--text-dim)', margin: '4px 0 0', fontStyle: 'italic' }}>Gladeville, Tennessee</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ═══ DarkWave CTA ═══ */}
       <section className="container" style={{ textAlign: 'center', padding: '4rem 0' }}>
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
