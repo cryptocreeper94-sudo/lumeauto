@@ -527,7 +527,7 @@ export default function Order() {
         <div className="container" style={{ maxWidth: '1000px' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.3)', borderRadius: '20px', fontSize: '0.7rem', color: '#fbbf24', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>
-              Live — Firmware Upgrade
+              Coming Soon — NASTF Registration In Progress
             </div>
             <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>
               Key Management <span style={{ opacity: 0.4 }}>Mode 05</span>
@@ -536,6 +536,10 @@ export default function Order() {
               Professional immobilizer key programming on the dongle you already own. No $5,000 scan tool required.
               Every key event permanently recorded with a TLL-verified receipt.
             </p>
+            <div style={{ marginTop: '1.5rem', display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '12px 24px', borderRadius: '14px', background: 'rgba(251,191,36,0.06)', border: '1px solid rgba(251,191,36,0.2)' }}>
+              <span style={{ fontSize: '0.85rem', color: '#fbbf24', fontWeight: 700 }}>🔔 Notify me when Mode 05 launches</span>
+              <a href="mailto:support@lumescan.tech?subject=Mode%2005%20Waitlist&body=Add%20me%20to%20the%20Mode%2005%20Key%20Management%20waitlist." style={{ fontSize: '0.75rem', color: 'var(--accent-cyan)', fontWeight: 700, textDecoration: 'none', padding: '6px 14px', borderRadius: '8px', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.2)' }}>Join Waitlist →</a>
+            </div>
           </div>
 
           {/* How It Works */}
@@ -693,7 +697,7 @@ export default function Order() {
         <div className="container" style={{ maxWidth: '1000px' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '20px', fontSize: '0.7rem', color: 'var(--accent-emerald)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>
-              Live — Firmware Upgrade
+              Coming Soon — Firmware Upgrade
             </div>
             <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>
               Remote Start <span style={{ opacity: 0.4 }}>Mode 06</span>
@@ -701,6 +705,10 @@ export default function Order() {
             <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto', lineHeight: 1.7 }}>
               CAN-bus remote start using your dongle's registered IMMO credential. No aftermarket wiring. No telematics module. No OEM subscription. Every start event permanently recorded with a TLL-verified receipt.
             </p>
+            <div style={{ marginTop: '1.5rem', display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '12px 24px', borderRadius: '14px', background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)' }}>
+              <span style={{ fontSize: '0.85rem', color: 'var(--accent-emerald)', fontWeight: 700 }}>🔔 Notify me when Mode 06 launches</span>
+              <a href="mailto:support@lumescan.tech?subject=Mode%2006%20Waitlist&body=Add%20me%20to%20the%20Mode%2006%20Remote%20Start%20waitlist." style={{ fontSize: '0.75rem', color: 'var(--accent-cyan)', fontWeight: 700, textDecoration: 'none', padding: '6px 14px', borderRadius: '8px', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.2)' }}>Join Waitlist →</a>
+            </div>
           </div>
 
           {/* How It Works */}
