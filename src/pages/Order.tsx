@@ -13,7 +13,7 @@ const TIERS = [
 
 
 const FEATURES = [
-  { icon: <Activity size={20} />, title: '42-Signal Governance Engine', desc: 'Reads 42 OBD-II signals at 100ms intervals. RPM, fuel flow, combustion timing, air-fuel ratio — professional-grade telemetry that rivals $3,700 scan tools. Plus immobilizer key programming via Mode 05.', color: 'var(--accent-cyan)' },
+  { icon: <Activity size={20} />, title: '42-Signal Governance Engine', desc: 'Reads 42 OBD-II signals at 100ms intervals. RPM, fuel flow, combustion timing, air-fuel ratio — professional-grade telemetry that rivals $5,000–$7,000 scan tools. Plus IMMO key programming (Mode 05) and remote start (Mode 06).', color: 'var(--accent-cyan)' },
   { icon: <Zap size={20} />, title: 'Passive Audio Coaching', desc: 'Bluetooth audio tones through your car speakers. Chime = efficient. Buzz = wasting fuel. Your brain learns the pattern automatically.', color: 'var(--accent-emerald)' },
   { icon: <Wrench size={20} />, title: 'Skip the $150 Diagnostic', desc: 'Check engine light? Reads the code, translates to English, tells you what\'s wrong, and links the exact part on Amazon.', color: '#f59e0b' },
   { icon: <Shield size={20} />, title: 'Predictive Maintenance', desc: 'Detects component degradation 1-3% MPG before it triggers a check engine light. Fix $30 parts before they become $500 repairs.', color: '#38bdf8' },
@@ -533,7 +533,7 @@ export default function Order() {
               Key Management <span style={{ opacity: 0.4 }}>Mode 05</span>
             </h2>
             <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto', lineHeight: 1.7 }}>
-              Professional immobilizer key programming on the dongle you already own. No $3,000 scan tool required.
+              Professional immobilizer key programming on the dongle you already own. No $5,000 scan tool required.
               Every key event permanently recorded with a TLL-verified receipt.
             </p>
           </div>
@@ -621,10 +621,11 @@ export default function Order() {
           <div className="panel" style={{ padding: '1.5rem 2rem', textAlign: 'center', marginBottom: '1.5rem' }}>
             <p className="text-dim" style={{ fontSize: '0.8rem', lineHeight: 1.7, margin: 0 }}>
               <strong style={{ color: 'var(--text-main)' }}>Compare:</strong>{' '}
-              Autel IM608 — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$4,500</span> ·{' '}
+              Autel IM608 Pro II — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$5,500</span> ·{' '}
               Smart Pro — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$3,500 + $25/key</span> ·{' '}
-              XTOOL — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$800</span>{' '}
-              → <strong style={{ color: 'var(--accent-cyan)' }}>LUME: $199 + $9/key on hardware you already own</strong>
+              Compustar Remote Start Install — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$400–$800 + wiring</span> ·{' '}
+              OEM Remote Start Subscriptions — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$25–$35/mo forever</span>{' '}
+              → <strong style={{ color: 'var(--accent-cyan)' }}>LUME: $199 firmware + $9/key · Remote start included · No subscription</strong>
             </p>
           </div>
 
@@ -683,6 +684,93 @@ export default function Order() {
           <p className="text-dim" style={{ fontSize: '0.7rem', textAlign: 'center', lineHeight: 1.6 }}>
             Key Management (Mode 05) is a professional diagnostic feature. Users are responsible for complying with applicable state and local licensing requirements.
             OEM coverage expanding. Currently supporting Ford, GM, Stellantis with Toyota, Honda, Nissan next.
+          </p>
+        </div>
+      </section>
+
+      {/* === REMOTE START — MODE 06 === */}
+      <section style={{ padding: '5rem 0', background: 'linear-gradient(180deg, rgba(16,185,129,0.03) 0%, transparent 100%)', borderBottom: '1px solid var(--border-light)' }}>
+        <div className="container" style={{ maxWidth: '1000px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <div style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '20px', fontSize: '0.7rem', color: 'var(--accent-emerald)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+              Live — Firmware Upgrade
+            </div>
+            <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>
+              Remote Start <span style={{ opacity: 0.4 }}>Mode 06</span>
+            </h2>
+            <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto', lineHeight: 1.7 }}>
+              CAN-bus remote start using your dongle's registered IMMO credential. No aftermarket wiring. No telematics module. No OEM subscription. Every start event permanently recorded with a TLL-verified receipt.
+            </p>
+          </div>
+
+          {/* How It Works */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '3rem' }}>
+            {[
+              { step: '1', icon: '🔑', title: 'Prerequisite', desc: 'Complete Mode 05C — register the dongle as a valid IMMO key on the target vehicle. One-time setup.' },
+              { step: '2', icon: '🔍', title: 'Safety Check', desc: 'Mode 06A reads hood, battery, DTCs, and engine state. 8 hard constraints checked at firmware level.' },
+              { step: '3', icon: '🔐', title: 'Authenticate', desc: 'Ed25519 signed token with 30-second expiry. PIN or biometric required. No replay attacks possible.' },
+              { step: '4', icon: '🚗', title: 'Start Engine', desc: 'CAN-bus start sequence sent. RPM monitored at 500ms until engine confirmed. Runtime monitoring begins.' },
+            ].map((s, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="panel" style={{ padding: '1.5rem', textAlign: 'center' }}>
+                <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>{s.icon}</div>
+                <div style={{ fontSize: '0.65rem', color: 'var(--accent-emerald)', fontWeight: 800, fontFamily: 'var(--font-mono)', marginBottom: '4px' }}>STEP {s.step}</div>
+                <h4 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>{s.title}</h4>
+                <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5 }}>{s.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Feature grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '2rem' }}>
+            <div className="panel" style={{ padding: '1.5rem' }}>
+              <div style={{ fontSize: '0.7rem', color: 'var(--accent-emerald)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>✓ What Mode 06 Does</div>
+              {[
+                'CAN-bus remote start — no aftermarket wiring',
+                'Pre-start readiness check (hood, battery, DTCs, IMMO)',
+                'Configurable runtime: 5, 10, 15, or 20 minutes',
+                'Auto-stop: stall, timeout, low battery, BLE lost, hood open',
+                'Runtime monitoring: RPM, coolant temp, battery every 5s',
+                'TLL-verified receipt for every start/stop event',
+                '2FA + biometric per-command security',
+                'Emergency stop from notification — one tap',
+              ].map((f, i) => (
+                <div key={i} style={{ fontSize: '0.82rem', color: 'var(--text-main)', padding: '3px 0', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <CheckCircle size={13} style={{ color: 'var(--accent-emerald)', flexShrink: 0 }} /> {f}
+                </div>
+              ))}
+            </div>
+            <div className="panel" style={{ padding: '1.5rem', borderColor: 'rgba(239,68,68,0.15)' }}>
+              <div style={{ fontSize: '0.7rem', color: '#ef4444', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>✗ What Mode 06 Does NOT Do</div>
+              {[
+                'Does not work without Mode 05C registration first',
+                'Does not work with dongle unplugged',
+                'Does not bypass vehicle security — it IS the key',
+                'Does not auto-retry after start failure (3 attempts/10 min)',
+                'Does not enter programming session (0x10 02)',
+                'Does not work in enclosed spaces (safety interlock)',
+                'Cannot override firmware runtime limits from the app',
+                'Not yet supported on BMW, Mercedes, or VW Group',
+              ].map((f, i) => (
+                <div key={i} style={{ fontSize: '0.82rem', color: 'var(--text-dim)', padding: '3px 0' }}>{f}</div>
+              ))}
+            </div>
+          </div>
+
+          {/* OEM Subscription comparison */}
+          <div className="panel" style={{ padding: '1.5rem 2rem', textAlign: 'center', marginBottom: '1.5rem' }}>
+            <p className="text-dim" style={{ fontSize: '0.8rem', lineHeight: 1.7, margin: 0 }}>
+              <strong style={{ color: 'var(--text-main)' }}>OEM Remote Start Subscriptions:</strong>{' '}
+              GM OnStar — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$25/mo ($300/yr)</span> ·{' '}
+              FordPass — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$30/mo ($360/yr)</span> ·{' '}
+              Mopar — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$35/mo ($420/yr)</span> ·{' '}
+              Compustar Install — <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>$400–$800 + wiring</span>{' '}
+              → <strong style={{ color: 'var(--accent-emerald)' }}>LUME Mode 06: one-time firmware unlock · no subscription · no wiring</strong>
+            </p>
+          </div>
+
+          {/* Vehicle support */}
+          <p className="text-dim" style={{ fontSize: '0.75rem', textAlign: 'center', maxWidth: '600px', margin: '0 auto' }}>
+            Launch support: Ford (2017+), GM (2015+), Stellantis (2018+). Expanding to Toyota, Honda, Nissan. Requires Mode 05 (Key Management) as prerequisite.
           </p>
         </div>
       </section>
@@ -760,6 +848,8 @@ export default function Order() {
                 { mode: 'Mode 08', desc: 'Request control of system', dir: 'WRITE' },
                 { mode: 'Mode 09', desc: 'Vehicle info (VIN)', dir: 'READ' },
                 { mode: 'Mode 0A', desc: 'Permanent DTCs', dir: 'READ' },
+                { mode: 'LUME 05', desc: 'IMMO key management', dir: 'WRITE' },
+                { mode: 'LUME 06', desc: 'Remote start governance', dir: 'WRITE' },
               ].map((m, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', borderRadius: '8px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-light)' }}>
                   <span style={{ fontSize: '0.7rem', fontFamily: 'var(--font-mono)', fontWeight: 700, color: m.dir === 'WRITE' ? 'var(--accent-emerald)' : 'var(--accent-cyan)', minWidth: '52px' }}>{m.mode}</span>

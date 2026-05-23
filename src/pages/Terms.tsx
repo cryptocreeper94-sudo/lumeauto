@@ -66,12 +66,21 @@ export default function Terms() {
           </div>
 
           <div>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>10. SMS and Communications</h2>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>10. Remote Start (Mode 06)</h2>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>a) Professional Diagnostic Feature:</strong> Remote Start (Mode 06) is a professional diagnostic feature that enables CAN-bus-initiated remote start and stop via your vehicle's OBD-II diagnostic port. Mode 06 requires Mode 05 (Key Management) to have been completed first — the dongle must be registered as a valid IMMO key credential on the target vehicle before remote start will function. Users are responsible for complying with all applicable laws regarding remote vehicle operation in their jurisdiction.</p>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>b) Safety Requirements:</strong> Do not use remote start in enclosed spaces (garages, carports, or any area with limited ventilation). Do not use if the vehicle is in gear. Ensure the vehicle is parked in a safe, open area. The dongle must remain plugged into the OBD-II port for remote start to function — if the dongle is removed, Mode 06 is unavailable.</p>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>c) Security:</strong> Mode 06 requires two-factor authentication (2FA) within the last 24 hours and PIN or biometric confirmation at the time of each command. Leaving your LUME dongle plugged in allows anyone with access to your LUME account to start the vehicle remotely. Use 2FA. Use a strong PIN. Authorization tokens are Ed25519 signed with 30-second expiry windows.</p>
+            <p className="text-muted" style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>d) Permanent Records:</strong> Every remote start and stop event is cryptographically hashed and permanently recorded. Consumer events are anchored to the Trust Layer Ledger (TLL) and generate a TLL-verified receipt. Enterprise events are anchored to the applicable enterprise ledger. Auto-stop events (stall, timeout, low battery, BLE loss, hood open) are also recorded with reason codes. These records cannot be altered or deleted.</p>
+            <p className="text-muted"><strong style={{ color: 'var(--text-main)' }}>e) Combined Disclaimer:</strong> Key Management (Mode 05) and Remote Start (Mode 06) are professional diagnostic features. Users are responsible for complying with applicable state and local licensing requirements. DarkWave Studios LLC provides professional diagnostic tooling and is not responsible for misuse, unauthorized vehicle access, or violations of local law.</p>
+          </div>
+
+          <div>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>11. SMS and Communications</h2>
             <p className="text-muted">If you opt-in to our SMS waitlist or alerts, you agree to receive text messages from Lume-Auto at the number provided. Consent is not a condition of purchase. Message and data rates may apply. Reply STOP to cancel.</p>
           </div>
 
           <div>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>11. Governing Law</h2>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>12. Governing Law</h2>
             <p className="text-muted">These Terms shall be governed by and construed in accordance with the laws of the State of Tennessee, without regard to conflict of law provisions. Any disputes arising under these Terms shall be resolved in the courts of Tennessee.</p>
           </div>
 

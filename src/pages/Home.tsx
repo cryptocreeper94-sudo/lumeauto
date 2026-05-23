@@ -60,10 +60,10 @@ export default function Home() {
               More MPG From the <span className="text-gradient">Car You Already Have</span>
             </h1>
             <p className="text-muted" style={{ fontSize: '1.2rem', maxWidth: '640px', marginBottom: '1rem', lineHeight: 1.6 }}>
-              42-signal diagnostic engine. Fuel coaching. Predictive maintenance. Immobilizer key programming. $3,700+ in professional scan tool capability — on a $15 adapter you already own.
+              42-signal diagnostic engine. Fuel coaching. Predictive maintenance. Immobilizer key programming. Remote start without subscription. $5,000–$7,000 in professional scan tool capability — on a $15 adapter you already own.
             </p>
             <p style={{ fontSize: '0.9rem', color: 'var(--accent-emerald)', fontWeight: 600, marginBottom: '2rem' }}>
-              2,358 deterministic test cases passed · Key Management (Mode 05) live
+              2,358 deterministic test cases passed · Key Management (Mode 05) + Remote Start (Mode 06) live
             </p>
             <div className="flex gap-4 items-center" style={{ flexWrap: 'wrap' }}>
               <Link to="/order" className="btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.05rem' }}>
@@ -243,6 +243,81 @@ export default function Home() {
                 <div className="text-muted" style={{ fontSize: '0.85rem', marginTop: '0.5rem' }}>{stat.label}</div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ Mode 06 — Remote Start ═══ */}
+      <section style={{ position: 'relative', overflow: 'hidden', borderTop: '1px solid var(--border-light)' }}>
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.12, backgroundImage: 'url(/assets/images/mode06_remote_start.png)', backgroundSize: 'cover', backgroundPosition: 'center', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, var(--bg-dark), rgba(10,10,12,0.92), var(--bg-dark))', pointerEvents: 'none' }} />
+        <div className="container" style={{ position: 'relative', zIndex: 2, padding: '6rem 0' }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '20px', fontSize: '0.75rem', color: 'var(--accent-emerald)', marginBottom: '2rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              <Radio size={14} /> Mode 06 — Remote Start Firmware
+            </div>
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
+              Remote Start Without the <span className="text-gradient">Subscription</span>
+            </h2>
+            <p className="text-muted" style={{ maxWidth: '700px', margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7 }}>
+              GM OnStar charges $25/month. FordPass charges $30/month. Mopar charges $35/month. LUME Mode 06 uses the same CAN-bus architecture as OEM remote start — without the telematics module, without the subscription, without the OEM relationship.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', maxWidth: '1100px', margin: '0 auto 3rem' }}>
+            {[
+              { icon: <ShieldCheck size={22} />, title: 'Pre-Start Safety Check', desc: 'Reads hood status, battery voltage, active DTCs, and IMMO credential before any start attempt. 8 hard safety constraints enforced at the firmware level.', color: 'var(--accent-emerald)' },
+              { icon: <Radio size={22} />, title: 'CAN-Bus Remote Start', desc: 'Sends OEM-native start sequence via CAN bus. Ed25519 signed authorization token with 30-second expiry. PIN or biometric required per command.', color: 'var(--accent-cyan)' },
+              { icon: <Gauge size={22} />, title: 'Runtime Monitoring', desc: 'Polls RPM, coolant temp, and battery voltage every 5 seconds. Auto-stops on stall, timeout, low battery, BLE loss, or hood open. Configurable 5–20 minute runtime.', color: '#f59e0b' },
+              { icon: <ShieldCheck size={22} />, title: 'TLL-Verified Receipts', desc: 'Every remote start and stop event is cryptographically hashed and anchored to the Trust Layer Ledger. Permanent, tamper-proof vehicle history.', color: 'var(--accent-emerald)' },
+            ].map((item, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="panel" style={{ padding: '1.75rem' }}>
+                <div style={{ color: item.color, marginBottom: '1rem' }}>{item.icon}</div>
+                <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>{item.title}</h3>
+                <p className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.6 }}>{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* OEM Subscription Killer */}
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="panel" style={{ maxWidth: '900px', margin: '0 auto 3rem', padding: '2rem', borderColor: 'rgba(16,185,129,0.2)', background: 'rgba(16,185,129,0.03)' }}>
+            <div style={{ fontSize: '0.7rem', color: 'var(--accent-emerald)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.25rem' }}>What You Stop Paying For</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem' }}>
+              {[
+                { name: 'GM OnStar', monthly: '$25/mo', annual: '$300/yr', color: '#ef4444' },
+                { name: 'FordPass Connect', monthly: '$30/mo', annual: '$360/yr', color: '#ef4444' },
+                { name: 'Mopar Connect', monthly: '$35/mo', annual: '$420/yr', color: '#ef4444' },
+                { name: 'LUME Mode 06', monthly: 'One-time', annual: 'No subscription', color: 'var(--accent-emerald)' },
+              ].map((s, i) => (
+                <div key={i} style={{ padding: '1rem 1.25rem', borderRadius: '12px', background: i === 3 ? 'rgba(16,185,129,0.08)' : 'rgba(239,68,68,0.04)', border: `1px solid ${i === 3 ? 'rgba(16,185,129,0.2)' : 'rgba(239,68,68,0.1)'}` }}>
+                  <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>{s.name}</div>
+                  <div style={{ fontSize: '1.3rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: s.color }}>{s.monthly}</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>{s.annual}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* How it works */}
+          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>How Mode 06 Works</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+              {[
+                { step: '01', label: 'Register Key', desc: 'Complete Mode 05C to register the dongle as a valid IMMO key credential on the target vehicle.' },
+                { step: '02', label: 'Safety Check', desc: 'Mode 06A reads hood, battery, DTCs, and confirms the IMMO credential is present and valid.' },
+                { step: '03', label: 'Authenticate', desc: 'App generates a signed Ed25519 token (30s expiry). Biometric or PIN confirmation required.' },
+                { step: '04', label: 'Remote Start', desc: 'Dongle sends OEM-native CAN start sequence. RPM monitored until engine confirmed running.' },
+              ].map((s, i) => (
+                <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.12 }} style={{ textAlign: 'center' }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.75rem', fontSize: '0.75rem', fontWeight: 800, color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)' }}>{s.step}</div>
+                  <div style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.25rem' }}>{s.label}</div>
+                  <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5 }}>{s.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+            <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '2rem', maxWidth: '600px', margin: '2rem auto 0' }}>
+              Ford, GM, and Stellantis supported at launch. Toyota, Honda, and Nissan in development. Requires Mode 05 (Key Management) completion on the target vehicle as a prerequisite.
+            </p>
           </div>
         </div>
       </section>
