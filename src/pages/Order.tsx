@@ -219,7 +219,7 @@ export default function Order() {
               </p>
 
               {/* Pricing Summary Card */}
-              <div style={{ padding: '16px 20px', background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '16px', marginBottom: '1.25rem', maxWidth: '400px' }}>
+              <div style={{ padding: '16px 20px', background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '16px', marginBottom: '0.75rem', maxWidth: '400px' }}>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '6px' }}>
                   <span style={{ fontSize: '2rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: 'var(--text-main)' }}>${PURCHASE_PRICE}</span>
                   <span style={{ fontSize: '0.85rem', color: 'var(--text-dim)' }}>one-time</span>
@@ -227,9 +227,14 @@ export default function Order() {
                   <span style={{ fontSize: '1.5rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: 'var(--accent-emerald)' }}>${MONTHLY_PRICE}</span>
                   <span style={{ fontSize: '0.85rem', color: 'var(--text-dim)' }}>/mo</span>
                 </div>
-                <p style={{ fontSize: '0.75rem', color: 'var(--accent-emerald)', margin: 0 }}>
+                <p style={{ fontSize: '0.75rem', color: 'var(--accent-emerald)', margin: '0 0 8px' }}>
                   🔒 {CURRENT_TIER.name} rate locked for life. Cancel the service anytime — the software is yours to keep.
                 </p>
+                <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '8px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                  <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-mono)' }}>🔥 Founders Club (users 1–100): $9.99 + $1.99/mo</span>
+                  <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-mono)' }}>⚡ Early Adopter (101–500): $19.99 + $2.49/mo</span>
+                  <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-mono)' }}>🚀 Standard (500+): $39.99 + $4.99/mo</span>
+                </div>
               </div>
 
               {/* CTA Buttons */}
@@ -396,6 +401,9 @@ export default function Order() {
 
           <p className="text-dim" style={{ fontSize: '0.72rem', textAlign: 'center', marginTop: '1.5rem', maxWidth: '600px', margin: '1.5rem auto 0' }}>
             The license model gives you full Pro access at a fraction of the cost. The software purchase is yours to keep even if you cancel the monthly service — you just lose access to updates, new features, and cloud-powered diagnostics.
+          </p>
+          <p className="text-dim" style={{ fontSize: '0.68rem', textAlign: 'center', marginTop: '0.75rem', maxWidth: '600px', margin: '0.75rem auto 0', opacity: 0.6 }}>
+            * Pricing tier is determined at purchase and locked for life. 🔥 Founders Club (users 1–100): $9.99 + $1.99/mo &nbsp;·&nbsp; ⚡ Early Adopter (101–500): $19.99 + $2.49/mo &nbsp;·&nbsp; 🚀 Standard (500+): $39.99 + $4.99/mo &nbsp;·&nbsp; 👑 Own Outright: $249 one-time, no recurring fee.
           </p>
         </div>
       </section>
