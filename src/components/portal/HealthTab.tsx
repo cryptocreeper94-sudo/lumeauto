@@ -16,7 +16,7 @@ const DOMAINS = [
   { name: 'Lume42 Labs', domain: 'lume42.com', type: 'R&D' },
   { name: 'TLID', domain: 'tlid.io', type: 'Infrastructure' },
   { name: 'DWSC', domain: 'dwsc.io', type: 'Research' },
-  { name: 'Manheim CEP', domain: 'manheim.tlid.io', type: 'Enterprise' },
+
   { name: 'EMP Demo', domain: 'emp.tlid.io', type: 'Enterprise' },
   { name: 'Axiom Studio', domain: 'axiomstudio.tech', type: 'AI Platform' },
   { name: 'DW Pulse', domain: 'pulse.darkwavestudios.io', type: 'Analytics' },
