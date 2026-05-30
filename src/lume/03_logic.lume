@@ -1,53 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png" />
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#0a0a0c" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Lume Auto" />
+/// ─── LUME AUTO APPLICATION LOGIC ────────────────────────
+/// Deterministic runtime handlers
 
-    <!-- Primary SEO -->
-    <title>Lume Auto | Professional OBD-II Vehicle Diagnostics & Key Management</title>
-    <meta name="description" content="Professional-grade OBD-II vehicle diagnostics powered by the LUME engine. Read and clear codes, capture real-time telemetry, and generate verifiable condition reports in 45 seconds." />
-    <meta name="keywords" content="OBD-II, vehicle diagnostics, car scanner, check engine light, DTC codes, fuel efficiency, MPG, vehicle telemetry, ELM327, fleet management, Lume Auto, Lume Scan" />
-    <meta name="author" content="DarkWave Studios LLC" />
-    <meta name="robots" content="index, follow" />
-
-    <!-- Open Graph / Social -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://lumeauto.tech/" />
-    <meta property="og:title" content="Lume Auto | Professional OBD-II Vehicle Diagnostics & Key Management" />
-    <meta property="og:description" content="Professional-grade OBD-II diagnostics. Read codes, clear check engine lights, and generate verifiable condition reports — all from your phone." />
-    <meta property="og:image" content="https://lumeauto.tech/hero_dashboard.png" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Lume Scan — OBD-II Diagnostics" />
-    <meta name="twitter:description" content="Professional vehicle diagnostics powered by the LUME engine. 42 live signals. Verifiable reports. From $9.99." />
-    <meta name="twitter:image" content="https://lumeauto.tech/hero_dashboard.png" />
-
-    <!-- Canonical -->
-    <link rel="canonical" href="https://lumeauto.tech/" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js').catch(() => {});
         });
       }
-    </script>
-      <!-- DarkWave Studios Ecosystem Analytics -->
-    <script>
-      (function(){
+
+(function(){
         var sid = 'xxxx-xxxx'.replace(/x/g, function(){ return (Math.random()*16|0).toString(16); });
         var vid = localStorage.getItem('dw_vid');
         if (!vid) { vid = 'xxxx-xxxx-xxxx'.replace(/x/g, function(){ return (Math.random()*16|0).toString(16); }); localStorage.setItem('dw_vid', vid); }
@@ -73,10 +33,8 @@
         var origPush = history.pushState;
         history.pushState = function(){ origPush.apply(this, arguments); track(); };
       })();
-    </script>
-    <!-- DarkWave Studios Command Center -->
-    <script>
-      (function(){
+
+(function(){
         var cc=0,timer=null;
         function injectShield(){
           var f=document.querySelector('footer');
@@ -148,13 +106,3 @@
         if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(injectShield,1000);});
         else setTimeout(injectShield,1000);
       })();
-    </script>
-  
-
-<!-- Made with Lume -->
-<a href="https://lume-lang.org" target="_blank" rel="noopener" id="lume-badge" style="position:fixed;bottom:12px;right:12px;display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(2,6,23,0.88);border:1px solid rgba(34,211,238,0.3);border-radius:20px;color:#22d3ee;font-size:11px;font-weight:700;text-decoration:none;z-index:9999;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:all 0.3s;font-family:Inter,system-ui,sans-serif;letter-spacing:0.02em;box-shadow:0 2px 12px rgba(0,0,0,0.3);">
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-  Made with Lume
-</a>
-</body>
-</html>

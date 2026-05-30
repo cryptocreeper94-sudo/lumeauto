@@ -1,0 +1,13 @@
+/// ─── LUME AUTO APP SHELL ────────────────────────────────
+/// Deterministic DOM construction via Lume dom primitives
+
+function buildShell() {
+  define root = dom.create('div', { id: 'lume-auto-site-root' })
+  root.innerHTML = `<div id="root"></div>
+    
+    
+      <!-- DarkWave Studios Ecosystem Analytics -->
+    
+    <!-- DarkWave Studios Command Center -->`
+  dom.mount(root)
+}

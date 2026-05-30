@@ -1,0 +1,5 @@
+/// ─── LUME AUTO BOOT SEQUENCE ────────────────────────────
+/// Entry point — initializes the application
+
+buildShell()
+console.log('[LUME AUTO] Lume application mounted')
