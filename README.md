@@ -1,6 +1,6 @@
 # Lume Auto — lumeauto.tech
 
-The order, authentication, and download portal for **Lume Scan Pro**. Also hosts the Cox Vehicle Intelligence whitepaper and engineering brief.
+The order, authentication, and download portal for **Lume Scan Pro**.
 
 ## What It Does
 

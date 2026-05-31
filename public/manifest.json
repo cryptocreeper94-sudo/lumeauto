@@ -1,7 +1,7 @@
 {
-  "name": "Cox Enterprise Platform",
-  "short_name": "CEP",
-  "description": "Enterprise Trust Infrastructure",
+  "name": "Lume Auto",
+  "short_name": "Lume Auto",
+  "description": "Professional Diagnostics Engine",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0c",
