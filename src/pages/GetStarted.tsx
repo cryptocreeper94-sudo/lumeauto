@@ -39,7 +39,7 @@ export default function GetStarted() {
             <p className="text-muted" style={{ fontSize: '1.1rem' }}>From unboxing to saving money.</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
             {[
               {
                 step: '01', icon: <Wifi size={32} />, title: 'Buy the Adapter',

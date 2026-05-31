@@ -439,7 +439,7 @@ export default function Order() {
             <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>WiFi or BLE?</h2>
             <p className="text-muted" style={{ fontSize: '1.05rem' }}>Both work with Lume Scan. Here's how to choose.</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
             {/* BLE Card */}
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
               className="panel" style={{ padding: '2rem', borderColor: 'rgba(6,182,212,0.2)' }}>
@@ -888,7 +888,7 @@ export default function Order() {
             <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>Everything It Does</h2>
             <p className="text-muted">A $200 scanner reads codes. A $3,500 scan tool programs keys. Lume‑Auto does both — on a $15 adapter.</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
             {FEATURES.map((f, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
                 className="panel flex gap-4" style={{ padding: '1.75rem' }}>

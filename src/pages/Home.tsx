@@ -103,7 +103,7 @@ export default function Home() {
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Three steps to deterministic governance</h2>
           <p className="text-muted">Works on any OBD-II vehicle — every car, truck, and SUV sold after 1996.</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
           {[
             { step: '1', title: 'Connect.', desc: 'Plug a standard OBD-II adapter running proprietary Lume firmware into the port under your dashboard. No installation. No wiring. No ECU reprogramming.', img: '/card_step1.png' },
             { step: '2', title: 'Observe.', desc: 'The Engine ingests 42 telemetry signals at 100ms intervals — airflow, fuel flow, combustion timing, engine load, component health, and driver behavioral patterns.', img: '/card_step2.png' },
@@ -167,7 +167,7 @@ export default function Home() {
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Passive Savings. Zero Effort.</h2>
           <p className="text-muted">A massive lifestyle upgrade that pays for itself over and over again.</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="panel flex flex-col gap-4">
             <div style={{ display: 'inline-flex', padding: '12px', background: 'rgba(6, 182, 212, 0.1)', borderRadius: '12px', alignSelf: 'flex-start' }}>
               <Volume2 size={24} color="var(--accent-cyan)" />
