@@ -924,7 +924,7 @@ app.get('/api/health', (req, res) => {
 // Users hit /download/apk?email=user@example.com → server verifies → pipes APK
 app.get('/download/apk', async (req, res) => {
   const APK_FIREBASE_URL = process.env.APK_DOWNLOAD_URL ||
-    'https://firebasestorage.googleapis.com/v0/b/darkwave-auth.firebasestorage.app/o/downloads%2FLumeScan-latest.apk?alt=media&token=6d9d215c-8e4b-4c4a-8916-003cdd9d9423';
+    'https://expo.dev/artifacts/eas/hNT8JdA6ss5K4LAcHgpbXb.apk';
 
   const email = (req.query.email || '').toString().trim().toLowerCase();
 
