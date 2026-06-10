@@ -924,7 +924,7 @@ app.get('/api/health', (req, res) => {
 // Users hit /download/apk?email=user@example.com → server verifies → pipes APK
 app.get('/download/apk', async (req, res) => {
   const APK_FIREBASE_URL = process.env.APK_DOWNLOAD_URL ||
-    'https://expo.dev/artifacts/eas/dGLMdMvMDgAG8GpsVAogFE.apk';
+    'https://expo.dev/accounts/cryptocreeper/projects/lume-auto/builds/7d78db55-96dd-42e0-ae09-d18ab268c095';
 
   const email = (req.query.email || '').toString().trim().toLowerCase();
 
