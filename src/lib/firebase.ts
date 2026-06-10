@@ -30,19 +30,8 @@ const firebaseConfig = {
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
-// ── Domain Whitelist ──
-const ALLOWED_DOMAINS = ['darkwavestudios.com'];
-const ALLOWED_EMAILS = ['kathytidwell74@gmail.com', 'rtaron@bellsouth.net', 'cryptocreeper94@gmail.com', 'averymackenna@gmail.com'];
-
-function validateEmailDomain(email: string | null): void {
-  if (!email) throw new Error('No email address found on this account.');
-  const lower = email.trim().toLowerCase();
-  const domain = lower.split('@')[1];
-  if (ALLOWED_EMAILS.includes(lower)) return;
-  if (!domain || !ALLOWED_DOMAINS.includes(domain)) {
-    throw new Error('Access restricted to authorized email addresses.');
-  }
-}
+// ── Consumer site — open to all Google accounts ──
+// No domain restriction for consumer products
 
 // ── Providers ──
 const googleProvider = new GoogleAuthProvider();
@@ -53,20 +42,17 @@ googleProvider.addScope("profile");
 
 export async function signInWithGoogle(): Promise<User> {
   const result = await signInWithPopup(auth, googleProvider);
-  validateEmailDomain(result.user.email);
   return result.user;
 }
 
 export async function signInWithEmail(email: string, password: string): Promise<User> {
   const cleanEmail = email.trim();
-  validateEmailDomain(cleanEmail);
   const result = await signInWithEmailAndPassword(auth, cleanEmail, password);
   return result.user;
 }
 
 export async function registerWithEmail(email: string, password: string): Promise<User> {
   const cleanEmail = email.trim();
-  validateEmailDomain(cleanEmail);
   const result = await createUserWithEmailAndPassword(auth, cleanEmail, password);
   return result.user;
 }
