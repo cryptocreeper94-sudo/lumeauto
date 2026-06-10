@@ -8,7 +8,7 @@ interface Build {
 }
 
 const BUILDS: Build[] = [
-  { app: 'LumeScan Pro', platform: 'android', status: 'finished', apkUrl: 'https://expo.dev/artifacts/eas/4TeFFon3ruQ247MhgnVrzwyPgq3muqbdskgI9a4uI34.apk' },
+  { app: 'LumeScan Pro', platform: 'android', status: 'finished', apkUrl: 'https://expo.dev/artifacts/eas/fI3q7mrfIRY5WY9fsxw5_4oFiZ-WcFU_RLG6L_O2zFE.apk' },
   { app: 'TrustGen 3D', platform: 'android', status: 'finished', apkUrl: 'https://expo.dev/artifacts/eas/bkvKG3NCC8zy4evZWGRTqq.apk' },
   { app: 'TrustVault', platform: 'android', status: 'finished', apkUrl: 'https://expo.dev/artifacts/eas/aS4WBJS7XXuWWgD4oTJRt3.apk' },
   { app: 'TrustShield', platform: 'android', status: 'finished', apkUrl: 'https://expo.dev/artifacts/eas/7DWBLv9z2zBxYmKCX99cVv.apk' },

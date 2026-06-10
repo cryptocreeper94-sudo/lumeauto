@@ -9,7 +9,7 @@ The order, authentication, and download portal for **Lume Scan Pro**.
 - Firestore entitlement management with license code provisioning
 - Mode 05 (IMMO Key Management) and Mode 06 (Remote Start) marketing & purchase flow
 - Branded purchase confirmation emails via Resend
-- APK download portal — [Latest APK](https://expo.dev/artifacts/eas/sRMUe9ZMLhiwpxtV24Efoo.apk)
+- APK download portal — [Latest APK](https://expo.dev/artifacts/eas/fI3q7mrfIRY5WY9fsxw5_4oFiZ-WcFU_RLG6L_O2zFE.apk)
 - Trust Layer Ledger (TLL) verification integration
 
 ## Tech Stack
