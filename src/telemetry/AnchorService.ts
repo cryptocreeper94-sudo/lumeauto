@@ -18,7 +18,7 @@ export interface AnchorResult {
 }
 
 // TLL API
-const TLL_API_URL = 'https://dwtl.io/api';
+const TLL_API_URL = 'https://fla.tlid.io/api';
 
 /**
  * Compute SHA-256 hash of any object.

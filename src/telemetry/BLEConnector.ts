@@ -41,6 +41,11 @@ let connectionState: BLEConnection = {
 // Raw PID values from adapter
 let rawValues: Record<string, number> = {};
 let startTime = Date.now();
+let isPolling = false;
+
+const HIGH_PRIORITY_CMDS = ['010C', '010D', '0111', '0104', '0106', '0107', '0105', '0101'];
+const LOW_PRIORITY_CMDS  = ['0110', '010F', '010B', '010E', '0114', '0142'];
+let pollCycle = 0;
 
 // OBD-II PID definitions
 const PIDS: { cmd: string; parse: (hex: string) => Record<string, number> }[] = [
@@ -260,13 +265,17 @@ async function readPID(cmd: string): Promise<string> {
  */
 export async function pollAllBLEPIDs(): Promise<void> {
   if (!txCharacteristic) return;
-
-  for (const { cmd, parse } of PIDS) {
+  pollCycle++;
+  const cmdsToQuery = pollCycle % 5 === 0
+    ? [...HIGH_PRIORITY_CMDS, ...LOW_PRIORITY_CMDS]
+    : HIGH_PRIORITY_CMDS;
+  for (const cmd of cmdsToQuery) {
+    const pidDef = PIDS.find(p => p.cmd === cmd);
+    if (!pidDef) continue;
     const hex = await readPID(cmd);
     if (hex && hex.length >= 2) {
       try {
-        const values = parse(hex);
-        Object.assign(rawValues, values);
+        Object.assign(rawValues, pidDef.parse(hex));
       } catch {
         // Skip malformed responses
       }
@@ -346,20 +355,28 @@ function computeMode(r: Record<string, number>): string {
  */
 export function startBLETelemetryLoop(
   onData: (snapshot: TelemetrySnapshot) => void,
-  intervalMs: number = 300
+  onSimulated: (isSimulated: boolean) => void,
+  intervalMs: number = 500
 ): () => void {
   startTime = Date.now();
-
+  isPolling = false;
   const timer = setInterval(async () => {
+    if (isPolling) return;
     if (txCharacteristic && connectionState.status === 'connected' && !connectionState.isSimulated) {
-      await pollAllBLEPIDs();
-      onData(buildSnapshot());
-    } else {
-      // Simulated fallback
+      isPolling = true;
+      try {
+        await pollAllBLEPIDs();
+        onData(buildSnapshot());
+        onSimulated(false);
+      } finally {
+        isPolling = false;
+      }
+    } else if (connectionState.isSimulated) {
       onData(simulatedTick());
+      onSimulated(true);
     }
+    // No else — do not silently feed fake data
   }, intervalMs);
-
   return () => clearInterval(timer);
 }
 
@@ -593,8 +610,17 @@ export function getTelemetryHistoryCount(): number {
   return telemetryHistory.length;
 }
 
+/**
+ * Force demo/simulated mode — used when hardware is unavailable
+ */
 export function enterBLEDemoMode(onStatusChange: (status: BLEConnection) => void): void {
-  connectionState = { status: 'connected', deviceName: 'SIMULATED', error: null, isSimulated: true, adapterInfo: 'Demo Mode — 2019 F-150 5.0L V8' };
+  connectionState = {
+    status: 'connected',
+    deviceName: 'Simulated OBD-II Adapter',
+    error: null,
+    isSimulated: true,
+    adapterInfo: 'Lume-Auto Simulated Engine (Demo)',
+  };
   onStatusChange({ ...connectionState });
 }
 

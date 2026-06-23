@@ -1231,3 +1231,49 @@ async function sendPurchaseEmail(email, code, isLifetime = false) {
     console.log(`[Email] ✅ Purchase confirmation sent to ${email}`);
   }
 }
+
+export const viteNodeApp = app;
+
+import net from 'net';
+import { WebSocketServer } from 'ws';
+
+// The server object is provided by vite-plugin-node or Express depending on environment
+// For standalone Express, wrap app.listen and use the return value
+let server;
+if (process.env.NODE_ENV !== 'development') {
+  server = app.listen(PORT, () => {
+    console.log(`[Server] 🚀 Running on port ${PORT}`);
+  });
+}
+
+// Ensure server exists before attaching ws upgrade handler
+if (server || typeof process !== 'undefined') {
+  // If viteNodeApp is exported, Vite handles the HTTP server in dev
+  // So we might need to attach to process.server if Vite exposes it
+  // For production standalone, server is app.listen()
+  setTimeout(() => {
+    // Attempt to attach if server was bound later, or if we have a standalone server
+    if (!server) return;
+    const wss = new WebSocketServer({ noServer: true });
+    server.on('upgrade', (request, socket, head) => {
+      if (request.url && request.url.startsWith('/obd-proxy')) {
+        wss.handleUpgrade(request, socket, head, (ws) => {
+          const url = new URL(request.url, `http://${request.headers.host}`);
+          const host = url.searchParams.get('host') || '192.168.0.10';
+          const port = parseInt(url.searchParams.get('port') || '35000');
+          const tcp = new net.Socket();
+          tcp.connect(port, host, () => {
+            ws.send(JSON.stringify({ status: 'connected' }));
+          });
+          ws.on('message', (data) => tcp.write(data));
+          tcp.on('data', (data) => {
+            if (ws.readyState === 1) ws.send(data);
+          });
+          tcp.on('error', (err) => ws.close(1011, err.message));
+          tcp.on('close', () => ws.close());
+          ws.on('close', () => tcp.destroy());
+        });
+      }
+    });
+  }, 100);
+}

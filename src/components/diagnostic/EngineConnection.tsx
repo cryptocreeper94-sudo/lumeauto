@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Bluetooth, Wifi, Zap, ChevronRight, AlertTriangle, Download, Info } from 'lucide-react';
 import { connectBLE, type BLEConnection, enterBLEDemoMode, isBLESupported } from '../../telemetry/BLEConnector';
@@ -7,7 +7,7 @@ import InfoBubble from '../InfoBubble';
 
 type ConnectionMode = 'idle' | 'ble' | 'wifi';
 
-export default function engineConnection({ onConnect }: { onConnect: () => void }) {
+export default function EngineConnection({ onConnect }: { onConnect: () => void }) {
   const [bleStatus, setBleStatus] = useState<BLEConnection>({
     status: 'disconnected', deviceName: null, error: null, isSimulated: false, adapterInfo: null,
   });

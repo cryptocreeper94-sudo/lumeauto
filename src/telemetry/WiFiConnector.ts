@@ -89,7 +89,8 @@ class ELM327Socket {
       try {
         // Use a WebSocket-style TCP connection
         // Most modern WiFi ELM327 adapters support this
-        const url = `ws://${host}:${port}`;
+        const proto = window.location.protocol === 'https:' ? 'wss' : 'ws';
+        const url = `${proto}://${window.location.host}/obd-proxy?host=${host}&port=${port}`;
         this.ws = new WebSocket(url);
         
         this.ws.onopen = () => {

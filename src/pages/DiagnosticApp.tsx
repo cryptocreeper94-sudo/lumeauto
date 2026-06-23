@@ -13,6 +13,7 @@ type Screen = 'connection' | 'dashboard' | 'engine' | 'report';
 export default function DiagnosticApp() {
   const [screen, setScreen] = useState<Screen>('connection');
   const [data, setData] = useState<TelemetrySnapshot | null>(null);
+  const [isDemoMode, setIsDemoMode] = useState(false);
 
   // Start telemetry once connected
   useEffect(() => {
@@ -20,6 +21,8 @@ export default function DiagnosticApp() {
     const stop = startBLETelemetryLoop((snapshot) => {
       setData(snapshot);
       recordTelemetrySnapshot(snapshot);
+    }, (isSimulated) => {
+      setIsDemoMode(isSimulated);
     }, 150);
     return () => stop();
   }, [screen === 'connection']);
@@ -27,6 +30,11 @@ export default function DiagnosticApp() {
   if (screen === 'connection') {
     return (
       <div style={{ background: 'var(--bg-dark)', minHeight: '100vh' }}>
+        {isDemoMode && (
+          <div style={{ background: '#f59e0b', color: '#000', padding: '6px 12px', textAlign: 'center', fontWeight: 700 }}>
+            ⚠ DEMO MODE — No hardware connected
+          </div>
+        )}
         <EngineConnection onConnect={() => setScreen('dashboard')} />
       </div>
     );
@@ -34,6 +42,11 @@ export default function DiagnosticApp() {
 
   return (
     <div style={{ background: 'var(--bg-dark)', minHeight: '100vh', paddingBottom: '70px' }}>
+      {isDemoMode && (
+        <div style={{ background: '#f59e0b', color: '#000', padding: '6px 12px', textAlign: 'center', fontWeight: 700 }}>
+          ⚠ DEMO MODE — No hardware connected
+        </div>
+      )}
       {screen === 'dashboard' && (
         <EngineDashboard onReport={() => setScreen('report')} />
       )}

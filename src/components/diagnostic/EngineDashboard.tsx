@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, Zap, Droplets, ShieldCheck, ActivitySquare, FileText, Download } from 'lucide-react';
 import { type TelemetrySnapshot } from '../../telemetry/SimulatedEngine';
@@ -20,7 +20,7 @@ export default function engineDashboard({ onReport }: { onReport?: () => void })
     const stop = startBLETelemetryLoop((snapshot) => {
       setData(snapshot);
       recordTelemetrySnapshot(snapshot);
-    }, 150);
+    }, () => {}, 150);
     return () => stop();
   }, []);
 
