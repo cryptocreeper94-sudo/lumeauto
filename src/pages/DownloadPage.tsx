@@ -168,9 +168,14 @@ export default function DownloadPage() {
                 >
                   {verifying ? <><Loader size={16} className="spin" /> VERIFYING...</> : <>🔓 VERIFY & DOWNLOAD</>}
                 </button>
-                <p style={{ color: 'var(--text-dim)', fontSize: '0.7rem', textAlign: 'center' }}>
+                <p style={{ color: 'var(--text-dim)', fontSize: '0.7rem', textAlign: 'center', marginBottom: '8px' }}>
                   Don't have a license? <a href="/order" style={{ color: 'var(--accent-cyan)', textDecoration: 'underline' }}>Get Lume Scan Pro →</a>
                 </p>
+                <div style={{ textAlign: 'center', marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--border-light)' }}>
+                  <a href="/beta" style={{ color: '#fbbf24', fontSize: '0.75rem', fontWeight: 600, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                    <Shield size={12} /> Beta Tester? Enter Here
+                  </a>
+                </div>
               </>
             ) : (
               <>

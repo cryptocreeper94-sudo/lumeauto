@@ -924,7 +924,7 @@ app.get('/api/health', (req, res) => {
 // Users hit /download/apk?email=user@example.com → server verifies → pipes APK
 app.get('/download/apk', async (req, res) => {
   const APK_FIREBASE_URL = process.env.APK_DOWNLOAD_URL ||
-    'https://expo.dev/artifacts/eas/fI3q7mrfIRY5WY9fsxw5_4oFiZ-WcFU_RLG6L_O2zFE.apk';
+    'https://lumescan.tech/releases/LumeScan_v1.0.0.apk';
 
   const email = (req.query.email || '').toString().trim().toLowerCase();
 

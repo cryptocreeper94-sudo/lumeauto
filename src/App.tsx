@@ -20,6 +20,7 @@ import DownloadPage from './pages/DownloadPage';
 import Order from './pages/Order';
 import Account from './pages/Account';
 import Redeem from './pages/Redeem';
+import BetaAccess from './pages/BetaAccess';
 import Footer from './components/Footer';
 import RollerCoaster from './components/RollerCoaster';
 import { EcosystemAccountHub } from './components/EcosystemAccountHub';
@@ -228,6 +229,7 @@ function App() {
               <Route path="/download" element={<DownloadPage />} />
               <Route path="/redeem" element={<Redeem />} />
               <Route path="/account" element={<Account />} />
+              <Route path="/beta" element={<BetaAccess />} />
             </Routes>
           </main>
           <Footer />
