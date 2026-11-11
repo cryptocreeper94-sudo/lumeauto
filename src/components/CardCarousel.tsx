@@ -1,43 +1,46 @@
-import { useState, useEffect, useCallback, Children } from 'react';
-import type { ReactNode } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useState, useEffect, useCallback, useRef, Children } from 'react';
+import type { ReactNode, CSSProperties } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 /**
- * CardCarousel — Responsive card layout
- * Desktop (>768px): standard CSS grid
- * Mobile (≤768px): swipeable single-card carousel with arrows + dots
+ * CardCarousel — Horizontal scroll-snap carousel for desktop & mobile
+ * Includes prev/next arrow buttons (scrolling by one card width) and
+ * centered dot indicators that update on scroll.
  */
 interface Props {
   children: ReactNode;
-  /** CSS grid-template-columns for desktop, e.g. 'repeat(auto-fit, minmax(280px, 1fr))' */
+  /** Legacy grid hint (used to size cards appropriately on desktop) */
   desktopColumns?: string;
-  /** Gap between cards on desktop */
+  /** Gap between cards */
   gap?: string;
-  /** Extra styles for the desktop grid wrapper */
-  style?: React.CSSProperties;
+  /** Extra styles for the carousel wrapper */
+  style?: CSSProperties;
   /** Auto-advance interval in ms (0 = disabled) */
   autoPlay?: number;
   /** Accent color for active dot */
   accentColor?: string;
+  /** Light/cream section variant */
+  variant?: 'dark' | 'light';
 }
 
 export default function CardCarousel({
   children,
-  desktopColumns = 'repeat(auto-fit, minmax(280px, 1fr))',
+  desktopColumns = '',
   gap = '1.25rem',
   style = {},
   autoPlay = 0,
   accentColor = '#38bdf8',
+  variant = 'dark',
 }: Props) {
+  const trackRef = useRef<HTMLDivElement | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(1);
   const [paused, setPaused] = useState(false);
+
   const items = Children.toArray(children);
   const count = items.length;
+  const isCompactCards = desktopColumns.includes('200px') || desktopColumns.includes('220px');
 
-  // Responsive detection
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 768px)');
     setIsMobile(mq.matches);
@@ -46,136 +49,191 @@ export default function CardCarousel({
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Auto-advance
-  useEffect(() => {
-    if (!isMobile || !autoPlay || autoPlay <= 0 || paused) return;
-    const t = setInterval(() => {
-      setDirection(1);
-      setCurrent(i => (i + 1) % count);
-    }, autoPlay);
-    return () => clearInterval(t);
-  }, [isMobile, autoPlay, count, paused]);
+  const getStepWidth = useCallback((): number => {
+    const track = trackRef.current;
+    if (!track || !track.firstElementChild) return 320;
+    const firstCard = track.firstElementChild as HTMLElement;
+    const computed = window.getComputedStyle(track);
+    const gapPx = parseFloat(computed.columnGap || computed.gap || '20') || 20;
+    return firstCard.offsetWidth + gapPx;
+  }, []);
+
+  const scrollToIndex = useCallback((idx: number) => {
+    const track = trackRef.current;
+    if (!track || count === 0) return;
+    const clamped = ((idx % count) + count) % count;
+    const step = getStepWidth();
+    track.scrollTo({ left: clamped * step, behavior: 'smooth' });
+    setCurrent(clamped);
+  }, [count, getStepWidth]);
 
   const prev = useCallback(() => {
-    setDirection(-1);
-    setCurrent(i => (i - 1 + count) % count);
-  }, [count]);
+    const track = trackRef.current;
+    if (!track) return;
+    const step = getStepWidth();
+    if (track.scrollLeft <= 8) {
+      track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+    } else {
+      track.scrollBy({ left: -step, behavior: 'smooth' });
+    }
+  }, [getStepWidth]);
 
   const next = useCallback(() => {
-    setDirection(1);
-    setCurrent(i => (i + 1) % count);
-  }, [count]);
+    const track = trackRef.current;
+    if (!track) return;
+    const step = getStepWidth();
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    if (track.scrollLeft >= maxScroll - 8) {
+      track.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      track.scrollBy({ left: step, behavior: 'smooth' });
+    }
+  }, [getStepWidth]);
 
-  // Touch swipe
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const handleTouchStart = (e: React.TouchEvent) => setTouchStart(e.touches[0].clientX);
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStart === null) return;
-    const diff = touchStart - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
-    setTouchStart(null);
-  };
+  const handleScroll = useCallback(() => {
+    const track = trackRef.current;
+    if (!track || count <= 1) return;
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    if (maxScroll <= 4) {
+      setCurrent(0);
+      return;
+    }
+    const step = getStepWidth();
+    const rawIdx = Math.round(track.scrollLeft / Math.max(1, step));
+    if (track.scrollLeft >= maxScroll - 6) {
+      setCurrent(count - 1);
+    } else {
+      setCurrent(Math.max(0, Math.min(count - 1, rawIdx)));
+    }
+  }, [count, getStepWidth]);
 
-  // ═══ DESKTOP: normal grid ═══
-  if (!isMobile) {
-    return (
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: desktopColumns,
-        gap,
-        ...style,
-      }}>
+  useEffect(() => {
+    if (!autoPlay || autoPlay <= 0 || paused || count <= 1) return;
+    const t = setInterval(() => {
+      next();
+    }, autoPlay);
+    return () => clearInterval(t);
+  }, [autoPlay, count, paused, next]);
+
+  if (count === 0) return null;
+
+  const desktopCardBasis = isCompactCards
+    ? 'clamp(240px, 30%, 320px)'
+    : 'clamp(300px, 42%, 440px)';
+
+  const btnBg = variant === 'light' ? 'rgba(15,23,42,0.06)' : 'rgba(255,255,255,0.06)';
+  const btnBorder = variant === 'light' ? '1px solid rgba(15,23,42,0.14)' : '1px solid rgba(255,255,255,0.12)';
+  const btnColor = variant === 'light' ? '#0f172a' : 'var(--text-main, #e2e8f0)';
+  const dotInactive = variant === 'light' ? 'rgba(15,23,42,0.2)' : 'rgba(255,255,255,0.18)';
+
+  return (
+    <div
+      style={{ position: 'relative', width: '100%', ...style }}
+      onMouseEnter={() => { if (autoPlay > 0) setPaused(true); }}
+      onMouseLeave={() => { if (autoPlay > 0) setPaused(false); }}
+    >
+      <style>{`
+        .lume-snap-track::-webkit-scrollbar { display: none; }
+      `}</style>
+      <div
+        ref={trackRef}
+        onScroll={handleScroll}
+        className="lume-snap-track"
+        style={{
+          display: 'flex',
+          gap,
+          overflowX: 'auto',
+          scrollSnapType: 'x mandatory',
+          WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          paddingBottom: '6px',
+        }}
+      >
         {items.map((child, i) => (
-          <div key={i} style={{ display: 'flex' }}>
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <div
+            key={i}
+            style={{
+              flex: isMobile ? '0 0 88%' : `0 0 ${desktopCardBasis}`,
+              scrollSnapAlign: 'start',
+              display: 'flex',
+              minWidth: 0,
+            }}
+          >
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', width: '100%' }}>
               {child}
             </div>
           </div>
         ))}
       </div>
-    );
-  }
 
-  // ═══ MOBILE: carousel ═══
-  return (
-    <div style={{ ...style }}>
-      {/* Card viewport */}
-      <div
-        style={{
-          position: 'relative',
-          overflow: 'hidden',
-          minHeight: '180px',
-        }}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={current}
-            initial={{ opacity: 0, x: direction * 60 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -direction * 60 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+      {/* Navigation: prev/next arrows + centered dot indicators */}
+      {count > 1 && (
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '12px',
+          marginTop: '18px',
+        }}>
+          <button
+            type="button"
+            onClick={prev}
+            aria-label="Previous card"
+            style={{
+              width: '36px', height: '36px', borderRadius: '50%',
+              background: btnBg,
+              border: btnBorder,
+              color: btnColor,
+              cursor: 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transition: 'all 0.2s',
+              flexShrink: 0,
+            }}
           >
-            {items[current]}
-          </motion.div>
-        </AnimatePresence>
-      </div>
+            <ChevronLeft size={16} />
+          </button>
 
-      {/* Navigation: arrows + dots + counter */}
-      <div style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        gap: '10px', marginTop: '12px',
-      }}>
-        <button onClick={prev} aria-label="Previous" style={{
-          width: '32px', height: '32px', borderRadius: '50%',
-          background: 'rgba(255,255,255,0.06)',
-          border: '1px solid rgba(255,255,255,0.1)',
-          color: 'var(--text-muted)', cursor: 'pointer',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          transition: 'all 0.2s',
-        }}>
-          <ChevronLeft size={14} />
-        </button>
+          <div style={{ display: 'flex', gap: '6px', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
+            {items.map((_, i) => (
+              <button
+                type="button"
+                key={i}
+                onClick={() => scrollToIndex(i)}
+                aria-label={`Card ${i + 1}`}
+                style={{
+                  width: current === i ? '18px' : '7px',
+                  height: '7px',
+                  borderRadius: '4px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: 0,
+                  background: current === i ? accentColor : dotInactive,
+                  transition: 'all 0.25s ease',
+                }}
+              />
+            ))}
+          </div>
 
-        {/* Dots */}
-        <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
-          {items.map((_, i) => (
-            <button key={i} onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i); }}
-              aria-label={`Card ${i + 1}`}
-              style={{
-                width: current === i ? '14px' : '6px', height: '6px',
-                borderRadius: '3px', border: 'none', cursor: 'pointer',
-                background: current === i ? accentColor : 'rgba(255,255,255,0.15)',
-                transition: 'all 0.3s ease',
-              }}
-            />
-          ))}
+          <button
+            type="button"
+            onClick={next}
+            aria-label="Next card"
+            style={{
+              width: '36px', height: '36px', borderRadius: '50%',
+              background: btnBg,
+              border: btnBorder,
+              color: btnColor,
+              cursor: 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transition: 'all 0.2s',
+              flexShrink: 0,
+            }}
+          >
+            <ChevronRight size={16} />
+          </button>
         </div>
-
-        {/* Pause / Play */}
-        {autoPlay > 0 && (
-          <button onClick={() => setPaused(p => !p)} aria-label={paused ? 'Play' : 'Pause'} style={{
-            width: '32px', height: '32px', borderRadius: '50%',
-            background: 'rgba(255,255,255,0.06)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            color: paused ? accentColor : 'var(--text-muted)', cursor: 'pointer',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            transition: 'all 0.2s', fontSize: '0.7rem', fontWeight: 700,
-          }}>{paused ? '▶' : '⏸'}</button>
-        )}
-
-        <button onClick={next} aria-label="Next" style={{
-          width: '32px', height: '32px', borderRadius: '50%',
-          background: 'rgba(255,255,255,0.06)',
-          border: '1px solid rgba(255,255,255,0.1)',
-          color: 'var(--text-muted)', cursor: 'pointer',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          transition: 'all 0.2s',
-        }}>
-          <ChevronRight size={14} />
-        </button>
-      </div>
+      )}
     </div>
   );
 }

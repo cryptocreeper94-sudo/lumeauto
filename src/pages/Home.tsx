@@ -6,6 +6,7 @@ import ParticleField from '../components/effects/ParticleField';
 import MiniDiagnostic from '../components/effects/MiniDiagnostic';
 import AnimatedCounter from '../components/effects/AnimatedCounter';
 import MeridianBreakdown from '../components/MeridianBreakdown';
+import CardCarousel from '../components/CardCarousel';
 
 const MeridianScene3D = lazy(() => import('../components/MeridianVisualizer'));
 
@@ -69,8 +70,8 @@ export default function Home() {
               <Link to="/order" className="btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.05rem' }}>
                 Order Now — From $9.99 <ArrowRight size={20} />
               </Link>
-              <Link to="/enterprise" className="flex items-center gap-2 text-cyan" style={{ fontWeight: 600, fontSize: '0.95rem' }}>
-                Enterprise Solutions <ChevronRight size={18} />
+              <Link to="/fleet" className="flex items-center gap-2 text-cyan" style={{ fontWeight: 600, fontSize: '0.95rem' }}>
+                Fleet &amp; Enterprise Solutions <ChevronRight size={18} />
               </Link>
             </div>
           </motion.div>
@@ -103,13 +104,13 @@ export default function Home() {
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Three steps to deterministic governance</h2>
           <p className="text-muted">Works on any OBD-II vehicle — every car, truck, and SUV sold after 1996.</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+        <CardCarousel gap="2rem">
           {[
             { step: '1', title: 'Connect.', desc: 'Plug a standard OBD-II adapter running proprietary Lume firmware into the port under your dashboard. No installation. No wiring. No ECU reprogramming.', img: '/card_step1.png' },
             { step: '2', title: 'Observe.', desc: 'The Engine ingests 42 telemetry signals at 100ms intervals — airflow, fuel flow, combustion timing, engine load, component health, and driver behavioral patterns.', img: '/card_step2.png' },
             { step: '3', title: 'Govern.', desc: 'Deterministic coaching, predictive maintenance alerts, and quantified MPG scoring — calibrated to your specific vehicle\'s torque curve and degradation profile.', img: '/card_step3.png' }
           ].map((item, i) => (
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }} key={item.step} className="panel flex flex-col" style={{ padding: 0, overflow: 'hidden' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }} key={item.step} className="panel flex flex-col" style={{ padding: 0, overflow: 'hidden', flex: 1 }}>
               <div style={{ height: '200px', width: '100%', position: 'relative' }}>
                 <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div className="card-bg-overlay" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} />
@@ -121,7 +122,7 @@ export default function Home() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </CardCarousel>
       </section>
 
       {/* ═══ The Numbers ═══ */}
@@ -167,29 +168,29 @@ export default function Home() {
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Passive Savings. Zero Effort.</h2>
           <p className="text-muted">A massive lifestyle upgrade that pays for itself over and over again.</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="panel flex flex-col gap-4">
+        <CardCarousel gap="2rem">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="panel flex flex-col gap-4" style={{ flex: 1 }}>
             <div style={{ display: 'inline-flex', padding: '12px', background: 'rgba(6, 182, 212, 0.1)', borderRadius: '12px', alignSelf: 'flex-start' }}>
               <Volume2 size={24} color="var(--accent-cyan)" />
             </div>
             <h3 style={{ fontSize: '1.5rem' }}>Passive Audio Coach</h3>
             <p className="text-muted">Engine-generated coaching calibrated to your vehicle's torque curve. Audio tones through car Bluetooth — a chime for optimal efficiency, a buzz for fuel waste. Pure classical conditioning. No screen required.</p>
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }} className="panel flex flex-col gap-4">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }} className="panel flex flex-col gap-4" style={{ flex: 1 }}>
             <div style={{ display: 'inline-flex', padding: '12px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '12px', alignSelf: 'flex-start' }}>
               <Wrench size={24} color="var(--accent-emerald)" />
             </div>
             <h3 style={{ fontSize: '1.5rem' }}>Diagnostic Intelligence</h3>
             <p className="text-muted">Stop paying $150 for a diagnostic read. The Engine runs continuous 42-node health scans, translates fault codes to plain English, predicts component failures 1–3% MPG before they trigger a check engine light, and links you to the exact part on Amazon.</p>
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }} className="panel flex flex-col gap-4">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }} className="panel flex flex-col gap-4" style={{ flex: 1 }}>
             <div style={{ display: 'inline-flex', padding: '12px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '12px', alignSelf: 'flex-start' }}>
               <Users size={24} color="var(--text-main)" />
             </div>
-            <h3 style={{ fontSize: '1.5rem' }}>Family & Fleet Dashboard</h3>
+            <h3 style={{ fontSize: '1.5rem' }}>Family &amp; Fleet Dashboard</h3>
             <p className="text-muted">Monitor every vehicle in your household. Teen driver scoring, centralized maintenance alerts, shared efficiency dashboards. Commercial fleets get driver behavior analytics, fuel waste reporting, and maintenance coordination at scale.</p>
           </motion.div>
-        </div>
+        </CardCarousel>
       </section>
 
       {/* ═══ Deterministic Runtime ═══ */}
@@ -231,19 +232,19 @@ export default function Home() {
             <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Planetary-Scale Efficiency</h2>
             <p className="text-muted" style={{ maxWidth: '700px', margin: '0 auto' }}>Moderate adoption across 30–50% of the global petroleum vehicle fleet could reduce global fuel consumption by 5–8%, saving 35–56 billion gallons annually.</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '2rem', maxWidth: '900px', margin: '0 auto' }}>
+          <CardCarousel desktopColumns="repeat(auto-fit, minmax(220px, 1fr))" gap="1.5rem" accentColor="#10b981" style={{ maxWidth: '960px', margin: '0 auto' }}>
             {[
               { val: '1.4B', label: 'Petroleum vehicles globally' },
               { val: '35–56B', label: 'Gallons saved annually (moderate adoption)' },
               { val: '175–280M', label: 'Metric tons CO₂ eliminated' },
               { val: '6.85M', label: 'Barrels/day eliminated (full deployment)' },
             ].map((stat, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="panel" style={{ textAlign: 'center', padding: '2rem 1.5rem' }}>
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="panel" style={{ textAlign: 'center', padding: '2rem 1.5rem', flex: 1 }}>
                 <AnimatedCounter value={parseFloat(stat.val.replace(/[^0-9.]/g, ''))} suffix={stat.val.replace(/[0-9.]/g, '')} color="var(--accent-emerald)" />
                 <div className="text-muted" style={{ fontSize: '0.85rem', marginTop: '0.5rem' }}>{stat.label}</div>
               </motion.div>
             ))}
-          </div>
+          </CardCarousel>
         </div>
       </section>
 
@@ -264,57 +265,57 @@ export default function Home() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', maxWidth: '1100px', margin: '0 auto 3rem' }}>
+          <CardCarousel gap="1.5rem" accentColor="#10b981" style={{ maxWidth: '1100px', margin: '0 auto 3rem' }}>
             {[
               { icon: <ShieldCheck size={22} />, title: 'Pre-Start Safety Check', desc: 'Reads hood status, battery voltage, active DTCs, and IMMO credential before any start attempt. 8 hard safety constraints enforced at the firmware level.', color: 'var(--accent-emerald)' },
               { icon: <Radio size={22} />, title: 'CAN-Bus Remote Start', desc: 'Sends OEM-native start sequence via CAN bus. Ed25519 signed authorization token with 30-second expiry. PIN or biometric required per command.', color: 'var(--accent-cyan)' },
               { icon: <Gauge size={22} />, title: 'Runtime Monitoring', desc: 'Polls RPM, coolant temp, and battery voltage every 5 seconds. Auto-stops on stall, timeout, low battery, BLE loss, or hood open. Configurable 5–20 minute runtime.', color: '#f59e0b' },
               { icon: <ShieldCheck size={22} />, title: 'TLL-Verified Receipts', desc: 'Every remote start and stop event is cryptographically hashed and anchored to the Trust Layer Ledger. Permanent, tamper-proof vehicle history.', color: 'var(--accent-emerald)' },
             ].map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="panel" style={{ padding: '1.75rem' }}>
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="panel" style={{ padding: '1.75rem', flex: 1 }}>
                 <div style={{ color: item.color, marginBottom: '1rem' }}>{item.icon}</div>
                 <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>{item.title}</h3>
                 <p className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.6 }}>{item.desc}</p>
               </motion.div>
             ))}
-          </div>
+          </CardCarousel>
 
           {/* OEM Subscription Killer */}
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="panel" style={{ maxWidth: '900px', margin: '0 auto 3rem', padding: '2rem', borderColor: 'rgba(16,185,129,0.2)', background: 'rgba(16,185,129,0.03)' }}>
             <div style={{ fontSize: '0.7rem', color: 'var(--accent-emerald)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.25rem' }}>What You Stop Paying For</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem' }}>
+            <CardCarousel desktopColumns="repeat(auto-fit, minmax(200px, 1fr))" gap="1.25rem" accentColor="#10b981">
               {[
                 { name: 'GM OnStar', monthly: '$25/mo', annual: '$300/yr', color: '#ef4444' },
                 { name: 'FordPass Connect', monthly: '$30/mo', annual: '$360/yr', color: '#ef4444' },
                 { name: 'Mopar Connect', monthly: '$35/mo', annual: '$420/yr', color: '#ef4444' },
                 { name: 'LUME Mode 06', monthly: 'One-time', annual: 'No subscription', color: 'var(--accent-emerald)' },
               ].map((s, i) => (
-                <div key={i} style={{ padding: '1rem 1.25rem', borderRadius: '12px', background: i === 3 ? 'rgba(16,185,129,0.08)' : 'rgba(239,68,68,0.04)', border: `1px solid ${i === 3 ? 'rgba(16,185,129,0.2)' : 'rgba(239,68,68,0.1)'}` }}>
+                <div key={i} style={{ padding: '1rem 1.25rem', borderRadius: '12px', background: i === 3 ? 'rgba(16,185,129,0.08)' : 'rgba(239,68,68,0.04)', border: `1px solid ${i === 3 ? 'rgba(16,185,129,0.2)' : 'rgba(239,68,68,0.1)'}`, flex: 1 }}>
                   <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>{s.name}</div>
                   <div style={{ fontSize: '1.3rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: s.color }}>{s.monthly}</div>
                   <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>{s.annual}</div>
                 </div>
               ))}
-            </div>
+            </CardCarousel>
           </motion.div>
 
           {/* How it works */}
-          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
             <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>How Mode 06 Works</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+            <CardCarousel desktopColumns="repeat(auto-fit, minmax(200px, 1fr))" gap="1rem">
               {[
                 { step: '01', label: 'Register Key', desc: 'Complete Mode 05C to register the dongle as a valid IMMO key credential on the target vehicle.' },
                 { step: '02', label: 'Safety Check', desc: 'Mode 06A reads hood, battery, DTCs, and confirms the IMMO credential is present and valid.' },
                 { step: '03', label: 'Authenticate', desc: 'App generates a signed Ed25519 token (30s expiry). Biometric or PIN confirmation required.' },
                 { step: '04', label: 'Remote Start', desc: 'Dongle sends OEM-native CAN start sequence. RPM monitored until engine confirmed running.' },
               ].map((s, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.12 }} style={{ textAlign: 'center' }}>
+                <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.12 }} className="panel" style={{ textAlign: 'center', padding: '1.5rem 1.25rem', flex: 1 }}>
                   <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.75rem', fontSize: '0.75rem', fontWeight: 800, color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)' }}>{s.step}</div>
                   <div style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.25rem' }}>{s.label}</div>
                   <p className="text-muted" style={{ fontSize: '0.8rem', lineHeight: 1.5 }}>{s.desc}</p>
                 </motion.div>
               ))}
-            </div>
+            </CardCarousel>
             <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '2rem', maxWidth: '600px', margin: '2rem auto 0' }}>
               Ford, GM, and Stellantis supported at launch. Toyota, Honda, and Nissan in development. Requires Mode 05 (Key Management) completion on the target vehicle as a prerequisite.
             </p>
@@ -383,9 +384,9 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Component Grid */}
+          {/* Component Carousel */}
           <h3 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', color: 'var(--text-dim)', textTransform: 'uppercase', marginBottom: '1.5rem', textAlign: 'center' }}>Vehicle Subsystems</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', maxWidth: '900px', margin: '0 auto 3rem' }}>
+          <CardCarousel desktopColumns="repeat(auto-fit, minmax(200px, 1fr))" gap="1.25rem" accentColor="#00E5FF" style={{ maxWidth: '960px', margin: '0 auto 3rem' }}>
             {[
               { img: '/assets/images/hydrocore/water.png', name: 'Water Reservoir', spec: 'Onboard H₂O supply', color: '#1565C0' },
               { img: '/assets/images/hydrocore/electrolyzer.png', name: 'PEM Electrolyzer', spec: 'H₂O → H₂ + O₂', color: '#FFC107' },
@@ -395,7 +396,7 @@ export default function Home() {
               { img: '/assets/images/hydrocore/motor.png', name: 'Electric Motor', spec: 'Rear-axle drive unit', color: '#607D8B' },
             ].map((comp, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
-                style={{ borderRadius: '16px', overflow: 'hidden', border: `1px solid ${comp.color}25`, background: 'rgba(255,255,255,0.02)', transition: 'border-color 0.3s, transform 0.3s' }}
+                style={{ borderRadius: '16px', overflow: 'hidden', border: `1px solid ${comp.color}25`, background: 'rgba(255,255,255,0.02)', transition: 'border-color 0.3s, transform 0.3s', flex: 1 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${comp.color}50`; (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = `${comp.color}25`; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}>
                 <div style={{ height: '140px', overflow: 'hidden', position: 'relative' }}>
@@ -408,7 +409,7 @@ export default function Home() {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </CardCarousel>
 
           {/* CTA */}
           <div style={{ textAlign: 'center' }}>
@@ -469,7 +470,7 @@ export default function Home() {
           </motion.div>
 
           {/* Architecture Features */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
+          <CardCarousel gap="1.5rem" style={{ marginBottom: '3rem' }}>
             {[
               { icon: <MapPin size={22} />, title: 'Zero Ground Friction', desc: 'No bollards taking up lot space. Vehicles flow freely through the charging zone without navigating around concrete stations or tangled cords.', color: 'var(--accent-cyan)' },
               { icon: <BatteryCharging size={22} />, title: 'Adapter-Agnostic Routing', desc: 'Tesla, Ford, or Rivian — Meridian routes energy directly to the vehicle receiver. No hunting for the right J1772 or NACS adapter.', color: '#38bdf8' },
@@ -477,7 +478,7 @@ export default function Home() {
               { icon: <ShieldCheck size={22} />, title: 'Cryptographic Ledger', desc: 'Every charge session is cryptographically signed with Ed25519 and anchored to the Trust Layer Ledger for immutable receipts.', color: '#38bdf8' },
             ].map((feat, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                className="panel" style={{ padding: '2rem', borderColor: `${feat.color}22`, transition: 'border-color 0.3s, transform 0.3s', display: 'flex', flexDirection: 'column' }}
+                className="panel" style={{ padding: '2rem', borderColor: `${feat.color}22`, transition: 'border-color 0.3s, transform 0.3s', display: 'flex', flexDirection: 'column', flex: 1 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${feat.color}44`; (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = `${feat.color}22`; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}
               >
@@ -486,7 +487,7 @@ export default function Home() {
                 <p className="text-muted" style={{ fontSize: '0.9rem', lineHeight: 1.6 }}>{feat.desc}</p>
               </motion.div>
             ))}
-          </div>
+          </CardCarousel>
 
           {/* Component Breakdown Carousel */}
           <MeridianBreakdown />
@@ -513,39 +514,37 @@ export default function Home() {
           </div>
         </div>
       </section>
+
       <section className="container">
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
           <p className="text-cyan" style={{ fontSize: '0.85rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem' }}>Ecosystem</p>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>One Engine. Infinite Domains.</h2>
           <p className="text-muted" style={{ maxWidth: '650px', margin: '0 auto' }}>Lume Auto validates the deterministic governance substrate at consumer scale. Each subsequent engine inherits the same runtime, the same primitives, and the same integration pattern.</p>
         </div>
-        <div style={{ 
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '1.5rem',
-          maxWidth: '1100px',
-          margin: '0 auto',
-        }} className="ecosystem-grid">
+        <CardCarousel gap="1.5rem" style={{ maxWidth: '1100px', margin: '0 auto' }}>
           {[
             { name: 'Lume Scan', desc: 'Professional OBD-II diagnostic scanner — 42 signals, predictive maintenance, fuel governance.', status: 'Live · From $9.99', statusColor: 'var(--accent-emerald)', icon: <Gauge size={20} />, url: 'https://lumescan.tech' },
+            { name: 'Invariant Ecosystem', desc: 'Unified ecosystem portal spanning Lume, Lume-V, AXIOM42, FLA, and Through The Veil.', status: 'Live', statusColor: 'var(--accent-emerald)', icon: <ShieldCheck size={20} />, url: 'https://invariant.tlid.io' },
+            { name: 'AXIOM42', desc: 'Deterministic knowledge architecture — 1,700+ compiled skills, sub-millisecond zero-hallucination responses.', status: 'Live', statusColor: 'var(--accent-emerald)', icon: <Cpu size={20} />, url: 'https://axiom42.com' },
+            { name: 'Axiom Studio', desc: 'Multi-agent deterministic development environment governed by Lume-V with 13 specialized agents.', status: 'Live', statusColor: 'var(--accent-emerald)', icon: <Zap size={20} />, url: 'https://axiomstudio.dev' },
+            { name: 'Lume Language', desc: 'Deterministic programming language compiling intent directly to verified runtime infrastructure.', status: 'Live', statusColor: 'var(--accent-emerald)', icon: <Activity size={20} />, url: 'https://lume-lang.com' },
+            { name: 'Fractal Ledger (FLA)', desc: 'Three-tier deterministic ledger separating private records from public quorum verification.', status: 'Live', statusColor: 'var(--accent-cyan)', icon: <ShieldCheck size={20} />, url: 'https://fla.tlid.io' },
             { name: 'GarageBot', desc: 'Smart garage and workshop management with IoT integration, tool inventory, and maintenance tracking.', status: 'Live', statusColor: 'var(--accent-emerald)', icon: <Wrench size={20} />, url: 'https://garagebot.io' },
-            { name: 'HydroCore', desc: 'Smart water management engine for residential and commercial flow governance and leak detection.', status: 'Active', statusColor: 'var(--accent-cyan)', icon: <Droplets size={20} />, url: 'https://hydrocore.com' },
-            { name: 'Meridian Canon', desc: 'Navigation and positioning framework for deterministic route computation and location services.', status: 'Active', statusColor: 'var(--accent-emerald)', icon: <Activity size={20} />, url: 'https://meridiancanon.com' },
-            { name: 'Verdara', desc: 'Plant identification and care engine — deterministic botanical classification and health monitoring.', status: 'Live', statusColor: 'var(--accent-emerald)', icon: <ShieldCheck size={20} />, url: 'https://verdara.tlid.io' },
-            { name: 'Verdara Ultra', desc: 'Adventure travel and terrain analysis — 42-node outdoor engine for ultra-distance navigation and safety.', status: 'Free + Premium', statusColor: 'var(--accent-cyan)', icon: <Zap size={20} />, url: 'https://verdaraultra.com' },
-            { name: 'AXIOM', desc: 'Deterministic knowledge architecture — 120K+ topics, offline-capable, zero-hallucination responses.', status: 'Active', statusColor: 'var(--accent-emerald)', icon: <Cpu size={20} />, url: 'https://axiom.tlid.io' },
-            { name: 'Trust Layer', desc: 'The blockchain ecosystem powering all DarkWave products — Signal token, DeFi, NFTs, and 42 connected apps.', status: 'Live', statusColor: 'var(--accent-emerald)', icon: <Users size={20} />, url: 'https://dwtl.io' },
+            { name: 'HydroCore', desc: 'Closed-loop hydrogen-hybrid powertrain and water flow governance architecture.', status: 'Active', statusColor: 'var(--accent-cyan)', icon: <Droplets size={20} />, url: 'https://hydrocore.dev' },
+            { name: 'Meridian Canon', desc: 'Deterministic overhead wireless energy routing and cryptographic billing architecture.', status: 'Active', statusColor: 'var(--accent-emerald)', icon: <Activity size={20} />, url: 'https://meridiancanon.com' },
+            { name: 'Verdara', desc: 'Outdoor terrain, botanical classification, and 42-node ultra-distance safety engine.', status: 'Live', statusColor: 'var(--accent-emerald)', icon: <ShieldCheck size={20} />, url: 'https://verdara.tlid.io' },
+            { name: 'Trust Layer', desc: 'The Layer-1 verification substrate powering all DarkWave products — Signal digital asset, DeFi, Hallmarks, and SSO.', status: 'Live', statusColor: 'var(--accent-emerald)', icon: <Users size={20} />, url: 'https://dwtl.io' },
           ].map((item, i) => (
-            <motion.a key={i} href={item.url} target="_blank" rel="noopener noreferrer" initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="panel flex flex-col gap-3 ecosystem-card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+            <motion.a key={i} href={item.url} target="_blank" rel="noopener noreferrer" initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }} className="panel flex flex-col gap-3 ecosystem-card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer', flex: 1 }}>
               <div className="flex items-center gap-3">
                 <div style={{ color: 'var(--accent-cyan)' }}>{item.icon}</div>
                 <h3 style={{ fontSize: '1.1rem' }}>{item.name}</h3>
               </div>
-              <p className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.6 }}>{item.desc}</p>
+              <p className="text-muted" style={{ fontSize: '0.85rem', lineHeight: 1.6, flex: 1 }}>{item.desc}</p>
               <span style={{ fontSize: '0.75rem', fontWeight: 600, color: item.statusColor, textTransform: 'uppercase', letterSpacing: '0.05em' }}>● {item.status}</span>
             </motion.a>
           ))}
-        </div>
+        </CardCarousel>
       </section>
 
       {/* ═══ Founder's Letter ═══ */}
@@ -565,7 +564,7 @@ export default function Home() {
             </div>
             <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
               <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#fff', margin: '0 0 4px' }}>Jason A.</p>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: 0 }}>Founder, <a href="https://lume42.com" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-cyan)', textDecoration: 'none' }}>Lume42 Labs</a> & DarkWave Studios LLC</p>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: 0 }}>Founder, <a href="https://lume42.com" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-cyan)', textDecoration: 'none' }}>Lume42 Labs</a> &amp; DarkWave Studios LLC</p>
               <p style={{ fontSize: '0.7rem', color: 'var(--text-dim)', margin: '4px 0 0', fontStyle: 'italic' }}>Gladeville, Tennessee</p>
             </div>
           </motion.div>
@@ -576,8 +575,8 @@ export default function Home() {
       <section className="container" style={{ textAlign: 'center', padding: '4rem 0' }}>
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Part of Something Bigger</h2>
-          <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto 2rem' }}>Lume Auto is the automotive arm of DarkWave Studios — a 42-app ecosystem spanning blockchain, AI, creative tools, and enterprise infrastructure.</p>
-          <a href="https://dwtl.io" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.05rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+          <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto 2rem' }}>Lume Auto is the automotive arm of DarkWave Studios — a 46-service deterministic ecosystem spanning blockchain, AI, creative tools, and enterprise infrastructure.</p>
+          <a href="https://invariant.tlid.io" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.05rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
             Explore the Ecosystem <ArrowRight size={20} />
           </a>
         </motion.div>

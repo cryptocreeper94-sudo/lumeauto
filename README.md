@@ -20,7 +20,7 @@ The order, authentication, and download portal for **Lume Scan Pro**.
 - **Auth**: Firebase Auth
 - **Database**: Firestore (`darkwave-auth`)
 - **Email**: Resend API
-- **Hosting**: Render (web service)
+- **Hosting**: Coolify (3 Hetzner VPS Cluster)
 
 ## Local Development
 
@@ -34,14 +34,15 @@ Requires `.env` with Stripe, Firebase, and Resend credentials.
 
 ## Deployment
 
-Pushes to `main` auto-deploy to Render → `lumeauto.tech`
+Pushes to `main` deploy via Coolify → `lumeauto.tech`
 
 ## Related
 
 - [lumescan.tech](https://lumescan.tech) — Product landing page
-- [lume42.com](https://lume42.com) — Lume42 Labs parent site
+- [invariant.tlid.io](https://invariant.tlid.io) — Invariant Ecosystem hub
+- [darkwavestudios.io](https://darkwavestudios.io) — DarkWave Studios parent site
 
 ## Legal
 
 © 2026 DarkWave Studios LLC / Lume42 Labs  
-US Provisional Patent 64/032,339
+7 U.S. Provisional Patent Applications Pending: `64/032,339` · `64/047,512` · `64/047,467` · `64/047,496` · `64/047,536` · `64/056,378` · `64/084,465`

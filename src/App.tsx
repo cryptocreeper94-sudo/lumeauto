@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Activity, Menu, X } from 'lucide-react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
+import { Activity, ArrowLeft, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -38,6 +38,8 @@ function ScrollToTop() {
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === '/';
 
   // Close mobile nav on route change
   useEffect(() => {
@@ -53,6 +55,14 @@ function Navigation() {
     { path: '/blog', label: 'Journal' },
   ];
 
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <nav style={{
       position: 'fixed', top: 0, width: '100%', zIndex: 50,
@@ -61,10 +71,41 @@ function Navigation() {
       borderBottom: '1px solid var(--border-light)'
     }}>
       <div className="container flex justify-between items-center" style={{ height: '70px' }}>
-        <Link to="/" className="flex items-center gap-2" style={{ fontWeight: 700, fontSize: '1.2rem', letterSpacing: '-0.03em' }}>
-          <Activity className="text-cyan" size={24} />
-          <span>Lume<span style={{ opacity: 0.5 }}>Auto</span></span>
-        </Link>
+        <div className="flex items-center gap-3">
+          {isHome ? (
+            <a
+              href="https://invariant.tlid.io"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '4px',
+                padding: '4px 10px', borderRadius: '999px',
+                border: '1px solid var(--border-light)',
+                color: 'var(--text-muted)', fontSize: '0.75rem', fontWeight: 600,
+                textDecoration: 'none'
+              }}
+            >
+              ← Invariant
+            </a>
+          ) : (
+            <button
+              type="button"
+              onClick={handleBack}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '4px',
+                padding: '5px 12px', borderRadius: '999px',
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid var(--border-light)',
+                color: 'var(--text-muted)', fontSize: '0.78rem', fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              <ArrowLeft size={14} /> Back
+            </button>
+          )}
+          <Link to="/" className="flex items-center gap-2" style={{ fontWeight: 700, fontSize: '1.2rem', letterSpacing: '-0.03em' }}>
+            <Activity className="text-cyan" size={24} />
+            <span>Lume<span style={{ opacity: 0.5 }}>Auto</span></span>
+          </Link>
+        </div>
 
         {/* Desktop Nav */}
         <div className="flex items-center gap-6" style={{ display: 'none' }} id="desktop-nav">
@@ -129,7 +170,7 @@ function Navigation() {
             {/* Executive Summary */}
             <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '1.25rem' }}>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.7, marginBottom: '0.75rem' }}>
-                Lume-Auto reads 42 real-time signals from your vehicle's OBD-II port to passively improve fuel efficiency, predict maintenance failures, and eliminate diagnostic fees â€” using hardware you already own.
+                Lume-Auto reads 42 real-time signals from your vehicle's OBD-II port to passively improve fuel efficiency, predict maintenance failures, and eliminate diagnostic fees — using hardware you already own.
               </p>
               <p style={{ fontSize: '0.7rem', color: 'var(--text-dim)', letterSpacing: '0.05em' }}>
                 US Provisional Patent 64/032,339<br />
@@ -218,6 +259,7 @@ function App() {
               <Route path="/mpg-gains" element={<MpgGains />} />
               <Route path="/maintenance" element={<Maintenance />} />
               <Route path="/fleet" element={<Fleet />} />
+              <Route path="/enterprise" element={<Fleet />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/waitlist" element={<Waitlist />} />
