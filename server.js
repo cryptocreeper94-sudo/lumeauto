@@ -7,6 +7,17 @@ import { fileURLToPath } from 'url';
 import { db } from './server/db/index.js';
 import { waitlist } from './server/db/schema.js';
 import { eq } from 'drizzle-orm';
+import {
+  extractClientIp,
+  applySecurityHeaders,
+  checkRateLimit,
+  verifyAdminSecret,
+  isValidRedemptionCodeFormat,
+  generateRedemptionCode as generateLumeCode,
+  verifyFirebaseIdToken,
+  getServiceAccountAccessToken,
+  sanitizeFieldLogPayload,
+} from './server/security-entitlement.js';
 
 dotenv.config();
 
@@ -19,6 +30,10 @@ const SITE_URL = process.env.SITE_URL || 'https://lumeauto.tech';
 const FIRESTORE_PROJECT = 'darkwave-auth';
 
 app.use(cors());
+app.use((req, res, next) => {
+  applySecurityHeaders(req, res);
+  next();
+});
 
 // ─── Stripe Webhook (raw body needed) ───────────────────────────────────────
 // This must come BEFORE express.json() middleware
@@ -56,6 +71,7 @@ app.post('/api/webhook/stripe', express.raw({ type: 'application/json' }), async
       try {
         const isLifetime = metadata.product === 'lumescan-outright';
         const code = generateRedemptionCode();
+        await writeRedemptionCode(code, customerEmail, metadata.tier || 'Standard', isLifetime);
         await writeFirestoreEntitlement(customerEmail, code, metadata.tier || 'Standard', isLifetime);
         await sendPurchaseEmail(customerEmail, code, isLifetime);
         console.log(`[Webhook] ✅ Pro license activated for ${customerEmail} — code: ${code} (${isLifetime ? 'Lifetime' : 'Subscription'})`);
@@ -148,11 +164,15 @@ app.post('/api/webhook/stripe', express.raw({ type: 'application/json' }), async
   res.json({ received: true });
 });
 
-// Now apply JSON parser for all other routes
-app.use(express.json());
+// Now apply JSON parser for all other routes (bounded to 256 KB)
+app.use(express.json({ limit: '256kb' }));
 
 // ─── API: SMS Waitlist Opt-In ───────────────────────────────────────────────
 app.post('/api/opt-in', async (req, res) => {
+  const rl = checkRateLimit('optin', extractClientIp(req), 6, 600_000);
+  if (!rl.allowed) {
+    return res.status(429).json({ error: 'Too many requests. Please wait a few minutes.' });
+  }
   const { phone, consent } = req.body;
 
   if (!consent) {
@@ -392,50 +412,120 @@ app.post('/api/checkout-outright', async (req, res) => {
 
 // ─── API: Verify Redemption Code ────────────────────────────────────────────
 app.post('/api/redeem', async (req, res) => {
-  const { code, email } = req.body;
+  const rl = checkRateLimit('redeem', extractClientIp(req), 10, 900_000);
+  if (!rl.allowed) {
+    return res.status(429).json({ error: `Too many redemption attempts. Try again in ${rl.retryAfterSec}s.` });
+  }
 
+  const { code, email } = req.body || {};
   if (!code || !email) {
     return res.status(400).json({ error: 'Code and email are required.' });
   }
 
+  const normalizedCode = String(code).trim().toUpperCase();
+  const normalizedEmail = String(email).trim().toLowerCase();
+  if (!isValidRedemptionCodeFormat(normalizedCode)) {
+    return res.status(400).json({ error: 'Invalid code format. Expected LUME-XXXX-XXXX.' });
+  }
+
+  // If caller sends a Firebase Bearer token (in-app activation), cryptographically verify ownership
+  const authHeader = String(req.headers.authorization || '');
+  const callerBearer = authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : '';
+  if (callerBearer) {
+    const tokenCheck = await verifyFirebaseIdToken(callerBearer, normalizedEmail);
+    if (!tokenCheck.verified) {
+      return res.status(401).json({ error: tokenCheck.error || 'Authentication failed.' });
+    }
+  }
+
   try {
     // Check if code exists in Firestore
-    const codeDoc = await getFirestoreDoc(`redemption_codes/${code.toUpperCase()}`);
+    const codeDoc = await getFirestoreDoc(`redemption_codes/${normalizedCode}`, callerBearer);
 
     if (!codeDoc) {
       return res.status(404).json({ error: 'Invalid redemption code.' });
     }
 
     if (codeDoc.fields?.redeemed?.booleanValue === true) {
+      const prevOwner = codeDoc.fields?.redeemed_by?.stringValue || '';
+      if (prevOwner === normalizedEmail) {
+        return res.status(200).json({ success: true, message: 'Pro license is already active on your account!' });
+      }
       return res.status(409).json({ error: 'This code has already been redeemed.' });
     }
 
+    const codeTier = codeDoc.fields?.tier_name?.stringValue || 'Founders';
+    const isLifetime = codeDoc.fields?.is_lifetime?.booleanValue ?? true;
+
     // Mark code as redeemed
-    await patchFirestoreDoc(`redemption_codes/${code.toUpperCase()}`, {
+    await patchFirestoreDoc(`redemption_codes/${normalizedCode}`, {
       redeemed: { booleanValue: true },
-      redeemed_by: { stringValue: email.toLowerCase() },
+      redeemed_by: { stringValue: normalizedEmail },
       redeemed_at: { timestampValue: new Date().toISOString() },
-    });
+    }, callerBearer);
 
     // Activate Pro entitlement for this email
-    await writeFirestoreEntitlement(email.toLowerCase(), code.toUpperCase());
+    await writeFirestoreEntitlement(normalizedEmail, normalizedCode, codeTier, isLifetime, callerBearer);
 
-    console.log(`[Redeem] ✅ Code ${code} redeemed by ${email}`);
-    res.status(200).json({ success: true, message: 'Pro license activated!' });
+    console.log(`[Redeem] ✅ Code ${normalizedCode} redeemed by ${normalizedEmail} (${codeTier})`);
+    res.status(200).json({ success: true, tier: 'pro', pricing_tier: codeTier, message: 'Pro license activated!' });
   } catch (err) {
     console.error('[Redeem] ❌ Error:', err);
     res.status(500).json({ error: 'Redemption failed. Please try again.' });
   }
 });
 
+// ─── API: Admin Batch Mint Redemption Codes (Amazon Kits & Field Testers) ───
+app.post('/api/admin/mint-codes', async (req, res) => {
+  const adminSecret = req.headers['x-admin-secret'];
+  if (!verifyAdminSecret(adminSecret)) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+  const count = Math.max(1, Math.min(500, parseInt(req.body?.count || '10', 10) || 10));
+  const tierName = String(req.body?.tierName || 'Founders').slice(0, 40);
+  const isLifetime = req.body?.isLifetime !== false;
+  const batchNote = String(req.body?.note || 'batch').slice(0, 80);
+
+  try {
+    const minted = [];
+    for (let i = 0; i < count; i++) {
+      const c = generateRedemptionCode();
+      await writeRedemptionCode(c, batchNote, tierName, isLifetime);
+      minted.push(c);
+    }
+    console.log(`[Admin] 🎟️ Minted ${minted.length} ${tierName} codes (${batchNote})`);
+    res.json({ success: true, count: minted.length, tierName, isLifetime, codes: minted });
+  } catch (err) {
+    console.error('[Admin] ❌ Mint error:', err);
+    res.status(500).json({ error: 'Failed to mint codes.' });
+  }
+});
+
+// ─── API: Field-Tester Opt-In Compatibility Log Intake ──────────────────────
+app.post('/api/field-log', async (req, res) => {
+  const rl = checkRateLimit('field_log', extractClientIp(req), 12, 3_600_000);
+  if (!rl.allowed) {
+    return res.status(429).json({ error: 'Upload rate limit reached. Please try again later.' });
+  }
+  try {
+    const sanitized = sanitizeFieldLogPayload(req.body);
+    await setFirestoreDoc(`field_logs/${sanitized.logId}`, sanitized);
+    console.log(`[FieldLog] 📡 Received ${sanitized.logId} | ${sanitized.vehicleLabel} | ${sanitized.transport} (${sanitized.adapterName})`);
+    res.json({ success: true, logId: sanitized.logId });
+  } catch (err) {
+    console.error('[FieldLog] ❌ Upload error:', err);
+    res.status(500).json({ error: 'Could not save compatibility log.' });
+  }
+});
+
 // ─── API: App Version (Auto-Update Check) ──────────────────────────────────
 // Mobile app calls this on launch to check for new versions
 const APP_VERSION = {
-  version: '1.0.0',
-  build: 1,
+  version: '1.4.0',
+  build: 6,
   apk_url: 'https://lumeauto.tech/download/apk',
-  changelog: 'Initial release — 42-signal diagnostic engine, fuel coaching, predictive maintenance, driver scoring.',
-  min_version: '1.0.0',
+  changelog: 'v1.4.0 — Universal BLE 4.0/5.0 + Classic BT SPP + WiFi support, 42/42 live signals, CAN multi-frame DTC fix, 3,800+ SAE J2012 code definitions, Speed-Density MPG.',
+  min_version: '1.3.0',
 };
 
 // ─── API: Stripe Customer Portal (Self-Service Cancel/Manage) ───────────────
@@ -795,7 +885,7 @@ app.post('/api/key-management/event', async (req, res) => {
       ledger_target,
       anchor_hash,
       verification_url: ledger_target === 'TLL' && anchor_hash
-        ? `https://trust-layer.onrender.com/verify/${anchor_hash}`
+        ? `https://trustlayer.tlid.io/verify/${anchor_hash}`
         : null,
       receipt: {
         vehicle: `${vin.slice(-6)}`,
@@ -863,7 +953,7 @@ app.get('/api/key-management/history/:vin', async (req, res) => {
 
     // Query Firestore for key events matching this VIN
     // Using structured query against the key_events collection
-    const queryUrl = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents:runQuery`;
+    const queryUrl = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT}/databases/(default)/documents:runQuery`;
     const queryBody = {
       structuredQuery: {
         from: [{ collectionId: 'key_events' }],
@@ -998,17 +1088,50 @@ app.listen(PORT, () => {
  * Format: LUME-XXXX-XXXX (uppercase alphanumeric)
  */
 function generateRedemptionCode() {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // No I/O/0/1 to avoid confusion
-  const seg1 = Array.from({ length: 4 }, () => chars[crypto.randomInt(chars.length)]).join('');
-  const seg2 = Array.from({ length: 4 }, () => chars[crypto.randomInt(chars.length)]).join('');
-  return `LUME-${seg1}-${seg2}`;
+  return generateLumeCode();
+}
+
+async function buildFirestoreHeaders(callerBearer = '') {
+  const headers = { 'Content-Type': 'application/json' };
+  const saToken = await getServiceAccountAccessToken();
+  if (saToken) {
+    headers['Authorization'] = `Bearer ${saToken}`;
+  } else if (callerBearer) {
+    headers['Authorization'] = `Bearer ${callerBearer}`;
+  }
+  return headers;
+}
+
+function jsValToFirestoreField(val) {
+  if (val === null || val === undefined) return { nullValue: null };
+  if (typeof val === 'boolean') return { booleanValue: val };
+  if (typeof val === 'number') {
+    return Number.isInteger(val) ? { integerValue: String(val) } : { doubleValue: val };
+  }
+  if (Array.isArray(val)) {
+    return { arrayValue: { values: val.map(jsValToFirestoreField) } };
+  }
+  if (typeof val === 'object') {
+    const fields = {};
+    for (const [k, v] of Object.entries(val)) fields[k] = jsValToFirestoreField(v);
+    return { mapValue: { fields } };
+  }
+  return { stringValue: String(val) };
+}
+
+async function setFirestoreDoc(docPath, jsObject, callerBearer = '') {
+  const fields = {};
+  for (const [k, v] of Object.entries(jsObject || {})) {
+    fields[k] = jsValToFirestoreField(v);
+  }
+  await patchFirestoreDoc(docPath, fields, callerBearer);
 }
 
 /**
  * Write Pro entitlement to Firestore via REST API.
  * Sets lumescan_purchased: true for the given email.
  */
-async function writeFirestoreEntitlement(email, code, tierName = 'Founders', isLifetime = false) {
+async function writeFirestoreEntitlement(email, code, tierName = 'Founders', isLifetime = false, callerBearer = '') {
   const docPath = `entitlements/${encodeURIComponent(email.toLowerCase())}`;
   const url = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT}/databases/(default)/documents/${docPath}`;
 
@@ -1027,7 +1150,7 @@ async function writeFirestoreEntitlement(email, code, tierName = 'Founders', isL
 
   const res = await fetch(url, {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
+    headers: await buildFirestoreHeaders(callerBearer),
     body: JSON.stringify(body),
   });
 
@@ -1042,31 +1165,37 @@ async function writeFirestoreEntitlement(email, code, tierName = 'Founders', isL
 /**
  * Write a redemption code document to Firestore.
  */
-async function writeRedemptionCode(code, email) {
+async function writeRedemptionCode(code, email, tierName = 'Founders', isLifetime = true) {
   const url = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT}/databases/(default)/documents/redemption_codes/${code}`;
 
   const body = {
     fields: {
       code: { stringValue: code },
       created_for: { stringValue: email },
+      tier_name: { stringValue: tierName },
+      is_lifetime: { booleanValue: Boolean(isLifetime) },
       created_at: { timestampValue: new Date().toISOString() },
       redeemed: { booleanValue: false },
     },
   };
 
-  await fetch(url, {
+  const res = await fetch(url, {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
+    headers: await buildFirestoreHeaders(),
     body: JSON.stringify(body),
   });
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`Redemption code write failed: ${res.status} — ${errText}`);
+  }
 }
 
 /**
  * Get a Firestore document via REST API.
  */
-async function getFirestoreDoc(docPath) {
+async function getFirestoreDoc(docPath, callerBearer = '') {
   const url = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT}/databases/(default)/documents/${docPath}`;
-  const res = await fetch(url);
+  const res = await fetch(url, { headers: await buildFirestoreHeaders(callerBearer) });
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(`Firestore read failed: ${res.status}`);
   return res.json();
@@ -1075,12 +1204,12 @@ async function getFirestoreDoc(docPath) {
 /**
  * Patch (update) a Firestore document via REST API.
  */
-async function patchFirestoreDoc(docPath, fields) {
+async function patchFirestoreDoc(docPath, fields, callerBearer = '') {
   const url = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT}/databases/(default)/documents/${docPath}`;
   const body = { fields };
   const res = await fetch(url, {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
+    headers: await buildFirestoreHeaders(callerBearer),
     body: JSON.stringify(body),
   });
   if (!res.ok) throw new Error(`Firestore patch failed: ${res.status}`);
@@ -1234,46 +1363,3 @@ async function sendPurchaseEmail(email, code, isLifetime = false) {
 
 export const viteNodeApp = app;
 
-import net from 'net';
-import { WebSocketServer } from 'ws';
-
-// The server object is provided by vite-plugin-node or Express depending on environment
-// For standalone Express, wrap app.listen and use the return value
-let server;
-if (process.env.NODE_ENV !== 'development') {
-  server = app.listen(PORT, () => {
-    console.log(`[Server] 🚀 Running on port ${PORT}`);
-  });
-}
-
-// Ensure server exists before attaching ws upgrade handler
-if (server || typeof process !== 'undefined') {
-  // If viteNodeApp is exported, Vite handles the HTTP server in dev
-  // So we might need to attach to process.server if Vite exposes it
-  // For production standalone, server is app.listen()
-  setTimeout(() => {
-    // Attempt to attach if server was bound later, or if we have a standalone server
-    if (!server) return;
-    const wss = new WebSocketServer({ noServer: true });
-    server.on('upgrade', (request, socket, head) => {
-      if (request.url && request.url.startsWith('/obd-proxy')) {
-        wss.handleUpgrade(request, socket, head, (ws) => {
-          const url = new URL(request.url, `http://${request.headers.host}`);
-          const host = url.searchParams.get('host') || '192.168.0.10';
-          const port = parseInt(url.searchParams.get('port') || '35000');
-          const tcp = new net.Socket();
-          tcp.connect(port, host, () => {
-            ws.send(JSON.stringify({ status: 'connected' }));
-          });
-          ws.on('message', (data) => tcp.write(data));
-          tcp.on('data', (data) => {
-            if (ws.readyState === 1) ws.send(data);
-          });
-          tcp.on('error', (err) => ws.close(1011, err.message));
-          tcp.on('close', () => ws.close());
-          ws.on('close', () => tcp.destroy());
-        });
-      }
-    });
-  }, 100);
-}

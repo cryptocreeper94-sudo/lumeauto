@@ -1,0 +1,219 @@
+/// LumeScan / Lume-Auto - Deterministic Security, Entitlement & Field-Telemetry Governor
+/// DarkWave Studios LLC - Copyright 2026
+///
+/// DDA 42-Doctrine Mapping:
+///   [01] Identity Kernel          - Firebase ID-token verification & constant-time admin secret check
+///   [02] Boundary Engine          - Payload size ceilings, VIN privacy masking, strict schema sanitization
+///   [07] Locality Engine          - Proxy-safe client IP extraction & bounded rate-limit state
+///   [13] Constraint Engine        - Sliding-window per-IP rate limiters on redeem, device, opt-in & field logs
+///   [31] Verification Layer       - Deterministic LUME-XXXX-XXXX code validation & Google OAuth2 JWT signing
+///   [38] Pre-Structure Monitor    - HTTP security headers applied before route dispatch
+
+use "node:crypto" as crypto
+use "node:net" as net
+
+let MAX_BUCKET_KEYS = 8000
+let rateMap = new Map()
+let cachedGoogleToken = { token: "", expiresAt: 0 }
+let CODE_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+let VIN_SCRUB_RE = new RegExp("\\b([A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9])[A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9]\\b", "g")
+let NON_VIN_CHAR_RE = new RegExp("[^A-HJ-NPR-Z0-9]", "g")
+let B64_PLUS_RE = new RegExp("\\+", "g")
+let B64_SLASH_RE = new RegExp("/", "g")
+let B64_EQ_RE = new RegExp("=+$", "")
+
+to pruneBuckets():
+    if rateMap.size <= MAX_BUCKET_KEYS:
+        return false
+    let targetRemove = 800
+    let removed = 0
+    for each k in rateMap.keys():
+        rateMap.delete(k)
+        set removed to removed + 1
+        if removed >= targetRemove:
+            return true
+    return true
+
+/// [07] Locality Engine - Extract client IP safely behind Coolify / Cloudflare proxy
+export to extractClientIp(req):
+    let headers = (req and req.headers) or {}
+    let cf = String(headers["cf-connecting-ip"] or "").trim()
+    if cf != "" and net.isIP(cf) > 0:
+        return cf
+    let real = String(headers["x-real-ip"] or "").trim()
+    if real != "" and net.isIP(real) > 0:
+        return real
+    let xff = String(headers["x-forwarded-for"] or "").trim()
+    if xff != "":
+        let first = String(xff.split(",")[0] or "").trim()
+        if first.startsWith("::ffff:"):
+            set first to first.slice(7)
+        if net.isIP(first) > 0:
+            return first
+    let remote = String((req and req.socket and req.socket.remoteAddress) or "unknown").trim()
+    if remote.startsWith("::ffff:"):
+        set remote to remote.slice(7)
+    if remote == "":
+        return "unknown"
+    return remote
+
+/// [38] Pre-Structure Monitor - Standard security headers
+export to applySecurityHeaders(req, res):
+    res.setHeader("X-Content-Type-Options", "nosniff")
+    res.setHeader("X-Frame-Options", "SAMEORIGIN")
+    res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin")
+    res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
+
+/// [13] Constraint Engine - Sliding-window rate limiter
+export to checkRateLimit(bucketName, clientIp, maxHits, windowMs):
+    pruneBuckets()
+    let now = Date.now()
+    let key = String(bucketName) + ":" + String(clientIp or "unknown")
+    let existing = rateMap.get(key)
+    if not existing or (now - existing.windowStart) >= windowMs:
+        rateMap.set(key, { count: 1, windowStart: now })
+        return { allowed: true, remaining: maxHits - 1, retryAfterSec: 0 }
+    if existing.count >= maxHits:
+        let retryMs = Math.max(1000, windowMs - (now - existing.windowStart))
+        return { allowed: false, remaining: 0, retryAfterSec: Math.ceil(retryMs / 1000) }
+    set existing.count to existing.count + 1
+    rateMap.set(key, existing)
+    return { allowed: true, remaining: Math.max(0, maxHits - existing.count), retryAfterSec: 0 }
+
+/// [01] Identity Kernel - Constant-time secret comparison for admin code minting
+export to verifyAdminSecret(providedSecret):
+    let expected = String(process.env.LUME_ADMIN_SECRET or "").trim()
+    let candidate = String(providedSecret or "").trim()
+    if expected == "" or expected.length < 16 or candidate == "":
+        return false
+    let bufA = crypto.createHash("sha256").update(expected, "utf8").digest()
+    let bufB = crypto.createHash("sha256").update(candidate, "utf8").digest()
+    return crypto.timingSafeEqual(bufA, bufB)
+
+to isCodeSegmentValid(seg):
+    if String(seg or "").length != 4:
+        return false
+    let idx = 0
+    while idx < 4:
+        if not CODE_CHARS.includes(seg[idx]):
+            return false
+        set idx to idx + 1
+    return true
+
+/// [31] Verification Layer - Deterministic LUME-XXXX-XXXX format check & generator
+export to isValidRedemptionCodeFormat(code):
+    let clean = String(code or "").trim().toUpperCase()
+    if clean.length != 14 or not clean.startsWith("LUME-") or clean[9] != "-":
+        return false
+    return isCodeSegmentValid(clean.slice(5, 9)) and isCodeSegmentValid(clean.slice(10, 14))
+
+export to generateRedemptionCode():
+    let seg1 = ""
+    let seg2 = ""
+    let i = 0
+    while i < 4:
+        set seg1 to seg1 + CODE_CHARS[crypto.randomInt(CODE_CHARS.length)]
+        set seg2 to seg2 + CODE_CHARS[crypto.randomInt(CODE_CHARS.length)]
+        set i to i + 1
+    return "LUME-" + seg1 + "-" + seg2
+
+/// [01] Identity Kernel - Verify Firebase ID token via Google Identity Toolkit REST API
+export to verifyFirebaseIdToken(idToken, expectedEmail):
+    let token = String(idToken or "").trim()
+    let webApiKey = String(process.env.FIREBASE_WEB_API_KEY or "AIzaSyBYS5O_sFKrbZdC_5LU8cFDJ_E55kz6V4s").trim()
+    if token == "" or token.length < 40:
+        return { verified: false, error: "Missing authentication token." }
+    try:
+        let res = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=" + encodeURIComponent(webApiKey), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idToken: token })
+        })
+        if not res.ok:
+            return { verified: false, error: "Invalid or expired session token." }
+        let data = await res.json()
+        let userObj = data and data.users and data.users[0]
+        let tokenEmail = String((userObj and userObj.email) or "").trim().toLowerCase()
+        if tokenEmail == "":
+            return { verified: false, error: "Authenticated account has no email." }
+        if expectedEmail and tokenEmail != String(expectedEmail).trim().toLowerCase():
+            return { verified: false, error: "Authenticated email does not match target email." }
+        return { verified: true, email: tokenEmail, uid: String(userObj.localId or "") }
+    with _err:
+        return { verified: false, error: "Token verification service unreachable." }
+
+to base64UrlEncode(inputStr):
+    return Buffer.from(inputStr, "utf8").toString("base64").replace(B64_PLUS_RE, "-").replace(B64_SLASH_RE, "_").replace(B64_EQ_RE, "")
+
+/// [31] Verification Layer - Mint Google OAuth2 Bearer token from GOOGLE_SERVICE_ACCOUNT_JSON if configured
+export to getServiceAccountAccessToken():
+    let rawSa = String(process.env.GOOGLE_SERVICE_ACCOUNT_JSON or "").trim()
+    if rawSa == "":
+        return ""
+    let nowSec = Math.floor(Date.now() / 1000)
+    if cachedGoogleToken.token != "" and cachedGoogleToken.expiresAt > (nowSec + 60):
+        return cachedGoogleToken.token
+    try:
+        let sa = JSON.parse(rawSa)
+        if not sa.client_email or not sa.private_key:
+            return ""
+        let headerB64 = base64UrlEncode(JSON.stringify({ alg: "RS256", typ: "JWT" }))
+        let claimB64 = base64UrlEncode(JSON.stringify({
+            iss: sa.client_email,
+            scope: "https://www.googleapis.com/auth/datastore",
+            aud: "https://oauth2.googleapis.com/token",
+            iat: nowSec,
+            exp: nowSec + 3600
+        }))
+        let unsignedJwt = headerB64 + "." + claimB64
+        let signer = crypto.createSign("RSA-SHA256")
+        signer.update(unsignedJwt)
+        signer.end()
+        let sigB64 = signer.sign(sa.private_key).toString("base64").replace(B64_PLUS_RE, "-").replace(B64_SLASH_RE, "_").replace(B64_EQ_RE, "")
+        let assertion = unsignedJwt + "." + sigB64
+        let tokenRes = await fetch("https://oauth2.googleapis.com/token", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: "grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=" + encodeURIComponent(assertion)
+        })
+        if not tokenRes.ok:
+            return ""
+        let tokenData = await tokenRes.json()
+        if tokenData and tokenData.access_token:
+            set cachedGoogleToken to {
+                token: String(tokenData.access_token),
+                expiresAt: nowSec + (parseInt(String(tokenData.expires_in or "3500"), 10) or 3500)
+            }
+            return cachedGoogleToken.token
+        return ""
+    with _err:
+        return ""
+
+/// [02] Boundary Engine - Privacy-preserving sanitization for Field-Tester Compatibility Logs
+export to sanitizeFieldLogPayload(body):
+    let src = body or {}
+    let rawVin = String(src.vin or "").trim().toUpperCase().replace(NON_VIN_CHAR_RE, "")
+    let maskedVin = "NOT_PROVIDED"
+    if rawVin.length >= 11:
+        set maskedVin to rawVin.slice(0, 11) + "XXXXXX"
+    else if rawVin != "":
+        set maskedVin to rawVin.slice(0, 3) + "XXXXXXXXXXXXXX"
+    let rawEntries = String(src.logText or "").slice(0, 180000)
+    let scrubbedLog = rawEntries.replace(VIN_SCRUB_RE, "$1XXXXXX")
+    let dtcList = if Array.isArray(src.dtcCodes) then src.dtcCodes.slice(0, 30).map((c) -> String(c).slice(0, 10)) else []
+    return {
+        logId: "FL-" + String(Date.now()) + "-" + crypto.randomBytes(3).toString("hex").toUpperCase(),
+        submittedAt: new Date().toISOString(),
+        appVersion: String(src.appVersion or "1.4.0").slice(0, 24),
+        platform: String(src.platform or "android").slice(0, 20),
+        transport: String(src.transport or "unknown").slice(0, 24),
+        adapterName: String(src.adapterName or "unknown").slice(0, 80),
+        adapterInfo: String(src.adapterInfo or "unknown").slice(0, 120),
+        protocol: String(src.protocol or "auto").slice(0, 40),
+        vehicleLabel: String(src.vehicleLabel or "Unknown Vehicle").slice(0, 100),
+        vinMasked: maskedVin,
+        supportedPidCount: Math.max(0, Math.min(256, parseInt(String(src.supportedPidCount or "0"), 10) or 0)),
+        dtcCodes: dtcList,
+        notes: String(src.notes or "").slice(0, 1000),
+        logSample: scrubbedLog
+    }
